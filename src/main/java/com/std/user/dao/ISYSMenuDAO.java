@@ -11,5 +11,5 @@ import com.std.user.domain.SYSMenu;
 public interface ISYSMenuDAO extends IBaseDAO<SYSMenu> {
     String NAMESPACE = ISYSMenuDAO.class.getName().concat(".");
 
-    public int updateSYSMenu(SYSMenu data);
+    public int update(SYSMenu data);
 }

@@ -17,5 +17,5 @@ public interface ISYSMenuRoleDAO extends IBaseDAO<SYSMenuRole> {
 
     public List<SYSMenu> selectSYSMenuList(SYSMenuRole data);
 
-    public int delSYSMenuList(SYSMenuRole data);
+    public int deleteSYSMenuList(SYSMenuRole data);
 }

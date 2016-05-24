@@ -1,6 +1,5 @@
 package com.std.user.ao.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,9 +28,6 @@ public class SYSMenuRoleAOImpl implements ISYSMenuRoleAO {
     @Autowired
     ISYSRoleBO sysRoleBO;
 
-    /** 
-     * @see com.std.user.ao.ISYSMenuRoleAO#addSYSMenuRole(com.xnjr.std.security.domain.SYSMenuRole)
-     */
     @Override
     @Transactional
     public int addSYSMenuRole(SYSMenuRole data) {
@@ -59,44 +55,9 @@ public class SYSMenuRoleAOImpl implements ISYSMenuRoleAO {
         return count;
     }
 
-    /**
-     * @see com.std.user.ao.ISYSMenuRoleAO#dropSYSMenuList(java.lang.String)
-     */
-    @Override
-    public int dropSYSMenuList(String roleCode) {
-        if (!sysRoleBO.isSYSRoleExist(roleCode)) {
-            throw new BizException("lh0000", "角色编号不存在！");
-        }
-        return sysMenuRoleBO.removeSYSMenuList(roleCode);
-    }
-
-    /**
-     * @see com.std.user.ao.ISYSMenuRoleAO#querySYSMenuList(com.xnjr.std.security.domain.SYSMenuRole)
-     */
     @Override
     public List<SYSMenu> querySYSMenuList(SYSMenuRole data) {
         return sysMenuRoleBO.querySYSMenuList(data);
     }
 
-    /** 
-     * @see com.std.user.ao.ISYSMenuRoleAO#querySYSMenuListByTopCode(java.lang.String, java.lang.String)
-     */
-    @Override
-    public List<SYSMenu> querySYSMenuListByTopCode(String roleCode,
-            String parentCode, String type) {
-        List<SYSMenu> resultList = new ArrayList<SYSMenu>();
-        SYSMenuRole condition = new SYSMenuRole();
-        condition.setRoleCode(roleCode);
-        condition.setParentCode(parentCode);
-        condition.setType(type);
-        List<SYSMenu> list = sysMenuRoleBO.querySYSMenuList(condition);
-        for (SYSMenu sysMenu : list) {
-            SYSMenuRole childMenuRole = new SYSMenuRole();
-            childMenuRole.setRoleCode(roleCode);
-            childMenuRole.setParentCode(sysMenu.getCode());
-            childMenuRole.setType(type);
-            resultList.addAll(sysMenuRoleBO.querySYSMenuList(childMenuRole));
-        }
-        return resultList;
-    }
 }

@@ -20,22 +20,16 @@ public class SYSRoleBOImpl extends PaginableBOImpl<SYSRole> implements
     @Autowired
     private ISYSRoleDAO sysRoleDAO;
 
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#isSYSRoleExist(java.lang.String)
-     */
     @Override
     public boolean isSYSRoleExist(String code) {
         SYSRole role = new SYSRole();
         role.setCode(code);
-        if (sysRoleDAO.selectTotalCount(role) == 1) {
+        if (sysRoleDAO.selectTotalCount(role) >= 1) {
             return true;
         }
         return false;
     }
 
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#saveSYSRole(com.xnjr.std.security.domain.SYSRole)
-     */
     @Override
     public int saveSYSRole(SYSRole data) {
         int count = 0;
@@ -47,9 +41,6 @@ public class SYSRoleBOImpl extends PaginableBOImpl<SYSRole> implements
         return count;
     }
 
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#removeSYSRole(java.lang.String)
-     */
     @Override
     public int removeSYSRole(String code) {
         int count = 0;
@@ -61,22 +52,21 @@ public class SYSRoleBOImpl extends PaginableBOImpl<SYSRole> implements
         return count;
     }
 
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#refreshSYSRole(com.xnjr.std.security.domain.SYSRole)
-     */
     @Override
     public int refreshSYSRole(SYSRole data) {
         int count = 0;
         if (data != null && StringUtils.isNotBlank(data.getCode())) {
             data.setUpdateDatetime(new Date());
-            count = sysRoleDAO.updateSYSRole(data);
+            count = sysRoleDAO.update(data);
         }
         return count;
     }
 
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#getSYSRole(java.lang.String)
-     */
+    @Override
+    public List<SYSRole> querySYSRoleList(SYSRole data) {
+        return sysRoleDAO.selectList(data);
+    }
+
     @Override
     public SYSRole getSYSRole(String code) {
         SYSRole data = null;
@@ -86,13 +76,5 @@ public class SYSRoleBOImpl extends PaginableBOImpl<SYSRole> implements
             data = sysRoleDAO.select(condition);
         }
         return data;
-    }
-
-    /**
-     * @see com.std.user.bo.ISYSRoleBO#querySYSRoleList(com.xnjr.std.security.domain.SYSRole)
-     */
-    @Override
-    public List<SYSRole> querySYSRoleList(SYSRole data) {
-        return sysRoleDAO.selectList(data);
     }
 }

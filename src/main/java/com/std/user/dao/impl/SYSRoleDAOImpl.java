@@ -46,7 +46,7 @@ public class SYSRoleDAOImpl extends AMybatisTemplate implements ISYSRoleDAO {
     }
 
     @Override
-    public int updateSYSRole(SYSRole data) {
+    public int update(SYSRole data) {
         return super.update(NAMESPACE.concat("update_sysRole"), data);
     }
 

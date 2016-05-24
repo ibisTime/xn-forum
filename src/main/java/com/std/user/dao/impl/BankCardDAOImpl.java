@@ -74,7 +74,7 @@ public class BankCardDAOImpl extends AMybatisTemplate implements IBankCardDAO {
      */
     @Override
     public int update(BankCard data) {
-        return super.update(NAMESPACE.concat("update"), data);
+        return super.update(NAMESPACE.concat("update_bankcard"), data);
     }
 
 }

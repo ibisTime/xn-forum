@@ -53,7 +53,7 @@ public class SYSMenuRoleDAOImpl extends AMybatisTemplate implements
     }
 
     @Override
-    public int delSYSMenuList(SYSMenuRole data) {
+    public int deleteSYSMenuList(SYSMenuRole data) {
         return super.delete("delete_sysMenuRoleList", data);
     }
 }

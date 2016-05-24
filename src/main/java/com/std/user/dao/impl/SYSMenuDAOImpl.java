@@ -46,7 +46,7 @@ public class SYSMenuDAOImpl extends AMybatisTemplate implements ISYSMenuDAO {
     }
 
     @Override
-    public int updateSYSMenu(SYSMenu data) {
+    public int update(SYSMenu data) {
         return super.update(NAMESPACE.concat("update_sysMenu"), data);
     }
 

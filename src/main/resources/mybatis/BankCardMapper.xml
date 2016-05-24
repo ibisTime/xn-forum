@@ -54,7 +54,7 @@
 		FROM
 		tstd_bankcard t
 		<include refid="where_condition" />
-		ORDER BY t.create_datetime DESC	
+		ORDER BY t.code DESC	
 	</select>
 
 	<select id="select_bankcard_count" parameterType="bankCard"
@@ -108,7 +108,7 @@
 	</delete>
 	
 	
-	<update id="update" parameterType="bankCard">
+	<update id="update_bankcard" parameterType="bankCard">
 		UPDATE tstd_bankcard
 		SET
 		bank_code= #{bankCode}

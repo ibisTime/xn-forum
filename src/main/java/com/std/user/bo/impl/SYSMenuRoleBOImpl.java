@@ -33,9 +33,6 @@ public class SYSMenuRoleBOImpl extends PaginableBOImpl<SYSMenuRole> implements
     @Autowired
     private ISYSMenuRoleDAO sysMenuRoleDAO;
 
-    /** 
-     * @see com.std.user.bo.ISYSMenuRoleBO#saveSYSMenuRole(com.xnjr.std.security.domain.SYSMenuRole)
-     */
     @Override
     public int saveSYSMenuRole(SYSMenuRole data) {
         int count = 0;
@@ -46,23 +43,17 @@ public class SYSMenuRoleBOImpl extends PaginableBOImpl<SYSMenuRole> implements
         return count;
     }
 
-    /** 
-     * @see com.std.user.bo.ISYSMenuRoleBO#removeSYSMenuList(java.lang.String)
-     */
     @Override
     public int removeSYSMenuList(String roleCode) {
         int count = 0;
         if (StringUtils.isNotBlank(roleCode)) {
             SYSMenuRole condition = new SYSMenuRole();
             condition.setRoleCode(roleCode);
-            count = sysMenuRoleDAO.delSYSMenuList(condition);
+            count = sysMenuRoleDAO.deleteSYSMenuList(condition);
         }
         return count;
     }
 
-    /** 
-     * @see com.std.user.bo.ISYSMenuRoleBO#querySYSMenuList(com.xnjr.std.security.domain.SYSMenuRole)
-     */
     @Override
     public List<SYSMenu> querySYSMenuList(SYSMenuRole data) {
         return sysMenuRoleDAO.selectSYSMenuList(data);

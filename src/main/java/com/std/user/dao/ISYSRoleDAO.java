@@ -6,5 +6,5 @@ import com.std.user.domain.SYSRole;
 public interface ISYSRoleDAO extends IBaseDAO<SYSRole> {
     String NAMESPACE = ISYSRoleDAO.class.getName().concat(".");
 
-    public int updateSYSRole(SYSRole data);
+    public int update(SYSRole data);
 }

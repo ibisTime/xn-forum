@@ -74,7 +74,7 @@ public class SYSMenuBOImpl extends PaginableBOImpl<SYSMenu> implements
         int count = 0;
         if (data != null && StringUtils.isNotBlank(data.getCode())) {
             data.setUpdateDatetime(new Date());
-            count = sysMenuDAO.updateSYSMenu(data);
+            count = sysMenuDAO.update(data);
         }
         return count;
     }

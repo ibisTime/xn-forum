@@ -1,19 +1,2 @@
-TRUNCATE `tstd_account`;
-TRUNCATE `tstd_account_frozen_jour`;
-TRUNCATE `tstd_account_jour`;
-TRUNCATE `tstd_bank`;
-TRUNCATE `tstd_bankcard`;
-TRUNCATE `tstd_channel`;
-TRUNCATE `tstd_company`;
-TRUNCATE `tstd_cqorder`;
-TRUNCATE `tstd_hlorder`;
+
 TRUNCATE `tstd_user`;
-TRUNCATE `tstd_user_company`;
-TRUNCATE `tstd_user_ext`;
-TRUNCATE `tstd_user_identify_log`;
-TRUNCATE `tstd_user_lock`;
-TRUNCATE `tstd_user_login_log`;
-TRUNCATE `tstd_user_picture`;
-TRUNCATE `tstd_xnborder`;
-TRUNCATE `tstd_ytorder`;
-TRUNCATE `tstd_zzorder`;

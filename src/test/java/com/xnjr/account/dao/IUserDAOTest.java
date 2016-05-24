@@ -8,6 +8,7 @@
  */
 package com.xnjr.account.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,8 +16,10 @@ import org.unitils.spring.annotation.SpringBeanByType;
 
 import com.std.user.common.MD5Util;
 import com.std.user.common.PwdUtil;
+import com.std.user.core.OrderNoGenerater;
 import com.std.user.dao.IUserDAO;
 import com.std.user.domain.User;
+import com.std.user.enums.EUserKind;
 import com.std.user.enums.EUserStatus;
 import com.xnjr.account.base.ADAOTest;
 
@@ -30,27 +33,31 @@ public class IUserDAOTest extends ADAOTest {
     private IUserDAO userDao;
 
     @Test
-    public void insert() {
-        User data = new User();
-        data.setUserId("2");
-        data.setMobile("13958092437");
-        data.setLoginPwd(MD5Util.md5("123456"));
-        data.setLoginPwdStrength(PwdUtil.calculateSecurityLevel("123456"));
-        data.setKind("100");
+    public void insertRen() {
+        User user = new User();
+        String userId = OrderNoGenerater.generate("U");
 
-        data.setUserReferee("2");
+        user.setUserId(userId);
+        user.setLoginName("13958092437");
+        user.setLoginPwd(MD5Util.md5("123456"));
+        user.setLoginPwdStrength(PwdUtil.calculateSecurityLevel("123456"));
+        user.setKind(EUserKind.F1.getCode());
 
-        data.setStatus(EUserStatus.NORMAL.getCode());// 0正常;1程序锁定;2人工锁定
-        int lineNum = userDao.insert(data);
+        user.setLevel("0");
+        user.setUserReferee(userId);
+        user.setMobile("13958092437");
+        user.setIdKind("1");
+        user.setIdNo("56789098765567890");
+        user.setRealName("myb");
+        user.setTradePwd(MD5Util.md5("123456"));
+        user.setTradePwdStrength(PwdUtil.calculateSecurityLevel("123456"));
+        user.setStatus(EUserStatus.NORMAL.getCode());// 0正常;1程序锁定;2人工锁定
+        user.setUpdater(userId);
+
+        user.setUpdateDatetime(new Date());
+        user.setRemark(EUserKind.F1.getValue());
+        int lineNum = userDao.insertRen(user);
         logger.info("insert : {}", lineNum);
-    }
-
-    @Test
-    public void delete() {
-        User data = new User();
-        data.setUserId("1");
-        int lineNum = userDao.delete(data);
-        logger.info("delete : {}", lineNum);
     }
 
     @Test
@@ -70,6 +77,15 @@ public class IUserDAOTest extends ADAOTest {
         data.setUserId("1");
         data.setTradePwd(MD5Util.md5("123456"));
         int lineNum = userDao.updateTradePwd(data);
+        logger.info("updateTradePwd : {}", lineNum);
+    }
+
+    @Test
+    public void updateLoginPwd() {
+        User data = new User();
+        data.setUserId("1");
+        data.setLoginPwd(MD5Util.md5("123456"));
+        int lineNum = userDao.updateLoginPwd(data);
         logger.info("updateTradePwd : {}", lineNum);
     }
 

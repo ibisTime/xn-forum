@@ -14,11 +14,6 @@ public interface ISYSMenuRoleAO {
 
     public int addSYSMenuRole(SYSMenuRole data);
 
-    public int dropSYSMenuList(String roleCode);
-
     public List<SYSMenu> querySYSMenuList(SYSMenuRole data);
-
-    public List<SYSMenu> querySYSMenuListByTopCode(String roleCode,
-            String parentCode, String type);
 
 }
