@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	
+	<!-- 分页BO层注入paginableDao -->
+	
+	
+	
+	<bean id="bankBO" class="com.std.user.bo.impl.BankBOImpl">
+		<property name="paginableDAO" ref="bankDAOImpl" />
+	</bean>
+	<bean id="bankCardBO" class="com.std.user.bo.impl.BankCardBOImpl">
+		<property name="paginableDAO" ref="bankCardDAOImpl" />
+	</bean>
+	<bean id="userBO" class="com.std.user.bo.impl.UserBOImpl">
+		<property name="paginableDAO" ref="userDAOImpl" />
+	</bean>
+	<bean id="userLockBO" class="com.std.user.bo.impl.UserLockBOImpl">
+		<property name="paginableDAO" ref="userLockDAOImpl"/>
+	</bean>	
+	<bean id="userIdentifyBO" class="com.std.user.bo.impl.UserIdentifyBOImpl">
+		<property name="paginableDAO" ref="userIdentifyDAOImpl" />
+	</bean>
+	<bean id="userLoginLogBO" class="com.std.user.bo.impl.UserLoginLogBOImpl">
+		<property name="paginableDAO" ref="userLoginLogDAOImpl" />
+	</bean>
+	<bean id="userPictureBO" class="com.std.user.bo.impl.UserPictureBOImpl">
+		<property name="paginableDAO" ref="userPictureDAOImpl" />
+	</bean>
+	<bean id="userExtBO" class="com.std.user.bo.impl.UserExtBOImpl">
+		<property name="paginableDAO" ref="userExtDAOImpl" />
+	</bean>
+
+	<bean id="dictBO" class="com.std.user.bo.impl.DictBOImpl">
+		<property name="paginableDAO" ref="dictDAOImpl" />
+	</bean>
+	
+	
+	
+	<bean id="companyBO" class="com.std.user.bo.impl.CompanyBOImpl">
+		<property name="paginableDAO" ref="companyDAOImpl" />
+	</bean>
+	<bean id="userCompanyBO" class="com.std.user.bo.impl.UserCompanyBOImpl">
+		<property name="paginableDAO" ref="userCompanyDAOImpl" />
+	</bean>
+	
+	<bean id="sysMenuBO" class="com.std.user.bo.impl.SYSMenuBOImpl">
+		<property name="paginableDAO" ref="sysMenuDAOImpl"/>
+	</bean>
+	
+	<bean id="sysRoleBO" class="com.std.user.bo.impl.SYSRoleBOImpl">
+		<property name="paginableDAO" ref="sysRoleDAOImpl"/>
+	</bean>
+	
+	<bean id="sysMenuRoleBO" class="com.std.user.bo.impl.SYSMenuRoleBOImpl">
+		<property name="paginableDAO" ref="sysMenuRoleDAOImpl"/>
+	</bean>
+</beans>

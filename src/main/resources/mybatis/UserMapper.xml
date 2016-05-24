@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.user.dao.IUserDAO">
+	<resultMap id="user_DB_Result" type="user">
+		<result column="user_id" property="userId" />
+		<result column="login_name" property="loginName" />
+		<result column="login_pwd_strength" property="loginPwdStrength" />		
+		<result column="kind" property="kind" />
+		
+		<result column="level" property="level" />		
+		<result column="user_referee" property="userReferee" />
+		<result column="mobile" property="mobile" />
+		<result column="id_kind" property="idKind" />
+		<result column="id_no" property="idNo" />
+		
+		<result column="real_name" property="realName" />
+		<result column="trade_pwd_strength" property="tradePwdStrength" />
+		<result column="role_code" property="roleCode" />
+		<result column="status" property="status" />
+		
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">			
+			<if test="userId != null and userId != '' ">
+				AND t.user_id = #{userId}
+			</if>
+			<if test="loginName != null and loginName != '' ">
+				AND t.login_name like CONCAT('%',#{loginName},'%')
+			</if>
+			<if test="kind != null and kind != '' ">
+				AND t.kind = #{kind}
+			</if>	
+			<if test="level != null and level != '' ">
+				AND t.level = #{level}
+			</if>	
+			<if test="userReferee != null and userReferee != '' ">
+				AND t.user_referee = #{userReferee}
+			</if>	
+			<if test="mobile != null and mobile != '' ">
+				AND t.mobile like CONCAT('%',#{mobile},'%')
+			</if>
+			<if test="idKind != null and idKind != '' ">
+				AND t.id_kind = #{idKind}
+			</if>
+			<if test="idNo != null and idNo != '' ">
+				AND t.id_no = #{idNo}
+			</if>
+			<if test="realName != null and realName != '' ">
+				AND t.real_name = #{realName}
+			</if>
+			<if test="roleCode != null and roleCode != '' ">
+				AND t.role_code = #{roleCode}
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+			<if test="updater != null and updater != '' ">
+				AND t.updater = #{updater}
+			</if>
+			<if test="loginPwd != null and loginPwd != '' ">
+				AND t.login_pwd = #{loginPwd}
+			</if>	
+			<if test="tradePwd != null and tradePwd != '' ">
+				AND t.trade_pwd = #{tradePwd}
+			</if>	
+				
+		</trim>
+	</sql>
+	<select id="select_user" parameterType="user" resultMap="user_DB_Result">
+		SELECT 
+		user_id
+		,login_name
+		,login_pwd_strength
+		,kind	
+		
+		,level
+		,user_referee
+		,mobile
+		,id_kind
+		,id_no
+		
+		,real_name
+		,trade_pwd_strength
+		,role_code
+		,status
+		
+		,updater
+		,update_datetime
+		,remark
+		FROM
+		tstd_user t
+		<include refid="where_condition"/>
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_user_count" parameterType="user" resultType="java.lang.Long">
+		SELECT count(1) FROM tstd_user t
+		<include refid="where_condition"/>
+	</select>
+
+	<insert id="insert_user" parameterType="user">
+		INSERT INTO tstd_user(
+		user_id
+		,login_name
+		,login_pwd
+		,login_pwd_strength
+		,kind
+		
+		,level
+		,user_referee
+		,mobile
+		,status
+		,updater
+		
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{userId}
+		,#{loginName}
+		,#{loginPwd}
+		,#{loginPwdStrength}
+		,#{kind}
+		
+		,#{level}
+		,#{userReferee}
+		,#{mobile}
+		,#{status}
+		,#{updater}
+		
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+    <insert id="insert_ren" parameterType="user">
+		INSERT INTO tstd_user(
+		user_id
+		,login_name
+		,login_pwd
+		,login_pwd_strength
+		,kind
+		
+		,level
+		,user_referee
+		,mobile
+		
+		
+		,id_kind
+		,id_no
+		,real_name
+		,trade_pwd
+		,trade_pwd_strength
+		,status
+		,updater
+		
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{userId}
+		,#{loginName}
+		,#{loginPwd}
+		,#{loginPwdStrength}
+		,#{kind}
+		
+		,#{level}
+		,#{userReferee}
+		,#{mobile}
+		,#{idKind}
+		,#{idNo}
+		,#{realName}
+		,#{tradePwd}
+		,#{tradePwdStrength}
+		,#{status}
+		,#{updater}
+		
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+	 
+	
+	<update id="update_identity" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 real_name= #{realName}
+		,id_kind = #{idKind}
+		,id_no = #{idNo}
+		WHERE
+		user_id = #{userId}			
+	</update>
+	
+	<update id="update_trade_pwd" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 trade_pwd = #{tradePwd}
+		,trade_pwd_strength = #{tradePwdStrength}
+		WHERE
+		user_id = #{userId}			
+	</update>
+	
+	<update id="update_login_pwd" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 login_pwd = #{loginPwd}
+		,login_pwd_strength = #{loginPwdStrength}
+		WHERE
+		user_id = #{userId}			
+	</update>	
+	
+	
+	<update id="update_mobile" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 mobile = #{mobile}
+		WHERE
+		user_id = #{userId}			
+	</update>
+	
+	<update id="update_status" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 status = #{status}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE
+		user_id = #{userId}			
+	</update>
+	<update id="update_role" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 role_code = #{roleCode}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE
+		user_id = #{userId}			
+	</update>
+</mapper>
