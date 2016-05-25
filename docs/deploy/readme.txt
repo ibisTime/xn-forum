@@ -14,33 +14,29 @@
 
 部署步骤：
 1，切换到本地tomcat部署包所在目录,例如
-  cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp5/wtpwebapps
+  cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp9/wtpwebapps
   
 2，打包
-  scp -P57652 ./std-account.war root@120.55.113.192:/home/
-  
-  scp -P57652 ./std-account.war root@121.43.101.148:/mnt/wwwroot/
-  
+  rm -rf user.tar.gz
+  tar zcvf user.tar.gz std-user/
+  scp -P57652 ./user.tar.gz root@121.43.101.148:/mnt/wwwroot/
   
 3，部署
-  ssh root@120.55.113.192 -p 57652
   ssh root@121.43.101.148 -p 57652
   
-  cd /mnt/wwwroot/tomcat_STD_account/webapps
-  cp ./std-account/WEB-INF/classes/application.properties .
-  cp ./std-account/WEB-INF/classes/config.properties .
-  rm -rf std-account/
-  rm -rf std-account.war
-  mv /mnt/wwwroot/std-account.war .
+  cd /mnt/wwwroot/tomcat_STD_user/webapps
+  rm -rf user.tar.gz
+  cp ./std-user/WEB-INF/classes/application.properties .
+  cp ./std-user/WEB-INF/classes/config.properties .
+  rm -rf std-user/
+  mv /mnt/wwwroot/user.tar.gz .
+  tar zxvf user.tar.gz
+  mv -f application.properties ./std-user/WEB-INF/classes/
+  mv -f config.properties ./std-user/WEB-INF/classes/
   
-  mv -f application.properties ./std-account/WEB-INF/classes/
-  mv -f config.properties ./std-account/WEB-INF/classes/
-  ../bin/shutdown.sh
-  ../bin/startup.sh
+4,起停tomcat_STD_user
+  cd ../bin/shutdown.sh
+  cd ../bin/startup.sh
   
-4,起停tomcat_STD_account
-  ../bin/shutdown.sh
-  ../bin/startup.sh
-  
-http://121.43.101.148:7102/std-account/api
+http://121.43.101.148:7209/std-user/api
 

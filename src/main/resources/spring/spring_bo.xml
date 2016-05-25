@@ -12,55 +12,18 @@
 
 	
 	<!-- 分页BO层注入paginableDao -->
-	
-	
-	
-	<bean id="bankBO" class="com.std.user.bo.impl.BankBOImpl">
-		<property name="paginableDAO" ref="bankDAOImpl" />
-	</bean>
 	<bean id="bankCardBO" class="com.std.user.bo.impl.BankCardBOImpl">
 		<property name="paginableDAO" ref="bankCardDAOImpl" />
 	</bean>
 	<bean id="userBO" class="com.std.user.bo.impl.UserBOImpl">
 		<property name="paginableDAO" ref="userDAOImpl" />
 	</bean>
-	<bean id="userLockBO" class="com.std.user.bo.impl.UserLockBOImpl">
-		<property name="paginableDAO" ref="userLockDAOImpl"/>
-	</bean>	
-	<bean id="userIdentifyBO" class="com.std.user.bo.impl.UserIdentifyBOImpl">
-		<property name="paginableDAO" ref="userIdentifyDAOImpl" />
-	</bean>
-	<bean id="userLoginLogBO" class="com.std.user.bo.impl.UserLoginLogBOImpl">
-		<property name="paginableDAO" ref="userLoginLogDAOImpl" />
-	</bean>
-	<bean id="userPictureBO" class="com.std.user.bo.impl.UserPictureBOImpl">
-		<property name="paginableDAO" ref="userPictureDAOImpl" />
-	</bean>
-	<bean id="userExtBO" class="com.std.user.bo.impl.UserExtBOImpl">
-		<property name="paginableDAO" ref="userExtDAOImpl" />
-	</bean>
-
-	<bean id="dictBO" class="com.std.user.bo.impl.DictBOImpl">
-		<property name="paginableDAO" ref="dictDAOImpl" />
-	</bean>
-	
-	
-	
-	<bean id="companyBO" class="com.std.user.bo.impl.CompanyBOImpl">
-		<property name="paginableDAO" ref="companyDAOImpl" />
-	</bean>
-	<bean id="userCompanyBO" class="com.std.user.bo.impl.UserCompanyBOImpl">
-		<property name="paginableDAO" ref="userCompanyDAOImpl" />
-	</bean>
-	
 	<bean id="sysMenuBO" class="com.std.user.bo.impl.SYSMenuBOImpl">
 		<property name="paginableDAO" ref="sysMenuDAOImpl"/>
 	</bean>
-	
 	<bean id="sysRoleBO" class="com.std.user.bo.impl.SYSRoleBOImpl">
 		<property name="paginableDAO" ref="sysRoleDAOImpl"/>
 	</bean>
-	
 	<bean id="sysMenuRoleBO" class="com.std.user.bo.impl.SYSMenuRoleBOImpl">
 		<property name="paginableDAO" ref="sysMenuRoleDAOImpl"/>
 	</bean>
