@@ -106,7 +106,7 @@ public class UserAOImpl implements IUserAO {
     @Override
     public String doLogin(String loginName, String loginPwd) {
         User condition = new User();
-        condition.setMobile(loginName);
+        condition.setLoginName(loginName);
         condition.setLoginPwd(MD5Util.md5(loginPwd));
         List<User> userList = userBO.queryUserList(condition);
         if (CollectionUtils.isEmpty(userList)) {
