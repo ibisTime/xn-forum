@@ -91,7 +91,7 @@ public class UserAOImpl implements IUserAO {
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
         String userId = userBO.doAddUser(mobile, loginPsd, userReferee,
-            realName, idKind, idNo, tradePsd);
+            realName, idKind, idNo, tradePsd, kind);
         // 三方认证
         dentifyBO.doIdentify(userId, realName, idKind, idNo);
         // 分配账号

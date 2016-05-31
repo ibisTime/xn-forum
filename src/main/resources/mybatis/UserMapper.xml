@@ -29,7 +29,7 @@
 				AND t.user_id = #{userId}
 			</if>
 			<if test="loginName != null and loginName != '' ">
-				AND t.login_name like CONCAT('%',#{loginName},'%')
+				AND t.login_name = #{loginName}
 			</if>
 			<if test="kind != null and kind != '' ">
 				AND t.kind = #{kind}
@@ -41,7 +41,7 @@
 				AND t.user_referee = #{userReferee}
 			</if>	
 			<if test="mobile != null and mobile != '' ">
-				AND t.mobile like CONCAT('%',#{mobile},'%')
+				AND t.mobile = #{mobile}
 			</if>
 			<if test="idKind != null and idKind != '' ">
 				AND t.id_kind = #{idKind}

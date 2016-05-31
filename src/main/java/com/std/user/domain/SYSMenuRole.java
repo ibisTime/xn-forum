@@ -44,6 +44,9 @@ public class SYSMenuRole extends ABaseDO {
     // 菜单类型(菜单/按钮)
     private String type;
 
+    // 类别
+    private String kind;
+
     public Long getId() {
         return id;
     }
@@ -116,4 +119,11 @@ public class SYSMenuRole extends ABaseDO {
         this.type = type;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 }
