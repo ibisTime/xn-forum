@@ -57,6 +57,18 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     }
 
     @Override
+    public int refreshRealName(String userId, String realName) {
+        User data = new User();
+        data.setUserId(userId);
+        data.setRealName(realName);
+        int count = 0;
+        if (data != null && StringUtils.isNotBlank(data.getUserId())) {
+            count = userDAO.updateRealName(data);
+        }
+        return count;
+    }
+
+    @Override
     public int refreshTradePwd(String userId, String tradePwd,
             String tradePwdStrength) {
         int count = 0;
@@ -297,5 +309,4 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
         }
 
     }
-
 }

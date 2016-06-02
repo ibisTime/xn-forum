@@ -22,10 +22,11 @@ import com.std.user.util.RegexUtils;
 public class BizConnecter {
     public static final String YES = "0";
 
-    public static final String SMS_URL = PropertiesUtil.getProperty("SMS_URL");
+    public static final String SMS_URL = PropertiesUtil.Config.SMS_URL;
 
-    public static final String Identify_URL = PropertiesUtil
-        .getProperty("IDENTIFY_URL");
+    public static final String ACCOUNT_URL = PropertiesUtil.Config.ACCOUNT_URL;
+
+    public static final String IDENTIFY_URL = PropertiesUtil.Config.IDENTIFY_URL;
 
     public static final String POST_URL = "...";
 
@@ -60,14 +61,16 @@ public class BizConnecter {
     }
 
     private static String getPostUrl(String code) {
-        String reqUrl = POST_URL;
+        String postUrl = POST_URL;
         if (code.contains("799")) {
-            reqUrl = SMS_URL;
+            postUrl = SMS_URL;
         } else if (code.contains("798")) {
-            reqUrl = Identify_URL;
+            postUrl = IDENTIFY_URL;
+        } else if (code.startsWith("802")) {
+            postUrl = ACCOUNT_URL;
         } else {
-            reqUrl = POST_URL;
+            postUrl = POST_URL;
         }
-        return reqUrl;
+        return postUrl;
     }
 }

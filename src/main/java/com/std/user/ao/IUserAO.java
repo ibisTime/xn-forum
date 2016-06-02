@@ -62,6 +62,21 @@ public interface IUserAO {
             String kind);
 
     /**
+     * 代注册
+     * @param mobile
+     * @param realName
+     * @param userReferee
+     * @param updater
+     * @param remark
+     * @param kind
+     * @return 
+     * @create: 2016年6月1日 上午11:38:40 xieyj
+     * @history:
+     */
+    public String doAddUser(String mobile, String realName, String userReferee,
+            String updater, String remark, String kind);
+
+    /**
      * 用户登陆
      * @param loginName
      * @param loginPwd
@@ -82,6 +97,15 @@ public interface IUserAO {
      */
     public void doIdentify(String userId, String idKind, String idNo,
             String realName);
+
+    /**
+     * 修改真实姓名
+     * @param userId
+     * @param realName 
+     * @create: 2016年6月1日 下午12:18:03 xieyj
+     * @history:
+     */
+    public void doEditRealName(String userId, String realName);
 
     /**
      * 设置交易密码
@@ -134,7 +158,6 @@ public interface IUserAO {
      * @create: 2016年5月24日 下午5:25:44 myb858
      * @history:
      */
-
     public void doFindLoginPwd(String mobile, String smsCaptcha,
             String newLoginPwd, String loginPwdStrength);
 

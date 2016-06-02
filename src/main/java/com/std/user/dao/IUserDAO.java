@@ -29,6 +29,15 @@ public interface IUserDAO extends IBaseDAO<User> {
     public int insertRen(User data);
 
     /** 
+     * 更改姓名
+     * @param data
+     * @return 
+     * @create: 2015-2-23 下午4:28:41 miyb
+     * @history: 
+     */
+    public int updateRealName(User data);
+
+    /** 
      * 实名认证
      * @param data
      * @return 

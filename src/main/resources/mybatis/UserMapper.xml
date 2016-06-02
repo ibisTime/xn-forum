@@ -198,6 +198,14 @@
 		user_id = #{userId}			
 	</update>
 	
+	<update id="update_real_name" parameterType="user">
+		UPDATE tstd_user
+		SET
+		 real_name= #{realName}
+		WHERE
+		user_id = #{userId}			
+	</update>
+	
 	<update id="update_trade_pwd" parameterType="user">
 		UPDATE tstd_user
 		SET

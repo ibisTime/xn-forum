@@ -69,6 +69,11 @@ public class UserDAOImpl extends AMybatisTemplate implements IUserDAO {
     }
 
     @Override
+    public int updateRealName(User data) {
+        return super.update(NAMESPACE.concat("update_real_name"), data);
+    }
+
+    @Override
     public int updateTradePwd(User data) {
         return super.update(NAMESPACE.concat("update_trade_pwd"), data);
     }
@@ -92,5 +97,4 @@ public class UserDAOImpl extends AMybatisTemplate implements IUserDAO {
     public int updateRole(User data) {
         return super.update(NAMESPACE.concat("update_role"), data);
     }
-
 }
