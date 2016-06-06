@@ -43,6 +43,9 @@
 			<if test="mobile != null and mobile != '' ">
 				AND t.mobile = #{mobile}
 			</if>
+			<if test="mobileForLikeQuery != null and mobileForLikeQuery != '' ">
+				AND t.mobile like "%"#{mobileForLikeQuery}"%"
+			</if>
 			<if test="idKind != null and idKind != '' ">
 				AND t.id_kind = #{idKind}
 			</if>

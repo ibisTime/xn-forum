@@ -78,6 +78,16 @@ public class User extends ABaseDO {
     // 备注
     private String remark;
 
+    private String mobileForLikeQuery;
+
+    public String getMobileForLikeQuery() {
+        return mobileForLikeQuery;
+    }
+
+    public void setMobileForLikeQuery(String mobileForLikeQuery) {
+        this.mobileForLikeQuery = mobileForLikeQuery;
+    }
+
     public String getUserId() {
         return userId;
     }

@@ -30,7 +30,7 @@ public class XN805054 extends AProcessor {
         condition.setKind(req.getKind());
         condition.setLevel(req.getLevel());
         condition.setUserReferee(req.getUserReferee());
-        condition.setMobile(req.getMobile());
+        condition.setMobileForLikeQuery(req.getMobile());
 
         condition.setIdKind(req.getIdKind());
         condition.setIdNo(req.getIdNo());
