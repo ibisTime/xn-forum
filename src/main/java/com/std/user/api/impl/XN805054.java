@@ -26,7 +26,7 @@ public class XN805054 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         User condition = new User();
-        condition.setLoginName(req.getLoginName());
+        condition.setLoginNameForLikeQuery(req.getLoginName());
         condition.setKind(req.getKind());
         condition.setLevel(req.getLevel());
         condition.setUserReferee(req.getUserReferee());

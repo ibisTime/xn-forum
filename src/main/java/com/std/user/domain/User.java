@@ -78,7 +78,18 @@ public class User extends ABaseDO {
     // 备注
     private String remark;
 
+    /***** 模糊查询使用字段 ******/
+    private String loginNameForLikeQuery;
+
     private String mobileForLikeQuery;
+
+    public String getLoginNameForLikeQuery() {
+        return loginNameForLikeQuery;
+    }
+
+    public void setLoginNameForLikeQuery(String loginNameForLikeQuery) {
+        this.loginNameForLikeQuery = loginNameForLikeQuery;
+    }
 
     public String getMobileForLikeQuery() {
         return mobileForLikeQuery;

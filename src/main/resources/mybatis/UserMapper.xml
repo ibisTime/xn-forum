@@ -31,6 +31,9 @@
 			<if test="loginName != null and loginName != '' ">
 				AND t.login_name = #{loginName}
 			</if>
+			<if test="loginNameForLikeQuery != null and loginNameForLikeQuery != '' ">
+				AND t.login_name like "%"#{loginNameForLikeQuery}"%"
+			</if>
 			<if test="kind != null and kind != '' ">
 				AND t.kind = #{kind}
 			</if>	
