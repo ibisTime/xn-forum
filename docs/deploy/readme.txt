@@ -21,22 +21,36 @@
   tar zcvf user.tar.gz std-user/
   scp -P57652 ./user.tar.gz root@121.43.101.148:/mnt/wwwroot/
   
+    scp -P57652 ./std-user.war root@121.43.101.148:/mnt/wwwroot/
+  
+  
 3，部署
   ssh root@121.43.101.148 -p 57652
   
-  cd /mnt/wwwroot/tomcat_STD_user/webapps
-  rm -rf user.tar.gz
+  cd /home/wwwroot/tomcat_STD_user/webapps
   cp ./std-user/WEB-INF/classes/application.properties .
   cp ./std-user/WEB-INF/classes/config.properties .
-  rm -rf std-user/
-  mv /mnt/wwwroot/user.tar.gz .
-  tar zxvf user.tar.gz
+  rm -rf std-user
+  rm -rf std-user.war
+  
+  mv -f application.properties ./std-user/WEB-INF/classes/
+  mv -f config.properties ./std-user/WEB-INF/classes/
+  
+  
+  cd /mnt/wwwroot/tomcat_STD_user/webapps
+  cp ./std-user/WEB-INF/classes/application.properties .
+  cp ./std-user/WEB-INF/classes/config.properties .
+  
+  rm -rf std-user.war
+  rm -rf std-user
+  mv /mnt/wwwroot/std-user.war .
+  
   mv -f application.properties ./std-user/WEB-INF/classes/
   mv -f config.properties ./std-user/WEB-INF/classes/
   
 4,起停tomcat_STD_user
-  cd ../bin/shutdown.sh
-  cd ../bin/startup.sh
+  ./shutdown.sh
+  ./startup.sh
   
 http://121.43.101.148:7209/std-user/api
 

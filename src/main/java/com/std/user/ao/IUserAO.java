@@ -80,11 +80,12 @@ public interface IUserAO {
      * 用户登陆
      * @param loginName
      * @param loginPwd
+     * @param kind
      * @return 
-     * @create: 2016年5月24日 下午5:07:50 myb858
+     * @create: 2016年6月11日 下午9:40:18 xieyj
      * @history:
      */
-    public String doLogin(String loginName, String loginPwd);
+    public String doLogin(String loginName, String loginPwd, String kind);
 
     /**
      * 实名认证
