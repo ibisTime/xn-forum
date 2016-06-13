@@ -7,6 +7,9 @@ public class XN805043Req {
     // 登陆密码（必填）
     private String loginPwd;
 
+    // 类型（选填）
+    private String kind;
+
     public String getLoginName() {
         return loginName;
     }
@@ -23,4 +26,11 @@ public class XN805043Req {
         this.loginPwd = loginPwd;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 }

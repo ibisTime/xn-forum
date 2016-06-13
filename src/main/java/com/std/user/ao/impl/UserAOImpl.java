@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,7 +125,7 @@ public class UserAOImpl implements IUserAO {
     }
 
     @Override
-    public String doLogin(String loginName, String loginPwd) {
+    public String doLogin(String loginName, String loginPwd, String kind) {
         User condition = new User();
         condition.setLoginName(loginName);
         condition.setLoginPwd(MD5Util.md5(loginPwd));
@@ -133,6 +134,13 @@ public class UserAOImpl implements IUserAO {
             throw new BizException("xn702002", "登录名或密码不正确");
         }
         User user = userList.get(0);
+        // 规避前端用户登陆管理端
+        if (StringUtils.isNotBlank(kind) && !kind.equals(user.getKind())) {
+            throw new BizException("xn702002", "当前用户类型不正确,无法登陆");
+        }
+        if (!EUserStatus.NORMAL.getCode().equals(user.getStatus())) {
+            throw new BizException("xn702002", "当前用户已被锁定，请联系工作人员");
+        }
         return user.getUserId();
     }
 
@@ -195,7 +203,6 @@ public class UserAOImpl implements IUserAO {
         String mobile = user.getMobile();
         smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
                 + "用户，您已通过实名认证，且交易密码设置成功。请妥善保管您的账户相关信息。", "805046");
-
     }
 
     @Override
