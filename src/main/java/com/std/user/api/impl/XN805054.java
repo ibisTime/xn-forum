@@ -34,7 +34,7 @@ public class XN805054 extends AProcessor {
 
         condition.setIdKind(req.getIdKind());
         condition.setIdNo(req.getIdNo());
-        condition.setRealName(req.getRealName());
+        condition.setRealNameForLikeQuery(req.getRealName());
         condition.setRoleCode(req.getRoleCode());
         condition.setStatus(req.getStatus());
 

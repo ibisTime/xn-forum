@@ -83,6 +83,8 @@ public class User extends ABaseDO {
 
     private String mobileForLikeQuery;
 
+    private String realNameForLikeQuery;
+
     public String getLoginNameForLikeQuery() {
         return loginNameForLikeQuery;
     }
@@ -243,4 +245,11 @@ public class User extends ABaseDO {
         this.remark = remark;
     }
 
+    public String getRealNameForLikeQuery() {
+        return realNameForLikeQuery;
+    }
+
+    public void setRealNameForLikeQuery(String realNameForLikeQuery) {
+        this.realNameForLikeQuery = realNameForLikeQuery;
+    }
 }

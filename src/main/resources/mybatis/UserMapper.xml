@@ -58,6 +58,9 @@
 			<if test="realName != null and realName != '' ">
 				AND t.real_name = #{realName}
 			</if>
+			<if test="realNameForLikeQuery != null and realNameForLikeQuery != '' ">
+				AND t.real_name like "%"#{realNameForLikeQuery}"%"
+			</if>
 			<if test="roleCode != null and roleCode != '' ">
 				AND t.role_code = #{roleCode}
 			</if>
