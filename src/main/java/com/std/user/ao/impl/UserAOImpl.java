@@ -310,11 +310,11 @@ public class UserAOImpl implements IUserAO {
         }
         // 短信验证码是否正确
         String mobile = user.getMobile();
-        smsOutBO.checkCaptcha(mobile, smsCaptcha, "805050");
+        smsOutBO.checkCaptcha(mobile, smsCaptcha, "805057");
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
         // 发送短信
         smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805057");
     }
 
     @Override

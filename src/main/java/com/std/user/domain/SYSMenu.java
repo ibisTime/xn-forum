@@ -43,6 +43,10 @@ public class SYSMenu extends ABaseDO {
     // 六方
     private String kind;
 
+    // ************* 模糊查询 *****************
+    // 名称模糊查询
+    private String nameForQuery;
+
     public String getCode() {
         return code;
     }
@@ -121,5 +125,13 @@ public class SYSMenu extends ABaseDO {
 
     public void setKind(String kind) {
         this.kind = kind;
+    }
+
+    public String getNameForQuery() {
+        return nameForQuery;
+    }
+
+    public void setNameForQuery(String nameForQuery) {
+        this.nameForQuery = nameForQuery;
     }
 }

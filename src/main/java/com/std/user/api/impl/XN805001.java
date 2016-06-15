@@ -24,7 +24,7 @@ public class XN805001 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         SYSMenu condition = new SYSMenu();
-        condition.setName(req.getName());
+        condition.setNameForQuery(req.getName());
         condition.setType(req.getType());
         condition.setParentCode(req.getParentCode());
         condition.setUpdater(req.getUpdater());
