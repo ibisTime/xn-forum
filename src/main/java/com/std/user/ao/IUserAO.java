@@ -187,10 +187,24 @@ public interface IUserAO {
      * @create: 2016年5月24日 下午5:30:42 myb858
      * @history:
      */
-
     public void doFindTradePwd(String userId, String newTradePwd,
             String tradePwdStrength, String smsCaptcha, String idKind,
             String idNo);
+
+    /**
+     * 找回交易密码(无需实名认证)
+     * @param userId
+     * @param newTradePwd
+     * @param tradePwdStrength
+     * @param smsCaptcha
+     * @param idKind
+     * @param idNo
+     * @return 
+     * @create: 2016年5月24日 下午5:30:42 myb858
+     * @history:
+     */
+    public void doFindTradePwd(String userId, String newTradePwd,
+            String tradePwdStrength, String smsCaptcha);
 
     /**
      * 重置交易密码

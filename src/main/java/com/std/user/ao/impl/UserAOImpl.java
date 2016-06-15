@@ -302,6 +302,22 @@ public class UserAOImpl implements IUserAO {
     }
 
     @Override
+    public void doFindTradePwd(String userId, String newTradePwd,
+            String tradePwdStrength, String smsCaptcha) {
+        User user = userBO.getUser(userId);
+        if (user == null) {
+            throw new BizException("li01004", "用户名不存在");
+        }
+        // 短信验证码是否正确
+        String mobile = user.getMobile();
+        smsOutBO.checkCaptcha(mobile, smsCaptcha, "805050");
+        userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
+        // 发送短信
+        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+    }
+
+    @Override
     @Transactional
     public void doResetTradePwd(String userId, String oldTradePwd,
             String newTradePwd, String tradePwdStrength) {
