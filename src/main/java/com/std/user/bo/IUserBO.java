@@ -61,9 +61,8 @@ public interface IUserBO extends IPaginableBO<User> {
 
     public int refreshIdentity(String userId, String realName, String idKind,
             String idNo);
-    
-    public int refreshRealName(String userId, String realName);
 
+    public int refreshRealName(String userId, String realName);
 
     public int refreshLoginPwd(String userId, String loginPwd,
             String loginPwdStrength);
@@ -81,7 +80,7 @@ public interface IUserBO extends IPaginableBO<User> {
 
     public String doAddUser(String mobile, String loginPsd, String userReferee,
             String realName, String idKind, String idNo, String tradePsd,
-            String kind);
+            String kind, String remark);
 
     public void refreshStatus(String userId, EUserStatus normal,
             String updater, String remark);
