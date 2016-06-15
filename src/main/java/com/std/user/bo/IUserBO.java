@@ -80,7 +80,7 @@ public interface IUserBO extends IPaginableBO<User> {
 
     public String doAddUser(String mobile, String loginPsd, String userReferee,
             String realName, String idKind, String idNo, String tradePsd,
-            String kind, String remark);
+            String kind, String remark, String updater);
 
     public void refreshStatus(String userId, EUserStatus normal,
             String updater, String remark);

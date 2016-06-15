@@ -92,7 +92,7 @@ public class UserAOImpl implements IUserAO {
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
         String userId = userBO.doAddUser(mobile, loginPsd, userReferee,
-            realName, idKind, idNo, tradePsd, kind, remark);
+            realName, idKind, idNo, tradePsd, kind, remark, updater);
         // 三方认证
         dentifyBO.doIdentify(userId, realName, idKind, idNo);
         // 分配账号
@@ -114,7 +114,7 @@ public class UserAOImpl implements IUserAO {
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
         String userId = userBO.doAddUser(mobile, loginPsd, null, realName,
-            null, null, tradePsd, kind, remark);
+            null, null, tradePsd, kind, remark, updater);
         // 分配账号
         accountBO.distributeAccount(userId, realName, "CNY");
         // 发送短信
