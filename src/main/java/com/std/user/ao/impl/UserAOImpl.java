@@ -136,7 +136,7 @@ public class UserAOImpl implements IUserAO {
         User user = userList.get(0);
         // 规避前端用户登陆管理端
         if (StringUtils.isNotBlank(kind) && !kind.equals(user.getKind())) {
-            throw new BizException("xn702002", "当前用户类型不正确,无法登陆");
+            throw new BizException("xn702002", "当前用户类型不正确,无法登录");
         }
         if (!EUserStatus.NORMAL.getCode().equals(user.getStatus())) {
             throw new BizException("xn702002", "当前用户已被锁定，请联系工作人员");
