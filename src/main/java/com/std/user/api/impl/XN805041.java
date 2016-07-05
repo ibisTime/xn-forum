@@ -26,12 +26,13 @@ public class XN805041 extends AProcessor {
     public Object doBusiness() throws BizException {
         return new XN805041Res(userAO.doRegister(req.getMobile(),
             req.getLoginPwd(), req.getLoginPwdStrength(), req.getUserReferee(),
-            req.getSmsCaptcha()));
+            req.getSmsCaptcha(), Long.valueOf(req.getAmount())));
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN805041Req.class);
+        StringValidater.validateAmount(req.getAmount());
         StringValidater.validateBlank(req.getMobile(), req.getLoginPwd(),
             req.getLoginPwdStrength(), req.getSmsCaptcha());
         PhoneUtil.checkMobile(req.getMobile());// 判断格式

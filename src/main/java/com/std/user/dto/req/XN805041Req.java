@@ -16,6 +16,9 @@ public class XN805041Req {
     // 手机验证码（必填）
     private String smsCaptcha;
 
+    // 金额
+    private String amount;
+
     public String getMobile() {
         return mobile;
     }
@@ -56,4 +59,11 @@ public class XN805041Req {
         this.smsCaptcha = smsCaptcha;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 }
