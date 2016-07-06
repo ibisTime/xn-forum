@@ -45,6 +45,8 @@ public class XN805901 extends AProcessor {
             res.setPhoto(PropertiesUtil.getProperty("PHOTO_URL"));
             res.setStatus(user.getStatus());
             res.setLevel(user.getLevel());
+            res.setKind(user.getKind());
+            res.setUserReferee(user.getUserReferee());
 
             res.setMobileFlag(EBoolean.YES.getCode());
             if (StringUtils.isNotBlank(user.getIdNo())) {

@@ -44,22 +44,6 @@ public interface IUserAO {
             String loginPwdStrength, String userReferee, String smsCaptcha);
 
     /**
-     * 注册送积分
-     * @param mobile
-     * @param loginPwd
-     * @param loginPwdStrength
-     * @param userReferee
-     * @param smsCaptcha
-     * @param amount
-     * @return 
-     * @create: 2016年7月5日 下午3:29:11 xieyj
-     * @history:
-     */
-    public String doRegister(String mobile, String loginPwd,
-            String loginPwdStrength, String userReferee, String smsCaptcha,
-            Long amount);
-
-    /**
      * 代注册
      * @param mobile
      * @param idKind

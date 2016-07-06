@@ -74,29 +74,7 @@ public class UserAOImpl implements IUserAO {
         String userId = userBO.doRegister(mobile, loginPwd, loginPwdStrength,
             userReferee);
         // 分配账号
-        accountBO.distributeAccount(userId, mobile, "CNY");
-        // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，恭喜您成功注册。请妥善保管您的账户相关信息。", "805041");
-        return userId;
-    }
-
-    @Override
-    @Transactional
-    public String doRegister(String mobile, String loginPwd,
-            String loginPwdStrength, String userReferee, String smsCaptcha,
-            Long amount) {
-        // 验证手机号
-        userBO.isMobileExist(mobile);
-        // 验证推荐人是否是平台的已注册用户
-        userBO.checkUserReferee(userReferee);
-        // 短信验证码是否正确
-        smsOutBO.checkCaptcha(mobile, smsCaptcha, "805041");
-        // 插入用户信息
-        String userId = userBO.doRegister(mobile, loginPwd, loginPwdStrength,
-            userReferee);
-        // 分配账号
-        accountBO.distributeAccount(userId, mobile, "CNY", amount);
+        accountBO.distributeAccountTwo(userId, mobile, "CNY");
         // 发送短信
         smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
                 + "用户，恭喜您成功注册。请妥善保管您的账户相关信息。", "805041");

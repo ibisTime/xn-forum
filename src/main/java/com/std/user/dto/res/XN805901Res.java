@@ -22,6 +22,12 @@ public class XN805901Res {
     // 用户等级
     private String level;
 
+    // 身份标识
+    private String kind;
+
+    // 推荐人
+    private String userReferee;
+
     // 是否手机绑定
     private String mobileFlag;
 
@@ -122,4 +128,19 @@ public class XN805901Res {
         this.bankcardFlag = bankcardFlag;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getUserReferee() {
+        return userReferee;
+    }
+
+    public void setUserReferee(String userReferee) {
+        this.userReferee = userReferee;
+    }
 }
