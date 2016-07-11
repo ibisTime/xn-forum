@@ -49,8 +49,8 @@
   mv -f config.properties ./std-user/WEB-INF/classes/
   
 4,起停tomcat_STD_user
-  ./shutdown.sh
-  ./startup.sh
+  ../bin/shutdown.sh
+  ../bin/startup.sh
   
 http://121.43.101.148:7209/std-user/api
 

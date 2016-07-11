@@ -25,6 +25,9 @@ public class XN805901Res {
     // 身份标识
     private String kind;
 
+    // 真实姓名
+    private String realName;
+
     // 推荐人
     private String userReferee;
 
@@ -142,5 +145,13 @@ public class XN805901Res {
 
     public void setUserReferee(String userReferee) {
         this.userReferee = userReferee;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

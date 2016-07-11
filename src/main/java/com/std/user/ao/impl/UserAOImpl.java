@@ -74,7 +74,7 @@ public class UserAOImpl implements IUserAO {
         String userId = userBO.doRegister(mobile, loginPwd, loginPwdStrength,
             userReferee);
         // 分配账号
-        accountBO.distributeAccountTwo(userId, mobile, "CNY");
+        accountBO.distributeAccountTwo(userId, mobile, "CNY", userReferee);
         // 发送短信
         smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
                 + "用户，恭喜您成功注册。请妥善保管您的账户相关信息。", "805041");
@@ -275,9 +275,10 @@ public class UserAOImpl implements IUserAO {
         // 发送短信
         User user = userBO.getUser(userId);
         String mobile = user.getMobile();
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的登录密码修改成功。请妥善保管您的账户相关信息。", "805049");
-
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的登录密码修改成功。请妥善保管您的账户相关信息。", "805049");
+        }
     }
 
     @Override
@@ -302,9 +303,11 @@ public class UserAOImpl implements IUserAO {
         String mobile = user.getMobile();
         smsOutBO.checkCaptcha(mobile, smsCaptcha, "805050");
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
-        // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+        if (!mobile.equals("admin")) {
+            // 发送短信
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+        }
     }
 
     @Override
@@ -319,8 +322,10 @@ public class UserAOImpl implements IUserAO {
         smsOutBO.checkCaptcha(mobile, smsCaptcha, "805057");
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
         // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805057");
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805057");
+        }
     }
 
     @Override
@@ -343,8 +348,10 @@ public class UserAOImpl implements IUserAO {
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
         // 发送短信
         String mobile = user.getMobile();
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码修改成功。请妥善保管您的账户相关信息。", "805051");
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码修改成功。请妥善保管您的账户相关信息。", "805051");
+        }
     }
 
     @Override

@@ -11,8 +11,8 @@ public class XN802001Req {
     // 币种（必填）
     private String currency;
 
-    // 金额（必填）
-    private String amount;
+    // 推荐人（必填）
+    private String userReferee;
 
     public String getUserId() {
         return userId;
@@ -38,11 +38,11 @@ public class XN802001Req {
         this.currency = currency;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getUserReferee() {
+        return userReferee;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setUserReferee(String userReferee) {
+        this.userReferee = userReferee;
     }
 }

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 
 import com.std.user.bo.IAccountBO;
 import com.std.user.dto.req.XN802000Req;
+import com.std.user.dto.req.XN802001Req;
 import com.std.user.dto.res.XN802000Res;
+import com.std.user.dto.res.XN802001Res;
 import com.std.user.http.BizConnecter;
 import com.std.user.http.JsonUtils;
 
@@ -31,13 +33,14 @@ public class AccountBOImpl implements IAccountBO {
 
     @Override
     public String distributeAccountTwo(String userId, String realName,
-            String currency) {
-        XN802000Req req = new XN802000Req();
+            String currency, String userReferee) {
+        XN802001Req req = new XN802001Req();
         req.setUserId(userId);
         req.setRealName(realName);
         req.setCurrency(currency);
-        XN802000Res res = BizConnecter.getBizData("802001",
-            JsonUtils.object2Json(req), XN802000Res.class);
+        req.setUserReferee(userReferee);
+        XN802001Res res = BizConnecter.getBizData("802001",
+            JsonUtils.object2Json(req), XN802001Res.class);
         String accountNumber = null;
         if (res != null) {
             accountNumber = res.getAccountNumber();

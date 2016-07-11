@@ -36,7 +36,7 @@ public interface IAccountBO {
      * @history:
      */
     public String distributeAccountTwo(String userId, String realName,
-            String currency);
+            String currency, String userReferee);
 
     public void refreshRealName(String userId, String realName);
 }
