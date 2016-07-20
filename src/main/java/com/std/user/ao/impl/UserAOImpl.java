@@ -120,6 +120,12 @@ public class UserAOImpl implements IUserAO {
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, loginPsd, kind, remark, updater, pdf);
             dentifyBO.doIdentify(userId, realName, idKind, idNo);
+            // 分配账号
+            accountBO.distributeAccount(userId, realName,
+                ECurrency.CNY.getCode());
+            // 分配账号
+            accountBO.distributeAccount(userId, realName,
+                ECurrency.XNB.getCode());
         }
         return userId;
     }

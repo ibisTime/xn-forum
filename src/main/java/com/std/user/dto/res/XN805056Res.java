@@ -57,6 +57,9 @@ public class XN805056Res {
     // 备注
     private String remark;
 
+    // pdf
+    private String pdf;
+
     public String getUserId() {
         return userId;
     }
@@ -185,4 +188,11 @@ public class XN805056Res {
         this.remark = remark;
     }
 
+    public String getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(String pdf) {
+        this.pdf = pdf;
+    }
 }

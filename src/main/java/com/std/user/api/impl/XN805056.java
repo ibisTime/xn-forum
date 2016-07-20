@@ -46,7 +46,7 @@ public class XN805056 extends AProcessor {
             res.setUpdateDatetime(user.getUpdateDatetime());
 
             res.setRemark(user.getRemark());
-
+            res.setPdf(user.getPdf());
         }
         return res;
     }
