@@ -26,6 +26,17 @@ public interface IAccountBO {
     public String distributeAccount(String userId, String realName,
             String currency);
 
-    public void refreshRealName(String userId, String realName);
+    /**
+     * 分配账户二
+     * @param userId
+     * @param realName
+     * @param currency
+     * @return 
+     * @create: 2016年7月6日 下午8:39:57 xieyj
+     * @history:
+     */
+    public String distributeAccountTwo(String userId, String realName,
+            String currency, String userReferee);
 
+    public void refreshRealName(String userId, String realName);
 }

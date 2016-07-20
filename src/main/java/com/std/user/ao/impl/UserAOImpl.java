@@ -74,7 +74,7 @@ public class UserAOImpl implements IUserAO {
         String userId = userBO.doRegister(mobile, loginPwd, loginPwdStrength,
             userReferee);
         // 分配账号
-        accountBO.distributeAccount(userId, mobile, "CNY");
+        accountBO.distributeAccountTwo(userId, mobile, "CNY", userReferee);
         // 发送短信
         smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
                 + "用户，恭喜您成功注册。请妥善保管您的账户相关信息。", "805041");
@@ -128,12 +128,18 @@ public class UserAOImpl implements IUserAO {
     public String doLogin(String loginName, String loginPwd, String kind) {
         User condition = new User();
         condition.setLoginName(loginName);
-        condition.setLoginPwd(MD5Util.md5(loginPwd));
-        List<User> userList = userBO.queryUserList(condition);
-        if (CollectionUtils.isEmpty(userList)) {
-            throw new BizException("xn702002", "登录名或密码不正确");
+        List<User> userList1 = userBO.queryUserList(condition);
+        if (CollectionUtils.isEmpty(userList1)) {
+            throw new BizException("xn702002", "登录名不存在");
         }
-        User user = userList.get(0);
+
+        condition.setLoginPwd(MD5Util.md5(loginPwd));
+        List<User> userList2 = userBO.queryUserList(condition);
+        if (CollectionUtils.isEmpty(userList2)) {
+            throw new BizException("xn702002", "登录密码错误");
+        }
+        User user = userList2.get(0);
+
         // 规避前端用户登陆管理端
         if (StringUtils.isNotBlank(kind) && !kind.equals(user.getKind())) {
             throw new BizException("xn702002", "当前用户类型不正确,无法登录");
@@ -269,9 +275,10 @@ public class UserAOImpl implements IUserAO {
         // 发送短信
         User user = userBO.getUser(userId);
         String mobile = user.getMobile();
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的登录密码修改成功。请妥善保管您的账户相关信息。", "805049");
-
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的登录密码修改成功。请妥善保管您的账户相关信息。", "805049");
+        }
     }
 
     @Override
@@ -296,9 +303,11 @@ public class UserAOImpl implements IUserAO {
         String mobile = user.getMobile();
         smsOutBO.checkCaptcha(mobile, smsCaptcha, "805050");
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
-        // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+        if (!mobile.equals("admin")) {
+            // 发送短信
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805050");
+        }
     }
 
     @Override
@@ -313,8 +322,10 @@ public class UserAOImpl implements IUserAO {
         smsOutBO.checkCaptcha(mobile, smsCaptcha, "805057");
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
         // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805057");
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码找回成功。请妥善保管您的账户相关信息。", "805057");
+        }
     }
 
     @Override
@@ -337,8 +348,10 @@ public class UserAOImpl implements IUserAO {
         userBO.refreshTradePwd(userId, newTradePwd, tradePwdStrength);
         // 发送短信
         String mobile = user.getMobile();
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您的交易密码修改成功。请妥善保管您的账户相关信息。", "805051");
+        if (!mobile.equals("admin")) {
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您的交易密码修改成功。请妥善保管您的账户相关信息。", "805051");
+        }
     }
 
     @Override

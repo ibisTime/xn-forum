@@ -178,9 +178,8 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     public void checkUserReferee(String userReferee) {
         if (StringUtils.isNotBlank(userReferee)) {
             // 判断格式
-            PhoneUtil.checkMobile(userReferee, "推荐人");
             User condition = new User();
-            condition.setMobile(userReferee);
+            condition.setUserId(userReferee);
             long count = getTotalCount(condition);
             if (count <= 0) {
                 throw new BizException("li01003", "推荐人不存在");

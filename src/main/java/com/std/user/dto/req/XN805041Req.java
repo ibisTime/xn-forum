@@ -55,5 +55,4 @@ public class XN805041Req {
     public void setSmsCaptcha(String smsCaptcha) {
         this.smsCaptcha = smsCaptcha;
     }
-
 }
