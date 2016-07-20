@@ -22,6 +22,7 @@
 		<result column="updater" property="updater" />
 		<result column="update_datetime" property="updateDatetime" />
 		<result column="remark" property="remark" />
+		<result column="pdf" property="pdf" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">			
@@ -100,6 +101,7 @@
 		,updater
 		,update_datetime
 		,remark
+		,pdf
 		FROM
 		tstd_user t
 		<include refid="where_condition"/>
@@ -160,10 +162,9 @@
 		,level
 		,user_referee
 		,mobile
-		
-		
 		,id_kind
 		,id_no
+		
 		,real_name
 		,trade_pwd
 		,trade_pwd_strength
@@ -172,6 +173,7 @@
 		
 		,update_datetime
 		,remark
+		,pdf
 		)
 		VALUES(
 		#{userId}
@@ -185,6 +187,7 @@
 		,#{mobile}
 		,#{idKind}
 		,#{idNo}
+		
 		,#{realName}
 		,#{tradePwd}
 		,#{tradePwdStrength}
@@ -193,6 +196,7 @@
 		
 		,#{updateDatetime}
 		,#{remark}
+		,#{pdf}
 		)
 	</insert>
 	 

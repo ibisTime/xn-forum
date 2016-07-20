@@ -14,7 +14,8 @@ package com.std.user.enums;
  * @history:
  */
 public enum EUserKind {
-    F1("f1", "前端个人用户"), F2("f2", "渠道商"), Operator("01", "管理端系统方");
+    F1("f1", "前端个人用户"), F2("f2", "渠道商"), Operator("01", "管理端系统方"), Integral(
+            "02", "积分商"), Goods("03", "货品商");
 
     EUserKind(String code, String value) {
         this.code = code;

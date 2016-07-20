@@ -28,7 +28,10 @@ import com.std.user.common.DateUtil;
 import com.std.user.common.MD5Util;
 import com.std.user.common.PhoneUtil;
 import com.std.user.domain.User;
+import com.std.user.enums.ECurrency;
 import com.std.user.enums.EIDKind;
+import com.std.user.enums.EUserKind;
+import com.std.user.enums.EUserPwd;
 import com.std.user.enums.EUserStatus;
 import com.std.user.exception.BizException;
 import com.std.user.util.RandomUtil;
@@ -83,24 +86,41 @@ public class UserAOImpl implements IUserAO {
 
     @Override
     @Transactional
-    public String doAddUser(String mobile, String idKind, String idNo,
-            String realName, String userReferee, String updater, String remark,
-            String kind) {
-        // 验证手机号
-        userBO.isMobileExist(mobile);
+    public String doAddUser(String loginName, String mobile, String idKind,
+            String idNo, String realName, String userReferee, String updater,
+            String remark, String kind, String pdf) {
+        String userId = null;
         // 插入用户信息
-        String loginPsd = RandomUtil.generate6();
-        String tradePsd = RandomUtil.generate6();
-        String userId = userBO.doAddUser(mobile, loginPsd, userReferee,
-            realName, idKind, idNo, tradePsd, kind, remark, updater);
-        // 三方认证
-        dentifyBO.doIdentify(userId, realName, idKind, idNo);
-        // 分配账号
-        accountBO.distributeAccount(userId, realName, "CNY");
-        // 发送短信
-        smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
-                + "用户，您已成功注册。您的登录密码为" + loginPsd + ";交易密码为" + tradePsd
-                + "，请及时登录个金所网站修改密码。如有疑问，请联系客服：400-0008-139。", "805042");
+        String loginPsd = EUserPwd.InitPwd.getCode();
+        if (EUserKind.F1.getCode().equals(kind)
+                || EUserKind.F2.getCode().equals(kind)) {
+            // 验证手机号
+            userBO.isMobileExist(mobile);
+            // 插入用户信息
+            loginPsd = RandomUtil.generate6();
+            String tradePsd = RandomUtil.generate6();
+            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
+                realName, idKind, idNo, tradePsd, kind, remark, updater, pdf);
+            // 三方认证
+            dentifyBO.doIdentify(userId, realName, idKind, idNo);
+            // 分配账号
+            accountBO.distributeAccount(userId, realName,
+                ECurrency.XNB.getCode());
+            // 发送短信
+            smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
+                    + "用户，您已成功注册。您的登录密码为" + loginPsd
+                    + "，请及时登录个金所网站修改密码。如有疑问，请联系客服：400-0008-139。", "805042");
+        } else if (EUserKind.Operator.getCode().equals(kind)) {
+            // 插入用户信息
+            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
+                realName, idKind, idNo, loginPsd, kind, remark, updater, pdf);
+        } else if (EUserKind.Integral.getCode().equals(kind)
+                || EUserKind.Goods.getCode().equals(kind)) {
+            // 插入用户信息
+            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
+                realName, idKind, idNo, loginPsd, kind, remark, updater, pdf);
+            dentifyBO.doIdentify(userId, realName, idKind, idNo);
+        }
         return userId;
     }
 
@@ -113,8 +133,8 @@ public class UserAOImpl implements IUserAO {
         // 插入用户信息
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
-        String userId = userBO.doAddUser(mobile, loginPsd, null, realName,
-            null, null, tradePsd, kind, remark, updater);
+        String userId = userBO.doAddUser(null, mobile, loginPsd, null,
+            realName, null, null, tradePsd, kind, remark, updater, null);
         // 分配账号
         accountBO.distributeAccount(userId, realName, "CNY");
         // 发送短信
@@ -127,7 +147,11 @@ public class UserAOImpl implements IUserAO {
     @Override
     public String doLogin(String loginName, String loginPwd, String kind) {
         User condition = new User();
-        condition.setLoginName(loginName);
+        if (EUserKind.F1.getCode().equals(kind)) {
+            condition.setMobile(loginName);
+        } else {
+            condition.setLoginName(loginName);
+        }
         List<User> userList1 = userBO.queryUserList(condition);
         if (CollectionUtils.isEmpty(userList1)) {
             throw new BizException("xn702002", "登录名不存在");

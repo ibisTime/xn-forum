@@ -78,6 +78,9 @@ public class User extends ABaseDO {
     // 备注
     private String remark;
 
+    // 附件
+    private String pdf;
+
     /***** 模糊查询使用字段 ******/
     private String loginNameForLikeQuery;
 
@@ -251,5 +254,13 @@ public class User extends ABaseDO {
 
     public void setRealNameForLikeQuery(String realNameForLikeQuery) {
         this.realNameForLikeQuery = realNameForLikeQuery;
+    }
+
+    public String getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(String pdf) {
+        this.pdf = pdf;
     }
 }

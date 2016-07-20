@@ -161,13 +161,15 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
      */
     @Override
     public void isMobileExist(String mobile) {
-        // 判断格式
-        PhoneUtil.checkMobile(mobile);
-        User condition = new User();
-        condition.setMobile(mobile);
-        long count = getTotalCount(condition);
-        if (count > 0) {
-            throw new BizException("li01003", "手机号已经存在");
+        if (StringUtils.isNotBlank(mobile)) {
+            // 判断格式
+            PhoneUtil.checkMobile(mobile);
+            User condition = new User();
+            condition.setMobile(mobile);
+            long count = getTotalCount(condition);
+            if (count > 0) {
+                throw new BizException("li01003", "手机号已经存在");
+            }
         }
     }
 
@@ -246,16 +248,17 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     }
 
     @Override
-    public String doAddUser(String mobile, String loginPsd, String userReferee,
-            String realName, String idKind, String idNo, String tradePsd,
-            String kind, String remark, String updater) {
+    public String doAddUser(String loginName, String mobile, String loginPsd,
+            String userReferee, String realName, String idKind, String idNo,
+            String tradePsd, String kind, String remark, String updater,
+            String pdf) {
         String userId = null;
-        if (StringUtils.isNotBlank(mobile)) {
+        if (StringUtils.isNotBlank(loginName)) {
             User user = new User();
             userId = OrderNoGenerater.generate("U");
 
             user.setUserId(userId);
-            user.setLoginName(mobile);
+            user.setLoginName(loginName);
             user.setLoginPwd(MD5Util.md5(loginPsd));
             user.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPsd));
             user.setKind(kind);
@@ -274,6 +277,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
 
             user.setUpdateDatetime(new Date());
             user.setRemark(remark);
+            user.setPdf(pdf);
             userDAO.insertRen(user);
         }
         return userId;

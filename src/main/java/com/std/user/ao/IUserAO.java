@@ -45,6 +45,7 @@ public interface IUserAO {
 
     /**
      * 代注册
+     * @param loginName
      * @param mobile
      * @param idKind
      * @param idNo
@@ -53,13 +54,14 @@ public interface IUserAO {
      * @param updater
      * @param remark
      * @param kind
+     * @param pdf
      * @return 
-     * @create: 2016年5月24日 下午5:03:53 myb858
+     * @create: 2016年7月20日 下午3:07:23 xieyj
      * @history:
      */
-    public String doAddUser(String mobile, String idKind, String idNo,
-            String realName, String userReferee, String updater, String remark,
-            String kind);
+    public String doAddUser(String loginName, String mobile, String idKind,
+            String idNo, String realName, String userReferee, String updater,
+            String remark, String kind, String pdf);
 
     /**
      * 代注册

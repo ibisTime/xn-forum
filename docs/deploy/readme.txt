@@ -33,7 +33,7 @@
   rm -rf std-user
   rm -rf std-user.war
   
-  mv /mnt/std-user.war .
+  mv /mnt/wwwroot/std-user.war .
   
   mv -f application.properties ./std-user/WEB-INF/classes/
   mv -f config.properties ./std-user/WEB-INF/classes/
