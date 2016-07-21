@@ -49,7 +49,6 @@
   mv -f application.properties ./std-user/WEB-INF/classes/
   mv -f config.properties ./std-user/WEB-INF/classes/
   
-4,起停tomcat_STD_user
   ../bin/shutdown.sh
   ../bin/startup.sh
   
