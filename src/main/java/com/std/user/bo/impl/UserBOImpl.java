@@ -250,8 +250,8 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     @Override
     public String doAddUser(String loginName, String mobile, String loginPsd,
             String userReferee, String realName, String idKind, String idNo,
-            String tradePsd, String kind, String remark, String updater,
-            String pdf) {
+            String tradePsd, String kind, String level, String remark,
+            String updater, String pdf) {
         String userId = null;
         if (StringUtils.isNotBlank(loginName)) {
             User user = new User();
@@ -263,7 +263,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
             user.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPsd));
             user.setKind(kind);
 
-            user.setLevel("0");
+            user.setLevel(level);
             user.setUserReferee(userReferee);
             user.setMobile(mobile);
             user.setIdKind(idKind);

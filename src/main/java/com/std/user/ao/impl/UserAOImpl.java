@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,7 +100,8 @@ public class UserAOImpl implements IUserAO {
             loginPsd = RandomUtil.generate6();
             String tradePsd = RandomUtil.generate6();
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
-                realName, idKind, idNo, tradePsd, kind, remark, updater, pdf);
+                realName, idKind, idNo, tradePsd, kind, "0", remark, updater,
+                pdf);
             // 三方认证
             dentifyBO.doIdentify(userId, realName, idKind, idNo);
             // 分配账号
@@ -112,12 +114,32 @@ public class UserAOImpl implements IUserAO {
         } else if (EUserKind.Operator.getCode().equals(kind)) {
             // 插入用户信息
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
-                realName, idKind, idNo, loginPsd, kind, remark, updater, pdf);
+                realName, idKind, idNo, loginPsd, kind, "0", remark, updater,
+                pdf);
         } else if (EUserKind.Integral.getCode().equals(kind)
                 || EUserKind.Goods.getCode().equals(kind)) {
+            int level = 1;
+            if (StringUtils.isNotBlank(userReferee)) {
+                String preUserId = userReferee;
+                while (true) {
+                    User data = userBO.getUser(preUserId);
+                    if (data != null) {
+                        preUserId = data.getUserReferee();
+                        level++;
+                        // 超过3级，按3级处理
+                        if (level > 3) {
+                            level = 3;
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
             // 插入用户信息
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
-                realName, idKind, idNo, loginPsd, kind, remark, updater, pdf);
+                realName, idKind, idNo, loginPsd, kind, level + "", remark,
+                updater, pdf);
             dentifyBO.doIdentify(userId, realName, idKind, idNo);
             // 分配账号
             accountBO.distributeAccount(userId, realName,
@@ -139,7 +161,7 @@ public class UserAOImpl implements IUserAO {
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
         String userId = userBO.doAddUser(null, mobile, loginPsd, null,
-            realName, null, null, tradePsd, kind, remark, updater, null);
+            realName, null, null, tradePsd, kind, "0", remark, updater, null);
         // 分配账号
         accountBO.distributeAccount(userId, realName, "CNY");
         // 发送短信
