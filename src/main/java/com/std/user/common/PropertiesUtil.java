@@ -41,6 +41,9 @@ public class PropertiesUtil {
 
         public static String ACCOUNT_URL = props.getProperty("ACCOUNT_URL");
 
+        public static String NOTOP_JFROLECODE = props
+            .getProperty("NOTOP_JFROLECODE");
+
     }
 
 }

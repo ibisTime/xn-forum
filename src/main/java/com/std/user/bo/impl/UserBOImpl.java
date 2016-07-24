@@ -251,7 +251,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     public String doAddUser(String loginName, String mobile, String loginPsd,
             String userReferee, String realName, String idKind, String idNo,
             String tradePsd, String kind, String level, String remark,
-            String updater, String pdf) {
+            String updater, String pdf, String roleCode) {
         String userId = null;
         if (StringUtils.isNotBlank(loginName)) {
             User user = new User();
@@ -278,6 +278,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
             user.setUpdateDatetime(new Date());
             user.setRemark(remark);
             user.setPdf(pdf);
+            user.setRoleCode(roleCode);
             userDAO.insertRen(user);
         }
         return userId;

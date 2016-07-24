@@ -21,12 +21,14 @@ import com.std.user.ao.IUserAO;
 import com.std.user.bo.IAccountBO;
 import com.std.user.bo.IBankCardBO;
 import com.std.user.bo.IIdentifyBO;
+import com.std.user.bo.ISYSRoleBO;
 import com.std.user.bo.ISmsOutBO;
 import com.std.user.bo.IUserBO;
 import com.std.user.bo.base.Paginable;
 import com.std.user.common.DateUtil;
 import com.std.user.common.MD5Util;
 import com.std.user.common.PhoneUtil;
+import com.std.user.common.PropertiesUtil;
 import com.std.user.domain.User;
 import com.std.user.enums.ECurrency;
 import com.std.user.enums.EIDKind;
@@ -45,6 +47,9 @@ import com.std.user.util.RandomUtil;
 public class UserAOImpl implements IUserAO {
     @Autowired
     protected IUserBO userBO;
+
+    @Autowired
+    protected ISYSRoleBO sysRoleBO;
 
     @Autowired
     protected IAccountBO accountBO;
@@ -101,7 +106,7 @@ public class UserAOImpl implements IUserAO {
             String tradePsd = RandomUtil.generate6();
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, tradePsd, kind, "0", remark, updater,
-                pdf);
+                pdf, null);
             // 三方认证
             dentifyBO.doIdentify(userId, realName, idKind, idNo);
             // 分配账号
@@ -115,7 +120,7 @@ public class UserAOImpl implements IUserAO {
             // 插入用户信息
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, loginPsd, kind, "0", remark, updater,
-                pdf);
+                pdf, null);
         } else if (EUserKind.Integral.getCode().equals(kind)
                 || EUserKind.Goods.getCode().equals(kind)) {
             int level = 1;
@@ -136,10 +141,19 @@ public class UserAOImpl implements IUserAO {
                     }
                 }
             }
-            // 插入用户信息
-            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
-                realName, idKind, idNo, loginPsd, kind, level + "", remark,
-                updater, pdf);
+
+            if (EUserKind.Integral.getCode().equals(kind)) {
+                // 插入用户信息
+                userId = userBO.doAddUser(loginName, mobile, loginPsd,
+                    userReferee, realName, idKind, idNo, loginPsd, kind, level
+                            + "", remark, updater, pdf,
+                    PropertiesUtil.Config.NOTOP_JFROLECODE);
+            } else {
+                // 插入用户信息
+                userId = userBO.doAddUser(loginName, mobile, loginPsd,
+                    userReferee, realName, idKind, idNo, loginPsd, kind, level
+                            + "", remark, updater, pdf, null);
+            }
             dentifyBO.doIdentify(userId, realName, idKind, idNo);
             // 分配账号
             accountBO.distributeAccount(userId, realName,
@@ -161,7 +175,8 @@ public class UserAOImpl implements IUserAO {
         String loginPsd = RandomUtil.generate6();
         String tradePsd = RandomUtil.generate6();
         String userId = userBO.doAddUser(null, mobile, loginPsd, null,
-            realName, null, null, tradePsd, kind, "0", remark, updater, null);
+            realName, null, null, tradePsd, kind, "0", remark, updater, null,
+            null);
         // 分配账号
         accountBO.distributeAccount(userId, realName, "CNY");
         // 发送短信
