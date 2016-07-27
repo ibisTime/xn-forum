@@ -100,10 +100,10 @@ public class UserAOImpl implements IUserAO {
         if (EUserKind.F1.getCode().equals(kind)
                 || EUserKind.F2.getCode().equals(kind)) {
             // 验证手机号
-            userBO.isMobileExist(mobile);
+            userBO.isMobileExist(mobile, kind);
             // 插入用户信息
             loginPsd = RandomUtil.generate6();
-            String tradePsd = RandomUtil.generate6();
+            String tradePsd = EUserPwd.InitPwd.getCode();
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, tradePsd, kind, "0", remark, updater,
                 pdf, null);
@@ -117,12 +117,16 @@ public class UserAOImpl implements IUserAO {
                     + "用户，您已成功注册。您的登录密码为" + loginPsd
                     + "，请及时登录个金所网站修改密码。如有疑问，请联系客服：400-0008-139。", "805042");
         } else if (EUserKind.Operator.getCode().equals(kind)) {
+            // 验证登录名
+            userBO.isLoginNameExist(loginName);
             // 插入用户信息
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, loginPsd, kind, "0", remark, updater,
                 pdf, null);
         } else if (EUserKind.Integral.getCode().equals(kind)
                 || EUserKind.Goods.getCode().equals(kind)) {
+            // 验证登录名
+            userBO.isLoginNameExist(loginName);
             int level = 1;
             if (StringUtils.isNotBlank(userReferee)) {
                 String preUserId = userReferee;

@@ -1,13 +1,13 @@
 DROP TABLE IF EXISTS `tstd_user`;
 CREATE TABLE `tstd_user` (
   `user_id` varchar(32) NOT NULL COMMENT 'userId',
-  `login_name` varchar(32) NOT NULL COMMENT '登陆名',
+  `login_name` varchar(32) DEFAULT NULL COMMENT '登陆名',
   `login_pwd` varchar(32) NOT NULL COMMENT '登陆密码',
   `login_pwd_strength` char(1) NOT NULL COMMENT '登陆密码强度',
   `kind` varchar(4) NOT NULL COMMENT '标识',
   `level` varchar(4) DEFAULT NULL COMMENT '用户等级',
   `user_referee` varchar(32) DEFAULT NULL COMMENT '推荐人',
-  `mobile` varchar(16) NOT NULL COMMENT '手机号',
+  `mobile` varchar(16) DEFAULT NULL COMMENT '手机号',
   `id_kind` char(1) DEFAULT NULL COMMENT '证件类型',
   `id_no` varchar(32) DEFAULT NULL COMMENT '证件号码',
   `real_name` varchar(16) DEFAULT NULL COMMENT '真实姓名',
@@ -18,9 +18,47 @@ CREATE TABLE `tstd_user` (
   `updater` varchar(32) DEFAULT NULL COMMENT '修改人',
   `update_datetime` datetime DEFAULT NULL COMMENT '修改时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `pdf` varchar(255) DEFAULT NULL COMMENT '附件',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `tsys_menu`;
+CREATE TABLE `tsys_menu` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `name` varchar(32) NOT NULL COMMENT '名称',
+  `type` varchar(2) NOT NULL COMMENT '类型',
+  `url` varchar(64) NOT NULL COMMENT '请求url',
+  `order_no` varchar(8) NOT NULL COMMENT '序号',
+  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
+  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `parent_code` varchar(32) DEFAULT NULL COMMENT '父亲节点',
+  `kind` varchar(16) DEFAULT NULL COMMENT '六方',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tsys_menu_role`;
+CREATE TABLE `tsys_menu_role` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT,
+  `role_code` varchar(32) NOT NULL,
+  `menu_code` varchar(32) NOT NULL,
+  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
+  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1733 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tsys_role`;
+CREATE TABLE `tsys_role` (
+  `code` varchar(32) NOT NULL COMMENT '角色编号',
+  `name` varchar(32) NOT NULL COMMENT '角色名称',
+  `level` varchar(2) NOT NULL,
+  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
+  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `kind` varchar(16) DEFAULT NULL COMMENT '六方',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `tstd_bankcard`;
 CREATE TABLE `tstd_bankcard` (
@@ -38,53 +76,3 @@ CREATE TABLE `tstd_bankcard` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- ----------------------------
---  Table structure for `tsys_menu`
--- ----------------------------
-DROP TABLE IF EXISTS `tsys_menu`;
-CREATE TABLE `tsys_menu` (
-  `code` varchar(32) NOT NULL COMMENT '编号',
-  `name` varchar(32) NOT NULL COMMENT '名称',
-  `type` varchar(2) NOT NULL COMMENT '类型',
-  `url` varchar(64) NOT NULL COMMENT '请求url',
-  `parent_code` varchar(32) DEFAULT NULL COMMENT '父亲节点',
-  `order_no` varchar(8) NOT NULL COMMENT '序号',
-  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
-  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `kind` varchar(4) NOT NULL COMMENT '标识',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- ----------------------------
---  Table structure for `tsys_role`
--- ----------------------------
-DROP TABLE IF EXISTS `tsys_role`;
-CREATE TABLE `tsys_role` (
-  `code` varchar(32) NOT NULL COMMENT '编号',
-  `name` varchar(32) NOT NULL COMMENT '名称',
-  `level` varchar(2) NOT NULL COMMENT '等级',
-  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
-  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `kind` varchar(4) NOT NULL COMMENT '标识',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `tsys_menu_role`
--- ----------------------------
-DROP TABLE IF EXISTS `tsys_menu_role`;
-CREATE TABLE `tsys_menu_role` (
-  `id` bigint(32) NOT NULL AUTO_INCREMENT,
-  `role_code` varchar(32) NOT NULL,
-  `menu_code` varchar(32) NOT NULL,
-  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
-  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-

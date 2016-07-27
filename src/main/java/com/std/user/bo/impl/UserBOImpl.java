@@ -174,6 +174,40 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     }
 
     /** 
+     * @see com.ibis.pz.user.IUserBO#isMobileExist(java.lang.String)
+     */
+    @Override
+    public void isMobileExist(String mobile, String kind) {
+        if (StringUtils.isNotBlank(mobile)) {
+            // 判断格式
+            PhoneUtil.checkMobile(mobile);
+            User condition = new User();
+            condition.setMobile(mobile);
+            condition.setKind(kind);
+            long count = getTotalCount(condition);
+            if (count > 0) {
+                throw new BizException("li01003", "手机号已经存在");
+            }
+        }
+    }
+
+    /** 
+     * @see com.std.user.bo.IUserBO#isLoginNameExist(java.lang.String)
+     */
+    @Override
+    public void isLoginNameExist(String loginName) {
+        if (StringUtils.isNotBlank(loginName)) {
+            // 判断格式
+            User condition = new User();
+            condition.setLoginName(loginName);
+            long count = getTotalCount(condition);
+            if (count > 0) {
+                throw new BizException("li01003", "登录名已经存在");
+            }
+        }
+    }
+
+    /** 
      * @see com.std.user.bo.IUserBO#checkUserReferee(java.lang.String)
      */
     @Override
@@ -253,7 +287,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
             String tradePsd, String kind, String level, String remark,
             String updater, String pdf, String roleCode) {
         String userId = null;
-        if (StringUtils.isNotBlank(loginName)) {
+        if (StringUtils.isNotBlank(userReferee)) {
             User user = new User();
             userId = OrderNoGenerater.generate("U");
 
