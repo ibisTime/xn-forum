@@ -45,9 +45,6 @@ public class User extends ABaseDO {
     // 推荐人
     private String userReferee;
 
-    // 推荐人
-    private String userRefereeName;
-
     // 手机号
     private String mobile;
 
@@ -90,6 +87,8 @@ public class User extends ABaseDO {
     private String mobileForLikeQuery;
 
     private String realNameForLikeQuery;
+
+    private String userRefereeName;
 
     public String getLoginNameForLikeQuery() {
         return loginNameForLikeQuery;
