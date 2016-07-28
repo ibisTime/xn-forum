@@ -104,7 +104,7 @@ public class UserAOImpl implements IUserAO {
             // 插入用户信息
             loginPsd = RandomUtil.generate6();
             String tradePsd = EUserPwd.InitPwd.getCode();
-            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
+            userId = userBO.doAddUser(mobile, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, tradePsd, kind, "0", remark, updater,
                 pdf, null);
             // 三方认证
@@ -118,7 +118,7 @@ public class UserAOImpl implements IUserAO {
                     + "，请及时登录个金所网站修改密码。如有疑问，请联系客服：400-0008-139。", "805042");
         } else if (EUserKind.Operator.getCode().equals(kind)) {
             // 验证登录名
-            userBO.isLoginNameExist(loginName);
+            userBO.isLoginNameExist(loginName, kind);
             // 插入用户信息
             userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
                 realName, idKind, idNo, loginPsd, kind, "0", remark, updater,
@@ -126,7 +126,7 @@ public class UserAOImpl implements IUserAO {
         } else if (EUserKind.Integral.getCode().equals(kind)
                 || EUserKind.Goods.getCode().equals(kind)) {
             // 验证登录名
-            userBO.isLoginNameExist(loginName);
+            userBO.isLoginNameExist(loginName, kind);
             int level = 1;
             if (StringUtils.isNotBlank(userReferee)) {
                 String preUserId = userReferee;
@@ -210,6 +210,9 @@ public class UserAOImpl implements IUserAO {
         }
         User user = userList2.get(0);
 
+        if (EUserKind.F1.getCode().equals(kind) && !kind.equals(user.getKind())) {
+            throw new BizException("xn702002", "登录用户类型不正确");
+        }
         if (!EUserStatus.NORMAL.getCode().equals(user.getStatus())) {
             throw new BizException("xn702002", "当前用户已被锁定，请联系工作人员");
         }

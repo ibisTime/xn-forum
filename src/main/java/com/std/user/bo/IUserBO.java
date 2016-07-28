@@ -58,12 +58,12 @@ public interface IUserBO extends IPaginableBO<User> {
 
     /**
      * 判断登录名是否存在
-     * @param mobile
+     * @param loginName
      * @param kind 
-     * @create: 2016年7月27日 下午3:45:39 xieyj
+     * @create: 2016年7月28日 下午8:16:37 xieyj
      * @history:
      */
-    public void isLoginNameExist(String loginName);
+    public void isLoginNameExist(String loginName, String kind);
 
     /**
      *  判断推荐人是否存在(手机号)

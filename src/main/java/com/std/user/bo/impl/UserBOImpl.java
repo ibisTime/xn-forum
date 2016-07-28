@@ -195,11 +195,12 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
      * @see com.std.user.bo.IUserBO#isLoginNameExist(java.lang.String)
      */
     @Override
-    public void isLoginNameExist(String loginName) {
+    public void isLoginNameExist(String loginName, String kind) {
         if (StringUtils.isNotBlank(loginName)) {
             // 判断格式
             User condition = new User();
             condition.setLoginName(loginName);
+            condition.setKind(kind);
             long count = getTotalCount(condition);
             if (count > 0) {
                 throw new BizException("li01003", "登录名已经存在");
