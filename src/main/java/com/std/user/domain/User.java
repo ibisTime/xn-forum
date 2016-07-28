@@ -45,6 +45,9 @@ public class User extends ABaseDO {
     // 推荐人
     private String userReferee;
 
+    // 推荐人
+    private String userRefereeName;
+
     // 手机号
     private String mobile;
 
@@ -262,5 +265,13 @@ public class User extends ABaseDO {
 
     public void setPdf(String pdf) {
         this.pdf = pdf;
+    }
+
+    public String getUserRefereeName() {
+        return userRefereeName;
+    }
+
+    public void setUserRefereeName(String userRefereeName) {
+        this.userRefereeName = userRefereeName;
     }
 }

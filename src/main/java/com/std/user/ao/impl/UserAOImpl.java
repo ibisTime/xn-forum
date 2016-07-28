@@ -472,6 +472,11 @@ public class UserAOImpl implements IUserAO {
         User user = userBO.getUser(userId);
         if (user == null) {
             throw new BizException("li01004", userId + "用户不存在");
+        } else {
+            User userReferee = userBO.getUser(user.getUserReferee());
+            if (userReferee != null) {
+                user.setUserRefereeName(userReferee.getLoginName());
+            }
         }
         return user;
     }
