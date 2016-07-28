@@ -287,7 +287,7 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
             String tradePsd, String kind, String level, String remark,
             String updater, String pdf, String roleCode) {
         String userId = null;
-        if (StringUtils.isNotBlank(userReferee)) {
+        if (StringUtils.isNotBlank(loginName) || StringUtils.isNotBlank(mobile)) {
             User user = new User();
             userId = OrderNoGenerater.generate("U");
 
