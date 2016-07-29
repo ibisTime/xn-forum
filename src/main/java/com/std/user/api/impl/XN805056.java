@@ -34,6 +34,7 @@ public class XN805056 extends AProcessor {
             res.setLevel(user.getLevel());
 
             res.setUserReferee(user.getUserReferee());
+            res.setUserRefereeName(user.getUserRefereeName());
             res.setMobile(user.getMobile());
             res.setIdKind(user.getIdKind());
             res.setIdNo(user.getIdNo());

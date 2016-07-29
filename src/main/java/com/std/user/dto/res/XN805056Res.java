@@ -24,6 +24,9 @@ public class XN805056Res {
     // 推荐人
     private String userReferee;
 
+    // 推荐人名称
+    private String userRefereeName;
+
     // 手机号
     private String mobile;
 
@@ -194,5 +197,13 @@ public class XN805056Res {
 
     public void setPdf(String pdf) {
         this.pdf = pdf;
+    }
+
+    public String getUserRefereeName() {
+        return userRefereeName;
+    }
+
+    public void setUserRefereeName(String userRefereeName) {
+        this.userRefereeName = userRefereeName;
     }
 }
