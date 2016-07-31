@@ -1,3 +1,43 @@
+/*
+ Navicat MySQL Data Transfer
+
+ Source Server         : 148
+ Source Server Version : 50545
+ Source Host           : 121.43.101.148
+ Source Database       : jf_std_user
+
+ Target Server Version : 50545
+ File Encoding         : utf-8
+
+ Date: 07/31/2016 13:01:51 PM
+*/
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `tstd_bankcard`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_bankcard`;
+CREATE TABLE `tstd_bankcard` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `user_id` varchar(32) NOT NULL COMMENT '用户编号',
+  `real_name` varchar(16) DEFAULT NULL COMMENT '真实姓名',
+  `bank_code` varchar(8) DEFAULT NULL COMMENT '银行行号',
+  `bank_name` varchar(32) DEFAULT NULL COMMENT '银行名称',
+  `subbranch` varchar(255) DEFAULT NULL COMMENT '开户支行',
+  `bankcard_no` varchar(64) NOT NULL COMMENT '银行卡编号',
+  `bind_mobile` varchar(32) DEFAULT NULL COMMENT '银行卡绑定手机号',
+  `status` varchar(2) DEFAULT NULL COMMENT '状态',
+  `updater` varchar(32) DEFAULT NULL COMMENT '修改人',
+  `update_datetime` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tstd_user`
+-- ----------------------------
 DROP TABLE IF EXISTS `tstd_user`;
 CREATE TABLE `tstd_user` (
   `user_id` varchar(32) NOT NULL COMMENT 'userId',
@@ -22,6 +62,9 @@ CREATE TABLE `tstd_user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+--  Table structure for `tsys_menu`
+-- ----------------------------
 DROP TABLE IF EXISTS `tsys_menu`;
 CREATE TABLE `tsys_menu` (
   `code` varchar(32) NOT NULL COMMENT '编号',
@@ -37,6 +80,9 @@ CREATE TABLE `tsys_menu` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+--  Table structure for `tsys_menu_role`
+-- ----------------------------
 DROP TABLE IF EXISTS `tsys_menu_role`;
 CREATE TABLE `tsys_menu_role` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT,
@@ -46,8 +92,11 @@ CREATE TABLE `tsys_menu_role` (
   `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1733 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2940 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+--  Table structure for `tsys_role`
+-- ----------------------------
 DROP TABLE IF EXISTS `tsys_role`;
 CREATE TABLE `tsys_role` (
   `code` varchar(32) NOT NULL COMMENT '角色编号',
@@ -60,19 +109,4 @@ CREATE TABLE `tsys_role` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `tstd_bankcard`;
-CREATE TABLE `tstd_bankcard` (
-  `code` varchar(32) NOT NULL COMMENT '编号',
-  `user_id` varchar(32) NOT NULL COMMENT '用户编号',
-  `real_name` varchar(16) DEFAULT NULL COMMENT '真实姓名',
-  `bank_code` varchar(8) DEFAULT NULL COMMENT '银行行号',
-  `bank_name` varchar(32) DEFAULT NULL COMMENT '银行名称',
-  `subbranch` varchar(255) DEFAULT NULL COMMENT '开户支行',
-  `bankcard_no` varchar(64) NOT NULL COMMENT '银行卡编号',
-  `bind_mobile` varchar(32) DEFAULT NULL COMMENT '银行卡绑定手机号',
-  `status` varchar(2) DEFAULT NULL COMMENT '状态',
-  `updater` varchar(32) DEFAULT NULL COMMENT '修改人',
-  `update_datetime` datetime DEFAULT NULL COMMENT '修改时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET FOREIGN_KEY_CHECKS = 1;
