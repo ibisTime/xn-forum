@@ -26,7 +26,8 @@ public class BizConnecter {
 
     public static final String ACCOUNT_URL = PropertiesUtil.Config.ACCOUNT_URL;
 
-    public static final String IDENTIFY_URL = PropertiesUtil.Config.IDENTIFY_URL;
+    // public static final String IDENTIFY_URL =
+    // PropertiesUtil.Config.IDENTIFY_URL;
 
     public static final String POST_URL = "...";
 
@@ -65,7 +66,7 @@ public class BizConnecter {
         if (code.contains("799")) {
             postUrl = SMS_URL;
         } else if (code.contains("798")) {
-            postUrl = IDENTIFY_URL;
+            // postUrl = IDENTIFY_URL;
         } else if (code.startsWith("802")) {
             postUrl = ACCOUNT_URL;
         } else {

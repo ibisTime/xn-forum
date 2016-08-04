@@ -108,14 +108,15 @@ public class UserAOImpl implements IUserAO {
                 realName, idKind, idNo, tradePsd, kind, "0", remark, updater,
                 pdf, null);
             // 三方认证
-            dentifyBO.doIdentify(userId, realName, idKind, idNo);
+            // dentifyBO.doIdentify(userId, realName, idKind, idNo);
             // 分配账号
             accountBO.distributeAccount(userId, realName,
                 ECurrency.XNB.getCode());
             // 发送短信
             smsOutBO.sendSmsOut(mobile, "尊敬的" + PhoneUtil.hideMobile(mobile)
                     + "用户，您已成功注册。您的登录密码为" + loginPsd
-                    + "，请及时登录个金所网站修改密码。如有疑问，请联系客服：400-0008-139。", "805042");
+                    + "，请及时登录菜狗商城修改密码。如有疑问，请联系客服："
+                    + PropertiesUtil.Config.COMPANY_MOBILE + "。", "805042");
         } else if (EUserKind.Operator.getCode().equals(kind)) {
             // 验证登录名
             userBO.isLoginNameExist(loginName, kind);
@@ -146,23 +147,20 @@ public class UserAOImpl implements IUserAO {
                 }
             }
 
+            String roleCode = null;
             if (EUserKind.Integral.getCode().equals(kind)) {
-                // 插入用户信息
-                userId = userBO.doAddUser(loginName, mobile, loginPsd,
-                    userReferee, realName, idKind, idNo, loginPsd, kind, level
-                            + "", remark, updater, pdf,
-                    PropertiesUtil.Config.NOTOP_JFROLECODE);
+                roleCode = PropertiesUtil.Config.NOTOP_JFROLECODE;
             } else {
-                // 插入用户信息
-                userId = userBO.doAddUser(loginName, mobile, loginPsd,
-                    userReferee, realName, idKind, idNo, loginPsd, kind, level
-                            + "", remark, updater, pdf, null);
+                roleCode = PropertiesUtil.Config.NOTOP_HPJFROLECODE;
             }
-            dentifyBO.doIdentify(userId, realName, idKind, idNo);
-            // 分配账号
+            // 插入用户信息
+            userId = userBO.doAddUser(loginName, mobile, loginPsd, userReferee,
+                realName, idKind, idNo, loginPsd, kind, level + "", remark,
+                updater, pdf, roleCode);
+            // 分配人民币账号
             accountBO.distributeAccount(userId, realName,
                 ECurrency.CNY.getCode());
-            // 分配账号
+            // 分配积分账号
             accountBO.distributeAccount(userId, realName,
                 ECurrency.XNB.getCode());
         }
@@ -223,7 +221,7 @@ public class UserAOImpl implements IUserAO {
     public void doIdentify(String userId, String idKind, String idNo,
             String realName) {
         // 三方认证
-        dentifyBO.doIdentify(userId, realName, idKind, idNo);
+        // dentifyBO.doIdentify(userId, realName, idKind, idNo);
         // 更新用户表
         userBO
             .refreshIdentity(userId, realName, EIDKind.IDCard.getCode(), idNo);
@@ -261,7 +259,7 @@ public class UserAOImpl implements IUserAO {
             String idNo, String realName, String tradePwd,
             String tradePwdStrength, String smsCaptcha) {
         // 三方认证
-        dentifyBO.doIdentify(userId, realName, idKind, idNo);
+        // dentifyBO.doIdentify(userId, realName, idKind, idNo);
         // 更新用户表
         userBO
             .refreshIdentity(userId, realName, EIDKind.IDCard.getCode(), idNo);

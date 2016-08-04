@@ -15,6 +15,7 @@ LIMIT 0, 50000
 */
 INSERT INTO `tsys_role` (`code`,`name`,`level`,`updater`,`update_datetime`,`remark`,`kind`) VALUES ('SR201600000000000000','系统管理员','1','admin',now(),'系统管理员','1');
 INSERT INTO `tsys_role` (`code`,`name`,`level`,`updater`,`update_datetime`,`remark`,`kind`) VALUES ('SR201600000000000001','顶级货品商和积分商','1','admin',now(),'顶级货品商和积分商','1');
+INSERT INTO `tsys_role` (`code`,`name`,`level`,`updater`,`update_datetime`,`remark`,`kind`) VALUES ('SR201600000000000002','非顶级货品商和积分商','1','admin',now(),'非顶级货品商和积分商','1');
 INSERT INTO `tsys_role` (`code`,`name`,`level`,`updater`,`update_datetime`,`remark`,`kind`) VALUES ('SR201600000000000004','非顶级货品商','1','admin',now(),'非顶级货品商','1');
 INSERT INTO `tsys_role` (`code`,`name`,`level`,`updater`,`update_datetime`,`remark`,`kind`) VALUES ('SR201600000000000005','非顶级积分商','1','admin',now(),'非顶级积分商','1');
 

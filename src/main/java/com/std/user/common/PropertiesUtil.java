@@ -35,11 +35,15 @@ public class PropertiesUtil {
     public static final class Config {
         public static String SMS_URL = props.getProperty("SMS_URL");
 
-        public static String IDENTIFY_URL = props.getProperty("IDENTIFY_URL");
+        public static String COMPANY_MOBILE = props
+            .getProperty("COMPANY_MOBILE");
 
         public static String USER_URL = props.getProperty("USER_URL");
 
         public static String ACCOUNT_URL = props.getProperty("ACCOUNT_URL");
+
+        public static String NOTOP_HPJFROLECODE = props
+            .getProperty("NOTOP_HPJFROLECODE");
 
         public static String NOTOP_JFROLECODE = props
             .getProperty("NOTOP_JFROLECODE");
