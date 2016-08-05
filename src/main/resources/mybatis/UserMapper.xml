@@ -35,9 +35,17 @@
 			<if test="loginNameForLikeQuery != null and loginNameForLikeQuery != '' ">
 				AND t.login_name like "%"#{loginNameForLikeQuery}"%"
 			</if>
-			<if test="kind != null and kind != '' ">
-				AND t.kind = #{kind}
-			</if>	
+			<choose>
+				 <when test="kind == '07'">
+				  AND (t.kind = 05 or t.kind = 02)
+				 </when>
+				 <when test="kind != null and kind != '' ">
+				  AND t.kind = #{kind}
+				 </when>
+				 <otherwise>
+				  AND 1 = 1
+				 </otherwise>
+			</choose>	
 			<if test="level != null and level != '' ">
 				AND t.level = #{level}
 			</if>	
