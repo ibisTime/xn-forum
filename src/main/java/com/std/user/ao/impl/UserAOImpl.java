@@ -125,7 +125,8 @@ public class UserAOImpl implements IUserAO {
                 realName, idKind, idNo, loginPsd, kind, "0", remark, updater,
                 pdf, null);
         } else if (EUserKind.Integral.getCode().equals(kind)
-                || EUserKind.Goods.getCode().equals(kind)) {
+                || EUserKind.Goods.getCode().equals(kind)
+                || EUserKind.CaiGo.getCode().equals(kind)) {
             // 验证登录名
             userBO.isLoginNameExist(loginName, kind);
             int level = 1;
@@ -150,7 +151,9 @@ public class UserAOImpl implements IUserAO {
             String roleCode = null;
             if (EUserKind.Integral.getCode().equals(kind)) {
                 roleCode = PropertiesUtil.Config.NOTOP_JFROLECODE;
-            } else {
+            } else if (EUserKind.Goods.getCode().equals(kind)) {
+                roleCode = PropertiesUtil.Config.NOTOP_HPJFROLECODE;
+            } else if (EUserKind.CaiGo.getCode().equals(kind)) {
                 roleCode = PropertiesUtil.Config.NOTOP_HPJFROLECODE;
             }
             // 插入用户信息
