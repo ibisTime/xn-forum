@@ -94,6 +94,10 @@ public interface IUserBO extends IPaginableBO<User> {
 
     public User getUserByMobile(String mobile);
 
+    public User getUserByMobileAndKind(String mobile, String kind);
+
+    public User getUserByLoginName(String loginName);
+
     public List<User> queryUserList(User condition);
 
     public String doAddUser(String loginName, String mobile, String loginPsd,

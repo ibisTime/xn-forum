@@ -117,6 +117,47 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
     }
 
     /** 
+     * @see com.ibis.pz.user.IUserBO#getUserByMobile(java.lang.String)
+     */
+    @Override
+    public User getUserByMobileAndKind(String mobile, String kind) {
+        User data = null;
+        if (StringUtils.isNotBlank(mobile)) {
+            User condition = new User();
+            condition.setMobile(mobile);
+            condition.setKind(kind);
+            List<User> list = userDAO.selectList(condition);
+            if (list != null && list.size() > 1) {
+                throw new BizException("li01006", "手机号重复");
+            }
+            if (CollectionUtils.isNotEmpty(list)) {
+                data = list.get(0);
+            }
+        }
+        return data;
+    }
+
+    /** 
+     * @see com.ibis.pz.user.IUserBO#getUserByMobile(java.lang.String)
+     */
+    @Override
+    public User getUserByLoginName(String loginName) {
+        User data = null;
+        if (StringUtils.isNotBlank(loginName)) {
+            User condition = new User();
+            condition.setLoginName(loginName);
+            List<User> list = userDAO.selectList(condition);
+            if (list != null && list.size() > 1) {
+                throw new BizException("li01006", "登录名重复");
+            }
+            if (CollectionUtils.isNotEmpty(list)) {
+                data = list.get(0);
+            }
+        }
+        return data;
+    }
+
+    /** 
      * @see com.ibis.pz.user.IUserBO#queryUserList(com.User.pz.domain.UserDO)
      */
     @Override

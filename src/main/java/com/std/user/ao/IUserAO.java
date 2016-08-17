@@ -165,6 +165,19 @@ public interface IUserAO {
             String newLoginPwd, String loginPwdStrength);
 
     /**
+     * 管理端找回登录密码
+     * @param loginName
+     * @param smsCaptcha
+     * @param newLoginPwd
+     * @param loginPwdStrength
+     * @return 
+     * @create: 2016年5月24日 下午5:25:44 myb858
+     * @history:
+     */
+    public void doFindLoginPwdByOss(String loginName, String smsCaptcha,
+            String newLoginPwd, String loginPwdStrength);
+
+    /**
      * 重置登录密码
      * @param userId
      * @param oldLoginPwd
@@ -273,6 +286,14 @@ public interface IUserAO {
      * @history:
      */
     public User doGetUser(String userId);
+
+    /**
+     * 根据loginName获取手机号，发送找回登录密码短信验证码
+     * @param loginName 
+     * @create: 2016年8月16日 下午3:47:12 xieyj
+     * @history:
+     */
+    public void doSendLoginPwdSms(String loginName);
 
     /**
      * 校验交易密码
