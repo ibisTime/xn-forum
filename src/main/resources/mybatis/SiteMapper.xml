@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.ISiteDAO">
+	<resultMap id="site_DB_Result" type="site">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="leader" property="leader" />
+		<result column="contacts" property="contacts" />
+		<result column="address" property="address" />
+		
+		<result column="is_hot" property="isHot" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="name != null and name != '' ">
+		        AND t.name = #{name}
+			</if>
+			<if test="leader != null and leader != '' ">
+		        AND t.leader = #{leader}
+			</if>
+			<if test="address != null and address != '' ">
+		        AND t.address = #{address}
+			</if>
+			<if test="isHot != null and isHot != '' ">
+		        AND t.is_hot = #{isHot}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_site" parameterType="site" resultMap="site_DB_Result">
+		SELECT
+		code
+		,name
+		,leader
+		,contacts
+		,address
+		
+		,is_hot
+		,updater
+		,update_datetime
+		,remark
+		FROM
+		tforum_site t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_site_count" parameterType="site"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_site t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_site" parameterType="site">
+		INSERT INTO
+		tforum_site(
+		code
+		,name
+		,leader
+		,contacts
+		,address
+		
+		,is_hot
+		,updater
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{leader}
+		,#{contacts}
+		,#{address}
+		
+		,#{isHot}
+		,#{updater}
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+	
+	<delete id="delete_site" parameterType="site">
+		DELETE FROM
+		tforum_site
+		WHERE
+		code = #{code}
+	</delete>
+	
+	<update id="update_site" parameterType="site">
+		UPDATE tforum_site
+		SET
+		name = #{name}
+		,leader = #{leader}
+		,contacts = #{contacts}
+		,address = #{address}
+		,is_hot = #{isHot}
+		
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark= #{remark}
+		WHERE code = #{code}
+	</update>
+</mapper>

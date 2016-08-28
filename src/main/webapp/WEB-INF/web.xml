@@ -85,7 +85,7 @@ version="2.5">
   <!--http 方式发布  end -->
   <servlet>
     <servlet-name>config</servlet-name>
-    <servlet-class>com.std.user.ConfigServlet</servlet-class>
+    <servlet-class>com.std.forum.ConfigServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
@@ -94,7 +94,7 @@ version="2.5">
   </servlet-mapping> 
   <servlet>  
     <servlet-name>api</servlet-name>
-    <servlet-class>com.std.user.APIServlet</servlet-class>
+    <servlet-class>com.std.forum.APIServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>api</servlet-name>

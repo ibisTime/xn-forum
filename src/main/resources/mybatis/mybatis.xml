@@ -2,10 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>		
-		<typeAlias alias="bankCard" type="com.std.user.domain.BankCard" />
-		<typeAlias alias="user" type="com.std.user.domain.User" />
-		<typeAlias alias="sysMenu" type="com.std.user.domain.SYSMenu" />
-	    <typeAlias alias="sysRole" type="com.std.user.domain.SYSRole" />
- 	    <typeAlias alias="sysMenuRole" type="com.std.user.domain.SYSMenuRole" />
-	</typeAliases>	
+		<typeAlias alias="site" type="com.std.forum.domain.Site" />
+		<typeAlias alias="plate" type="com.std.forum.domain.Plate" />
+		<typeAlias alias="post" type="com.std.forum.domain.Post" />
+		<typeAlias alias="postTalk" type="com.std.forum.domain.PostTalk" />
+		<typeAlias alias="comment" type="com.std.forum.domain.Comment" />
+	</typeAliases>
 </configuration>	

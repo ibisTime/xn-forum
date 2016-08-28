@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IPostDAO">
+	<resultMap id="post_DB_Result" type="post">
+		<result column="code" property="code" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="pic" property="pic" />
+		<result column="publisher" property="publisher" />
+		
+		<result column="publish_datetime" property="publishDatetime" />
+		<result column="approver" property="approver" />
+		<result column="approve_datetime" property="approveDatetime" />
+		<result column="approve_note" property="approveNote" />
+		<result column="is_report" property="isReport" />
+		
+		<result column="reporter" property="reporter" />
+		<result column="report_datetime" property="reportDatetime" />
+		<result column="report_note" property="reportNote" />
+		<result column="status" property="status" />
+		<result column="is_headline" property="isHeadline" />
+		
+		<result column="is_top" property="isTop" />
+		<result column="is_essence" property="isEssence" />
+		<result column="read_time" property="readTime" />
+		<result column="plate_code" property="plateCode" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="title != null and title != '' ">
+		        AND t.title = #{title}
+			</if>
+			<if test="publisher != null and publisher != '' ">
+		        AND t.publisher = #{publisher}
+			</if>
+			<if test="publishDatetimeStart != null and publishDatetimeStart != '' ">
+				<![CDATA[AND t.publish_datetime >= #{publishDatetimeStart}]]>
+			</if>
+			<if test="publishDatetimeEnd != null and publishDatetimeEnd != '' ">
+				<![CDATA[AND t.publish_datetime <= #{publishDatetimeEnd}]]>
+			</if>
+			<if test="isReport != null and isReport != '' ">
+		        AND t.is_report = #{isReport}
+			</if>
+			<if test="status != null and status != '' ">
+		        AND t.status = #{status}
+			</if>
+			<if test="isHeadline != null and isHeadline != '' ">
+		        AND t.is_headline = #{isHeadline}
+			</if>
+			<if test="isTop != null and isTop != '' ">
+		        AND t.is_top = #{isTop}
+			</if>
+			<if test="isEssence != null and isEssence != '' ">
+		        AND t.is_essence = #{isEssence}
+			</if>
+			<if test="plateCode != null and plateCode != '' ">
+		        AND t.plate_code = #{plateCode}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_post" parameterType="post" resultMap="post_DB_Result">
+		SELECT
+		code
+		,title
+		,content
+		,pic
+		,publisher
+		
+		,publish_datetime
+		,approver
+		,approve_datetime
+		,approve_note
+		,is_report
+		
+		,reporter
+		,reportDatetime
+		,reportNote
+		,status
+		,is_headline
+		
+		,is_top
+		,is_essence
+		,read_time
+		,plate_code
+		FROM
+		tforum_post t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_post_count" parameterType="post"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_post t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_post" parameterType="post">
+		INSERT INTO
+		tforum_post(
+		code
+		,title
+		,content
+		,pic
+		,is_report
+		
+		,status
+		,publisher
+		,publish_datetime
+		)
+		VALUES(
+		#{code}
+		,#{title}
+		,#{content}
+		,#{pic}
+		,#{isReport}
+		
+		,#{status}
+		,#{publisher}
+		,#{publish_datetime}
+		)
+	</insert>
+	
+	<delete id="delete_post" parameterType="post">
+		DELETE FROM
+		tforum_post
+		WHERE
+		code = #{code}
+	</delete>
+	
+	<update id="update_post_report" parameterType="post">
+		UPDATE tforum_post
+		SET
+		is_report = #{isReport}
+		,reporter = #{reporter}
+		,report_datetime = #{reportDatetime}
+		,report_note = #{reportNote}
+		,status = #{status}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_post_approve" parameterType="post">
+		UPDATE tforum_post
+		SET
+		approver = #{approver}
+		,approve_datetime = #{approveDatetime}
+		,approve_note = #{approve_note}
+		,status = #{status}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_post_attr" parameterType="post">
+		UPDATE tforum_post
+		SET
+		is_headline = #{isHeadline}
+		,is_top = #{isTop}
+		,is_essence = #{isEssence}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_post_readTime" parameterType="post">
+		UPDATE tforum_post
+		SET
+		read_time = read_time + 1
+		WHERE code = #{code}
+	</update>
+</mapper>

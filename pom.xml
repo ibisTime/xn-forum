@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>std-myb</groupId>
-  <artifactId>std-user</artifactId>
+  <artifactId>cd-forum</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>std-user</name>
+  <name>cd-forum</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

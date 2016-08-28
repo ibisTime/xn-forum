@@ -21,7 +21,7 @@
   	<!-- 定义aspectj -->
   	<aop:aspectj-autoproxy proxy-target-class="true"/>
  
-    <bean id="springContextHolder" class="com.std.user.spring.SpringContextHolder"></bean>
+    <bean id="springContextHolder" class="com.std.forum.spring.SpringContextHolder"></bean>
     
     <!-- 参数验证 -->
     <!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -32,21 +32,21 @@
     <bean id="sqlSessionFactoryMaster" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis.xml" />
-		<property name="typeHandlersPackage" value="com.std.user.dao.base.handler" />
+		<property name="typeHandlersPackage" value="com.std.forum.dao.base.handler" />
 		<property name="mapperLocations" value="classpath*:mybatis/*Mapper.xml" />
 	</bean>
 	<!-- mybatis读 -->
 	<bean id="sqlSessionFactorySlave" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis.xml" />
-		<property name="typeHandlersPackage" value="com.std.user.dao.base.handler" />
+		<property name="typeHandlersPackage" value="com.std.forum.dao.base.handler" />
 		<property name="mapperLocations" value="classpath*:mybatis/*Mapper.xml" />
 		<property name="plugins">
 			<array>
 				<bean
-					class="com.std.user.dao.base.interceptor.PaginationInterceptor">
+					class="com.std.forum.dao.base.interceptor.PaginationInterceptor">
 					<property name="dialect">
-						<bean class="com.std.user.dao.base.dialect.MySQLDialect" />
+						<bean class="com.std.forum.dao.base.dialect.MySQLDialect" />
 					</property>
 				</bean>
 			</array>

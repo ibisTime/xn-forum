@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IPlateDAO">
+	<resultMap id="plate_DB_Result" type="plate">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="pic" property="pic" />
+		<result column="site_code" property="siteCode" />
+		<result column="updater" property="updater" />
+		
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="name != null and name != '' ">
+		        AND t.name = #{name}
+			</if>
+			<if test="siteCode != null and siteCode != '' ">
+		        AND t.site_code = #{siteCode}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_plate" parameterType="plate" resultMap="plate_DB_Result">
+		SELECT
+		code
+		,name
+		,pic
+		,site_code
+		,updater
+		
+		,update_datetime
+		,remark
+		FROM
+		tforum_plate t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_plate_count" parameterType="plate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_plate t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_plate" parameterType="plate">
+		INSERT INTO
+		tforum_plate(
+		code
+		,name
+		,pic
+		,site_code
+		,updater
+		
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{pic}
+		,#{siteCode}
+		,#{updater}
+		
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+	
+	<delete id="delete_plate" parameterType="plate">
+		DELETE FROM
+		tforum_plate
+		WHERE
+		code = #{code}
+	</delete>
+	
+	<update id="update_plate" parameterType="plate">
+		UPDATE tforum_plate
+		SET
+		name = #{name}
+		,pic = #{pic}
+		,site_code = #{siteCode}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark= #{remark}
+		WHERE code = #{code}
+	</update>
+</mapper>
