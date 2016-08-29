@@ -10,4 +10,23 @@
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+	<!-- 分页BO层注入paginableDao -->
+	<bean id="siteBO" class="com.std.forum.bo.impl.SiteBOImpl">
+		<property name="paginableDAO" ref="siteDAOImpl" />
+	</bean>
+	<bean id="plateBO" class="com.std.forum.bo.impl.PlateBOImpl">
+		<property name="paginableDAO" ref="plateDAOImpl" />
+	</bean>
+	<bean id="postBO" class="com.std.forum.bo.impl.PostBOImpl">
+		<property name="paginableDAO" ref="postDAOImpl" />
+	</bean>
+	<bean id="postTalkBO" class="com.std.forum.bo.impl.PostTalkBOImpl">
+		<property name="paginableDAO" ref="siteDAOImpl" />
+	</bean>
+	<bean id="commentBO" class="com.std.forum.bo.impl.CommentBOImpl">
+		<property name="paginableDAO" ref="commentDAOImpl" />
+	</bean>
+	<bean id="keywordBO" class="com.std.forum.bo.impl.KeywordBOImpl">
+		<property name="paginableDAO" ref="keywordDAOImpl" />
+	</bean>
 </beans>
