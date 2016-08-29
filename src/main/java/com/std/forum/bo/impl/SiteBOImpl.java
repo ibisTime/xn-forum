@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.ISiteBO;
 import com.std.forum.bo.base.PaginableBOImpl;
@@ -25,6 +26,7 @@ import com.std.forum.enums.EPrefixCode;
  * @since: 2016年8月29日 下午1:26:58 
  * @history:
  */
+@Component
 public class SiteBOImpl extends PaginableBOImpl<Site> implements ISiteBO {
     @Autowired
     private ISiteDAO siteDAO;

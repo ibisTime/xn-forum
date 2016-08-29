@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.base.PaginableBOImpl;
@@ -25,6 +26,7 @@ import com.std.forum.enums.EPrefixCode;
  * @since: 2016年8月29日 下午1:28:00 
  * @history:
  */
+@Component
 public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
 
     @Autowired
