@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IPostTalkDAO">
+	<resultMap id="postTalk_DB_Result" type="postTalk">
+		<result column="code" property="code" />
+		<result column="type" property="type" />
+		<result column="post_code" property="postCode" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="type != null and type != '' ">
+		        AND t.type = #{type}
+			</if>
+			<if test="postCode != null and postCode != '' ">
+		        AND t.post_code = #{postCode}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_postTalk" parameterType="postTalk" resultMap="postTalk_DB_Result">
+		SELECT
+		code
+		,type
+		,post_code
+		,updater
+		,update_datetime
+		FROM
+		tforum_post_talk t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_postTalk_count" parameterType="postTalk"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_post_talk t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_postTalk" parameterType="postTalk">
+		INSERT INTO
+		tforum_post_talk(
+		code
+		,type
+		,post_code
+		,updater
+		,update_datetime
+		)
+		VALUES(
+		#{code}
+		,#{type}
+		,#{postCode}
+		,#{updater}
+		,#{updateDatetime}
+		)
+	</insert>
+	
+	<delete id="delete_postTalk" parameterType="postTalk">
+		DELETE FROM
+		tforum_post_talk
+		WHERE
+		code = #{code}
+	</delete>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.ICommentDAO">
+	<resultMap id="comment_DB_Result" type="comment">
+		<result column="code" property="code" />
+		<result column="content" property="content" />
+		<result column="parent_code" property="parentCode" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="parentCode != null and parentCode != '' ">
+		        AND t.parent_code = #{parentCode}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_comment" parameterType="comment" resultMap="comment_DB_Result">
+		SELECT
+		code
+		,content
+		,parent_code
+		,updater
+		,update_datetime
+		FROM
+		tforum_comment t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_comment_count" parameterType="comment"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_comment t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_comment" parameterType="comment">
+		INSERT INTO
+		tforum_comment(
+		code
+		,content
+		,parent_code
+		,updater
+		,update_datetime
+		)
+		VALUES(
+		#{code}
+		,#{content}
+		,#{parentCode}
+		,#{updater}
+		,#{updateDatetime}
+		)
+	</insert>
+	
+	<delete id="delete_comment" parameterType="comment">
+		DELETE FROM
+		tforum_comment
+		WHERE
+		code = #{code}
+	</delete>
+</mapper>

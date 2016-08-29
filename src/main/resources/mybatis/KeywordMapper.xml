@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IKeywordDAO">
+	<resultMap id="keyword_DB_Result" type="keyword">
+		<result column="code" property="code" />
+		<result column="word" property="word" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="word != null and word != '' ">
+		        AND t.word like "%"#{word}"%"
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_keyword" parameterType="keyword" resultMap="keyword_DB_Result">
+		SELECT
+		code
+		,word
+		FROM
+		tforum_keyword t
+		<include refid="where_condition" />
+		ORDER BY t.code DESC	
+	</select>
+
+	<select id="select_keyword_count" parameterType="keyword"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_keyword t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_keyword" parameterType="keyword">
+		INSERT INTO
+		tforum_keyword(
+		code
+		,word
+		)
+		VALUES(
+		#{code}
+		,#{word}
+		)
+	</insert>
+	
+	<delete id="delete_keyword" parameterType="keyword">
+		DELETE FROM
+		tforum_keyword
+		WHERE
+		code = #{code}
+	</delete>
+	
+	<update id="update_keyword" parameterType="keyword">
+		UPDATE tforum_keyword
+		SET
+		word = #{word}
+		WHERE code = #{code}
+	</update>
+</mapper>

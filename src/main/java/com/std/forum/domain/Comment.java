@@ -10,13 +10,20 @@ package com.std.forum.domain;
 
 import java.util.Date;
 
+import com.std.forum.dao.base.ABaseDO;
+
 /** 
  * 评论
  * @author: xieyj 
  * @since: 2016年8月28日 下午8:27:47 
  * @history:
  */
-public class Comment {
+public class Comment extends ABaseDO {
+    /** 
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+     */
+    private static final long serialVersionUID = 1L;
+
     // 编号
     private String code;
 

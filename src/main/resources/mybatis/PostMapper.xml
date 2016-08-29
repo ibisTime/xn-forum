@@ -109,7 +109,12 @@
 		,pic
 		,is_report
 		
+		,is_headline
+		,is_top
+		,is_essence
+		,read_time
 		,status
+		
 		,publisher
 		,publish_datetime
 		)
@@ -120,9 +125,14 @@
 		,#{pic}
 		,#{isReport}
 		
+		,#{isHeadline}
+		,#{isTop}
+		,#{isEssence}
+		,#{readTime}
 		,#{status}
 		,#{publisher}
-		,#{publish_datetime}
+		
+		,#{publishDatetime}
 		)
 	</insert>
 	
@@ -149,7 +159,7 @@
 		SET
 		approver = #{approver}
 		,approve_datetime = #{approveDatetime}
-		,approve_note = #{approve_note}
+		,approve_note = #{approveNote}
 		,status = #{status}
 		WHERE code = #{code}
 	</update>

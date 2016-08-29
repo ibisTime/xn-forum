@@ -81,6 +81,13 @@ public class Post extends ABaseDO {
     // 板块编号
     private String plateCode;
 
+    // *****************db properties ********************
+    // 发布时间起
+    private Date publishDatetimeStart;
+
+    // 发布时间止
+    private Date publishDatetimeEnd;
+
     public String getCode() {
         return code;
     }
@@ -231,5 +238,21 @@ public class Post extends ABaseDO {
 
     public void setPlateCode(String plateCode) {
         this.plateCode = plateCode;
+    }
+
+    public Date getPublishDatetimeStart() {
+        return publishDatetimeStart;
+    }
+
+    public void setPublishDatetimeStart(Date publishDatetimeStart) {
+        this.publishDatetimeStart = publishDatetimeStart;
+    }
+
+    public Date getPublishDatetimeEnd() {
+        return publishDatetimeEnd;
+    }
+
+    public void setPublishDatetimeEnd(Date publishDatetimeEnd) {
+        this.publishDatetimeEnd = publishDatetimeEnd;
     }
 }
