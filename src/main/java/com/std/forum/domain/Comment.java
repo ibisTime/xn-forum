@@ -39,6 +39,9 @@ public class Comment extends ABaseDO {
     // 操作时间
     private Date updateDatetime;
 
+    // ****************db properties ***************
+    private String parentUpdater;
+
     public String getCode() {
         return code;
     }
@@ -77,5 +80,13 @@ public class Comment extends ABaseDO {
 
     public void setUpdateDatetime(Date updateDatetime) {
         this.updateDatetime = updateDatetime;
+    }
+
+    public String getParentUpdater() {
+        return parentUpdater;
+    }
+
+    public void setParentUpdater(String parentUpdater) {
+        this.parentUpdater = parentUpdater;
     }
 }

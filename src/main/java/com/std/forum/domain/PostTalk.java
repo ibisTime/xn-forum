@@ -39,6 +39,9 @@ public class PostTalk extends ABaseDO {
     // 操作时间
     private Date updateDatetime;
 
+    // 帖子信息
+    private Post post;
+
     public String getCode() {
         return code;
     }
@@ -77,5 +80,13 @@ public class PostTalk extends ABaseDO {
 
     public void setUpdateDatetime(Date updateDatetime) {
         this.updateDatetime = updateDatetime;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

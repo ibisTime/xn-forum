@@ -20,6 +20,9 @@
 			<if test="postCode != null and postCode != '' ">
 		        AND t.post_code = #{postCode}
 			</if>
+			<if test="updater != null and updater != '' ">
+		        AND t.updater = #{updater}
+			</if>
 		</trim>
 	</sql>
 	
@@ -35,13 +38,13 @@
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>
-
+	
 	<select id="select_postTalk_count" parameterType="postTalk"
 		resultType="java.lang.Long">
 		SELECT count(1) FROM tforum_post_talk t
 		<include refid="where_condition" />
 	</select>
-
+	
 	<insert id="insert_postTalk" parameterType="postTalk">
 		INSERT INTO
 		tforum_post_talk(
