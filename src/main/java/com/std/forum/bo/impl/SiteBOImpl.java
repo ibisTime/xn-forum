@@ -20,6 +20,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.dao.ISiteDAO;
 import com.std.forum.domain.Site;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.exception.BizException;
 
 /** 
  * @author: xieyj 
@@ -30,6 +31,19 @@ import com.std.forum.enums.EPrefixCode;
 public class SiteBOImpl extends PaginableBOImpl<Site> implements ISiteBO {
     @Autowired
     private ISiteDAO siteDAO;
+
+    /** 
+     * @see com.std.forum.bo.ISiteBO#isExistSite(java.lang.String)
+     */
+    @Override
+    public void isExistSite(String name) {
+        Site condition = new Site();
+        condition.setName(name);
+        long count = siteDAO.selectTotalCount(condition);
+        if (count > 0) {
+            throw new BizException("xn000000", "该站点名称已存在");
+        }
+    }
 
     /** 
      * @see com.std.forum.bo.ISiteBO#saveSite(com.std.forum.domain.Site)

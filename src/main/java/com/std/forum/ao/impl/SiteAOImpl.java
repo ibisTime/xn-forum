@@ -33,6 +33,7 @@ public class SiteAOImpl implements ISiteAO {
      */
     @Override
     public String addSite(Site data) {
+        siteBO.isExistSite(data.getName());
         return siteBO.saveSite(data);
     }
 

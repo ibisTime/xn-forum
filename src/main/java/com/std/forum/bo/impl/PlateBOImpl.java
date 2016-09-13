@@ -20,6 +20,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.dao.IPlateDAO;
 import com.std.forum.domain.Plate;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.exception.BizException;
 
 /** 
  * @author: xieyj 
@@ -31,6 +32,20 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
 
     @Autowired
     private IPlateDAO plateDAO;
+
+    /** 
+     * @see com.std.forum.bo.IPlateBO#isExistPlate(java.lang.String)
+     */
+    @Override
+    public void isExistPlate(String name, String siteCode) {
+        Plate condition = new Plate();
+        condition.setName(name);
+        condition.setSiteCode(siteCode);
+        long count = plateDAO.selectTotalCount(condition);
+        if (count > 0) {
+            throw new BizException("xn000000", "该站点下板块名称已存在");
+        }
+    }
 
     /** 
      * @see com.std.forum.bo.IPlateBO#savePlate(com.std.forum.domain.Plate)

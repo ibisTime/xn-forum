@@ -21,6 +21,15 @@ import com.std.forum.domain.Plate;
  */
 public interface IPlateBO extends IPaginableBO<Plate> {
 
+    /**
+     * 判断名称是否存在
+     * @param name
+     * @param siteCode
+     * @create: 2016年9月8日 下午4:05:29 xieyj
+     * @history:
+     */
+    public void isExistPlate(String name, String siteCode);
+
     public String savePlate(Plate data);
 
     public int refreshPlate(Plate data);

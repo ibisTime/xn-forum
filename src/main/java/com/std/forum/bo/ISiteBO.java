@@ -21,6 +21,8 @@ import com.std.forum.domain.Site;
  */
 public interface ISiteBO extends IPaginableBO<Site> {
 
+    public void isExistSite(String name);
+
     public String saveSite(Site data);
 
     public int refreshSite(Site data);
