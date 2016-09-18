@@ -1,87 +1,42 @@
 package com.std.forum.api.impl;
 
+import com.std.forum.ao.ISiteAO;
+import com.std.forum.api.AProcessor;
+import com.std.forum.api.converter.SiteConverter;
+import com.std.forum.common.JsonUtil;
+import com.std.forum.core.StringValidater;
+import com.std.forum.domain.Site;
+import com.std.forum.dto.req.XN610000Req;
+import com.std.forum.dto.res.PKCodeRes;
+import com.std.forum.exception.BizException;
+import com.std.forum.exception.ParaException;
+import com.std.forum.spring.SpringContextHolder;
+
 /** 
  * 站点新增
  * @author: xieyj 
  * @since: 2016年8月29日 下午2:38:43 
  * @history:
  */
-public class XN610000 {
+public class XN610000 extends AProcessor {
 
-    // 名称(必填)
-    private String name;
+    private ISiteAO siteAO = SpringContextHolder.getBean(ISiteAO.class);
 
-    // 负责人(必填)
-    private String leader;
+    private XN610000Req req = null;
 
-    // 联系电话(必填)
-    private String contacts;
-
-    // 地区(必填)
-    private String address;
-
-    // 是否推荐(必填)
-    private String isHot;
-
-    // 更新人(必填)
-    private String updater;
-
-    // 备注(选填)
-    private String remark;
-
-    public String getName() {
-        return name;
+    @Override
+    public Object doBusiness() throws BizException {
+        Site data = SiteConverter.converter(req);
+        return new PKCodeRes(siteAO.addSite(data));
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLeader() {
-        return leader;
-    }
-
-    public void setLeader(String leader) {
-        this.leader = leader;
-    }
-
-    public String getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getIsHot() {
-        return isHot;
-    }
-
-    public void setIsHot(String isHot) {
-        this.isHot = isHot;
-    }
-
-    public String getUpdater() {
-        return updater;
-    }
-
-    public void setUpdater(String updater) {
-        this.updater = updater;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
+    @Override
+    public void doCheck(String inputparams) throws ParaException {
+        req = JsonUtil.json2Bean(inputparams, XN610000Req.class);
+        StringValidater.validateBlank(req.getName(), req.getLongitude(),
+            req.getLatitude(), req.getUserId(), req.getPriority(),
+            req.getDomain(), req.getLogo(), req.getAddress(),
+            req.getTelephone(), req.getDescription(), req.getEmail(),
+            req.getQrCode());
     }
 }

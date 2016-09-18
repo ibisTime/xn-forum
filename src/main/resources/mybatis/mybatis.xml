@@ -3,11 +3,12 @@
 <configuration>
 	<typeAliases>		
 		<typeAlias alias="site" type="com.std.forum.domain.Site" />
+		<typeAlias alias="navigate" type="com.std.forum.domain.Navigate" />
 		<typeAlias alias="plate" type="com.std.forum.domain.Plate" />
 		<typeAlias alias="post" type="com.std.forum.domain.Post" />
 		<typeAlias alias="postTalk" type="com.std.forum.domain.PostTalk" />
-		<typeAlias alias="comment" type="com.std.forum.domain.Comment" />
 		
+		<typeAlias alias="comment" type="com.std.forum.domain.Comment" />
 		<typeAlias alias="keyword" type="com.std.forum.domain.Keyword" />
 	</typeAliases>
 </configuration>	

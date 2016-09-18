@@ -8,25 +8,43 @@ package com.std.forum.dto.req;
  */
 public class XN610000Req {
 
-    // 名称(必填)
+    // 站点名称
     private String name;
 
-    // 负责人(必填)
-    private String leader;
+    // 经度区间
+    private String longitude;
 
-    // 联系电话(必填)
-    private String contacts;
+    // 纬度区间
+    private String latitude;
 
-    // 地区(必填)
+    // 负责人编号
+    private String userId;
+
+    // 优先级( 0 不启用 1 正常 2 推荐）
+    private String priority;
+
+    // 域名(预留)
+    private String domain;
+
+    // logo(预留)
+    private String logo;
+
+    // 地址(预留)
     private String address;
 
-    // 是否推荐(必填)
-    private String isHot;
+    // 电话(预留)
+    private String telephone;
 
-    // 更新人(必填)
-    private String updater;
+    // 简介(预留)
+    private String description;
 
-    // 备注(选填)
+    // 邮箱(预留)
+    private String email;
+
+    // 二维码(预留)
+    private String qrCode;
+
+    // 备注
     private String remark;
 
     public String getName() {
@@ -37,20 +55,52 @@ public class XN610000Req {
         this.name = name;
     }
 
-    public String getLeader() {
-        return leader;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLeader(String leader) {
-        this.leader = leader;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getContacts() {
-        return contacts;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getAddress() {
@@ -61,20 +111,36 @@ public class XN610000Req {
         this.address = address;
     }
 
-    public String getIsHot() {
-        return isHot;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setIsHot(String isHot) {
-        this.isHot = isHot;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getUpdater() {
-        return updater;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUpdater(String updater) {
-        this.updater = updater;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getRemark() {

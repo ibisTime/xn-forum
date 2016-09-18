@@ -5,13 +5,20 @@
 	<resultMap id="site_DB_Result" type="site">
 		<result column="code" property="code" />
 		<result column="name" property="name" />
-		<result column="leader" property="leader" />
-		<result column="contacts" property="contacts" />
+		<result column="longitude" property="longitude" />
+		<result column="latitude" property="latitude" />
+		<result column="user_id" property="userId" />
+
+		<result column="priority" property="priority" />
+		<result column="is_default" property="isDefault" />
+		<result column="domain" property="domain" />
+		<result column="logo" property="logo" />
 		<result column="address" property="address" />
-		
-		<result column="is_hot" property="isHot" />
-		<result column="updater" property="updater" />
-		<result column="update_datetime" property="updateDatetime" />
+
+		<result column="telephone" property="telephone" />
+		<result column="description" property="description" />
+		<result column="email" property="email" />
+		<result column="qr_code" property="qrCode" />
 		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
@@ -20,91 +27,132 @@
 				AND t.code = #{code}
 			</if>
 			<if test="name != null and name != '' ">
-		        AND t.name = #{name}
+				AND t.name = #{name}
 			</if>
-			<if test="leader != null and leader != '' ">
-		        AND t.leader = #{leader}
+			<if test="nameForQuery != null and nameForQuery != '' ">
+				AND t.name like "%"#{nameForQuery}"%"
 			</if>
-			<if test="address != null and address != '' ">
-		        AND t.address = #{address}
+			<if test="userId != null and userId != '' ">
+				AND t.user_id = #{userId}
 			</if>
-			<if test="isHot != null and isHot != '' ">
-		        AND t.is_hot = #{isHot}
+			<if test="priority != null and priority != '' ">
+				AND t.priority = #{priority}
+			</if>
+			<if test="isDefault != null and isDefault != '' ">
+				AND t.is_default = #{isDefault}
 			</if>
 		</trim>
 	</sql>
-	
 	<select id="select_site" parameterType="site" resultMap="site_DB_Result">
 		SELECT
 		code
 		,name
-		,leader
-		,contacts
+		,longitude
+		,latitude
+		,user_id
+
+		,priority
+		,is_default
+		,domain
+		,logo
 		,address
-		
-		,is_hot
-		,updater
-		,update_datetime
+
+		,telephone
+		,description
+		,email
+		,qr_code
 		,remark
 		FROM
-		tforum_site t
+		site t
 		<include refid="where_condition" />
-		ORDER BY t.code DESC	
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				${order}
+			</if>
+		</trim>
 	</select>
 
-	<select id="select_site_count" parameterType="site"
-		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_site t
+	<select id="select_site_count" parameterType="site" resultType="java.lang.Long">
+		SELECT count(1) FROM site t
 		<include refid="where_condition" />
 	</select>
 
 	<insert id="insert_site" parameterType="site">
-		INSERT INTO
-		tforum_site(
+		INSERT INTO site(
 		code
 		,name
-		,leader
-		,contacts
+		,longitude
+		,latitude
+		,user_id
+
+		,priority
+		,is_default
+		,domain
+		,logo
 		,address
-		
-		,is_hot
-		,updater
-		,update_datetime
+
+		,telephone
+		,description
+		,email
+		,qr_code
 		,remark
 		)
 		VALUES(
 		#{code}
 		,#{name}
-		,#{leader}
-		,#{contacts}
+		,#{longitude}
+		,#{latitude}
+		,#{userId}
+
+		,#{priority}
+		,#{isDefault}
+		,#{domain}
+		,#{logo}
 		,#{address}
-		
-		,#{isHot}
-		,#{updater}
-		,#{updateDatetime}
+
+		,#{telephone}
+		,#{description}
+		,#{email}
+		,#{qrCode}
 		,#{remark}
 		)
 	</insert>
-	
-	<delete id="delete_site" parameterType="site">
-		DELETE FROM
-		tforum_site
+
+	<update id="update_site" parameterType="site">
+		UPDATE site
+		SET
+		name=#{name}
+		,longitude=#{longitude}
+		,latitude=#{latitude}
+		,user_id=#{userId}
+		,priority=#{priority}
+
+		,domain=#{domain}
+		,logo=#{logo}
+		,address=#{address}
+		,telephone=#{telephone}
+		,description=#{description}
+
+		,email=#{email}
+		,qr_code=#{qrCode}
+		,remark=#{remark}
 		WHERE
 		code = #{code}
-	</delete>
-	
-	<update id="update_site" parameterType="site">
-		UPDATE tforum_site
+	</update>
+
+	<update id="update_siteDef" parameterType="site">
+		UPDATE site
 		SET
-		name = #{name}
-		,leader = #{leader}
-		,contacts = #{contacts}
-		,address = #{address}
-		,is_hot = #{isHot}
-		
-		,updater = #{updater}
-		,update_datetime = #{updateDatetime}
-		,remark= #{remark}
-		WHERE code = #{code}
+		is_default=#{isDefault}
+		WHERE
+		code = #{code}
+	</update>
+
+	<update id="update_sitePri" parameterType="site">
+		UPDATE site
+		SET
+		priority=#{priority}
+		WHERE
+		code = #{code}
 	</update>
 </mapper>

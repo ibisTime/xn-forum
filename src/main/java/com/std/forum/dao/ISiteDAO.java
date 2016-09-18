@@ -25,4 +25,22 @@ public interface ISiteDAO extends IBaseDAO<Site> {
      */
     public int update(Site data);
 
+    /** 
+     * 更新站点是否默认
+     * @param data
+     * @return 
+     * @create: 2016年9月13日 下午3:02:08 zuixian
+     * @history: 
+     */
+    public int updateDef(Site data);
+
+    /** 
+     * 禁用站点
+     * @param data
+     * @return 
+     * @create: 2016年9月13日 下午2:57:13 zuixian
+     * @history: 
+     */
+    public int updatePri(Site data);
+
 }

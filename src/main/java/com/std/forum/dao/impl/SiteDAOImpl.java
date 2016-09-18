@@ -17,71 +17,60 @@ import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.Site;
 
 /** 
- * @author: xieyj 
- * @since: 2016年8月28日 下午9:35:51 
- * @history:
+ * @author: zuixian 
+ * @since: 2016年9月13日 下午3:03:38 
+ * @history: xieyj 2016年8月28日 下午9:35:51
  */
 @Repository("siteDAOImpl")
 public class SiteDAOImpl extends AMybatisTemplate implements ISiteDAO {
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#insert(java.lang.Object)
-     */
     @Override
     public int insert(Site data) {
         return super.insert(NAMESPACE.concat("insert_site"), data);
     }
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#delete(java.lang.Object)
-     */
     @Override
     public int delete(Site data) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#select(java.lang.Object)
-     */
     @Override
     public Site select(Site condition) {
-        return (Site) super.select(NAMESPACE.concat("select_site"), condition,
+        return super.select(NAMESPACE.concat("select_site"), condition,
             Site.class);
     }
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
-     */
     @Override
     public long selectTotalCount(Site condition) {
         return super.selectTotalCount(NAMESPACE.concat("select_site_count"),
             condition);
     }
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#selectList(java.lang.Object)
-     */
     @Override
     public List<Site> selectList(Site condition) {
         return super.selectList(NAMESPACE.concat("select_site"), condition,
             Site.class);
     }
 
-    /** 
-     * @see com.std.forum.dao.base.IBaseDAO#selectList(java.lang.Object, int, int)
-     */
     @Override
     public List<Site> selectList(Site condition, int start, int count) {
         return super.selectList(NAMESPACE.concat("select_site"), start, count,
             condition, Site.class);
     }
 
-    /** 
-     * @see com.std.forum.dao.ISiteDAO#update(com.std.forum.domain.Site)
-     */
     @Override
     public int update(Site data) {
-        return super.update(NAMESPACE.concat("update_site"), data);
+        return super.update("update_site", data);
+    }
+
+    @Override
+    public int updateDef(Site data) {
+        return super.update("update_siteDef", data);
+    }
+
+    @Override
+    public int updatePri(Site data) {
+        return super.update("update_sitePri", data);
     }
 }

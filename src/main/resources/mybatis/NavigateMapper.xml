@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.INavigateDAO">
+	<resultMap id="navigate_DB_Result" type="navigate">
+		<result column="code" property="code" />
+		<result column="url" property="url" />
+		<result column="pic" property="pic" />
+		<result column="title" property="title" />
+		<result column="status" property="status" />
+		
+		<result column="type" property="type" />
+		<result column="is_global" property="isGlobal" />
+		<result column="order_no" property="orderNo" />
+		<result column="parent_code" property="parentCode" />
+		<result column="site_code" property="siteCode" />
+		
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="title != null and title != '' ">
+				AND t.title = #{title}
+			</if>
+			<if test="titleForQuery != null and titleForQuery != '' ">
+				AND t.title like "%"#{titleForQuery}"%"
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+			<if test="type != null and type != '' ">
+				AND t.type = #{type}
+			</if>
+			<if test="isGlobal != null and isGlobal != '' ">
+				AND t.is_global = #{isGlobal}
+			</if>
+			<if test="parentCode != null and parentCode != '' ">
+				AND t.parent_code = #{parentCode}
+			</if>
+			<if test="siteCode != null and siteCode != '' ">
+				AND t.site_code = #{siteCode}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_navigate" parameterType="navigate" resultMap="navigate_DB_Result">
+		SELECT
+		code
+		,url
+		,pic
+		,title
+		,status
+		
+		,type
+		,is_global
+		,order_no
+		,parent_code
+		,site_code
+		
+		,remark
+		FROM
+		navigate t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_navigate_count" parameterType="navigate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM navigate t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_navigate" parameterType="navigate">
+		INSERT INTO
+		navigate(
+		code
+		,url
+		,pic
+		,title
+		,status
+		
+		,type
+		,is_global
+		,order_no
+		,parent_code
+		,site_code
+		
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{url}
+		,#{pic}
+		,#{title}
+		,#{status}
+		
+		,#{type}
+		,#{isGlobal}
+		,#{orderNo}
+		,#{parentCode}
+		,#{siteCode}
+		
+		,#{remark}
+		)
+	</insert>
+	
+	<delete id="delete_navigate" parameterType="navigate">
+		DELETE FROM
+		navigate
+		WHERE
+		code = #{code}
+	</delete>
+	
+	<update id="update_navigate" parameterType="navigate">
+		UPDATE navigate
+		SET
+		url=#{url}
+		,pic=#{pic}
+		,title=#{title}
+		,status=#{status}
+		,type=#{type}
+
+		,order_no=#{orderNo}
+		,parent_code=#{parentCode}
+		,remark=#{remark}
+		WHERE
+		code = #{code}
+	</update>
+	
+</mapper>
