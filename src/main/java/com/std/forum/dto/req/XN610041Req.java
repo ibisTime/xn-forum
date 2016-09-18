@@ -6,24 +6,19 @@ package com.std.forum.dto.req;
  * @since: 2016年8月29日 下午2:38:43 
  * @history:
  */
-public class XN710011Req {
+public class XN610041Req {
+
     // 编号(必填)
     private String code;
 
     // 名称(必填)
     private String name;
 
-    // 负责人(必填)
-    private String leader;
+    // 图片(必填)
+    private String pic;
 
-    // 联系电话(必填)
-    private String contacts;
-
-    // 地区(必填)
-    private String address;
-
-    // 是否推荐(必填)
-    private String isHot;
+    // 所属站点(必填)
+    private String siteCode;
 
     // 更新人(必填)
     private String updater;
@@ -47,36 +42,20 @@ public class XN710011Req {
         this.name = name;
     }
 
-    public String getLeader() {
-        return leader;
+    public String getPic() {
+        return pic;
     }
 
-    public void setLeader(String leader) {
-        this.leader = leader;
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
-    public String getContacts() {
-        return contacts;
+    public String getSiteCode() {
+        return siteCode;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getIsHot() {
-        return isHot;
-    }
-
-    public void setIsHot(String isHot) {
-        this.isHot = isHot;
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 
     public String getUpdater() {

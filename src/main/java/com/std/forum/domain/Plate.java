@@ -46,6 +46,10 @@ public class Plate extends ABaseDO {
     // 备注
     private String remark;
 
+    // ********** db properties ***********
+
+    private String nameForQuery;
+
     public String getCode() {
         return code;
     }
@@ -100,5 +104,13 @@ public class Plate extends ABaseDO {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getNameForQuery() {
+        return nameForQuery;
+    }
+
+    public void setNameForQuery(String nameForQuery) {
+        this.nameForQuery = nameForQuery;
     }
 }

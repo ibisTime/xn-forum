@@ -20,6 +20,9 @@
 			<if test="name != null and name != '' ">
 		        AND t.name = #{name}
 			</if>
+			<if test="nameForQuery != null and nameForQuery != '' ">
+		        AND t.name like "%"#{nameForQuery}"%"
+			</if>
 			<if test="siteCode != null and siteCode != '' ">
 		        AND t.site_code = #{siteCode}
 			</if>

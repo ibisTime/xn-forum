@@ -63,7 +63,7 @@
 		,qr_code
 		,remark
 		FROM
-		site t
+		tforum_site t
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -73,12 +73,12 @@
 	</select>
 
 	<select id="select_site_count" parameterType="site" resultType="java.lang.Long">
-		SELECT count(1) FROM site t
+		SELECT count(1) FROM tforum_site t
 		<include refid="where_condition" />
 	</select>
 
 	<insert id="insert_site" parameterType="site">
-		INSERT INTO site(
+		INSERT INTO tforum_site(
 		code
 		,name
 		,longitude
@@ -119,7 +119,7 @@
 	</insert>
 
 	<update id="update_site" parameterType="site">
-		UPDATE site
+		UPDATE tforum_site
 		SET
 		name=#{name}
 		,longitude=#{longitude}
@@ -141,7 +141,7 @@
 	</update>
 
 	<update id="update_siteDef" parameterType="site">
-		UPDATE site
+		UPDATE tforum_site
 		SET
 		is_default=#{isDefault}
 		WHERE
@@ -149,7 +149,7 @@
 	</update>
 
 	<update id="update_sitePri" parameterType="site">
-		UPDATE site
+		UPDATE tforum_site
 		SET
 		priority=#{priority}
 		WHERE

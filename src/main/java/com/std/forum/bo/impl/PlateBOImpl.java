@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPlateDAO;
 import com.std.forum.domain.Plate;
 import com.std.forum.enums.EPrefixCode;
@@ -54,7 +55,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
     public String savePlate(Plate data) {
         String code = null;
         if (data != null) {
-            code = EPrefixCode.PLATE.getCode();
+            code = OrderNoGenerater.generate(EPrefixCode.PLATE.getCode());
             data.setCode(code);
             data.setUpdateDatetime(new Date());
             plateDAO.insert(data);

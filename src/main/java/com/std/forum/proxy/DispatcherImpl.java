@@ -1,12 +1,6 @@
 package com.std.forum.proxy;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.std.forum.api.IProcessor;
-import com.std.forum.common.ConfigDescribe;
-import com.std.forum.common.ConfigLoader;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.common.ReflectUtil;
 import com.std.forum.enums.EErrorCode;
@@ -21,14 +15,16 @@ public class DispatcherImpl implements IDispatcher {
         ReturnMessage rm = new ReturnMessage();
         try {
             // 加载配置文件,proxy实例化
-            String classname = "com.std.user.api.impl.XNOther";
-            ConfigDescribe configDescribe = ConfigLoader.loadConfig();
-            if (StringUtils.isNotBlank(transcode) && configDescribe != null) {
-                List<String> codeList = configDescribe.getCodeList();
-                if (codeList.contains(transcode)) {
-                    classname = "com.std.user.api.impl.XN" + transcode;
-                }
-            }
+            String classname = "com.std.forum.api.impl.XNOther";
+            // ConfigDescribe configDescribe = ConfigLoader.loadConfig();
+            // if (StringUtils.isNotBlank(transcode) && configDescribe != null)
+            // {
+            // List<String> codeList = configDescribe.getCodeList();
+            // if (codeList.contains(transcode)) {
+            // classname = "com.std.forum.api.impl.XN" + transcode;
+            // }
+            // }
+            classname = "com.std.forum.api.impl.XN" + transcode;
             IProcessor processor = (IProcessor) ReflectUtil
                 .getInstance(classname);
             // 接口调用

@@ -62,7 +62,7 @@
 		
 		,remark
 		FROM
-		navigate t
+		tforum_navigate t
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -73,13 +73,13 @@
 
 	<select id="select_navigate_count" parameterType="navigate"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM navigate t
+		SELECT count(1) FROM tforum_navigate t
 		<include refid="where_condition" />
 	</select>
 
 	<insert id="insert_navigate" parameterType="navigate">
 		INSERT INTO
-		navigate(
+		tforum_navigate(
 		code
 		,url
 		,pic
@@ -113,13 +113,13 @@
 	
 	<delete id="delete_navigate" parameterType="navigate">
 		DELETE FROM
-		navigate
+		tforum_navigate
 		WHERE
 		code = #{code}
 	</delete>
 	
 	<update id="update_navigate" parameterType="navigate">
-		UPDATE navigate
+		UPDATE tforum_navigate
 		SET
 		url=#{url}
 		,pic=#{pic}
