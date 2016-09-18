@@ -31,7 +31,11 @@ public class DispatcherImpl implements IDispatcher {
             Object data = processor.doProcessor(inputParams);
             rm.setErrorCode(EErrorCode.SUCCESS.getCode());
             rm.setErrorInfo(EErrorCode.SUCCESS.getValue());
-            rm.setData(data);
+            if (data == null) {
+                rm.setData("");
+            } else {
+                rm.setData(data);
+            }
         } catch (Exception e) {
             if (e instanceof BizException) {
                 rm.setErrorCode(EErrorCode.BIZ_ERR.getCode());
