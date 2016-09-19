@@ -6,8 +6,8 @@
 		<result column="code" property="code" />
 		<result column="content" property="content" />
 		<result column="parent_code" property="parentCode" />
-		<result column="updater" property="updater" />
-		<result column="update_datetime" property="updateDatetime" />
+		<result column="commer" property="commer" />
+		<result column="comm_datetime" property="commDatetime" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -25,8 +25,8 @@
 		code
 		,content
 		,parent_code
-		,updater
-		,update_datetime
+		,commer
+		,comm_datetime
 		FROM
 		tforum_comment t
 		<include refid="where_condition" />
@@ -45,15 +45,15 @@
 		code
 		,content
 		,parent_code
-		,updater
-		,update_datetime
+		,commer
+		,comm_datetime
 		)
 		VALUES(
 		#{code}
 		,#{content}
 		,#{parentCode}
-		,#{updater}
-		,#{updateDatetime}
+		,#{commer}
+		,#{commDatetime}
 		)
 	</insert>
 	

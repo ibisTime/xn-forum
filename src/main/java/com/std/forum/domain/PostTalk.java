@@ -34,10 +34,10 @@ public class PostTalk extends ABaseDO {
     private String postCode;
 
     // 操作人
-    private String updater;
+    private String talker;
 
     // 操作时间
-    private Date updateDatetime;
+    private Date talkDatetime;
 
     // 帖子信息
     private Post post;
@@ -66,20 +66,20 @@ public class PostTalk extends ABaseDO {
         this.postCode = postCode;
     }
 
-    public String getUpdater() {
-        return updater;
+    public String getTalker() {
+        return talker;
     }
 
-    public void setUpdater(String updater) {
-        this.updater = updater;
+    public void setTalker(String talker) {
+        this.talker = talker;
     }
 
-    public Date getUpdateDatetime() {
-        return updateDatetime;
+    public Date getTalkDatetime() {
+        return talkDatetime;
     }
 
-    public void setUpdateDatetime(Date updateDatetime) {
-        this.updateDatetime = updateDatetime;
+    public void setTalkDatetime(Date talkDatetime) {
+        this.talkDatetime = talkDatetime;
     }
 
     public Post getPost() {

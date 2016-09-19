@@ -20,11 +20,15 @@ public interface IPostAO {
 
     public String publishPost(Post post);
 
+    public int removePostByPU(String code, String userId);
+
+    public int removePostByGL(String code);
+
     public void approvePost(Post data);
 
     public void reportPost(Post data);
 
-    public void setUpPost(Post data);
+    public int setUpPost(Post data);
 
     public void addReadTime(String code);
 

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.std.forum.ao.IPostAO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.domain.Post;
+import com.std.forum.enums.EPostStatus;
+import com.std.forum.exception.BizException;
 
 /** 
  * @author: xieyj 
@@ -30,7 +32,26 @@ public class PostAOImpl implements IPostAO {
      */
     @Override
     public String publishPost(Post data) {
+        // 将帖子状态默认为待审核
+        data.setStatus(EPostStatus.todoAPPROVE.getCode());
         return postBO.savePost(data);
+    }
+
+    @Override
+    public int removePostByPU(String code, String userId) {
+        int count = 0;
+        Post data = postBO.getPost(code);
+        if (data.getPublisher().equals(userId)) {
+            count = postBO.removePost(code);
+        } else {
+            throw new BizException("xn000000", "只能删除自己发布的帖子");
+        }
+        return count;
+    }
+
+    @Override
+    public int removePostByGL(String code) {
+        return postBO.removePost(code);
     }
 
     /** 
@@ -54,9 +75,8 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#setUpPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void setUpPost(Post data) {
-        // TODO Auto-generated method stub
-
+    public int setUpPost(Post data) {
+        return postBO.refreshPostAttr(data);
     }
 
     /** 
