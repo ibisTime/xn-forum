@@ -18,6 +18,7 @@ import com.std.forum.ao.ISiteAO;
 import com.std.forum.bo.ISiteBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Site;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.util.PinYin;
 
 /** 
@@ -113,6 +114,19 @@ public class SiteAOImpl implements ISiteAO {
     public Site getSiteByJW(Site condition) {
         Site condition1 = new Site();
         List<Site> list = siteBO.querySiteList(condition1);
+        // 设置查询默认站点条件
+        Site defaultCondition = new Site();
+        defaultCondition.setIsDefault(EBoolean.YES.getCode());
+        List<Site> defaultSitelist = siteBO.querySiteList(defaultCondition);
+        // 获取默认站点
+        Site defaultSite = defaultSitelist.get(0);
+        // 若经纬度为空，则返回默认站点
+        if (condition.getLongitude() == null
+                || condition.getLongitude().equalsIgnoreCase("")
+                || condition.getLatitude() == null
+                || condition.getLatitude().equalsIgnoreCase("")) {
+            return defaultSite;
+        }
         double lo = Double.valueOf(condition.getLongitude());
         double la = Double.valueOf(condition.getLatitude());
         for (Site site : list) {
@@ -128,7 +142,8 @@ public class SiteAOImpl implements ISiteAO {
                 }
             }
         }
-        return null;
+        // 若查询不到符合站点，则返回默认站点
+        return defaultSite;
     }
 
     @Override
