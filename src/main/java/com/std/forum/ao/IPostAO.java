@@ -24,9 +24,9 @@ public interface IPostAO {
 
     public int removePostByGL(String code);
 
-    public void approvePost(Post data);
+    public int approvePost(Post data);
 
-    public void reportPost(Post data);
+    public int reportPost(Post data);
 
     public int setUpPost(Post data);
 

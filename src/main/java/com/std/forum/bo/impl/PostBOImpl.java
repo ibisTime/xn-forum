@@ -21,6 +21,7 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
 import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 
 /** 
@@ -102,8 +103,9 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         int count = 0;
         if (data != null) {
             data.setIsReport(EBoolean.YES.getCode());
+            data.setStatus(EPostStatus.todoAPPROVE.getCode());
             data.setReportDatetime(new Date());
-            count = postDAO.updateApprove(data);
+            count = postDAO.updateReport(data);
         }
         return count;
     }

@@ -42,6 +42,9 @@ public class PostTalk extends ABaseDO {
     // 帖子信息
     private Post post;
 
+    // 打赏的金额
+    private int amount;
+
     public String getCode() {
         return code;
     }
@@ -88,5 +91,13 @@ public class PostTalk extends ABaseDO {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

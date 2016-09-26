@@ -37,15 +37,16 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
      * @see com.std.forum.bo.IPostTalkBO#savePostTalk(com.std.forum.domain.PostTalk)
      */
     @Override
-    public String savePostTalk(PostTalk data) {
-        String code = null;
+    public int savePostTalk(PostTalk data) {
+        int count = 0;
         if (data != null) {
-            code = OrderNoGenerater.generate(EPrefixCode.POSTTALK.getCode());
+            String code = OrderNoGenerater.generate(EPrefixCode.POSTTALK
+                .getCode());
             data.setCode(code);
             data.setTalkDatetime(new Date());
-            postTalkDAO.insert(data);
+            count = postTalkDAO.insert(data);
         }
-        return code;
+        return count;
     }
 
     /** 
@@ -75,13 +76,27 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
      * @see com.std.forum.bo.IPostTalkBO#getPostTalk(java.lang.String)
      */
     @Override
-    public PostTalk getPostTalk(String code) {
+    public PostTalk getPostTalk(PostTalk data) {
         PostTalk result = null;
-        if (StringUtils.isNotBlank(code)) {
+        if (StringUtils.isNotBlank(data.getPostCode())
+                && StringUtils.isNotBlank(data.getTalker())) {
             PostTalk condition = new PostTalk();
-            condition.setCode(code);
+            condition.setType(data.getType());
+            condition.setPostCode(data.getPostCode());
+            condition.setTalker(data.getTalker());
             result = postTalkDAO.select(condition);
         }
         return result;
+    }
+
+    @Override
+    public int removePostTalk(String code) {
+        int count = 0;
+        if (null != code) {
+            PostTalk data = new PostTalk();
+            data.setCode(code);
+            count = postTalkDAO.delete(data);
+        }
+        return count;
     }
 }

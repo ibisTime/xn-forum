@@ -58,17 +58,16 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#approvePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void approvePost(Post data) {
-
+    public int approvePost(Post data) {
+        return postBO.refreshPostApprove(data);
     }
 
     /** 
      * @see com.std.forum.ao.IPostAO#reportPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void reportPost(Post data) {
-        // TODO Auto-generated method stub
-
+    public int reportPost(Post data) {
+        return postBO.refreshPostReport(data);
     }
 
     /** 

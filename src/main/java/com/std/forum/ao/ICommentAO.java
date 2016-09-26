@@ -16,6 +16,8 @@ public interface ICommentAO {
 
     public String doComment(Comment data);
 
+    public int doRemoveComment(String code);
+
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);

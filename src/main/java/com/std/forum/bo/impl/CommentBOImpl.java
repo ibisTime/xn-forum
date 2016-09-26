@@ -77,4 +77,15 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
         }
         return resultList;
     }
+
+    @Override
+    public int removeComment(String code) {
+        int count = 0;
+        if (null != code) {
+            Comment data = new Comment();
+            data.setCode(code);
+            count = commentDAO.delete(data);
+        }
+        return count;
+    }
 }

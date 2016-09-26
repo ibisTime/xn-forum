@@ -23,6 +23,8 @@ public interface ICommentBO extends IPaginableBO<Comment> {
 
     public String saveComment(Comment data);
 
+    public int removeComment(String code);
+
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);

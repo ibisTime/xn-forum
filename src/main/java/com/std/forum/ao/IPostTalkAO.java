@@ -16,13 +16,22 @@ public interface IPostTalkAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
     /** 
-     * 进行【点赞/收藏/打赏】操作
+     * 进行【点赞/收藏】操作或取消【点赞/收藏】操作
      * @param data
      * @return 
      * @create: 2016年9月19日 下午2:49:22 zuixian
      * @history: 
      */
-    public String doPostTalk(PostTalk data);
+    public int doPostTalk(PostTalk data);
+
+    /** 
+     * 打赏帖子
+     * @param data
+     * @return 
+     * @create: 2016年9月26日 下午8:17:54 zuixian
+     * @history: 
+     */
+    public int doPostTalkByAmount(PostTalk data);
 
     /** 
      * 查询单一类型的记录
@@ -34,10 +43,33 @@ public interface IPostTalkAO {
      */
     public List<PostTalk> queryPostTalkSingleList(String postCode, String type);
 
+    /** 
+     * 列表查询
+     * @param condition
+     * @return 
+     * @create: 2016年9月26日 下午3:55:56 zuixian
+     * @history: 
+     */
     public List<PostTalk> queryPostTalkList(PostTalk condition);
 
+    /** 
+     * 分页查询
+     * @param start
+     * @param limit
+     * @param condition
+     * @return 
+     * @create: 2016年9月26日 下午3:56:21 zuixian
+     * @history: 
+     */
     public Paginable<PostTalk> queryPostTalkPage(int start, int limit,
             PostTalk condition);
 
-    public PostTalk getPostTalk(String code);
+    /** 
+     * 详情查询
+     * @param code
+     * @return 
+     * @create: 2016年9月26日 下午3:56:29 zuixian
+     * @history: 
+     */
+    public PostTalk getPostTalk(String postCode, String talker);
 }
