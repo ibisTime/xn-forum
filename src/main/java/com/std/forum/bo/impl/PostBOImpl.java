@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
 import com.std.forum.enums.EBoolean;
@@ -41,7 +42,7 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
     public String savePost(Post data) {
         String code = null;
         if (data != null) {
-            code = EPrefixCode.POST.getCode();
+            code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
             data.setCode(code);
             data.setIsReport(EBoolean.NO.getCode());
             data.setIsHeadline(EBoolean.NO.getCode());

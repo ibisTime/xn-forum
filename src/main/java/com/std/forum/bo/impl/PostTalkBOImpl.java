@@ -42,7 +42,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.POSTTALK.getCode());
             data.setCode(code);
-            data.setUpdateDatetime(new Date());
+            data.setTalkDatetime(new Date());
             postTalkDAO.insert(data);
         }
         return code;

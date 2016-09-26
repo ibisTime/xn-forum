@@ -12,6 +12,12 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
+/** 
+ * 修改板块信息
+ * @author: zuixian 
+ * @since: 2016年9月19日 下午1:43:42 
+ * @history:
+ */
 public class XN610041 extends AProcessor {
 
     private IPlateAO plateAO = SpringContextHolder.getBean(IPlateAO.class);

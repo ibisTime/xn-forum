@@ -6,8 +6,8 @@
 		<result column="code" property="code" />
 		<result column="type" property="type" />
 		<result column="post_code" property="postCode" />
-		<result column="updater" property="updater" />
-		<result column="update_datetime" property="updateDatetime" />
+		<result column="talker" property="talker" />
+		<result column="talk_datetime" property="talkDatetime" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -20,8 +20,8 @@
 			<if test="postCode != null and postCode != '' ">
 		        AND t.post_code = #{postCode}
 			</if>
-			<if test="updater != null and updater != '' ">
-		        AND t.updater = #{updater}
+			<if test="talker != null and talker != '' ">
+		        AND t.talker = #{talker}
 			</if>
 		</trim>
 	</sql>
@@ -31,8 +31,8 @@
 		code
 		,type
 		,post_code
-		,updater
-		,update_datetime
+		,talker
+		,talk_datetime
 		FROM
 		tforum_post_talk t
 		<include refid="where_condition" />
@@ -51,15 +51,15 @@
 		code
 		,type
 		,post_code
-		,updater
-		,update_datetime
+		,talker
+		,talk_datetime
 		)
 		VALUES(
 		#{code}
 		,#{type}
 		,#{postCode}
-		,#{updater}
-		,#{updateDatetime}
+		,#{talker}
+		,#{talkDatetime}
 		)
 	</insert>
 	

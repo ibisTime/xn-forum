@@ -79,8 +79,8 @@
 		,is_report
 		
 		,reporter
-		,reportDatetime
-		,reportNote
+		,report_datetime
+		,report_note
 		,status
 		,is_headline
 		

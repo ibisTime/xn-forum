@@ -34,13 +34,13 @@ public class Comment extends ABaseDO {
     private String parentCode;
 
     // 操作人
-    private String updater;
+    private String commer;
 
     // 操作时间
-    private Date updateDatetime;
+    private Date commDatetime;
 
     // ****************db properties ***************
-    private String parentUpdater;
+    private String parentCommer;
 
     public String getCode() {
         return code;
@@ -66,27 +66,27 @@ public class Comment extends ABaseDO {
         this.parentCode = parentCode;
     }
 
-    public String getUpdater() {
-        return updater;
+    public String getCommer() {
+        return commer;
     }
 
-    public void setUpdater(String updater) {
-        this.updater = updater;
+    public void setCommer(String commer) {
+        this.commer = commer;
     }
 
-    public Date getUpdateDatetime() {
-        return updateDatetime;
+    public Date getCommDatetime() {
+        return commDatetime;
     }
 
-    public void setUpdateDatetime(Date updateDatetime) {
-        this.updateDatetime = updateDatetime;
+    public void setCommDatetime(Date commDatetime) {
+        this.commDatetime = commDatetime;
     }
 
-    public String getParentUpdater() {
-        return parentUpdater;
+    public String getParentCommer() {
+        return parentCommer;
     }
 
-    public void setParentUpdater(String parentUpdater) {
-        this.parentUpdater = parentUpdater;
+    public void setParentCommer(String parentCommer) {
+        this.parentCommer = parentCommer;
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.ICommentDAO;
 import com.std.forum.domain.Comment;
 import com.std.forum.enums.EPrefixCode;
@@ -40,9 +41,9 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
     public String saveComment(Comment data) {
         String code = null;
         if (data != null) {
-            code = EPrefixCode.COMMENT.getCode();
+            code = OrderNoGenerater.generate(EPrefixCode.COMMENT.getCode());
             data.setCode(code);
-            data.setUpdateDatetime(new Date());
+            data.setCommDatetime(new Date());
             commentDAO.insert(data);
         }
         return code;
@@ -72,7 +73,7 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             Comment comCondition = new Comment();
             comCondition.setCode(comment.getParentCode());
             Comment result = commentDAO.select(comCondition);
-            comment.setParentUpdater(result.getUpdater());
+            comment.setParentCommer(result.getCommer());
         }
         return resultList;
     }
