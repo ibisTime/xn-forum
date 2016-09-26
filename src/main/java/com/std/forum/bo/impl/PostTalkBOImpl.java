@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostTalkDAO;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EPrefixCode;
@@ -39,7 +40,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
     public String savePostTalk(PostTalk data) {
         String code = null;
         if (data != null) {
-            code = EPrefixCode.POSTTALK.getCode();
+            code = OrderNoGenerater.generate(EPrefixCode.POSTTALK.getCode());
             data.setCode(code);
             data.setUpdateDatetime(new Date());
             postTalkDAO.insert(data);
