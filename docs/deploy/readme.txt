@@ -21,22 +21,22 @@
   tar zcvf user.tar.gz std-user/
   scp -P57652 ./user.tar.gz root@121.43.101.148:/mnt/wwwroot/
   
-    scp -P57652 ./std-user.war root@121.43.101.148:/home
+    scp -P57652 ./xn-forum.war root@121.43.101.148:/home
   
   
 3，部署
   ssh root@121.43.101.148 -p 57652
   
-  cd /home/wwwroot/caigo/tomcat_std_user/webapps
-  cp ./std-user/WEB-INF/classes/application.properties .
-  cp ./std-user/WEB-INF/classes/config.properties .
+  cd /home/wwwroot/cswlm/tomcat_forum_biz/webapps
+  cp ./xn-forum/WEB-INF/classes/application.properties .
+  cp ./xn-forum/WEB-INF/classes/config.properties .
   
-  rm -rf std-user.war
-  rm -rf std-user
-  mv /home/std-user.war .
+  rm -rf xn-forum.war
+  rm -rf xn-forum
+  mv /home/xn-forum.war .
   
-  mv -f application.properties ./std-user/WEB-INF/classes/
-  mv -f config.properties ./std-user/WEB-INF/classes/
+  mv -f application.properties ./xn-forum/WEB-INF/classes/
+  mv -f config.properties ./xn-forum/WEB-INF/classes/
   
   ../bin/shutdown.sh
   ../bin/startup.sh
