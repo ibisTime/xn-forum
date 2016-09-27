@@ -23,12 +23,13 @@ public interface IPlateBO extends IPaginableBO<Plate> {
 
     /**
      * 判断名称是否存在
+     * @param code
      * @param name
-     * @param siteCode
-     * @create: 2016年9月8日 下午4:05:29 xieyj
+     * @param siteCode 
+     * @create: 2016年9月27日 下午8:39:03 xieyj
      * @history:
      */
-    public void isExistPlate(String name, String siteCode);
+    public void isExistPlate(String code, String name, String siteCode);
 
     public String savePlate(Plate data);
 

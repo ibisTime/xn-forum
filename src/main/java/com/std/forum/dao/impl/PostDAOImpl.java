@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.std.forum.common.PropertiesUtil;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.Post;
@@ -45,6 +46,7 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      */
     @Override
     public Post select(Post condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return (Post) super.select(NAMESPACE.concat("select_post"), condition,
             Post.class);
     }
@@ -54,6 +56,7 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      */
     @Override
     public long selectTotalCount(Post condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(NAMESPACE.concat("select_post_count"),
             condition);
     }
@@ -63,6 +66,7 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      */
     @Override
     public List<Post> selectList(Post condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_post"), condition,
             Post.class);
     }
@@ -72,6 +76,7 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      */
     @Override
     public List<Post> selectList(Post condition, int start, int count) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_post"), start, count,
             condition, Post.class);
     }
