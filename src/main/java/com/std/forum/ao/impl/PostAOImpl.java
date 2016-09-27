@@ -8,13 +8,17 @@
  */
 package com.std.forum.ao.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.std.forum.ao.IPostAO;
 import com.std.forum.bo.IPostBO;
+import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Post;
 import com.std.forum.enums.EPostStatus;
+import com.std.forum.enums.EPostType;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -82,7 +86,37 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#addReadTime(java.lang.String)
      */
     @Override
-    public void addReadTime(String code) {
+    public int addReadTime(String code) {
+        return postBO.refreshPostReadTime(code);
+    }
+
+    @Override
+    public Paginable<Post> queryPostPage(int start, int limit, Post condition) {
+        return postBO.getPaginable(start, limit, condition);
+    }
+
+    @Override
+    public List<Post> queryPostList(Post condition) {
+        return postBO.queryPostList(condition);
+    }
+
+    @Override
+    public Post getPost(String code) {
+        return postBO.getPost(code);
+    }
+
+    @Override
+    public Paginable<Post> querySCPostPage(int start, int limit, Post condition) {
+        condition.setType(EPostType.SC.getCode());
+        return postBO.getPaginable(start, limit, condition);
+    }
+
+    @Override
+    public List<Post> querySCPostList(String userId) {
+        Post condition = new Post();
+        condition.setType(EPostType.SC.getCode());
+        condition.setUserId(userId);
+        return postBO.queryPostList(condition);
     }
 
 }

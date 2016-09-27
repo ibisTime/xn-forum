@@ -10,6 +10,7 @@
 		<result column="amount" property="amount" />
 		<result column="talk_datetime" property="talkDatetime" />
 	</resultMap>
+	
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="code != null and code != '' ">

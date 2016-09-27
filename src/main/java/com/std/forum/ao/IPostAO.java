@@ -8,6 +8,9 @@
  */
 package com.std.forum.ao;
 
+import java.util.List;
+
+import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Post;
 
 /** 
@@ -30,6 +33,16 @@ public interface IPostAO {
 
     public int setUpPost(Post data);
 
-    public void addReadTime(String code);
+    public int addReadTime(String code);
+
+    public Paginable<Post> queryPostPage(int start, int limit, Post condition);
+
+    public List<Post> queryPostList(Post condition);
+
+    public Post getPost(String code);
+
+    public Paginable<Post> querySCPostPage(int start, int limit, Post condition);
+
+    public List<Post> querySCPostList(String userId);
 
 }

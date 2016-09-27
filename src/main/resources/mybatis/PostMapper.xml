@@ -61,42 +61,48 @@
 			<if test="plateCode != null and plateCode != '' ">
 		        AND t.plate_code = #{plateCode}
 			</if>
+			<if test="type != null and type != '' ">
+		        AND tpt.type = #{type}
+			</if>
+			<if test="userId != null and userId != '' ">
+		        AND tpt.talker = #{userId}
+			</if>
 		</trim>
 	</sql>
 	
 	<select id="select_post" parameterType="post" resultMap="post_DB_Result">
 		SELECT
-		code
-		,title
-		,content
-		,pic
-		,publisher
+		t.code
+		,t.title
+		,t.content
+		,t.pic
+		,t.publisher
 		
-		,publish_datetime
-		,approver
-		,approve_datetime
-		,approve_note
-		,is_report
+		,t.publish_datetime
+		,t.approver
+		,t.approve_datetime
+		,t.approve_note
+		,t.is_report
 		
-		,reporter
-		,report_datetime
-		,report_note
-		,status
-		,is_headline
+		,t.reporter
+		,t.report_datetime
+		,t.report_note
+		,t.status
+		,t.is_headline
 		
-		,is_top
-		,is_essence
-		,read_time
-		,plate_code
+		,t.is_top
+		,t.is_essence
+		,t.read_time
+		,t.plate_code
 		FROM
-		tforum_post t
+		tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>
 
 	<select id="select_post_count" parameterType="post"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_post t
+		SELECT count(1) FROM tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
 	</select>
 

@@ -93,4 +93,17 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
         }
         return count;
     }
+
+    @Override
+    public Boolean isKeywordExist(String code) {
+        Boolean count = false;
+        if (StringUtils.isNotBlank(code)) {
+            Keyword condition = new Keyword();
+            condition.setCode(code);
+            if (null != keywordDAO.select(condition)) {
+                count = true;
+            }
+        }
+        return count;
+    }
 }

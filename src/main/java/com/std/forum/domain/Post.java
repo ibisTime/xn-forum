@@ -88,6 +88,12 @@ public class Post extends ABaseDO {
     // 发布时间止
     private Date publishDatetimeEnd;
 
+    // 用户编号
+    private String userId;
+
+    // 用户编号
+    private String type;
+
     public String getCode() {
         return code;
     }
@@ -254,5 +260,21 @@ public class Post extends ABaseDO {
 
     public void setPublishDatetimeEnd(Date publishDatetimeEnd) {
         this.publishDatetimeEnd = publishDatetimeEnd;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

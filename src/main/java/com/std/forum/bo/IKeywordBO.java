@@ -21,6 +21,8 @@ import com.std.forum.domain.Keyword;
  */
 public interface IKeywordBO extends IPaginableBO<Keyword> {
 
+    public Boolean isKeywordExist(String code);
+
     public String saveKeyword(Keyword data);
 
     public int refreshKeyword(Keyword data);

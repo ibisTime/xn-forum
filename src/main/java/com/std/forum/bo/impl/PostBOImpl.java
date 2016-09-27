@@ -119,6 +119,8 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         if (StringUtils.isNotBlank(code)) {
             Post data = new Post();
             data.setCode(code);
+            Post oldPost = postDAO.select(data);
+            data.setReadTime(oldPost.getReadTime() + 1);
             count = postDAO.updateReadTime(data);
         }
         return count;
