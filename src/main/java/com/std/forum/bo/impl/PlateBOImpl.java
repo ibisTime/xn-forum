@@ -11,6 +11,7 @@ package com.std.forum.bo.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,12 +39,23 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
      * @see com.std.forum.bo.IPlateBO#isExistPlate(java.lang.String)
      */
     @Override
-    public void isExistPlate(String name, String siteCode) {
+    public void isExistPlate(String code, String name, String siteCode) {
+        boolean resultFlag = false;
         Plate condition = new Plate();
         condition.setName(name);
         condition.setSiteCode(siteCode);
-        long count = plateDAO.selectTotalCount(condition);
-        if (count > 0) {
+        List<Plate> plateList = plateDAO.selectList(condition);
+        if (CollectionUtils.isNotEmpty(plateList)) {
+            if (StringUtils.isNotBlank(code)) {
+                resultFlag = true;
+            } else {
+                Plate plate = plateList.get(0);
+                if (!code.equals(plate.getCode())) {
+                    resultFlag = true;
+                }
+            }
+        }
+        if (resultFlag == true) {
             throw new BizException("xn000000", "该站点下板块名称已存在");
         }
     }

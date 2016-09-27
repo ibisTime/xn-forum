@@ -36,7 +36,7 @@ public class SiteAOImpl implements ISiteAO {
      */
     @Override
     public String addSite(Site data) {
-        siteBO.isExistSite(data.getName());
+        siteBO.isExistSite(null, data.getName());
         return siteBO.saveSite(data);
     }
 
@@ -45,7 +45,7 @@ public class SiteAOImpl implements ISiteAO {
      */
     @Override
     public int editSite(Site data) {
-        siteBO.isExistSite(data.getName());
+        siteBO.isExistSite(data.getCode(), data.getName());
         return siteBO.refreshSite(data);
     }
 

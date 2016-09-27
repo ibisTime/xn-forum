@@ -10,6 +10,7 @@ package com.std.forum.bo.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,11 +37,22 @@ public class SiteBOImpl extends PaginableBOImpl<Site> implements ISiteBO {
      * @see com.std.forum.bo.ISiteBO#isExistSite(java.lang.String)
      */
     @Override
-    public void isExistSite(String name) {
+    public void isExistSite(String code, String name) {
+        boolean resultFlag = false;
         Site condition = new Site();
         condition.setName(name);
-        long count = siteDAO.selectTotalCount(condition);
-        if (count > 0) {
+        List<Site> siteList = siteDAO.selectList(condition);
+        if (CollectionUtils.isNotEmpty(siteList)) {
+            if (StringUtils.isNotBlank(code)) {
+                resultFlag = true;
+            } else {
+                Site site = siteList.get(0);
+                if (!code.equals(site.getCode())) {
+                    resultFlag = true;
+                }
+            }
+        }
+        if (resultFlag == true) {
             throw new BizException("xn000000", "该站点名称已存在");
         }
     }

@@ -2,6 +2,7 @@ package com.std.forum.bo.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,11 +33,22 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
     private ISiteDAO siteDAO;
 
     @Override
-    public void isExistNavigate(String title) {
+    public void isExistNavigate(String code, String title) {
+        boolean resultFlag = false;
         Navigate condition = new Navigate();
         condition.setTitle(title);
-        long count = navigateDAO.selectTotalCount(condition);
-        if (count > 0) {
+        List<Navigate> navigateList = navigateDAO.selectList(condition);
+        if (CollectionUtils.isNotEmpty(navigateList)) {
+            if (StringUtils.isNotBlank(code)) {
+                resultFlag = true;
+            } else {
+                Navigate navigate = navigateList.get(0);
+                if (!code.equals(navigate.getCode())) {
+                    resultFlag = true;
+                }
+            }
+        }
+        if (resultFlag == true) {
             throw new BizException("xn000000", "该导航标题已存在");
         }
     }

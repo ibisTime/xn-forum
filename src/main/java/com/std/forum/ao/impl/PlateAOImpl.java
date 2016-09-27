@@ -33,8 +33,7 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public String addPlate(Plate data) {
-        // 判断板块是否存在
-        plateBO.isExistPlate(data.getName(), data.getSiteCode());
+        plateBO.isExistPlate(null, data.getName(), data.getSiteCode());
         return plateBO.savePlate(data);
     }
 
@@ -44,7 +43,8 @@ public class PlateAOImpl implements IPlateAO {
     @Override
     public int editPlate(Plate data) {
         // 判断板块是否存在
-        plateBO.isExistPlate(data.getName(), data.getSiteCode());
+        plateBO
+            .isExistPlate(data.getCode(), data.getName(), data.getSiteCode());
         return plateBO.refreshPlate(data);
     }
 
