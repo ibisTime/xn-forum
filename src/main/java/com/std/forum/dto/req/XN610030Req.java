@@ -24,6 +24,9 @@ public class XN610030Req extends APageReq {
     // 站点编号
     private String siteCode;
 
+    // 是否查询地区导航
+    private String isDqNavigate;
+
     public String getTitle() {
         return title;
     }
@@ -70,5 +73,13 @@ public class XN610030Req extends APageReq {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getIsDqNavigate() {
+        return isDqNavigate;
+    }
+
+    public void setIsDqNavigate(String isDqNavigate) {
+        this.isDqNavigate = isDqNavigate;
     }
 }

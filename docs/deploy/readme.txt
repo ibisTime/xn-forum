@@ -41,4 +41,4 @@
   ../bin/shutdown.sh
   ../bin/startup.sh
   
-http://121.43.101.148:5305/std-user/api
+http://121.43.101.148:5401/xn-forum/api

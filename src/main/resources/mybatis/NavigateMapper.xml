@@ -41,9 +41,16 @@
 			<if test="parentCode != null and parentCode != '' ">
 				AND t.parent_code = #{parentCode}
 			</if>
-			<if test="siteCode != null and siteCode != '' ">
-				AND t.site_code = #{siteCode}
-			</if>
+			<choose>
+				 <when test="isDqNavigate == '1'">
+				 	AND (t.site_code = #{siteCode} or is_global = 1)
+				 </when>
+				 <otherwise>
+				 	<if test="siteCode != null and siteCode != '' ">
+						AND t.site_code = #{siteCode}
+					</if>
+				 </otherwise>
+			</choose>
 		</trim>
 	</sql>
 	<select id="select_navigate" parameterType="navigate" resultMap="navigate_DB_Result">

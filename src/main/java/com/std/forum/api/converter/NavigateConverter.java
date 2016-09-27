@@ -47,6 +47,7 @@ public class NavigateConverter {
         result.setIsGlobal(req.getIsGlobal());
         result.setParentCode(req.getParentCode());
         result.setSiteCode(req.getSiteCode());
+        result.setIsDqNavigate(req.getIsDqNavigate());
         return result;
     }
 
@@ -60,6 +61,7 @@ public class NavigateConverter {
         result.setIsGlobal(req.getIsGlobal());
         result.setParentCode(req.getParentCode());
         result.setSiteCode(req.getSiteCode());
+        result.setIsDqNavigate(req.getIsDqNavigate());
         return result;
     }
 }

@@ -53,5 +53,4 @@ public class NavigateAOImpl implements INavigateAO {
     public Navigate getNavigate(String code) {
         return navigateBO.getNavigate(code);
     }
-
 }

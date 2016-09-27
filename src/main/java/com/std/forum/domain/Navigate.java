@@ -52,6 +52,8 @@ public class Navigate extends ABaseDO {
 
     private String titleForQuery;
 
+    private String isDqNavigate;
+
     public String getCode() {
         return code;
     }
@@ -146,5 +148,13 @@ public class Navigate extends ABaseDO {
 
     public void setTitleForQuery(String titleForQuery) {
         this.titleForQuery = titleForQuery;
+    }
+
+    public String getIsDqNavigate() {
+        return isDqNavigate;
+    }
+
+    public void setIsDqNavigate(String isDqNavigate) {
+        this.isDqNavigate = isDqNavigate;
     }
 }

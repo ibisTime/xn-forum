@@ -23,6 +23,9 @@ public class XN610031Req {
     // 站点编号
     private String siteCode;
 
+    // 是否查询地区导航
+    private String isDqNavigate;
+
     public String getCode() {
         return code;
     }
@@ -77,5 +80,13 @@ public class XN610031Req {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getIsDqNavigate() {
+        return isDqNavigate;
+    }
+
+    public void setIsDqNavigate(String isDqNavigate) {
+        this.isDqNavigate = isDqNavigate;
     }
 }
