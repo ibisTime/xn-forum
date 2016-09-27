@@ -15,8 +15,12 @@ import org.springframework.stereotype.Service;
 
 import com.std.forum.ao.IPlateAO;
 import com.std.forum.bo.IPlateBO;
+import com.std.forum.bo.IPostBO;
+import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Plate;
+import com.std.forum.domain.Post;
+import com.std.forum.domain.PostTalk;
 
 /** 
  * @author: xieyj 
@@ -27,6 +31,12 @@ import com.std.forum.domain.Plate;
 public class PlateAOImpl implements IPlateAO {
     @Autowired
     protected IPlateBO plateBO;
+
+    @Autowired
+    protected IPostTalkBO postTalkBO;
+
+    @Autowired
+    protected IPostBO postBO;
 
     /** 
      * @see com.std.forum.ao.IPlateAO#addPlate(com.std.forum.domain.Plate)
@@ -53,7 +63,20 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public Paginable<Plate> queryPlatePage(int start, int limit, Plate condition) {
-        return plateBO.getPaginable(start, limit, condition);
+        Paginable<Plate> platePage = plateBO.getPaginable(start, limit,
+            condition);
+        List<Plate> plateList = platePage.getList();
+        for (Plate plate : plateList) {
+            PostTalk ptCondition = new PostTalk();
+            ptCondition.setPlateCode(plate.getCode());
+            Post pCondition = new Post();
+            pCondition.setPlateCode(plate.getCode());
+            long pCount = postBO.getPostNum(pCondition);
+            long ptCount = postTalkBO.getPersonCount(ptCondition);
+            plate.setPostCount(String.valueOf(pCount));
+            plate.setPersonCount(String.valueOf(ptCount));
+        }
+        return platePage;
     }
 
     /** 

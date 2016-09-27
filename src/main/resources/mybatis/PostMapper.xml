@@ -105,6 +105,11 @@
 		SELECT count(1) FROM tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
 	</select>
+	
+	<select id="select_post1_count" parameterType="post"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_post where plate_code = #{plateCode}
+	</select>
 
 	<insert id="insert_post" parameterType="post">
 		INSERT INTO

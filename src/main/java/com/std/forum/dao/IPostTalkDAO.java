@@ -19,4 +19,6 @@ import com.std.forum.domain.PostTalk;
  */
 public interface IPostTalkDAO extends IBaseDAO<PostTalk> {
     String NAMESPACE = IPostTalkDAO.class.getName().concat(".");
+
+    public long selectPersonCount(PostTalk condition);
 }

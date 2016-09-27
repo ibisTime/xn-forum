@@ -30,4 +30,6 @@ public interface IPostTalkBO extends IPaginableBO<PostTalk> {
     public PostTalk getPostTalk(PostTalk condition);
 
     public int removePostTalk(String code);
+
+    public long getPersonCount(PostTalk condition);
 }

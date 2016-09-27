@@ -36,4 +36,6 @@ public interface IPostBO extends IPaginableBO<Post> {
     public Post getPost(String code);
 
     public List<Post> queryPostList(Post condition);
+
+    public long getPostNum(Post condition);
 }

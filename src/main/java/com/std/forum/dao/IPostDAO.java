@@ -38,4 +38,6 @@ public interface IPostDAO extends IBaseDAO<Post> {
      * 递增阅读量
      */
     public int updateReadTime(Post data);
+
+    public long selectPostNum(Post condition);
 }

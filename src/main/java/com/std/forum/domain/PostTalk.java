@@ -45,6 +45,9 @@ public class PostTalk extends ABaseDO {
     // 打赏的金额
     private int amount;
 
+    // 板块编号
+    private String plateCode;
+
     public String getCode() {
         return code;
     }
@@ -99,5 +102,13 @@ public class PostTalk extends ABaseDO {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getPlateCode() {
+        return plateCode;
+    }
+
+    public void setPlateCode(String plateCode) {
+        this.plateCode = plateCode;
     }
 }

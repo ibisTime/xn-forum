@@ -77,4 +77,10 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
             count, condition, PostTalk.class);
     }
 
+    @Override
+    public long selectPersonCount(PostTalk condition) {
+        return super.selectTotalCount(NAMESPACE.concat("select_persons_count"),
+            condition);
+    }
+
 }

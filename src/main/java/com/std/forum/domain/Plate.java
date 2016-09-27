@@ -50,6 +50,10 @@ public class Plate extends ABaseDO {
 
     private String nameForQuery;
 
+    private String personCount;
+
+    private String postCount;
+
     public String getCode() {
         return code;
     }
@@ -112,5 +116,21 @@ public class Plate extends ABaseDO {
 
     public void setNameForQuery(String nameForQuery) {
         this.nameForQuery = nameForQuery;
+    }
+
+    public String getPersonCount() {
+        return personCount;
+    }
+
+    public void setPersonCount(String personCount) {
+        this.personCount = personCount;
+    }
+
+    public String getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(String postCount) {
+        this.postCount = postCount;
     }
 }

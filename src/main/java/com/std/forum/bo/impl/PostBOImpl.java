@@ -147,4 +147,9 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
     public List<Post> queryPostList(Post condition) {
         return postDAO.selectList(condition);
     }
+
+    @Override
+    public long getPostNum(Post condition) {
+        return postDAO.selectPostNum(condition);
+    }
 }

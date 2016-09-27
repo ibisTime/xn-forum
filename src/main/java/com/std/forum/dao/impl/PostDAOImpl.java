@@ -107,4 +107,10 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
     public int updateReadTime(Post data) {
         return super.update(NAMESPACE.concat("update_post_readTime"), data);
     }
+
+    @Override
+    public long selectPostNum(Post condition) {
+        return super.selectTotalCount(NAMESPACE.concat("select_post1_count"),
+            condition);
+    }
 }

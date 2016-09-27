@@ -99,4 +99,13 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
         }
         return count;
     }
+
+    @Override
+    public long getPersonCount(PostTalk condition) {
+        long count = 0;
+        if (null != condition.getPlateCode()) {
+            count = postTalkDAO.selectPersonCount(condition);
+        }
+        return count;
+    }
 }

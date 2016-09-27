@@ -48,6 +48,11 @@
 		<include refid="where_condition" />
 	</select>
 	
+	<select id="select_persons_count" parameterType="postTalk"
+		resultType="java.lang.Long">
+		SELECT count(DISTINCT t.talker) FROM tforum_post_talk t left join tforum_post tp on t.post_code = tp.code where tp.plate_code = #{plateCode}
+	</select>
+	
 	<insert id="insert_postTalk" parameterType="postTalk">
 		INSERT INTO
 		tforum_post_talk(
