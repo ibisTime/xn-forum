@@ -9,22 +9,27 @@
 		<result column="pic" property="pic" />
 		<result column="publisher" property="publisher" />
 		
+		<result column="nickname" property="nickname" />
+		<result column="photo" property="photo" />
 		<result column="publish_datetime" property="publishDatetime" />
 		<result column="approver" property="approver" />
 		<result column="approve_datetime" property="approveDatetime" />
+		
 		<result column="approve_note" property="approveNote" />
 		<result column="is_report" property="isReport" />
-		
 		<result column="reporter" property="reporter" />
 		<result column="report_datetime" property="reportDatetime" />
 		<result column="report_note" property="reportNote" />
+		
 		<result column="status" property="status" />
 		<result column="is_headline" property="isHeadline" />
-		
 		<result column="is_top" property="isTop" />
 		<result column="is_essence" property="isEssence" />
 		<result column="read_time" property="readTime" />
+		
 		<result column="plate_code" property="plateCode" />
+		<result column="total_dz_num" property="totalDzNum" />
+		<result column="total_comm_num" property="totalCommNum" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -78,6 +83,8 @@
 		,t.pic
 		,t.publisher
 		
+		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.publisher) as nickname
+		,(select photo from ${userDB}.tstd_user_ext tue where tue.user_id=t.publisher) as photo
 		,t.publish_datetime
 		,t.approver
 		,t.approve_datetime
@@ -94,6 +101,8 @@
 		,t.is_essence
 		,t.read_time
 		,t.plate_code
+		,(select count(1) from tforum_post_talk tpt where tpt.type = '1' and tpt.post_code = t.code) as total_dz_num
+		,(select count(1) from tforum_post_talk tpt where tpt.type = '2' and tpt.post_code = t.code) as total_comm_num
 		FROM
 		tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />

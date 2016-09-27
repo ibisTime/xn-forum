@@ -42,6 +42,12 @@ public class Post extends ABaseDO {
     // 发布时间
     private Date publishDatetime;
 
+    // 昵称
+    private String nickname;
+
+    // 照片
+    private String photo;
+
     // 审核人
     private String approver;
 
@@ -91,8 +97,12 @@ public class Post extends ABaseDO {
     // 用户编号
     private String userId;
 
-    // 用户编号
+    // 用户类型
     private String type;
+
+    private Long totalDzNum;
+
+    private Long totalCommNum;
 
     public String getCode() {
         return code;
@@ -276,5 +286,37 @@ public class Post extends ABaseDO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Long getTotalDzNum() {
+        return totalDzNum;
+    }
+
+    public void setTotalDzNum(Long totalDzNum) {
+        this.totalDzNum = totalDzNum;
+    }
+
+    public Long getTotalCommNum() {
+        return totalCommNum;
+    }
+
+    public void setTotalCommNum(Long totalCommNum) {
+        this.totalCommNum = totalCommNum;
     }
 }
