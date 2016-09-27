@@ -42,7 +42,7 @@
 				AND t.parent_code = #{parentCode}
 			</if>
 			<choose>
-				 <when test="isDqNavigate == '1'">
+				 <when test="isDqNavigate == 1">
 				 	AND (t.site_code = #{siteCode} or is_global = 1)
 				 </when>
 				 <otherwise>
