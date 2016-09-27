@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IKeywordDAO;
 import com.std.forum.domain.Keyword;
 import com.std.forum.enums.EPrefixCode;
@@ -39,7 +40,7 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
     public String saveKeyword(Keyword data) {
         String code = null;
         if (data != null) {
-            code = EPrefixCode.KEYWORD.getCode();
+            code = OrderNoGenerater.generate(EPrefixCode.KEYWORD.getCode());
             data.setCode(code);
             keywordDAO.insert(data);
         }

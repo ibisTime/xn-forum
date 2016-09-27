@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.std.forum.ao.IPostAO;
+import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.base.Paginable;
+import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPostType;
@@ -31,13 +33,30 @@ public class PostAOImpl implements IPostAO {
     @Autowired
     protected IPostBO postBO;
 
+    @Autowired
+    protected IKeywordBO keywordBO;
+
     /** 
      * @see com.std.forum.ao.IPostAO#publishPost(com.std.forum.domain.Post)
      */
     @Override
     public String publishPost(Post data) {
-        // 将帖子状态默认为待审核
-        data.setStatus(EPostStatus.todoAPPROVE.getCode());
+        // 关键词过滤
+        // 先将关键词导出
+        Keyword condition = new Keyword();
+        List<Keyword> kwList = keywordBO.queryKeywordList(condition);
+        // 遍历关键词
+        for (Keyword keyword : kwList) {
+            // 若帖子标题与帖子内容包含关键词则抛出异常
+            if (data.getTitle().contains(keyword.getWord())) {
+                throw new BizException("xn000000", "标题包含非法词汇");
+            }
+            if (data.getContent().contains(keyword.getWord())) {
+                throw new BizException("xn000000", "内容包含非法词汇");
+            }
+        }
+        // 将帖子状态默认为已发布
+        data.setStatus(EPostStatus.PUBLISHED.getCode());
         return postBO.savePost(data);
     }
 
