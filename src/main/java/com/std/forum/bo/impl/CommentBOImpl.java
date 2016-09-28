@@ -69,12 +69,12 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
     @Override
     public List<Comment> queryCommentList(Comment condition) {
         List<Comment> resultList = commentDAO.selectList(condition);
-        for (Comment comment : resultList) {
-            Comment comCondition = new Comment();
-            comCondition.setCode(comment.getParentCode());
-            Comment result = commentDAO.select(comCondition);
-            comment.setParentCommer(result.getCommer());
-        }
+        // for (Comment comment : resultList) {
+        // Comment comCondition = new Comment();
+        // comCondition.setCode(comment.getParentCode());
+        // Comment result = commentDAO.select(comCondition);
+        // comment.setParentCommer(result.getCommer());
+        // }
         return resultList;
     }
 

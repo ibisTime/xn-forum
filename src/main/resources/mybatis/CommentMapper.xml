@@ -7,6 +7,7 @@
 		<result column="content" property="content" />
 		<result column="parent_code" property="parentCode" />
 		<result column="commer" property="commer" />
+		<result column="nickname" property="nickname" />
 		<result column="comm_datetime" property="commDatetime" />
 	</resultMap>
 	<sql id="where_condition">
@@ -22,11 +23,12 @@
 	
 	<select id="select_comment" parameterType="comment" resultMap="comment_DB_Result">
 		SELECT
-		code
-		,content
-		,parent_code
-		,commer
-		,comm_datetime
+		t.code
+		,t.content
+		,t.parent_code
+		,t.commer
+		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname
+		,t.comm_datetime
 		FROM
 		tforum_comment t
 		<include refid="where_condition" />

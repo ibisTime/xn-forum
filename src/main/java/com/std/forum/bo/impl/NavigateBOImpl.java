@@ -33,13 +33,14 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
     private ISiteDAO siteDAO;
 
     @Override
-    public void isExistNavigate(String code, String title) {
+    public void isExistNavigate(String code, String title, String siteCode) {
         boolean resultFlag = false;
         Navigate condition = new Navigate();
         condition.setTitle(title);
+        condition.setSiteCode(siteCode);
         List<Navigate> navigateList = navigateDAO.selectList(condition);
         if (CollectionUtils.isNotEmpty(navigateList)) {
-            if (StringUtils.isNotBlank(code)) {
+            if (StringUtils.isBlank(code)) {
                 resultFlag = true;
             } else {
                 Navigate navigate = navigateList.get(0);

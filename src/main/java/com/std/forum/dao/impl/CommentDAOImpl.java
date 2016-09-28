@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.std.forum.common.PropertiesUtil;
 import com.std.forum.dao.ICommentDAO;
 import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.Comment;
@@ -46,6 +47,7 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
      */
     @Override
     public Comment select(Comment condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return (Comment) super.select(NAMESPACE.concat("select_comment"),
             condition, Comment.class);
     }
@@ -55,6 +57,7 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
      */
     @Override
     public long selectTotalCount(Comment condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(NAMESPACE.concat("select_comment_count"),
             condition);
     }
@@ -64,6 +67,7 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
      */
     @Override
     public List<Comment> selectList(Comment condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_comment"), condition,
             Comment.class);
     }
@@ -73,8 +77,8 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
      */
     @Override
     public List<Comment> selectList(Comment condition, int start, int count) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_comment"), start,
             count, condition, Comment.class);
     }
-
 }

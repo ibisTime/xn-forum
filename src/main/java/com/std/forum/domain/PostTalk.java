@@ -48,6 +48,10 @@ public class PostTalk extends ABaseDO {
     // 板块编号
     private String plateCode;
 
+    // ------------db properties------------
+    // 昵称
+    private String nickname;
+
     public String getCode() {
         return code;
     }
@@ -110,5 +114,13 @@ public class PostTalk extends ABaseDO {
 
     public void setPlateCode(String plateCode) {
         this.plateCode = plateCode;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -9,7 +9,7 @@ import com.std.forum.ao.IPostTalkAO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.enums.EPostType;
+import com.std.forum.enums.ETalkType;
 
 @Service
 public class PostTalkAOImpl implements IPostTalkAO {
@@ -31,7 +31,7 @@ public class PostTalkAOImpl implements IPostTalkAO {
 
     @Override
     public int doPostTalkByAmount(PostTalk data) {
-        data.setType(EPostType.DS.getCode());
+        data.setType(ETalkType.DS.getCode());
         return postTalkBO.savePostTalk(data);
     }
 

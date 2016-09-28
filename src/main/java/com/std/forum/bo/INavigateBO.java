@@ -13,7 +13,7 @@ import com.std.forum.domain.Navigate;
  */
 public interface INavigateBO extends IPaginableBO<Navigate> {
 
-    public void isExistNavigate(String code, String title);
+    public void isExistNavigate(String code, String title, String siteCode);
 
     public String saveNavigate(Navigate data);
 
