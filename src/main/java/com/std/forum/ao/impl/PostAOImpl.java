@@ -22,6 +22,7 @@ import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
+import com.std.forum.bo.impl.CommentBOImpl;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
@@ -180,21 +181,42 @@ public class PostAOImpl implements IPostAO {
         Comment cCondition = new Comment();
         cCondition.setParentCode(code);
         List<Comment> commentList = new ArrayList<Comment>();
-        String parentCode = code;
-        while (true) {
-            Comment condition = new Comment();
-            condition.setParentCode(parentCode);
-            List<Comment> commList = commentBO.queryCommentList(condition);
-            if (CollectionUtils.isEmpty(commList)
-                    && CollectionUtils.sizeIsEmpty(commList)) {
-                break;
-            } else {
-                parentCode = commList.get(0).getCode();
-            }
-            commentList.addAll(commList);
-        }
+        searchCycleComment(post.getCode(), commentList);
+        // 排序
+        commentList = orderCommentList(commentList);
         post.setCommentList(commentList);
         return post;
+    }
+
+    private void searchCycleComment(String parentCode, List<Comment> list) {
+        ICommentBO commentBO = new CommentBOImpl();
+        Comment condition = new Comment();
+        condition.setParentCode(parentCode);
+        List<Comment> nextList = commentBO.queryCommentList(condition);
+        if (CollectionUtils.isNotEmpty(nextList)) {
+            list.addAll(nextList);
+            for (int i = 0; i < nextList.size(); i++) {
+                searchCycleComment(nextList.get(i).getCode(), list);
+            }
+        }
+    }
+
+    private List<Comment> orderCommentList(List<Comment> commentList) {
+        List<Comment> commentListSort = new ArrayList<Comment>();
+        for (int i = 0; i < commentList.size(); i++) {
+            if (i == 0) {
+                commentListSort.add(commentList.get(i));
+            }
+            for (int j = 0; j < i; j++) {
+                if (commentList.get(i).getCommDatetime().getTime() < commentListSort
+                    .get(j).getCommDatetime().getTime()) {
+                    commentListSort.add(j, commentList.get(i));
+                }
+            }
+            commentListSort.add(commentList.get(i));
+        }
+        return commentListSort;
+
     }
 
     @Override
