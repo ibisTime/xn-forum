@@ -100,8 +100,10 @@ public class Post extends ABaseDO {
     // 用户类型
     private String type;
 
+    // 该帖子被点赞数
     private Long totalDzNum;
 
+    // 该帖子被评论数
     private Long totalCommNum;
 
     public String getCode() {
