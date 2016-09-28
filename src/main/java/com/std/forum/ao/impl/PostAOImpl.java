@@ -128,9 +128,18 @@ public class PostAOImpl implements IPostAO {
         Paginable<Post> postPage = postBO.getPaginable(start, limit, condition);
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
-            
+            // 设置查询点赞记录条件
+            post.setIsDZ(EBoolean.NO.getCode());
+            if (StringUtils.isNotBlank(condition.getUserId())) {
+                PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(
+                    condition.getCode(), condition.getUserId(),
+                    ETalkType.DZ.getCode());
+                if (null != dzPostTalk) {
+                    post.setIsDZ(EBoolean.YES.getCode());
+                }
+            }
         }
-        return 
+        return postPage;
     }
 
     @Override
