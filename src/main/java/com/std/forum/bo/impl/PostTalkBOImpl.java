@@ -21,6 +21,7 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostTalkDAO;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.enums.ETalkType;
 
 /** 
  * @author: xieyj 
@@ -37,13 +38,38 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
      * @see com.std.forum.bo.IPostTalkBO#savePostTalk(com.std.forum.domain.PostTalk)
      */
     @Override
-    public int savePostTalk(PostTalk data) {
+    public int savePostTalk(String postCode, String talker, String type) {
         int count = 0;
-        if (data != null) {
+        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(talker)) {
+            PostTalk data = new PostTalk();
             String code = OrderNoGenerater.generate(EPrefixCode.POSTTALK
                 .getCode());
             data.setCode(code);
+            data.setPostCode(postCode);
+            data.setTalker(talker);
+            data.setType(type);
             data.setTalkDatetime(new Date());
+            count = postTalkDAO.insert(data);
+        }
+        return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IPostTalkBO#savePostTalk(java.lang.String, java.lang.String, java.lang.Long)
+     */
+    @Override
+    public int savePostTalk(String postCode, String talker, Long amount) {
+        int count = 0;
+        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(talker)) {
+            PostTalk data = new PostTalk();
+            String code = OrderNoGenerater.generate(EPrefixCode.POSTTALK
+                .getCode());
+            data.setCode(code);
+            data.setPostCode(postCode);
+            data.setTalker(talker);
+            data.setType(ETalkType.DS.getCode());
+            data.setTalkDatetime(new Date());
+            data.setAmount(amount);
             count = postTalkDAO.insert(data);
         }
         return count;
@@ -76,14 +102,29 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
      * @see com.std.forum.bo.IPostTalkBO#getPostTalk(java.lang.String)
      */
     @Override
-    public PostTalk getPostTalk(PostTalk data) {
+    public PostTalk getPostTalk(String code) {
         PostTalk result = null;
-        if (StringUtils.isNotBlank(data.getPostCode())
-                && StringUtils.isNotBlank(data.getTalker())) {
+        if (StringUtils.isNotBlank(code)) {
             PostTalk condition = new PostTalk();
-            condition.setType(data.getType());
-            condition.setPostCode(data.getPostCode());
-            condition.setTalker(data.getTalker());
+            condition.setCode(code);
+            result = postTalkDAO.select(condition);
+        }
+        return result;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IPostTalkBO#getPostTalkByCondition(java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public PostTalk getPostTalkByCondition(String postCode, String userId,
+            String type) {
+        PostTalk result = null;
+        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(userId)
+                && StringUtils.isNotBlank(type)) {
+            PostTalk condition = new PostTalk();
+            condition.setPostCode(postCode);
+            condition.setTalker(userId);
+            condition.setType(type);
             result = postTalkDAO.select(condition);
         }
         return result;

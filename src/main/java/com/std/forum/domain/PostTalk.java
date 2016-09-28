@@ -43,7 +43,7 @@ public class PostTalk extends ABaseDO {
     private Post post;
 
     // 打赏的金额
-    private int amount;
+    private Long amount;
 
     // 板块编号
     private String plateCode;
@@ -100,11 +100,11 @@ public class PostTalk extends ABaseDO {
         this.post = post;
     }
 
-    public int getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 

@@ -9,7 +9,6 @@ import com.std.forum.ao.IPostTalkAO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.enums.ETalkType;
 
 @Service
 public class PostTalkAOImpl implements IPostTalkAO {
@@ -18,21 +17,24 @@ public class PostTalkAOImpl implements IPostTalkAO {
     protected IPostTalkBO postTalkBO;
 
     @Override
-    public int doPostTalk(PostTalk data) {
+    public int doPostTalk(String postCode, String userId, String type) {
         int count = 0;
-        if (null != postTalkBO.getPostTalk(data)) {
-            count = postTalkBO.removePostTalk(postTalkBO.getPostTalk(data)
-                .getCode());
+        PostTalk postTalk = postTalkBO.getPostTalkByCondition(postCode, userId,
+            type);
+        if (null != postTalk) {
+            count = postTalkBO.removePostTalk(postTalk.getCode());
         } else {
-            count = postTalkBO.savePostTalk(data);
+            count = postTalkBO.savePostTalk(postCode, userId, type);
         }
         return count;
     }
 
+    /** 
+     * @see com.std.forum.ao.IPostTalkAO#doPostTalkByAmount(java.lang.String, java.lang.String, java.lang.Long)
+     */
     @Override
-    public int doPostTalkByAmount(PostTalk data) {
-        data.setType(ETalkType.DS.getCode());
-        return postTalkBO.savePostTalk(data);
+    public int doPostTalkByAmount(String postCode, String userId, Long amount) {
+        return postTalkBO.savePostTalk(postCode, userId, amount);
     }
 
     @Override
@@ -59,5 +61,4 @@ public class PostTalkAOImpl implements IPostTalkAO {
         // TODO Auto-generated method stub
         return null;
     }
-
 }
