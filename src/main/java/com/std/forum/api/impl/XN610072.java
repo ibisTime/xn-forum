@@ -23,12 +23,12 @@ public class XN610072 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return postAO.getPost(req.getCode());
+        return postAO.getPost(req.getCode(), req.getUserId());
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610072Req.class);
-        StringValidater.validateBlank(req.getCode());
+        StringValidater.validateBlank(req.getCode(), req.getUserId());
     }
 }

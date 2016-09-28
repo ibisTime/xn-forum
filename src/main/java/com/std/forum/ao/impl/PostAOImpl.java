@@ -25,6 +25,7 @@ import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.ETalkType;
 import com.std.forum.exception.BizException;
@@ -132,8 +133,19 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public Post getPost(String code) {
+    public Post getPost(String code, String userId) {
         Post post = postBO.getPost(code);
+        // 设置查询点赞记录条件
+        PostTalk postTalkC = new PostTalk();
+        postTalkC.setTalker(userId);
+        postTalkC.setPostCode(code);
+        if (null != postTalkBO.getPostTalk(postTalkC)) {
+            // 若点赞记录存在则已点赞
+            post.setIsDZ(EBoolean.YES.getCode());
+        } else {
+            // 若点赞记录不存在则未点赞
+            post.setIsDZ(EBoolean.NO.getCode());
+        }
         // 获取点赞
         List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(code,
             ETalkType.DZ.getCode());

@@ -39,7 +39,7 @@ public interface IPostAO {
 
     public List<Post> queryPostList(Post condition);
 
-    public Post getPost(String code);
+    public Post getPost(String code, String userId);
 
     public Paginable<Post> querySCPostPage(int start, int limit, Post condition);
 

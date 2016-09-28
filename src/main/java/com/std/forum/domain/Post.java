@@ -98,6 +98,9 @@ public class Post extends ABaseDO {
     // 用户编号
     private String userId;
 
+    // 对于当前用户，该帖子是否被点赞
+    private String isDZ;
+
     // 用户类型
     private String type;
 
@@ -343,5 +346,13 @@ public class Post extends ABaseDO {
 
     public void setPostTalkList(List<PostTalk> postTalkList) {
         this.postTalkList = postTalkList;
+    }
+
+    public String getIsDZ() {
+        return isDZ;
+    }
+
+    public void setIsDZ(String isDZ) {
+        this.isDZ = isDZ;
     }
 }
