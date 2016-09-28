@@ -158,33 +158,35 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Post getPost(String code, String userId) {
         Post post = postBO.getPost(code);
-        // 设置查询点赞记录条件
-        post.setIsDZ(EBoolean.NO.getCode());
-        post.setIsSC(EBoolean.NO.getCode());
-        if (StringUtils.isNotBlank(userId)) {
-            PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(code,
-                userId, ETalkType.DZ.getCode());
-            if (null != dzPostTalk) {
-                post.setIsDZ(EBoolean.YES.getCode());
+        if (post != null) {
+            // 设置查询点赞记录条件
+            post.setIsDZ(EBoolean.NO.getCode());
+            post.setIsSC(EBoolean.NO.getCode());
+            if (StringUtils.isNotBlank(userId)) {
+                PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(code,
+                    userId, ETalkType.DZ.getCode());
+                if (null != dzPostTalk) {
+                    post.setIsDZ(EBoolean.YES.getCode());
+                }
+                PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(code,
+                    userId, ETalkType.SC.getCode());
+                if (null != scPostTalk) {
+                    post.setIsSC(EBoolean.YES.getCode());
+                }
             }
-            PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(code,
-                userId, ETalkType.SC.getCode());
-            if (null != scPostTalk) {
-                post.setIsSC(EBoolean.YES.getCode());
-            }
+            // 获取点赞
+            List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(
+                code, ETalkType.DZ.getCode());
+            post.setPostTalkList(postTalkList);
+            // 获取评论
+            Comment cCondition = new Comment();
+            cCondition.setParentCode(code);
+            List<Comment> commentList = new ArrayList<Comment>();
+            searchCycleComment(post.getCode(), commentList);
+            // 排序
+            commentList = orderCommentList(commentList);
+            post.setCommentList(commentList);
         }
-        // 获取点赞
-        List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(code,
-            ETalkType.DZ.getCode());
-        post.setPostTalkList(postTalkList);
-        // 获取评论
-        Comment cCondition = new Comment();
-        cCondition.setParentCode(code);
-        List<Comment> commentList = new ArrayList<Comment>();
-        searchCycleComment(post.getCode(), commentList);
-        // 排序
-        commentList = orderCommentList(commentList);
-        post.setCommentList(commentList);
         return post;
     }
 
