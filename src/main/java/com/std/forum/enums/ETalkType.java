@@ -5,10 +5,10 @@ package com.std.forum.enums;
  * @since: 2015-3-7 上午8:41:50 
  * @history:
  */
-public enum EPostType {
+public enum ETalkType {
     DZ("1", "点赞"), SC("2", "收藏"), DS("3", "打赏"), JB("4", "举报");
 
-    EPostType(String code, String value) {
+    ETalkType(String code, String value) {
         this.code = code;
         this.value = value;
     }

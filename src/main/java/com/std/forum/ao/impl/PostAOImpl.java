@@ -8,19 +8,25 @@
  */
 package com.std.forum.ao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.std.forum.ao.IPostAO;
+import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
+import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
+import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
+import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EPostStatus;
-import com.std.forum.enums.EPostType;
+import com.std.forum.enums.ETalkType;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -32,6 +38,12 @@ import com.std.forum.exception.BizException;
 public class PostAOImpl implements IPostAO {
     @Autowired
     protected IPostBO postBO;
+
+    @Autowired
+    protected IPostTalkBO postTalkBO;
+
+    @Autowired
+    protected ICommentBO commentBO;
 
     @Autowired
     protected IKeywordBO keywordBO;
@@ -121,19 +133,42 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     public Post getPost(String code) {
-        return postBO.getPost(code);
+        Post post = postBO.getPost(code);
+        // 获取点赞
+        List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(code,
+            ETalkType.DZ.getCode());
+        post.setPostTalkList(postTalkList);
+        // 获取评论
+        Comment cCondition = new Comment();
+        cCondition.setParentCode(code);
+        List<Comment> commentList = new ArrayList<Comment>();
+        String parentCode = code;
+        while (true) {
+            Comment condition = new Comment();
+            condition.setParentCode(parentCode);
+            List<Comment> commList = commentBO.queryCommentList(condition);
+            if (CollectionUtils.isEmpty(commList)
+                    && CollectionUtils.sizeIsEmpty(commList)) {
+                break;
+            } else {
+                parentCode = commList.get(0).getCode();
+            }
+            commentList.addAll(commList);
+        }
+        post.setCommentList(commentList);
+        return post;
     }
 
     @Override
     public Paginable<Post> querySCPostPage(int start, int limit, Post condition) {
-        condition.setType(EPostType.SC.getCode());
+        condition.setType(ETalkType.SC.getCode());
         return postBO.getPaginable(start, limit, condition);
     }
 
     @Override
     public List<Post> querySCPostList(String userId) {
         Post condition = new Post();
-        condition.setType(EPostType.SC.getCode());
+        condition.setType(ETalkType.SC.getCode());
         condition.setUserId(userId);
         return postBO.queryPostList(condition);
     }

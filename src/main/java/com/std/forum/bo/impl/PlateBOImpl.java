@@ -46,7 +46,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
         condition.setSiteCode(siteCode);
         List<Plate> plateList = plateDAO.selectList(condition);
         if (CollectionUtils.isNotEmpty(plateList)) {
-            if (StringUtils.isNotBlank(code)) {
+            if (StringUtils.isBlank(code)) {
                 resultFlag = true;
             } else {
                 Plate plate = plateList.get(0);

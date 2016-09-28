@@ -9,6 +9,7 @@
 package com.std.forum.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.std.forum.dao.base.ABaseDO;
 
@@ -41,12 +42,6 @@ public class Post extends ABaseDO {
 
     // 发布时间
     private Date publishDatetime;
-
-    // 昵称
-    private String nickname;
-
-    // 照片
-    private String photo;
 
     // 审核人
     private String approver;
@@ -88,6 +83,12 @@ public class Post extends ABaseDO {
     private String plateCode;
 
     // *****************db properties ********************
+    // 昵称
+    private String nickname;
+
+    // 照片
+    private String photo;
+
     // 发布时间起
     private Date publishDatetimeStart;
 
@@ -105,6 +106,12 @@ public class Post extends ABaseDO {
 
     // 该帖子被评论数
     private Long totalCommNum;
+
+    // 点赞
+    private List<PostTalk> postTalkList;
+
+    // 评论
+    private List<Comment> commentList;
 
     public String getCode() {
         return code;
@@ -320,5 +327,21 @@ public class Post extends ABaseDO {
 
     public void setTotalCommNum(Long totalCommNum) {
         this.totalCommNum = totalCommNum;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public List<PostTalk> getPostTalkList() {
+        return postTalkList;
+    }
+
+    public void setPostTalkList(List<PostTalk> postTalkList) {
+        this.postTalkList = postTalkList;
     }
 }

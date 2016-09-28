@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.std.forum.common.PropertiesUtil;
 import com.std.forum.dao.IPostTalkDAO;
 import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.PostTalk;
@@ -46,6 +47,7 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
      */
     @Override
     public PostTalk select(PostTalk condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return (PostTalk) super.select(NAMESPACE.concat("select_postTalk"),
             condition, PostTalk.class);
     }
@@ -55,6 +57,7 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
      */
     @Override
     public long selectTotalCount(PostTalk condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(
             NAMESPACE.concat("select_postTalk_count"), condition);
     }
@@ -64,6 +67,7 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
      */
     @Override
     public List<PostTalk> selectList(PostTalk condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_postTalk"), condition,
             PostTalk.class);
     }
@@ -73,6 +77,7 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
      */
     @Override
     public List<PostTalk> selectList(PostTalk condition, int start, int count) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_postTalk"), start,
             count, condition, PostTalk.class);
     }

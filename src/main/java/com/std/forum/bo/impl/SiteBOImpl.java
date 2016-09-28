@@ -43,7 +43,7 @@ public class SiteBOImpl extends PaginableBOImpl<Site> implements ISiteBO {
         condition.setName(name);
         List<Site> siteList = siteDAO.selectList(condition);
         if (CollectionUtils.isNotEmpty(siteList)) {
-            if (StringUtils.isNotBlank(code)) {
+            if (StringUtils.isBlank(code)) {
                 resultFlag = true;
             } else {
                 Site site = siteList.get(0);
