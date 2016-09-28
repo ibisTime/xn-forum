@@ -124,7 +124,12 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     public Paginable<Post> queryPostPage(int start, int limit, Post condition) {
-        return postBO.getPaginable(start, limit, condition);
+        Paginable<Post> postPage = postBO.getPaginable(start, limit, condition);
+        List<Post> postList = postPage.getList();
+        for (Post post : postList) {
+            
+        }
+        return 
     }
 
     @Override
@@ -197,5 +202,4 @@ public class PostAOImpl implements IPostAO {
         condition.setUserId(userId);
         return postBO.queryPostList(condition);
     }
-
 }

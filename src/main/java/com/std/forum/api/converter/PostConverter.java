@@ -54,6 +54,7 @@ public class PostConverter {
     // 分页查询帖子
     public static Post converter(XN610070Req req) {
         Post result = new Post();
+        result.setUserId(req.getUserId());
         result.setTitle(req.getTitle());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());

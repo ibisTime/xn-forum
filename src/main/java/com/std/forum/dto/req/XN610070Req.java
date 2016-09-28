@@ -10,6 +10,9 @@ public class XN610070Req extends APageReq {
 
     private static final long serialVersionUID = 1L;
 
+    // 当前用户（选填）
+    private String userId;
+
     // 标题（选填）
     private String title;
 
@@ -96,5 +99,13 @@ public class XN610070Req extends APageReq {
 
     public void setPlateCode(String plateCode) {
         this.plateCode = plateCode;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
