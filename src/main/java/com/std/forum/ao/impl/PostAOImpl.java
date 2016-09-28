@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -136,28 +137,19 @@ public class PostAOImpl implements IPostAO {
     public Post getPost(String code, String userId) {
         Post post = postBO.getPost(code);
         // 设置查询点赞记录条件
-        PostTalk postTalkDZ = new PostTalk();
-        postTalkDZ.setType(ETalkType.DS.getCode());
-        postTalkDZ.setTalker(userId);
-        postTalkDZ.setPostCode(code);
-        if (null != postTalkBO.getPostTalk(postTalkDZ)) {
-            // 若点赞记录存在则已点赞
-            post.setIsDZ(EBoolean.YES.getCode());
-        } else {
-            // 若点赞记录不存在则未点赞
-            post.setIsDZ(EBoolean.NO.getCode());
-        }
-        // 设置查询收藏记录条件
-        PostTalk postTalkSC = new PostTalk();
-        postTalkSC.setType(ETalkType.SC.getCode());
-        postTalkSC.setTalker(userId);
-        postTalkSC.setPostCode(code);
-        if (null != postTalkBO.getPostTalk(postTalkSC)) {
-            // 若收藏记录存在则已点赞
-            post.setIsSC(EBoolean.YES.getCode());
-        } else {
-            // 若收藏记录不存在则未点赞
-            post.setIsSC(EBoolean.NO.getCode());
+        post.setIsDZ(EBoolean.NO.getCode());
+        post.setIsSC(EBoolean.NO.getCode());
+        if (StringUtils.isNotBlank(userId)) {
+            PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(code,
+                userId, ETalkType.DZ.getCode());
+            if (null != dzPostTalk) {
+                post.setIsDZ(EBoolean.YES.getCode());
+            }
+            PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(code,
+                userId, ETalkType.SC.getCode());
+            if (null != scPostTalk) {
+                post.setIsSC(EBoolean.YES.getCode());
+            }
         }
         // 获取点赞
         List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(code,

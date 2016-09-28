@@ -22,16 +22,18 @@ public interface IPostTalkAO {
      * @create: 2016年9月19日 下午2:49:22 zuixian
      * @history: 
      */
-    public int doPostTalk(PostTalk data);
+    public int doPostTalk(String postCode, String userId, String type);
 
-    /** 
+    /**
      * 打赏帖子
-     * @param data
+     * @param postCode
+     * @param userId
+     * @param amount
      * @return 
-     * @create: 2016年9月26日 下午8:17:54 zuixian
-     * @history: 
+     * @create: 2016年9月28日 下午3:14:30 xieyj
+     * @history:
      */
-    public int doPostTalkByAmount(PostTalk data);
+    public int doPostTalkByAmount(String postCode, String userId, Long amount);
 
     /** 
      * 查询单一类型的记录

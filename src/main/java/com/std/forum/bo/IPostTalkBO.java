@@ -21,13 +21,18 @@ import com.std.forum.domain.PostTalk;
  */
 public interface IPostTalkBO extends IPaginableBO<PostTalk> {
 
-    public int savePostTalk(PostTalk data);
+    public int savePostTalk(String postCode, String userId, String type);
+
+    public int savePostTalk(String postCode, String userId, Long amount);
 
     public List<PostTalk> queryPostTalkSingleList(String postCode, String type);
 
     public List<PostTalk> queryPostTalkList(PostTalk condition);
 
-    public PostTalk getPostTalk(PostTalk condition);
+    public PostTalk getPostTalk(String code);
+
+    public PostTalk getPostTalkByCondition(String postCode, String userId,
+            String type);
 
     public int removePostTalk(String code);
 

@@ -11,7 +11,7 @@ public class XN610072Req {
     // 帖子编号 （必填）
     private String code;
 
-    // 当前用户编号 （必填）
+    // 当前用户编号 （选填）
     private String userId;
 
     public String getCode() {
