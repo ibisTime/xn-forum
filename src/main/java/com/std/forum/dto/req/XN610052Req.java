@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ *  将发布的帖子删除(OSS)
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:41:40 
+ * @history:
+ */
 public class XN610052Req {
 
     // 帖子编号（必填）

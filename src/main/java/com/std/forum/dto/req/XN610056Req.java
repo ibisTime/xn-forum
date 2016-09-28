@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ *  给自己喜欢的帖子点赞，收藏，取消已点赞，收藏的帖子
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:43:20 
+ * @history:
+ */
 public class XN610056Req {
 
     // 类型（必填）

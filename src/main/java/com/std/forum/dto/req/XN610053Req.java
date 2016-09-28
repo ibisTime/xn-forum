@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ * 设置帖子为头条，置顶，精华等属性
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:41:57 
+ * @history:
+ */
 public class XN610053Req {
 
     // 帖子编号（必填）

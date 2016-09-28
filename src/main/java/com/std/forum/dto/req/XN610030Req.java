@@ -1,9 +1,13 @@
 package com.std.forum.dto.req;
 
+/** 
+ * 分页查询导航
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:39:04 
+ * @history:
+ */
 public class XN610030Req extends APageReq {
-    /** 
-        * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
-        */
+
     private static final long serialVersionUID = 1L;
 
     // 标题

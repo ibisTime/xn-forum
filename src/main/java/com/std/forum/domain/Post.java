@@ -101,6 +101,9 @@ public class Post extends ABaseDO {
     // 对于当前用户，该帖子是否被点赞
     private String isDZ;
 
+    // 对于当前用户，该帖子是否被收藏
+    private String isSC;
+
     // 用户类型
     private String type;
 
@@ -354,5 +357,13 @@ public class Post extends ABaseDO {
 
     public void setIsDZ(String isDZ) {
         this.isDZ = isDZ;
+    }
+
+    public String getIsSC() {
+        return isSC;
+    }
+
+    public void setIsSC(String isSC) {
+        this.isSC = isSC;
     }
 }

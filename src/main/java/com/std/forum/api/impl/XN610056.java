@@ -12,6 +12,12 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
+/** 
+ * 给自己喜欢的帖子点赞，收藏，取消已点赞，收藏的帖子
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:50:37 
+ * @history:
+ */
 public class XN610056 extends AProcessor {
 
     private IPostTalkAO postTalkAO = SpringContextHolder

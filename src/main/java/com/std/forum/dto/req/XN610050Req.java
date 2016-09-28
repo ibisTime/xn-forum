@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ * 发布帖子，填写帖子基本信息
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:40:29 
+ * @history:
+ */
 public class XN610050Req {
 
     // 标题（必填）

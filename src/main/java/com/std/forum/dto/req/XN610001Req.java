@@ -1,7 +1,7 @@
 package com.std.forum.dto.req;
 
 /** 
- * 设置默认站点
+ * 禁用站点
  * @author: xieyj 
  * @since: 2016年8月29日 下午2:38:43 
  * @history:

@@ -10,6 +10,12 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
+/** 
+ * 对自己评论内容进行删除
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:51:23 
+ * @history:
+ */
 public class XN610058 extends AProcessor {
 
     private ICommentAO commentAO = SpringContextHolder

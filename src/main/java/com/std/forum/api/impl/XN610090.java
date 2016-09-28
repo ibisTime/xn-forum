@@ -10,6 +10,12 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
+/** 
+ * 新增关键词
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:53:13 
+ * @history:
+ */
 public class XN610090 extends AProcessor {
 
     private IKeywordAO keywordAO = SpringContextHolder

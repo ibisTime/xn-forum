@@ -9,6 +9,12 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
+/** 
+ * 我收藏的帖子列表查询
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:52:51 
+ * @history:
+ */
 public class XN610074 extends AProcessor {
 
     private IPostAO postAO = SpringContextHolder.getBean(IPostAO.class);

@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ * 新增导航，根据userId来设置改导航的站点编号
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:37:25 
+ * @history:
+ */
 public class XN610020Req {
 
     // 访问Url

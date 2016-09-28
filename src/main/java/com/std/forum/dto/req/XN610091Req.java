@@ -1,5 +1,11 @@
 package com.std.forum.dto.req;
 
+/** 
+ * 修改关键词
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:47:14 
+ * @history:
+ */
 public class XN610091Req {
 
     // 关键词编号 （必填）
