@@ -108,4 +108,5 @@ public class XN610070Req extends APageReq {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
 }

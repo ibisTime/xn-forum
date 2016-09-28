@@ -23,12 +23,12 @@ public class XN610074 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return postAO.querySCPostList(req.getUserId());
+        return postAO.querySCPostList(req.getTalker());
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610074Req.class);
-        StringValidater.validateBlank(req.getUserId());
+        StringValidater.validateBlank(req.getTalker());
     }
 }

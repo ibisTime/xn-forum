@@ -69,8 +69,8 @@
 			<if test="type != null and type != '' ">
 		        AND tpt.type = #{type}
 			</if>
-			<if test="userId != null and userId != '' ">
-		        AND tpt.talker = #{userId}
+			<if test="talker != null and talker != '' ">
+		        AND tpt.talker = #{talker}
 			</if>
 		</trim>
 	</sql>

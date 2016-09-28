@@ -27,7 +27,7 @@ public class XN610073 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Post condition = new Post();
-        condition.setUserId(req.getUserId());
+        condition.setTalker(req.getTalker());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;
@@ -41,7 +41,7 @@ public class XN610073 extends AProcessor {
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610073Req.class);
-        StringValidater.validateBlank(req.getUserId(), req.getStart(),
+        StringValidater.validateBlank(req.getTalker(), req.getStart(),
             req.getLimit());
     }
 }

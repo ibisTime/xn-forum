@@ -98,6 +98,9 @@ public class Post extends ABaseDO {
     // 用户编号
     private String userId;
 
+    // 用户编号
+    private String talker;
+
     // 对于当前用户，该帖子是否被点赞
     private String isDZ;
 
@@ -365,5 +368,13 @@ public class Post extends ABaseDO {
 
     public void setIsSC(String isSC) {
         this.isSC = isSC;
+    }
+
+    public String getTalker() {
+        return talker;
+    }
+
+    public void setTalker(String talker) {
+        this.talker = talker;
     }
 }

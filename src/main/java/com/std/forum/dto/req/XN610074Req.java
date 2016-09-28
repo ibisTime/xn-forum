@@ -9,13 +9,13 @@ package com.std.forum.dto.req;
 public class XN610074Req {
 
     // 用户编号 （必填）
-    private String userId;
+    private String talker;
 
-    public String getUserId() {
-        return userId;
+    public String getTalker() {
+        return talker;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setTalker(String talker) {
+        this.talker = talker;
     }
 }

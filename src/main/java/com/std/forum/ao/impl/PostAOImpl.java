@@ -204,10 +204,10 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public List<Post> querySCPostList(String userId) {
+    public List<Post> querySCPostList(String talker) {
         Post condition = new Post();
         condition.setType(ETalkType.SC.getCode());
-        condition.setUserId(userId);
+        condition.setTalker(talker);
         return postBO.queryPostList(condition);
     }
 }
