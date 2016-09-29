@@ -133,18 +133,22 @@ public class PostAOImpl implements IPostAO {
             post.setIsSC(EBoolean.NO.getCode());
             if (StringUtils.isNotBlank(condition.getUserId())) {
                 PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(
-                    condition.getCode(), condition.getUserId(),
+                    post.getCode(), condition.getUserId(),
                     ETalkType.DZ.getCode());
                 if (null != dzPostTalk) {
                     post.setIsDZ(EBoolean.YES.getCode());
                 }
                 PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(
-                    condition.getCode(), condition.getUserId(),
+                    post.getCode(), condition.getUserId(),
                     ETalkType.SC.getCode());
                 if (null != scPostTalk) {
                     post.setIsSC(EBoolean.YES.getCode());
                 }
             }
+            // 获取评论数
+            List<Comment> commentList = new ArrayList<Comment>();
+            searchCycleComment(post.getCode(), commentList);
+            post.setTotalCommNum(new Long(commentList.size()));
         }
         return postPage;
     }
@@ -183,6 +187,7 @@ public class PostAOImpl implements IPostAO {
             // 排序
             orderCommentList(commentList);
             post.setCommentList(commentList);
+            post.setTotalCommNum(new Long(commentList.size()));
         }
         return post;
     }

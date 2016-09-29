@@ -29,7 +29,6 @@
 		
 		<result column="plate_code" property="plateCode" />
 		<result column="total_dz_num" property="totalDzNum" />
-		<result column="total_comm_num" property="totalCommNum" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -103,7 +102,6 @@
 		,t.read_time
 		,t.plate_code
 		,(select count(1) from tforum_post_talk tpt where tpt.type = '1' and tpt.post_code = t.code) as total_dz_num
-		,(select count(1) from tforum_post_talk tpt where tpt.type = '2' and tpt.post_code = t.code) as total_comm_num
 		FROM
 		tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />

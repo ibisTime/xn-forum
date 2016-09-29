@@ -21,7 +21,7 @@
   tar zcvf user.tar.gz std-user/
   scp -P57652 ./user.tar.gz root@121.43.101.148:/mnt/wwwroot/
   
-    scp -P57652 ./xn-forum.war root@121.43.101.148:/home
+  scp -P57652 ./xn-forum.war root@121.43.101.148:/home
   
   
 3，部署
