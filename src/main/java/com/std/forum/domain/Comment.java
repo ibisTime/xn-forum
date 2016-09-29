@@ -45,6 +45,9 @@ public class Comment extends ABaseDO {
     // 昵称
     private String nickname;
 
+    // 父级昵称
+    private String parentNickname;
+
     public String getCode() {
         return code;
     }
@@ -99,5 +102,13 @@ public class Comment extends ABaseDO {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getParentNickname() {
+        return parentNickname;
+    }
+
+    public void setParentNickname(String parentNickname) {
+        this.parentNickname = parentNickname;
     }
 }

@@ -76,7 +76,8 @@
 	</sql>
 	
 	<select id="select_post" parameterType="post" resultMap="post_DB_Result">
-		SELECT
+		SELECT 
+		DISTINCT
 		t.code
 		,t.title
 		,t.content

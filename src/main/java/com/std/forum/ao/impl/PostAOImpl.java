@@ -22,7 +22,6 @@ import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
-import com.std.forum.bo.impl.CommentBOImpl;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
@@ -179,19 +178,16 @@ public class PostAOImpl implements IPostAO {
                 code, ETalkType.DZ.getCode());
             post.setPostTalkList(postTalkList);
             // 获取评论
-            Comment cCondition = new Comment();
-            cCondition.setParentCode(code);
             List<Comment> commentList = new ArrayList<Comment>();
             searchCycleComment(post.getCode(), commentList);
             // 排序
-            commentList = orderCommentList(commentList);
+            orderCommentList(commentList);
             post.setCommentList(commentList);
         }
         return post;
     }
 
     private void searchCycleComment(String parentCode, List<Comment> list) {
-        ICommentBO commentBO = new CommentBOImpl();
         Comment condition = new Comment();
         condition.setParentCode(parentCode);
         List<Comment> nextList = commentBO.queryCommentList(condition);
@@ -203,22 +199,18 @@ public class PostAOImpl implements IPostAO {
         }
     }
 
-    private List<Comment> orderCommentList(List<Comment> commentList) {
-        List<Comment> commentListSort = new ArrayList<Comment>();
+    private void orderCommentList(List<Comment> commentList) {
         for (int i = 0; i < commentList.size(); i++) {
-            if (i == 0) {
-                commentListSort.add(commentList.get(i));
-            }
-            for (int j = 0; j < i; j++) {
-                if (commentList.get(i).getCommDatetime().getTime() < commentListSort
+            for (int j = i + 1; j < commentList.size(); j++) {
+                if (commentList.get(i).getCommDatetime().getTime() > commentList
                     .get(j).getCommDatetime().getTime()) {
-                    commentListSort.add(j, commentList.get(i));
+                    Comment temp = new Comment();
+                    temp = commentList.get(i);
+                    commentList.set(i, commentList.get(j));
+                    commentList.set(j, temp);
                 }
             }
-            commentListSort.add(commentList.get(i));
         }
-        return commentListSort;
-
     }
 
     @Override

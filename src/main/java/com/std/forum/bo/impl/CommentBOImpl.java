@@ -11,6 +11,7 @@ package com.std.forum.bo.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -69,12 +70,15 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
     @Override
     public List<Comment> queryCommentList(Comment condition) {
         List<Comment> resultList = commentDAO.selectList(condition);
-        // for (Comment comment : resultList) {
-        // Comment comCondition = new Comment();
-        // comCondition.setCode(comment.getParentCode());
-        // Comment result = commentDAO.select(comCondition);
-        // comment.setParentCommer(result.getCommer());
-        // }
+        if (CollectionUtils.isNotEmpty(resultList)) {
+            for (Comment comment : resultList) {
+                Comment result = getComment(comment.getParentCode());
+                if (result != null) {
+                    comment.setParentCommer(result.getCommer());
+                    comment.setParentNickname(result.getNickname());
+                }
+            }
+        }
         return resultList;
     }
 
