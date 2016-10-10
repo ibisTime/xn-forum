@@ -5,26 +5,45 @@
 	<resultMap id="keyword_DB_Result" type="keyword">
 		<result column="code" property="code" />
 		<result column="word" property="word" />
+		<result column="weight" property="weight" />
+		<result column="level" property="level" />
+		<result column="reaction" property="reaction" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
-			<if test="word != null and word != '' ">
-		        AND t.word like "%"#{word}"%"
+			<if test="wordForQuery != null and wordForQuery != '' ">
+		        AND t.word like "%"#{wordForQuery}"%"
+			</if>
+			<if test="level != null and level != '' ">
+				AND t.level = #{level}
 			</if>
 		</trim>
 	</sql>
 	
 	<select id="select_keyword" parameterType="keyword" resultMap="keyword_DB_Result">
 		SELECT
-		code
-		,word
+		t.code
+		,t.word
+		,t.weight
+		,t.level
+		,t.reaction
+		,t.updater
+		,t.update_datetime
+		,t.remark
 		FROM
 		tforum_keyword t
 		<include refid="where_condition" />
-		ORDER BY t.code DESC	
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
 	</select>
 
 	<select id="select_keyword_count" parameterType="keyword"
@@ -38,12 +57,37 @@
 		tforum_keyword(
 		code
 		,word
+		,weight
+		,level
+		,reaction
+		,updater
+		,update_datetime
+		,remark
 		)
 		VALUES(
 		#{code}
 		,#{word}
+		,#{weight}
+		,#{level}
+		,#{reaction}
+		,#{updater}
+		,#{updateDatetime}
+		,#{remark}
 		)
 	</insert>
+
+	<update id="update_keyword" parameterType="keyword">
+		UPDATE tforum_keyword
+		SET
+		word = #{word}
+		,weight = #{weight}
+		,level = #{level}
+		,reaction = #{reaction}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
 	
 	<delete id="delete_keyword" parameterType="keyword">
 		DELETE FROM
@@ -51,11 +95,4 @@
 		WHERE
 		code = #{code}
 	</delete>
-	
-	<update id="update_keyword" parameterType="keyword">
-		UPDATE tforum_keyword
-		SET
-		word = #{word}
-		WHERE code = #{code}
-	</update>
 </mapper>

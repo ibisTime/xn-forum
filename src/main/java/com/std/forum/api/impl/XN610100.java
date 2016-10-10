@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.std.forum.ao.IKeywordAO;
 import com.std.forum.ao.IPostAO;
 import com.std.forum.api.AProcessor;
+import com.std.forum.api.converter.KeywordConverter;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
 import com.std.forum.domain.Keyword;
@@ -28,8 +29,7 @@ public class XN610100 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        Keyword condition = new Keyword();
-        condition.setWord(req.getWord());
+        Keyword condition = KeywordConverter.converter(req);
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;

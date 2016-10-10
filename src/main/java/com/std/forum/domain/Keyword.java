@@ -1,5 +1,7 @@
 package com.std.forum.domain;
 
+import java.util.Date;
+
 import com.std.forum.dao.base.ABaseDO;
 
 /**
@@ -20,6 +22,27 @@ public class Keyword extends ABaseDO {
     // 关键词
     private String word;
 
+    // 权重
+    private Double weight;
+
+    // 作用等级
+    private String level;
+
+    // 反应
+    private String reaction;
+
+    // 更新人
+    private String updater;
+
+    // 更新时间
+    private Date updateDatetime;
+
+    // 备注
+    private String remark;
+
+    // *************db properties*******************
+    private String wordForQuery;
+
     public String getCode() {
         return code;
     }
@@ -34,5 +57,61 @@ public class Keyword extends ABaseDO {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public Date getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(Date updateDatetime) {
+        this.updateDatetime = updateDatetime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getWordForQuery() {
+        return wordForQuery;
+    }
+
+    public void setWordForQuery(String wordForQuery) {
+        this.wordForQuery = wordForQuery;
     }
 }

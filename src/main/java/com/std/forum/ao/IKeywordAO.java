@@ -6,11 +6,11 @@ import com.std.forum.domain.Keyword;
 public interface IKeywordAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
 
-    public String addKeyword(String word);
+    public String addKeyword(Keyword data);
 
     public int dropKeyword(String code);
 
-    public int editKeyword(String code, String word);
+    public int editKeyword(Keyword data);
 
     public Paginable<Keyword> queryKeywordPage(int start, int limit,
             Keyword condition);

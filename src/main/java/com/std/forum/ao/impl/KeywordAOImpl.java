@@ -16,20 +16,15 @@ public class KeywordAOImpl implements IKeywordAO {
     private IKeywordBO keywordBO;
 
     @Override
-    public String addKeyword(String word) {
-        Keyword data = new Keyword();
-        data.setWord(word);
+    public String addKeyword(Keyword data) {
         return keywordBO.saveKeyword(data);
     }
 
     @Override
-    public int editKeyword(String code, String word) {
-        if (!keywordBO.isKeywordExist(code)) {
+    public int editKeyword(Keyword data) {
+        if (data != null && !keywordBO.isKeywordExist(data.getCode())) {
             throw new BizException("xn0000", "该编号不存在");
         }
-        Keyword data = new Keyword();
-        data.setCode(code);
-        data.setWord(word);
         return keywordBO.refreshKeyword(data);
     }
 

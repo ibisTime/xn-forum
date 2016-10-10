@@ -8,6 +8,7 @@
  */
 package com.std.forum.bo.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +43,7 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.KEYWORD.getCode());
             data.setCode(code);
+            data.setUpdateDatetime(new Date());
             keywordDAO.insert(data);
         }
         return code;
@@ -54,6 +56,7 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
     public int refreshKeyword(Keyword data) {
         int count = 0;
         if (data != null && data.getCode() != null) {
+            data.setUpdateDatetime(new Date());
             count = keywordDAO.update(data);
         }
         return count;

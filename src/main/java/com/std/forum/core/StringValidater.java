@@ -100,8 +100,27 @@ public class StringValidater {
         return num;
     }
 
+    /**
+     * string转化成Double
+     * @param string
+     * @return 
+     * @create: 2016年10月11日 上午12:09:13 xieyj
+     * @history:
+     */
+    public static Double toDouble(String string) {
+        Double num = null;
+        try {
+            if (StringUtils.isNotBlank(string)) {
+                num = Double.valueOf(string);
+            }
+        } catch (Exception e) {
+            throw new BizException("xn702000", "浮点型入参，请按要求填写数字");
+        }
+        return num;
+    }
+
     public static void main(String[] args) {
         // System.out.println(StringValidater.toLong("1000"));
-        StringValidater.validateNumber("1000");
+        StringValidater.toDouble("100.1");
     }
 }
