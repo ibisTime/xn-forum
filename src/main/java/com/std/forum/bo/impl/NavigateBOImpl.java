@@ -13,7 +13,7 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.INavigateDAO;
 import com.std.forum.dao.ISiteDAO;
 import com.std.forum.domain.Navigate;
-import com.std.forum.domain.Site;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
@@ -33,10 +33,10 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
     private ISiteDAO siteDAO;
 
     @Override
-    public void isExistNavigate(String code, String title, String siteCode) {
+    public void isExistNavigate(String code, String name, String siteCode) {
         boolean resultFlag = false;
         Navigate condition = new Navigate();
-        condition.setTitle(title);
+        condition.setName(name);
         condition.setSiteCode(siteCode);
         List<Navigate> navigateList = navigateDAO.selectList(condition);
         if (CollectionUtils.isNotEmpty(navigateList)) {
@@ -71,17 +71,10 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.NAVIGATE.getCode());
             data.setCode(code);
-            if (data.getIsGlobal().equals("0")) {
-                Site site = new Site();
-                site.setUserId(data.getSiteCode());
-                Site result = siteDAO.select(site);
-                if (result != null) {
-                    data.setSiteCode(result.getCode());
-                } else {
-                    throw new BizException("xn000000", "该用户无负责站点");
-                }
+            if (data.getIsGlobal().equals(EBoolean.YES.getCode())) {
+                data.setSiteCode(EBoolean.NO.getCode());
             } else {
-                data.setSiteCode("0");
+                // 根据userId获取站点编号
             }
             navigateDAO.insert(data);
         }
@@ -104,9 +97,9 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
 
     @Override
     public int deleteNavigate(String code) {
-        Navigate data = new Navigate();
         int count = 0;
-        if (code != null && code != "") {
+        if (StringUtils.isNotBlank(code)) {
+            Navigate data = new Navigate();
             data.setCode(code);
             count = navigateDAO.delete(data);
         }

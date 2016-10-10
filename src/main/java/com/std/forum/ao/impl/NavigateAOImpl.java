@@ -23,13 +23,13 @@ public class NavigateAOImpl implements INavigateAO {
 
     @Override
     public String addNavigate(Navigate data) {
-        navigateBO.isExistNavigate(null, data.getTitle(), data.getSiteCode());
+        navigateBO.isExistNavigate(null, data.getName(), data.getSiteCode());
         return navigateBO.saveNavigate(data);
     }
 
     @Override
     public int editNavigate(Navigate data) {
-        navigateBO.isExistNavigate(data.getCode(), data.getTitle(),
+        navigateBO.isExistNavigate(data.getCode(), data.getName(),
             data.getSiteCode());
         return navigateBO.refreshNavigate(data);
     }

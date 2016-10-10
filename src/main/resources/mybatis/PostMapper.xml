@@ -65,6 +65,9 @@
 			<if test="plateCode != null and plateCode != '' ">
 		        AND t.plate_code = #{plateCode}
 			</if>
+			<if test="siteCode != null and siteCode != '' ">
+		        AND tp.site_code = #{siteCode}
+			</if>
 			<if test="type != null and type != '' ">
 		        AND tpt.type = #{type}
 			</if>
@@ -103,14 +106,14 @@
 		,t.plate_code
 		,(select count(1) from tforum_post_talk tpt where tpt.type = '1' and tpt.post_code = t.code) as total_dz_num
 		FROM
-		tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
+		tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>
 
 	<select id="select_post_count" parameterType="post"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_post t left join tforum_post_talk tpt on t.code = tpt.post_code 
+		SELECT count(1) FROM tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code
 		<include refid="where_condition" />
 	</select>
 	

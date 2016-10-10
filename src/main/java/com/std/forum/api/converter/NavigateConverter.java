@@ -12,13 +12,13 @@ public class NavigateConverter {
         Navigate result = new Navigate();
         result.setUrl(req.getUrl());
         result.setPic(req.getPic());
-        result.setTitle(req.getTitle());
+        result.setName(req.getName());
         result.setOrderNo(Integer.valueOf(req.getOrderNo()));
         result.setStatus(req.getStatus());
         result.setType(req.getType());
         result.setIsGlobal(req.getIsGlobal());
         result.setParentCode(req.getParentCode());
-        result.setSiteCode(req.getUserId());
+        result.setUserId(req.getUserId());
         result.setRemark(req.getRemark());
         return result;
     }
@@ -29,7 +29,7 @@ public class NavigateConverter {
         result.setCode(req.getCode());
         result.setUrl(req.getUrl());
         result.setPic(req.getPic());
-        result.setTitle(req.getTitle());
+        result.setName(req.getName());
         result.setOrderNo(Integer.valueOf(req.getOrderNo()));
         result.setStatus(req.getStatus());
         result.setType(req.getType());
@@ -41,7 +41,7 @@ public class NavigateConverter {
     // 分页查询导航信息
     public static Navigate converter(XN610030Req req) {
         Navigate result = new Navigate();
-        result.setTitleForQuery(req.getTitle());
+        result.setNameForQuery(req.getName());
         result.setStatus(req.getStatus());
         result.setType(req.getType());
         result.setIsGlobal(req.getIsGlobal());
@@ -55,7 +55,7 @@ public class NavigateConverter {
     public static Navigate converter(XN610031Req req) {
         Navigate result = new Navigate();
         result.setCode(req.getCode());
-        result.setTitleForQuery(req.getTitle());
+        result.setNameForQuery(req.getName());
         result.setStatus(req.getStatus());
         result.setType(req.getType());
         result.setIsGlobal(req.getIsGlobal());

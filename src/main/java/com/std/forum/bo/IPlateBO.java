@@ -29,7 +29,7 @@ public interface IPlateBO extends IPaginableBO<Plate> {
      * @create: 2016年9月27日 下午8:39:03 xieyj
      * @history:
      */
-    public void isExistPlate(String code, String name, String siteCode);
+    public void isExistPlateName(String code, String name, String siteCode);
 
     public String savePlate(Plate data);
 

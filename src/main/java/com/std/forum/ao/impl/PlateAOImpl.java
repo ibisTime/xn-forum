@@ -17,10 +17,13 @@ import com.std.forum.ao.IPlateAO;
 import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
+import com.std.forum.bo.ISiteBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Plate;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.domain.Site;
+import com.std.forum.exception.BizException;
 
 /** 
  * @author: xieyj 
@@ -38,12 +41,22 @@ public class PlateAOImpl implements IPlateAO {
     @Autowired
     protected IPostBO postBO;
 
+    @Autowired
+    protected ISiteBO siteBO;
+
     /** 
      * @see com.std.forum.ao.IPlateAO#addPlate(com.std.forum.domain.Plate)
      */
     @Override
     public String addPlate(Plate data) {
-        plateBO.isExistPlate(null, data.getName(), data.getSiteCode());
+        // 根据更新人编号获取站点编号
+        Site site = siteBO.getSiteByUserId(data.getUpdater());
+        if (site != null) {
+            data.setSiteCode(site.getCode());
+        } else {
+            throw new BizException("xn000000", "当前操作用户无站点信息");
+        }
+        plateBO.isExistPlateName(null, data.getName(), data.getSiteCode());
         return plateBO.savePlate(data);
     }
 
@@ -52,9 +65,11 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public int editPlate(Plate data) {
-        // 判断板块是否存在
-        plateBO
-            .isExistPlate(data.getCode(), data.getName(), data.getSiteCode());
+        // 获取板块信息
+        Plate plate = plateBO.getPlate(data.getCode());
+        // 判断板块名称是否存在
+        plateBO.isExistPlateName(data.getCode(), data.getName(),
+            plate.getSiteCode());
         return plateBO.refreshPlate(data);
     }
 
@@ -66,16 +81,7 @@ public class PlateAOImpl implements IPlateAO {
         Paginable<Plate> platePage = plateBO.getPaginable(start, limit,
             condition);
         List<Plate> plateList = platePage.getList();
-        for (Plate plate : plateList) {
-            PostTalk ptCondition = new PostTalk();
-            ptCondition.setPlateCode(plate.getCode());
-            Post pCondition = new Post();
-            pCondition.setPlateCode(plate.getCode());
-            long pCount = postBO.getPostNum(pCondition);
-            long ptCount = postTalkBO.getPersonCount(ptCondition);
-            plate.setPostCount(String.valueOf(pCount));
-            plate.setPersonCount(String.valueOf(ptCount));
-        }
+        totalPostToPlateList(plateList);
         return platePage;
     }
 
@@ -85,16 +91,7 @@ public class PlateAOImpl implements IPlateAO {
     @Override
     public List<Plate> queryPlateList(Plate condition) {
         List<Plate> plateList = plateBO.queryPlateList(condition);
-        for (Plate plate : plateList) {
-            PostTalk ptCondition = new PostTalk();
-            ptCondition.setPlateCode(plate.getCode());
-            Post pCondition = new Post();
-            pCondition.setPlateCode(plate.getCode());
-            long pCount = postBO.getPostNum(pCondition);
-            long ptCount = postTalkBO.getPersonCount(ptCondition);
-            plate.setPostCount(String.valueOf(pCount));
-            plate.setPersonCount(String.valueOf(ptCount));
-        }
+        totalPostToPlateList(plateList);
         return plateList;
     }
 
@@ -103,7 +100,16 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public Plate doGetPlate(String code) {
-        Plate plate = plateBO.getPlate(code);
+        return plateBO.getPlate(code);
+    }
+
+    private void totalPostToPlateList(List<Plate> plateList) {
+        for (Plate plate : plateList) {
+            totalPostToPlate(plate);
+        }
+    }
+
+    private void totalPostToPlate(Plate plate) {
         PostTalk ptCondition = new PostTalk();
         ptCondition.setPlateCode(plate.getCode());
         Post pCondition = new Post();
@@ -112,6 +118,5 @@ public class PlateAOImpl implements IPlateAO {
         long ptCount = postTalkBO.getPersonCount(ptCondition);
         plate.setPostCount(String.valueOf(pCount));
         plate.setPersonCount(String.valueOf(ptCount));
-        return plate;
     }
 }

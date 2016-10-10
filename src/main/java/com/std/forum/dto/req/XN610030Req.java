@@ -10,8 +10,8 @@ public class XN610030Req extends APageReq {
 
     private static final long serialVersionUID = 1L;
 
-    // 标题
-    private String title;
+    // 名称
+    private String name;
 
     // 状态(1 显示 0 不显示)
     private String status;
@@ -31,12 +31,12 @@ public class XN610030Req extends APageReq {
     // 是否查询地区导航
     private String isDqNavigate;
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStatus() {

@@ -17,8 +17,8 @@ public class XN610022Req {
     // 图片
     private String pic;
 
-    // 标题
-    private String title;
+    // 名称
+    private String name;
 
     // 状态(1 显示 0 不显示)
     private String status;
@@ -59,14 +59,6 @@ public class XN610022Req {
         this.pic = pic;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -105,5 +97,13 @@ public class XN610022Req {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -14,7 +14,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 分页帖子
+ * 分页查询帖子
  * @author: xieyj 
  * @since: 2016年9月27日 下午7:49:54 
  * @history:

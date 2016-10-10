@@ -150,4 +150,15 @@ public class SiteBOImpl extends PaginableBOImpl<Site> implements ISiteBO {
         }
         return count;
     }
+
+    /** 
+     * @see com.std.forum.bo.ISiteBO#getSiteByUserId(java.lang.String)
+     */
+    @Override
+    public Site getSiteByUserId(String userId) {
+        Site site = new Site();
+        site.setCode("zd00001");
+        return site;
+
+    }
 }

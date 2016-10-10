@@ -11,8 +11,8 @@ public class XN610031Req {
     // 编号
     private String code;
 
-    // 标题
-    private String title;
+    // 名称
+    private String name;
 
     // 状态(1 显示 0 不显示)
     private String status;
@@ -40,12 +40,12 @@ public class XN610031Req {
         this.code = code;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStatus() {

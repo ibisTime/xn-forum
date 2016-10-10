@@ -36,4 +36,13 @@ public interface ISiteBO extends IPaginableBO<Site> {
     public Site getSite(String code);
 
     public List<Site> querySiteList(Site condition);
+
+    /**
+     * 根据负责人编号获取站点信息
+     * @param userId
+     * @return 
+     * @create: 2016年10月10日 下午5:25:55 xieyj
+     * @history:
+     */
+    public Site getSiteByUserId(String userId);
 }

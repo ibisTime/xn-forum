@@ -16,6 +16,15 @@ public class XN610045Req extends APageReq {
     // 名称(选填)
     private String name;
 
+    // 大类(选填)
+    private String kind;
+
+    // 位置(选填)
+    private String location;
+
+    // 状态(选填)
+    private String status;
+
     // 站点编号(选填)
     private String siteCode;
 
@@ -33,5 +42,29 @@ public class XN610045Req extends APageReq {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

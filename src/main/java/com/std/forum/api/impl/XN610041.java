@@ -12,10 +12,10 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
+/**
  * 修改板块信息
- * @author: zuixian 
- * @since: 2016年9月19日 下午1:43:42 
+ * @author: xieyj 
+ * @since: 2016年10月10日 下午5:40:38 
  * @history:
  */
 public class XN610041 extends AProcessor {
@@ -27,13 +27,14 @@ public class XN610041 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Plate data = PlateConverter.converter(req);
-        return new BooleanRes(plateAO.editPlate(data) > 0 ? true : false);
+        plateAO.editPlate(data);
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610041Req.class);
         StringValidater.validateBlank(req.getCode(), req.getName(),
-            req.getPic(), req.getSiteCode(), req.getUpdater());
+            req.getPic(), req.getUpdater());
     }
 }

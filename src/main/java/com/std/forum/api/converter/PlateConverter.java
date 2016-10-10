@@ -12,8 +12,12 @@ public class PlateConverter {
     public static Plate converter(XN610040Req req) {
         Plate result = new Plate();
         result.setName(req.getName());
+        result.setKind(req.getKind());
+        result.setStatus(req.getStatus());
+        result.setLocation(req.getLocation());
+        result.setOrderNo(req.getOrderNo());
         result.setPic(req.getPic());
-        result.setSiteCode(req.getSiteCode());
+        result.setUserId(req.getUserId());
         result.setUpdater(req.getUpdater());
         result.setRemark(req.getRemark());
         return result;
@@ -24,8 +28,12 @@ public class PlateConverter {
         Plate result = new Plate();
         result.setCode(req.getCode());
         result.setName(req.getName());
+        result.setKind(req.getKind());
+        result.setStatus(req.getStatus());
+        result.setLocation(req.getLocation());
+        result.setOrderNo(req.getOrderNo());
         result.setPic(req.getPic());
-        result.setSiteCode(req.getSiteCode());
+        result.setUserId(req.getUserId());
         result.setUpdater(req.getUpdater());
         result.setRemark(req.getRemark());
         return result;
@@ -35,6 +43,9 @@ public class PlateConverter {
     public static Plate converter(XN610045Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());
+        result.setKind(req.getKind());
+        result.setLocation(req.getLocation());
+        result.setStatus(req.getStatus());
         result.setSiteCode(req.getSiteCode());
         return result;
     }
@@ -43,6 +54,9 @@ public class PlateConverter {
     public static Plate converter(XN610046Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());
+        result.setKind(req.getKind());
+        result.setLocation(req.getLocation());
+        result.setStatus(req.getStatus());
         result.setSiteCode(req.getSiteCode());
         return result;
     }

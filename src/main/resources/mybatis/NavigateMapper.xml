@@ -4,12 +4,12 @@
 <mapper namespace="com.std.forum.dao.INavigateDAO">
 	<resultMap id="navigate_DB_Result" type="navigate">
 		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="type" property="type" />
 		<result column="url" property="url" />
 		<result column="pic" property="pic" />
-		<result column="title" property="title" />
-		<result column="status" property="status" />
 		
-		<result column="type" property="type" />
+		<result column="status" property="status" />
 		<result column="is_global" property="isGlobal" />
 		<result column="order_no" property="orderNo" />
 		<result column="parent_code" property="parentCode" />
@@ -23,17 +23,17 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
-			<if test="title != null and title != '' ">
-				AND t.title = #{title}
+			<if test="name != null and name != '' ">
+				AND t.name = #{name}
 			</if>
-			<if test="titleForQuery != null and titleForQuery != '' ">
-				AND t.title like "%"#{titleForQuery}"%"
-			</if>
-			<if test="status != null and status != '' ">
-				AND t.status = #{status}
+			<if test="nameForQuery != null and nameForQuery != '' ">
+				AND t.name like "%"#{nameForQuery}"%"
 			</if>
 			<if test="type != null and type != '' ">
 				AND t.type = #{type}
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
 			</if>
 			<if test="isGlobal != null and isGlobal != '' ">
 				AND t.is_global = #{isGlobal}
@@ -55,21 +55,20 @@
 	</sql>
 	<select id="select_navigate" parameterType="navigate" resultMap="navigate_DB_Result">
 		SELECT
-		code
-		,url
-		,pic
-		,title
-		,status
+		 code
+		 ,name
+		 ,type
+		 ,url
+		 ,pic
+		 ,status
 		
-		,type
-		,is_global
-		,order_no
-		,parent_code
-		,site_code
-		
-		,remark
-		FROM
-		tforum_navigate t
+		 ,is_global
+		 ,order_no
+		 ,parent_code
+		 ,site_code
+		 ,remark
+		 FROM
+		 tforum_navigate t
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -88,12 +87,12 @@
 		INSERT INTO
 		tforum_navigate(
 		code
+		,name
+		,type
 		,url
 		,pic
-		,title
-		,status
 		
-		,type
+		,status
 		,is_global
 		,order_no
 		,parent_code
@@ -103,12 +102,12 @@
 		)
 		VALUES(
 		#{code}
+		,#{name}
+		,#{type}
 		,#{url}
 		,#{pic}
-		,#{title}
-		,#{status}
 		
-		,#{type}
+		,#{status}
 		,#{isGlobal}
 		,#{orderNo}
 		,#{parentCode}
@@ -128,11 +127,11 @@
 	<update id="update_navigate" parameterType="navigate">
 		UPDATE tforum_navigate
 		SET
-		url=#{url}
-		,pic=#{pic}
-		,title=#{title}
-		,status=#{status}
+		name=#{name}
 		,type=#{type}
+		,url=#{url}
+		,pic=#{pic}
+		,status=#{status}
 
 		,order_no=#{orderNo}
 		,parent_code=#{parentCode}
@@ -140,5 +139,4 @@
 		WHERE
 		code = #{code}
 	</update>
-	
 </mapper>

@@ -5,8 +5,14 @@
 	<resultMap id="plate_DB_Result" type="plate">
 		<result column="code" property="code" />
 		<result column="name" property="name" />
+		<result column="kind" property="kind" />
 		<result column="pic" property="pic" />
+		<result column="location" property="location" />
+		
+		<result column="order_no" property="orderNo" />
+		<result column="user_id" property="userId" />
 		<result column="site_code" property="siteCode" />
+		<result column="status" property="status" />
 		<result column="updater" property="updater" />
 		
 		<result column="update_datetime" property="updateDatetime" />
@@ -20,11 +26,20 @@
 			<if test="name != null and name != '' ">
 		        AND t.name = #{name}
 			</if>
+			<if test="kind != null and kind != '' ">
+		        AND t.kind = #{kind}
+			</if>
 			<if test="nameForQuery != null and nameForQuery != '' ">
 		        AND t.name like "%"#{nameForQuery}"%"
 			</if>
+			<if test="location != null and location != '' ">
+		        AND t.location = #{location}
+			</if>
 			<if test="siteCode != null and siteCode != '' ">
 		        AND t.site_code = #{siteCode}
+			</if>
+			<if test="status != null and status != '' ">
+		        AND t.status = #{status}
 			</if>
 		</trim>
 	</sql>
@@ -33,8 +48,14 @@
 		SELECT
 		code
 		,name
+		,kind
 		,pic
+		,location
+		
+		,order_no
+		,user_id
 		,site_code
+		,status
 		,updater
 		
 		,update_datetime
@@ -56,8 +77,14 @@
 		tforum_plate(
 		code
 		,name
+		,kind
 		,pic
+		,location
+		
+		,order_no
+		,user_id
 		,site_code
+		,status
 		,updater
 		
 		,update_datetime
@@ -66,8 +93,14 @@
 		VALUES(
 		#{code}
 		,#{name}
+		,#{kind}
 		,#{pic}
+		,#{location}
+		
+		,#{orderNo}
+		,#{userId}
 		,#{siteCode}
+		,#{status}
 		,#{updater}
 		
 		,#{updateDatetime}
@@ -86,8 +119,13 @@
 		UPDATE tforum_plate
 		SET
 		name = #{name}
+		,kind = #{kind}
 		,pic = #{pic}
+		,location = #{location}
+		,order_no = #{orderNo}
+		,user_id = #{userId}
 		,site_code = #{siteCode}
+		,status = #{status}
 		,updater = #{updater}
 		,update_datetime = #{updateDatetime}
 		,remark= #{remark}

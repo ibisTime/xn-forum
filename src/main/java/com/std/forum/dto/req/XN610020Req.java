@@ -1,12 +1,18 @@
 package com.std.forum.dto.req;
 
 /** 
- * 新增导航，根据userId来设置改导航的站点编号
+ * 新增导航
  * @author: zuixian 
  * @since: 2016年9月28日 下午1:37:25 
  * @history:
  */
 public class XN610020Req {
+
+    // 名称
+    private String name;
+
+    // 类型(1 菜单 2 banner 3 模块 4 引流)
+    private String type;
 
     // 访问Url
     private String url;
@@ -14,14 +20,8 @@ public class XN610020Req {
     // 图片
     private String pic;
 
-    // 标题
-    private String title;
-
     // 状态(1 显示 0 不显示)
     private String status;
-
-    // 类型(1 菜单 2 banner 3 模块 4 引流)
-    private String type;
 
     // 是否全局(1 是 0 否)
     private String isGlobal;
@@ -32,7 +32,7 @@ public class XN610020Req {
     // 父编号
     private String parentCode;
 
-    // 站点编号
+    // 用户编号
     private String userId;
 
     // 备注
@@ -52,14 +52,6 @@ public class XN610020Req {
 
     public void setPic(String pic) {
         this.pic = pic;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getStatus() {
@@ -108,6 +100,14 @@ public class XN610020Req {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUserId() {

@@ -39,7 +39,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
      * @see com.std.forum.bo.IPlateBO#isExistPlate(java.lang.String)
      */
     @Override
-    public void isExistPlate(String code, String name, String siteCode) {
+    public void isExistPlateName(String code, String name, String siteCode) {
         boolean resultFlag = false;
         Plate condition = new Plate();
         condition.setName(name);
@@ -56,7 +56,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
             }
         }
         if (resultFlag == true) {
-            throw new BizException("xn000000", "该站点下板块名称已存在");
+            throw new BizException("xn000000", "板块名称已存在");
         }
     }
 
@@ -98,6 +98,9 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
             Plate condition = new Plate();
             condition.setCode(code);
             result = plateDAO.select(condition);
+            if (result == null) {
+                throw new BizException("xn000000", "板块编号不存在");
+            }
         }
         return result;
     }

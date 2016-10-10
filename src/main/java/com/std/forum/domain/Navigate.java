@@ -18,20 +18,20 @@ public class Navigate extends ABaseDO {
     // 编号
     private String code;
 
+    // 名字
+    private String name;
+
+    // 类型(1 菜单 2 banner 3 模块 4 引流)
+    private String type;
+
     // 访问Url
     private String url;
 
     // 图片
     private String pic;
 
-    // 标题
-    private String title;
-
     // 状态(1 显示 0 不显示)
     private String status;
-
-    // 类型(1 菜单 2 banner 3 模块 4 引流)
-    private String type;
 
     // 是否全局(1 是 0 否)
     private String isGlobal;
@@ -50,9 +50,11 @@ public class Navigate extends ABaseDO {
 
     // ********** db properties ***********
 
-    private String titleForQuery;
+    private String nameForQuery;
 
     private String isDqNavigate;
+
+    private String userId;
 
     public String getCode() {
         return code;
@@ -76,14 +78,6 @@ public class Navigate extends ABaseDO {
 
     public void setPic(String pic) {
         this.pic = pic;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getStatus() {
@@ -142,19 +136,35 @@ public class Navigate extends ABaseDO {
         this.remark = remark;
     }
 
-    public String getTitleForQuery() {
-        return titleForQuery;
-    }
-
-    public void setTitleForQuery(String titleForQuery) {
-        this.titleForQuery = titleForQuery;
-    }
-
     public String getIsDqNavigate() {
         return isDqNavigate;
     }
 
     public void setIsDqNavigate(String isDqNavigate) {
         this.isDqNavigate = isDqNavigate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNameForQuery() {
+        return nameForQuery;
+    }
+
+    public void setNameForQuery(String nameForQuery) {
+        this.nameForQuery = nameForQuery;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

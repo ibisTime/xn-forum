@@ -29,8 +29,11 @@ public class XN610071Req {
     // 是否精华（选填）
     private String isEssence;
 
-    // 站点编号 （选填）
+    // 板块编号 （选填）
     private String plateCode;
+
+    // 站点编号（选填）
+    private String siteCode;
 
     // 发布开始时间
     private String dateStart;
@@ -116,5 +119,13 @@ public class XN610071Req {
 
     public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }

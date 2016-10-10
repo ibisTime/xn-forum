@@ -31,11 +31,26 @@ public class Plate extends ABaseDO {
     // 名称
     private String name;
 
+    // 类别(1 生活 2 工作)
+    private String kind;
+
     // 图片
     private String pic;
 
+    // 位置(1 引流)
+    private String location;
+
+    // 序号
+    private String orderNo;
+
+    // 版主编号
+    private String userId;
+
     // 站点编号
     private String siteCode;
+
+    // 状态(1 可见 0 不可见)
+    private String status;
 
     // 更新人
     private String updater;
@@ -50,8 +65,10 @@ public class Plate extends ABaseDO {
 
     private String nameForQuery;
 
+    // 活跃人数
     private String personCount;
 
+    // 帖子数
     private String postCount;
 
     public String getCode() {
@@ -133,4 +150,45 @@ public class Plate extends ABaseDO {
     public void setPostCount(String postCount) {
         this.postCount = postCount;
     }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 }

@@ -11,11 +11,23 @@ public class XN610040Req {
     // 名称(必填)
     private String name;
 
+    // 类别(必填)
+    private String kind;
+
     // 图片(必填)
     private String pic;
 
-    // 所属站点(必填)
-    private String siteCode;
+    // 位置(必填)
+    private String location;
+
+    // 序号(必填)
+    private String orderNo;
+
+    // 版主编号(必填)
+    private String userId;
+
+    // 状态(必填)
+    private String status;
 
     // 更新人(必填)
     private String updater;
@@ -39,14 +51,6 @@ public class XN610040Req {
         this.pic = pic;
     }
 
-    public String getSiteCode() {
-        return siteCode;
-    }
-
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
-    }
-
     public String getUpdater() {
         return updater;
     }
@@ -62,4 +66,45 @@ public class XN610040Req {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

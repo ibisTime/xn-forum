@@ -34,8 +34,11 @@ public class XN610070Req extends APageReq {
     // 是否精华（选填）
     private String isEssence;
 
-    // 站点编号 （选填）
+    // 板块编号 （选填）
     private String plateCode;
+
+    // 站点编号（选填）
+    private String siteCode;
 
     public String getTitle() {
         return title;
@@ -109,4 +112,11 @@ public class XN610070Req extends APageReq {
         this.userId = userId;
     }
 
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
 }

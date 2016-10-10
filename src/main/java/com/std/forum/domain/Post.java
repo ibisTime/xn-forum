@@ -122,6 +122,9 @@ public class Post extends ABaseDO {
     // 评论
     private List<Comment> commentList;
 
+    // 站点
+    private String siteCode;
+
     public String getCode() {
         return code;
     }
@@ -376,5 +379,13 @@ public class Post extends ABaseDO {
 
     public void setTalker(String talker) {
         this.talker = talker;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }

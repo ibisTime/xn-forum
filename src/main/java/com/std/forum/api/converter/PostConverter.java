@@ -63,6 +63,7 @@ public class PostConverter {
         result.setIsTop(req.getIsTop());
         result.setIsEssence(req.getIsEssence());
         result.setPlateCode(req.getPlateCode());
+        result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),
             DateUtil.DATA_TIME_PATTERN_1));
         result.setPublishDatetimeEnd(DateUtil.strToDate(req.getDateEnd(),
@@ -81,6 +82,7 @@ public class PostConverter {
         result.setIsTop(req.getIsTop());
         result.setIsEssence(req.getIsEssence());
         result.setPlateCode(req.getPlateCode());
+        result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),
             DateUtil.DATA_TIME_PATTERN_1));
         result.setPublishDatetimeEnd(DateUtil.strToDate(req.getDateEnd(),
