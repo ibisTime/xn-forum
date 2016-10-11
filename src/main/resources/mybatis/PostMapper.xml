@@ -16,17 +16,7 @@
 		<result column="approve_datetime" property="approveDatetime" />
 		
 		<result column="approve_note" property="approveNote" />
-		<result column="is_report" property="isReport" />
-		<result column="reporter" property="reporter" />
-		<result column="report_datetime" property="reportDatetime" />
-		<result column="report_note" property="reportNote" />
-		
 		<result column="status" property="status" />
-		<result column="is_headline" property="isHeadline" />
-		<result column="is_top" property="isTop" />
-		<result column="is_essence" property="isEssence" />
-		<result column="read_time" property="readTime" />
-		
 		<result column="plate_code" property="plateCode" />
 		<result column="total_dz_num" property="totalDzNum" />
 	</resultMap>
@@ -46,21 +36,6 @@
 			</if>
 			<if test="publishDatetimeEnd != null and publishDatetimeEnd != '' ">
 				<![CDATA[AND t.publish_datetime <= #{publishDatetimeEnd}]]>
-			</if>
-			<if test="isReport != null and isReport != '' ">
-		        AND t.is_report = #{isReport}
-			</if>
-			<if test="status != null and status != '' ">
-		        AND t.status = #{status}
-			</if>
-			<if test="isHeadline != null and isHeadline != '' ">
-		        AND t.is_headline = #{isHeadline}
-			</if>
-			<if test="isTop != null and isTop != '' ">
-		        AND t.is_top = #{isTop}
-			</if>
-			<if test="isEssence != null and isEssence != '' ">
-		        AND t.is_essence = #{isEssence}
 			</if>
 			<if test="plateCode != null and plateCode != '' ">
 		        AND t.plate_code = #{plateCode}
@@ -91,18 +66,9 @@
 		,t.publish_datetime
 		,t.approver
 		,t.approve_datetime
+		
 		,t.approve_note
-		,t.is_report
-		
-		,t.reporter
-		,t.report_datetime
-		,t.report_note
 		,t.status
-		,t.is_headline
-		
-		,t.is_top
-		,t.is_essence
-		,t.read_time
 		,t.plate_code
 		,(select count(1) from tforum_post_talk tpt where tpt.type = '1' and tpt.post_code = t.code) as total_dz_num
 		FROM
@@ -129,12 +95,6 @@
 		,title
 		,content
 		,pic
-		,is_report
-		
-		,is_headline
-		,is_top
-		,is_essence
-		,read_time
 		,status
 		
 		,publisher
@@ -145,12 +105,6 @@
 		,#{title}
 		,#{content}
 		,#{pic}
-		,#{isReport}
-		
-		,#{isHeadline}
-		,#{isTop}
-		,#{isEssence}
-		,#{readTime}
 		,#{status}
 		,#{publisher}
 		

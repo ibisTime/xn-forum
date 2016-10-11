@@ -10,6 +10,7 @@ package com.std.forum.bo;
 
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.User;
+import com.std.forum.dto.req.XN805076Req;
 
 /** 
  * @author: xieyj 
@@ -26,5 +27,14 @@ public interface IUserBO extends IPaginableBO<User> {
      * @history:
      */
     public User doGetUser(String userId);
+
+    /**
+     * 注册
+     * @param req
+     * @return 
+     * @create: 2016年10月12日 上午5:38:41 xieyj
+     * @history:
+     */
+    public String doRegister(XN805076Req req);
 
 }
