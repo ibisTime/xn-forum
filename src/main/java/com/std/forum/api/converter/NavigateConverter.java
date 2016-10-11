@@ -18,7 +18,7 @@ public class NavigateConverter {
         result.setType(req.getType());
         result.setIsGlobal(req.getIsGlobal());
         result.setParentCode(req.getParentCode());
-        result.setUserId(req.getUserId());
+        result.setSiteCode(req.getSiteCode());
         result.setRemark(req.getRemark());
         return result;
     }

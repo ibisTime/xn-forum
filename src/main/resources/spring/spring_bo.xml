@@ -33,4 +33,8 @@
 	<bean id="keywordBO" class="com.std.forum.bo.impl.KeywordBOImpl">
 		<property name="paginableDAO" ref="keywordDAOImpl" />
 	</bean>
+	
+	<bean id="ruleBO" class="com.std.forum.bo.impl.RuleBOImpl">
+		<property name="paginableDAO" ref="ruleDAOImpl" />
+	</bean>
 </beans>

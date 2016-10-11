@@ -13,11 +13,12 @@ public class PlateConverter {
         Plate result = new Plate();
         result.setName(req.getName());
         result.setKind(req.getKind());
-        result.setStatus(req.getStatus());
         result.setLocation(req.getLocation());
         result.setOrderNo(req.getOrderNo());
         result.setPic(req.getPic());
         result.setUserId(req.getUserId());
+        result.setSiteCode(req.getSiteCode());
+        result.setStatus(req.getStatus());
         result.setUpdater(req.getUpdater());
         result.setRemark(req.getRemark());
         return result;
@@ -29,11 +30,11 @@ public class PlateConverter {
         result.setCode(req.getCode());
         result.setName(req.getName());
         result.setKind(req.getKind());
-        result.setStatus(req.getStatus());
         result.setLocation(req.getLocation());
         result.setOrderNo(req.getOrderNo());
         result.setPic(req.getPic());
         result.setUserId(req.getUserId());
+        result.setStatus(req.getStatus());
         result.setUpdater(req.getUpdater());
         result.setRemark(req.getRemark());
         return result;

@@ -10,5 +10,6 @@
 		
 		<typeAlias alias="comment" type="com.std.forum.domain.Comment" />
 		<typeAlias alias="keyword" type="com.std.forum.domain.Keyword" />
+		<typeAlias alias="rule" type="com.std.forum.domain.Rule" />
 	</typeAliases>
 </configuration>	

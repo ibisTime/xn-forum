@@ -8,14 +8,15 @@ import com.std.forum.core.StringValidater;
 import com.std.forum.domain.Navigate;
 import com.std.forum.dto.req.XN610020Req;
 import com.std.forum.dto.res.PKCodeRes;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
+/**
  * 新增导航
- * @author: zuixian 
- * @since: 2016年9月14日 下午5:09:40 
+ * @author: xieyj 
+ * @since: 2016年10月11日 上午10:51:20 
  * @history:
  */
 public class XN610020 extends AProcessor {
@@ -36,6 +37,9 @@ public class XN610020 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN610020Req.class);
         StringValidater.validateBlank(req.getName(), req.getUrl(),
             req.getPic(), req.getOrderNo(), req.getStatus(), req.getType(),
-            req.getIsGlobal(), req.getParentCode(), req.getUserId());
+            req.getIsGlobal(), req.getParentCode());
+        if (EBoolean.NO.getCode().equals(req.getIsGlobal())) {
+            StringValidater.validateBlank(req.getSiteCode());
+        }
     }
 }

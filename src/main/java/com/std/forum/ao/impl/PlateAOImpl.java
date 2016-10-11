@@ -22,8 +22,6 @@ import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Plate;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.domain.Site;
-import com.std.forum.exception.BizException;
 
 /** 
  * @author: xieyj 
@@ -49,13 +47,6 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public String addPlate(Plate data) {
-        // 根据更新人编号获取站点编号
-        Site site = siteBO.getSiteByUserId(data.getUpdater());
-        if (site != null) {
-            data.setSiteCode(site.getCode());
-        } else {
-            throw new BizException("xn000000", "当前操作用户无站点信息");
-        }
         plateBO.isExistPlateName(null, data.getName(), data.getSiteCode());
         return plateBO.savePlate(data);
     }

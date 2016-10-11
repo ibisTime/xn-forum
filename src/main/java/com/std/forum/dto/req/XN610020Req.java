@@ -32,8 +32,8 @@ public class XN610020Req {
     // 父编号
     private String parentCode;
 
-    // 用户编号
-    private String userId;
+    // 站点编号
+    private String siteCode;
 
     // 备注
     private String remark;
@@ -110,11 +110,11 @@ public class XN610020Req {
         this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getSiteCode() {
+        return siteCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }

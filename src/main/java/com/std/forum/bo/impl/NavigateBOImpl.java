@@ -50,7 +50,7 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
             }
         }
         if (resultFlag == true) {
-            throw new BizException("xn000000", "该导航标题已存在");
+            throw new BizException("xn000000", "该导航名称已存在");
         }
     }
 
@@ -73,8 +73,6 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
             data.setCode(code);
             if (data.getIsGlobal().equals(EBoolean.YES.getCode())) {
                 data.setSiteCode(EBoolean.NO.getCode());
-            } else {
-                // 根据userId获取站点编号
             }
             navigateDAO.insert(data);
         }

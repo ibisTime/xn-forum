@@ -54,8 +54,6 @@ public class Navigate extends ABaseDO {
 
     private String isDqNavigate;
 
-    private String userId;
-
     public String getCode() {
         return code;
     }
@@ -158,13 +156,5 @@ public class Navigate extends ABaseDO {
 
     public void setNameForQuery(String nameForQuery) {
         this.nameForQuery = nameForQuery;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }

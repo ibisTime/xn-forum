@@ -26,6 +26,9 @@ public class XN610040Req {
     // 版主编号(必填)
     private String userId;
 
+    // 站点编号
+    private String siteCode;
+
     // 状态(必填)
     private String status;
 
@@ -107,4 +110,11 @@ public class XN610040Req {
         this.status = status;
     }
 
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
 }
