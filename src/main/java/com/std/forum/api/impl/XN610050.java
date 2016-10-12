@@ -36,5 +36,4 @@ public class XN610050 extends AProcessor {
         StringValidater.validateBlank(req.getTitle(), req.getContent(),
             req.getPlateCode(), req.getPublisher());
     }
-
 }

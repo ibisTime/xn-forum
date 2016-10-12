@@ -69,7 +69,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
             data.setTalker(talker);
             data.setType(ETalkType.DS.getCode());
             data.setTalkDatetime(new Date());
-            data.setAmount(amount);
+            data.setRemark(String.valueOf(amount));
             count = postTalkDAO.insert(data);
         }
         return count;

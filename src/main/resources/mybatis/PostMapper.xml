@@ -40,6 +40,9 @@
 			<if test="plateCode != null and plateCode != '' ">
 		        AND t.plate_code = #{plateCode}
 			</if>
+			<if test="siteCode != null and siteCode != '' ">
+		        AND tp.site_code = #{siteCode}
+			</if>
 			<if test="type != null and type != '' ">
 		        AND tpt.type = #{type}
 			</if>
@@ -94,6 +97,7 @@
 		,pic
 		,status
 		
+		,plate_code
 		,publisher
 		,publish_datetime
 		)
@@ -103,8 +107,9 @@
 		,#{content}
 		,#{pic}
 		,#{status}
-		,#{publisher}
 		
+		,#{plateCode}
+		,#{publisher}
 		,#{publishDatetime}
 		)
 	</insert>
