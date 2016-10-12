@@ -62,6 +62,5 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
         req.setRefNo(refNo);
         BizConnecter.getBizData("805300", JsonUtils.object2Json(req),
             Object.class);
-
     }
 }
