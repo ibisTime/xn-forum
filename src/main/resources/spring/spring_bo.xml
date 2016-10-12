@@ -34,4 +34,11 @@
 	<bean id="ruleBO" class="com.std.forum.bo.impl.RuleBOImpl">
 		<property name="paginableDAO" ref="ruleDAOImpl" />
 	</bean>
+	<bean id="productBO" class="com.std.forum.bo.impl.ProductBOImpl">
+		<property name="paginableDAO" ref="productDAOImpl" />
+	</bean>
+	
+	<bean id="prodOrderBO" class="com.std.forum.bo.impl.ProdOrderBOImpl">
+		<property name="paginableDAO" ref="prodOrderDAOImpl" />
+	</bean>
 </beans>

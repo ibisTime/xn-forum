@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IProdOrderDAO">
+	<resultMap id="prodOrder_DB_Result" type="prodOrder">
+		<result column="code" property="code" />
+		<result column="product_code" property="productCode" />
+		<result column="quantity" property="quantity" />
+		<result column="status" property="status" />
+		<result column="pay_price" property="payPrice" />
+		<result column="payer" property="payer" />
+		<result column="pay_datetime" property="payDatetime" />
+		<result column="taker" property="taker" />
+		<result column="take_datetime" property="takeDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="payer != null and payer != '' ">
+				AND t.payer = #{payer}
+			</if>
+			<if test="taker != null and taker != '' ">
+				AND t.taker like "%"#{taker}"%"
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_prodOrder" parameterType="prodOrder" resultMap="prodOrder_DB_Result">
+		SELECT
+		t.code
+		,t.product_code
+		,t.quantity
+		,t.status
+		,t.pay_price
+		,t.payer
+		,t.pay_datetime
+		,t.taker
+		,t.take_datetime
+		,t.remark
+		FROM
+		tforum_prod_order t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_prodOrder_count" parameterType="prodOrder"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_prod_order t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_prodOrder" parameterType="prodOrder">
+		INSERT INTO
+		tforum_prod_order(
+		code
+		,product_code
+		,quantity
+		,status
+		,pay_price
+		,payer
+		,pay_datetime
+		,taker
+		,take_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{productCode}
+		,#{quantity}
+		,#{status}
+		,#{payPrice}
+		,#{payer}
+		,#{payDatetime}
+		,#{taker}
+		,#{takeDatetime}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_prodOrder" parameterType="prodOrder">
+		UPDATE tforum_prod_order
+		SET
+		status = #{status}
+		,taker = #{taker}
+		,take_datetime = #{takeDatetime}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+
+</mapper>

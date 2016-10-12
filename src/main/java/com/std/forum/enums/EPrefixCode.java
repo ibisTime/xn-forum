@@ -9,7 +9,7 @@ package com.std.forum.enums;
 public enum EPrefixCode {
     SITE("ZD", "站点"), PLATE("BK", "板块"), POST("TZ", "帖子"), POSTTALK("JL", "交流"), COMMENT(
             "PL", "评论"), KEYWORD("GJ", "关键字"), NAVIGATE("DH", "导航"), RULE("GZ",
-            "规则");
+            "规则"), PRODUCT("CP", "产品"), PRODORDER("DD", "产品订单");
 
     EPrefixCode(String code, String value) {
         this.code = code;
