@@ -11,7 +11,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- * 管理端删除帖子
+ * 版主删除帖子
  * @author: zuixian 
  * @since: 2016年9月19日 下午4:44:53 
  * @history:

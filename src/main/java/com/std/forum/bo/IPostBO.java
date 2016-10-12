@@ -29,7 +29,7 @@ public interface IPostBO extends IPaginableBO<Post> {
 
     public int refreshPostAttr(Post data);
 
-    public int refreshPostReport(Post data);
+    public int refreshPostReport(String code);
 
     public int refreshPostReadTime(String code);
 

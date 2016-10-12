@@ -14,11 +14,11 @@ public class XN610053Req {
     // 是否头条（必填）
     private String isHeadline;
 
-    // 是否置顶（必填）
-    private String isTop;
+    // UI位置（必填）
+    private String location;
 
-    // 是否精华（必填）
-    private String isEssence;
+    // 序号（选填）
+    private String orderNo;
 
     public String getCode() {
         return code;
@@ -36,19 +36,19 @@ public class XN610053Req {
         this.isHeadline = isHeadline;
     }
 
-    public String getIsTop() {
-        return isTop;
+    public String getLocation() {
+        return location;
     }
 
-    public void setIsTop(String isTop) {
-        this.isTop = isTop;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getIsEssence() {
-        return isEssence;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setIsEssence(String isEssence) {
-        this.isEssence = isEssence;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 }

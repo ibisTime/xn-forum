@@ -11,6 +11,7 @@ package com.std.forum.bo;
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.User;
 import com.std.forum.dto.req.XN805076Req;
+import com.std.forum.dto.res.XN805901Res;
 
 /** 
  * @author: xieyj 
@@ -26,7 +27,7 @@ public interface IUserBO extends IPaginableBO<User> {
      * @create: 2016年8月29日 下午8:52:21 xieyj
      * @history:
      */
-    public User doGetUser(String userId);
+    public XN805901Res getRemoteUser(String tokenId, String userId);
 
     /**
      * 注册
@@ -36,5 +37,18 @@ public interface IUserBO extends IPaginableBO<User> {
      * @history:
      */
     public String doRegister(XN805076Req req);
+
+    /**
+     * 加减积分
+     * @param userId
+     * @param direction
+     * @param amount
+     * @param remark
+     * @param refNo 
+     * @create: 2016年10月12日 上午8:13:47 xieyj
+     * @history:
+     */
+    public void doTransfer(String userId, String direction, Long amount,
+            String remark, String refNo);
 
 }

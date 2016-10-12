@@ -52,32 +52,17 @@ public class Post extends ABaseDO {
     // 审核说明
     private String approveNote;
 
-    // 是否举报
-    private String isReport;
-
-    // 举报人
-    private String reporter;
-
-    // 举报时间
-    private Date reportDatetime;
-
-    // 举报说明
-    private String reportNote;
-
     // 状态(0 待审核 1 审核通过 2 审核不通过 3 已发布)
     private String status;
 
     // 是否头条
     private String isHeadline;
 
-    // 是否置顶
-    private String isTop;
+    // UI位置
+    private String location;
 
-    // 是否精华
-    private String isEssence;
-
-    // 阅读次数
-    private Integer readTime;
+    // UI序号
+    private String orderNo;
 
     // 板块编号
     private String plateCode;
@@ -124,6 +109,15 @@ public class Post extends ABaseDO {
 
     // 站点
     private String siteCode;
+
+    // 阅读次数
+    private Integer readTime;
+
+    // 举报人
+    private String reporter;
+
+    // 举报说明
+    private String reportNote;
 
     public String getCode() {
         return code;
@@ -197,38 +191,6 @@ public class Post extends ABaseDO {
         this.approveNote = approveNote;
     }
 
-    public String getIsReport() {
-        return isReport;
-    }
-
-    public void setIsReport(String isReport) {
-        this.isReport = isReport;
-    }
-
-    public String getReporter() {
-        return reporter;
-    }
-
-    public void setReporter(String reporter) {
-        this.reporter = reporter;
-    }
-
-    public Date getReportDatetime() {
-        return reportDatetime;
-    }
-
-    public void setReportDatetime(Date reportDatetime) {
-        this.reportDatetime = reportDatetime;
-    }
-
-    public String getReportNote() {
-        return reportNote;
-    }
-
-    public void setReportNote(String reportNote) {
-        this.reportNote = reportNote;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -243,22 +205,6 @@ public class Post extends ABaseDO {
 
     public void setIsHeadline(String isHeadline) {
         this.isHeadline = isHeadline;
-    }
-
-    public String getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(String isTop) {
-        this.isTop = isTop;
-    }
-
-    public String getIsEssence() {
-        return isEssence;
-    }
-
-    public void setIsEssence(String isEssence) {
-        this.isEssence = isEssence;
     }
 
     public Integer getReadTime() {
@@ -387,5 +333,37 @@ public class Post extends ABaseDO {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(String reporter) {
+        this.reporter = reporter;
+    }
+
+    public String getReportNote() {
+        return reportNote;
+    }
+
+    public void setReportNote(String reportNote) {
+        this.reportNote = reportNote;
     }
 }

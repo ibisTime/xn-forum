@@ -17,7 +17,6 @@ import com.std.forum.ao.IPlateAO;
 import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
-import com.std.forum.bo.ISiteBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Plate;
 import com.std.forum.domain.Post;
@@ -38,9 +37,6 @@ public class PlateAOImpl implements IPlateAO {
 
     @Autowired
     protected IPostBO postBO;
-
-    @Autowired
-    protected ISiteBO siteBO;
 
     /** 
      * @see com.std.forum.ao.IPlateAO#addPlate(com.std.forum.domain.Plate)

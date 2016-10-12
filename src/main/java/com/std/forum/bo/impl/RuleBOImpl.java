@@ -3,6 +3,7 @@ package com.std.forum.bo.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,8 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IRuleDAO;
 import com.std.forum.domain.Rule;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.enums.ERuleKind;
+import com.std.forum.enums.ERuleType;
 import com.std.forum.exception.BizException;
 
 @Component
@@ -81,5 +84,23 @@ public class RuleBOImpl extends PaginableBOImpl<Rule> implements IRuleBO {
             }
         }
         return data;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IRuleBO#getRuleByCondition(java.lang.String, java.lang.String)
+     */
+    @Override
+    public Long getRuleByCondition(ERuleKind kind, ERuleType type) {
+        Long amount = 0L;
+        // 获取注册送积分数量
+        Rule condition = new Rule();
+        condition.setKind(kind.getCode());
+        condition.setType(type.getCode());
+        List<Rule> ruleList = ruleDAO.selectList(condition);
+        if (!CollectionUtils.sizeIsEmpty(ruleList)) {
+            Rule rule = ruleList.get(0);
+            amount = Long.valueOf(rule.getValue());
+        }
+        return amount;
     }
 }

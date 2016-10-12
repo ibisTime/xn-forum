@@ -28,10 +28,7 @@ public class PostDAOTest extends ADAOTest {
         data.setTitle("喜迎G20");
         data.setContent("火树银花");
         data.setPic("www.baidu.com");
-        data.setIsReport(EBoolean.NO.getCode());
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         data.setReadTime(0);
         data.setStatus(EPostStatus.todoAPPROVE.getCode());
         data.setPublisher("admin");
@@ -45,10 +42,7 @@ public class PostDAOTest extends ADAOTest {
         Post data = new Post();
         data.setCode("TZ000000000001");
         data.setTitle("喜迎G20");
-        data.setIsReport(EBoolean.NO.getCode());
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         data.setStatus(EPostStatus.todoAPPROVE.getCode());
         data = postDAO.select(data);
         logger.info("select : {}", data);
@@ -59,10 +53,7 @@ public class PostDAOTest extends ADAOTest {
         Post data = new Post();
         data.setCode("TZ000000000001");
         data.setTitle("喜迎G20");
-        data.setIsReport(EBoolean.NO.getCode());
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         data.setStatus(EPostStatus.todoAPPROVE.getCode());
         long id = postDAO.selectTotalCount(data);
         logger.info("selectTotalCount : {}", id);
@@ -73,10 +64,7 @@ public class PostDAOTest extends ADAOTest {
         Post data = new Post();
         data.setCode("TZ000000000001");
         data.setTitle("喜迎G20");
-        data.setIsReport(EBoolean.NO.getCode());
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         data.setStatus(EPostStatus.todoAPPROVE.getCode());
         List<Post> dataList = postDAO.selectList(data);
         logger.info("selectList : {}", dataList);
@@ -87,10 +75,7 @@ public class PostDAOTest extends ADAOTest {
         Post data = new Post();
         data.setCode("TZ000000000001");
         data.setTitle("喜迎G20");
-        data.setIsReport(EBoolean.NO.getCode());
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         data.setStatus(EPostStatus.todoAPPROVE.getCode());
         List<Post> dataList = postDAO.selectList(data, 0, 1);
         logger.info("selectPage : {}", dataList);
@@ -113,22 +98,8 @@ public class PostDAOTest extends ADAOTest {
         Post data = new Post();
         data.setCode("TZ000000000001");
         data.setIsHeadline(EBoolean.NO.getCode());
-        data.setIsTop(EBoolean.NO.getCode());
-        data.setIsEssence(EBoolean.NO.getCode());
         int count = postDAO.updateAttr(data);
         logger.info("updateAttr : {}", count);
-    }
-
-    @Test
-    public void updateReport() {
-        Post data = new Post();
-        data.setCode("TZ000000000001");
-        data.setIsReport(EBoolean.NO.getCode());
-        data.setReporter("admin");
-        data.setReportDatetime(new Date());
-        data.setReportNote("侵权");
-        int count = postDAO.updateReport(data);
-        logger.info("updateReport : {}", count);
     }
 
     @Test

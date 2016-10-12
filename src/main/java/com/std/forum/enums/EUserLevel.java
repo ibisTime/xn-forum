@@ -1,14 +1,16 @@
 package com.std.forum.enums;
 
-/** 
+/**
+ * 用户等级
  * @author: xieyj 
- * @since: 2015-3-7 上午8:41:50 
+ * @since: 2016年5月24日 上午9:11:47 
  * @history:
  */
-public enum ETalkType {
-    DZ("1", "点赞"), SC("2", "收藏"), DS("3", "打赏"), JB("4", "举报"), YD("5", "阅读");
+public enum EUserLevel {
+    ZERO("0", "新手上路"), ONE("1", "小试牛刀"), TWO("2", "大牛"), THREE("3", "元老"), FOUR(
+            "4", "骨灰级");
 
-    ETalkType(String code, String value) {
+    EUserLevel(String code, String value) {
         this.code = code;
         this.value = value;
     }

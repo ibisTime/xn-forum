@@ -20,7 +20,6 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
-import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 
@@ -45,11 +44,6 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
             data.setCode(code);
-            data.setIsReport(EBoolean.NO.getCode());
-            data.setIsHeadline(EBoolean.NO.getCode());
-            data.setIsTop(EBoolean.NO.getCode());
-            data.setIsEssence(EBoolean.NO.getCode());
-            data.setReadTime(0);
             data.setPublishDatetime(new Date());
             postDAO.insert(data);
         }
@@ -99,12 +93,11 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
      * @see com.std.forum.bo.IPostBO#refreshPostReport(com.std.forum.domain.Post)
      */
     @Override
-    public int refreshPostReport(Post data) {
+    public int refreshPostReport(String code) {
         int count = 0;
-        if (data != null) {
-            data.setIsReport(EBoolean.YES.getCode());
+        if (StringUtils.isNotBlank(code)) {
+            Post data = new Post();
             data.setStatus(EPostStatus.todoAPPROVE.getCode());
-            data.setReportDatetime(new Date());
             count = postDAO.updateReport(data);
         }
         return count;

@@ -21,14 +21,17 @@ import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
+import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.ETalkType;
+import com.std.forum.enums.EUserLevel;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -50,13 +53,15 @@ public class PostAOImpl implements IPostAO {
     @Autowired
     protected IKeywordBO keywordBO;
 
+    @Autowired
+    protected IUserBO userBO;
+
     /** 
      * @see com.std.forum.ao.IPostAO#publishPost(com.std.forum.domain.Post)
      */
     @Override
     public String publishPost(Post data) {
-        // 关键词过滤
-        // 先将关键词导出
+        // 分类别遍历关键词
         Keyword condition = new Keyword();
         List<Keyword> kwList = keywordBO.queryKeywordList(condition);
         // 遍历关键词
@@ -69,8 +74,15 @@ public class PostAOImpl implements IPostAO {
                 throw new BizException("xn000000", "内容包含非法词汇");
             }
         }
-        // 将帖子状态默认为已发布
-        data.setStatus(EPostStatus.PUBLISHED.getCode());
+        XN805901Res res = userBO.getRemoteUser(data.getPublisher(),
+            data.getPublisher());
+        String userLevel = res.getLevel();
+        if (!EUserLevel.ZERO.getCode().equals(userLevel)) {
+            data.setStatus(EPostStatus.PUBLISHED.getCode());
+        } else {
+            data.setStatus(EPostStatus.todoAPPROVE.getCode());
+        }
+        // 发帖赞积分
         return postBO.savePost(data);
     }
 
@@ -104,7 +116,7 @@ public class PostAOImpl implements IPostAO {
      */
     @Override
     public int reportPost(Post data) {
-        return postBO.refreshPostReport(data);
+        return postBO.refreshPostReport(data.getCode());
     }
 
     /** 

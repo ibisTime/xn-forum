@@ -11,7 +11,6 @@ import com.std.forum.bo.INavigateBO;
 import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.INavigateDAO;
-import com.std.forum.dao.ISiteDAO;
 import com.std.forum.domain.Navigate;
 import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPrefixCode;
@@ -28,9 +27,6 @@ public class NavigateBOImpl extends PaginableBOImpl<Navigate> implements
 
     @Autowired
     private INavigateDAO navigateDAO;
-
-    @Autowired
-    private ISiteDAO siteDAO;
 
     @Override
     public void isExistNavigate(String code, String name, String siteCode) {

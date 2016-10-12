@@ -40,9 +40,6 @@
 			<if test="plateCode != null and plateCode != '' ">
 		        AND t.plate_code = #{plateCode}
 			</if>
-			<if test="siteCode != null and siteCode != '' ">
-		        AND tp.site_code = #{siteCode}
-			</if>
 			<if test="type != null and type != '' ">
 		        AND tpt.type = #{type}
 			</if>
@@ -119,17 +116,6 @@
 		code = #{code}
 	</delete>
 	
-	<update id="update_post_report" parameterType="post">
-		UPDATE tforum_post
-		SET
-		is_report = #{isReport}
-		,reporter = #{reporter}
-		,report_datetime = #{reportDatetime}
-		,report_note = #{reportNote}
-		,status = #{status}
-		WHERE code = #{code}
-	</update>
-	
 	<update id="update_post_approve" parameterType="post">
 		UPDATE tforum_post
 		SET
@@ -140,19 +126,18 @@
 		WHERE code = #{code}
 	</update>
 	
-	<update id="update_post_attr" parameterType="post">
+	<update id="update_post_status" parameterType="post">
 		UPDATE tforum_post
 		SET
-		is_headline = #{isHeadline}
-		,is_top = #{isTop}
-		,is_essence = #{isEssence}
+		status = #{status}
 		WHERE code = #{code}
 	</update>
 	
-	<update id="update_post_readTime" parameterType="post">
+	<update id="update_post_attr" parameterType="post">
 		UPDATE tforum_post
 		SET
-		read_time = read_time + 1
+		location = #{location}
+		,order_no = #{orderNo}
 		WHERE code = #{code}
 	</update>
 </mapper>

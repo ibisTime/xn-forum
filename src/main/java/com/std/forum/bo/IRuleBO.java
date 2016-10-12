@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.Rule;
+import com.std.forum.enums.ERuleKind;
+import com.std.forum.enums.ERuleType;
 
 public interface IRuleBO extends IPaginableBO<Rule> {
 
@@ -19,4 +21,5 @@ public interface IRuleBO extends IPaginableBO<Rule> {
 
     public Rule getRule(String code);
 
+    public Long getRuleByCondition(ERuleKind kind, ERuleType type);
 }

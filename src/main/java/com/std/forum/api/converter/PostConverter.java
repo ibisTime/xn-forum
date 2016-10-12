@@ -27,8 +27,8 @@ public class PostConverter {
         Post result = new Post();
         result.setCode(req.getCode());
         result.setIsHeadline(req.getIsHeadline());
-        result.setIsTop(req.getIsTop());
-        result.setIsEssence(req.getIsEssence());
+        result.setLocation(req.getLocation());
+        result.setOrderNo(req.getOrderNo());
         return result;
     }
 
@@ -58,10 +58,7 @@ public class PostConverter {
         result.setTitle(req.getTitle());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
-        result.setIsReport(req.getIsReport());
         result.setIsHeadline(req.getIsHeadline());
-        result.setIsTop(req.getIsTop());
-        result.setIsEssence(req.getIsEssence());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),
@@ -77,10 +74,7 @@ public class PostConverter {
         result.setTitle(req.getTitle());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
-        result.setIsReport(req.getIsReport());
         result.setIsHeadline(req.getIsHeadline());
-        result.setIsTop(req.getIsTop());
-        result.setIsEssence(req.getIsEssence());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),

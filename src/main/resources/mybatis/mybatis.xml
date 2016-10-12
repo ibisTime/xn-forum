@@ -2,7 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>		
-		<typeAlias alias="site" type="com.std.forum.domain.Site" />
 		<typeAlias alias="navigate" type="com.std.forum.domain.Navigate" />
 		<typeAlias alias="plate" type="com.std.forum.domain.Plate" />
 		<typeAlias alias="post" type="com.std.forum.domain.Post" />
