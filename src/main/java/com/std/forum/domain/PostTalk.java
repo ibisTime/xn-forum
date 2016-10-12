@@ -42,8 +42,8 @@ public class PostTalk extends ABaseDO {
     // 帖子信息
     private Post post;
 
-    // 打赏的金额
-    private Long amount;
+    // 备注
+    private String remark;
 
     // 板块编号
     private String plateCode;
@@ -100,12 +100,12 @@ public class PostTalk extends ABaseDO {
         this.post = post;
     }
 
-    public Long getAmount() {
-        return amount;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getPlateCode() {

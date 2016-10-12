@@ -8,7 +8,7 @@
 		<result column="post_code" property="postCode" />
 		<result column="talker" property="talker" />
 		<result column="nickname" property="nickname" />
-		<result column="amount" property="amount" />
+		<result column="remark" property="remark" />
 		<result column="talk_datetime" property="talkDatetime" />
 	</resultMap>
 	
@@ -38,7 +38,7 @@
 		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.talker) as nickname
 		
 		,talk_datetime
-		,amount
+		,remark
 		FROM
 		tforum_post_talk t
 		<include refid="where_condition" />
@@ -64,7 +64,7 @@
 		,post_code
 		,talker
 		,talk_datetime
-		,amount
+		,remark
 		)
 		VALUES(
 		#{code}
@@ -72,7 +72,7 @@
 		,#{postCode}
 		,#{talker}
 		,#{talkDatetime}
-		,#{amount}
+		,#{remark}
 		)
 	</insert>
 	

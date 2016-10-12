@@ -21,7 +21,7 @@
 		<property name="paginableDAO" ref="postDAOImpl" />
 	</bean>
 	<bean id="postTalkBO" class="com.std.forum.bo.impl.PostTalkBOImpl">
-		<property name="paginableDAO" ref="siteDAOImpl" />
+		<property name="paginableDAO" ref="postTalkDAOImpl" />
 	</bean>
 	
 	<bean id="commentBO" class="com.std.forum.bo.impl.CommentBOImpl">
