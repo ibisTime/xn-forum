@@ -14,6 +14,8 @@ public interface IProdOrderAO {
 
     public int editProdOrder(ProdOrder data);
 
+    public int editProdOrderStatus(String code);
+
     public Paginable<ProdOrder> queryProdOrderPage(int start, int limit,
             ProdOrder condition);
 

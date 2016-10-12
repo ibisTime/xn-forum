@@ -7,7 +7,7 @@ package com.std.forum.enums;
  */
 public enum EProdOrderStatus {
     todoPAY("0", "待支付"), PAY_YES("1", "已支付"), todoPICK("2", "待取货"), PICK_YES(
-            "3", "已取货");
+            "3", "已取货"), OBSOLETE("4", "作废");
 
     EProdOrderStatus(String code, String value) {
         this.code = code;

@@ -50,4 +50,9 @@ public class ProdOrderDAOImpl extends AMybatisTemplate implements IProdOrderDAO 
     public int update(ProdOrder data) {
         return super.update(NAMESPACE.concat("update_prodOrder"), data);
     }
+
+    @Override
+    public int updateStatus(ProdOrder data) {
+        return super.update(NAMESPACE.concat("update_prodOrder_status"), data);
+    }
 }

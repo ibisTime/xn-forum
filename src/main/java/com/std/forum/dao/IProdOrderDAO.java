@@ -7,4 +7,6 @@ public interface IProdOrderDAO extends IBaseDAO<ProdOrder> {
     String NAMESPACE = IProdOrderDAO.class.getName().concat(".");
 
     public int update(ProdOrder data);
+
+    public int updateStatus(ProdOrder data);
 }
