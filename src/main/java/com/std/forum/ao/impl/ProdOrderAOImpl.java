@@ -76,15 +76,4 @@ public class ProdOrderAOImpl implements IProdOrderAO {
     public ProdOrder getProdOrder(String code) {
         return prodOrderBO.getProdOrder(code);
     }
-
-    @Override
-    public int editProdOrderStatus(String code) {
-        if (!prodOrderBO.isProdOrderExist(code)) {
-            throw new BizException("xn0000", "该编号不存在");
-        }
-        ProdOrder data = new ProdOrder();
-        data.setCode(code);
-        data.setStatus(EProdOrderStatus.OBSOLETE.getCode());
-        return prodOrderBO.refreshProdOrderStatus(data);
-    }
 }
