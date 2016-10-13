@@ -40,6 +40,7 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.PRODORDER.getCode());
             data.setCode(code);
+            data.setStatus(EProdOrderStatus.PAY_YES.getCode());
             data.setPayDatetime(new Date());
             prodOrderDAO.insert(data);
         }
@@ -58,11 +59,16 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
     }
 
     @Override
-    public int refreshProdOrder(ProdOrder data) {
+    public int refreshProdOrderStatus(String code, String status, String taker,
+            String remark) {
         int count = 0;
-        if (StringUtils.isNotBlank(data.getCode())) {
-            data.setStatus(EProdOrderStatus.PICK_YES.getCode());
+        if (StringUtils.isNotBlank(code)) {
+            ProdOrder data = new ProdOrder();
+            data.setCode(code);
+            data.setStatus(status);
+            data.setTaker(taker);
             data.setTakeDatetime(new Date());
+            data.setRemark(remark);
             count = prodOrderDAO.update(data);
         }
         return count;

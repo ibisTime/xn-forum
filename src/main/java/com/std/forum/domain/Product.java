@@ -2,7 +2,6 @@ package com.std.forum.domain;
 
 import com.std.forum.dao.base.ABaseDO;
 
-//CHECK ��鲢��ע�� 
 public class Product extends ABaseDO {
 
     private static final long serialVersionUID = 1L;
@@ -13,7 +12,7 @@ public class Product extends ABaseDO {
     // 名称
     private String name;
 
-    // 类别
+    // 类别(A 家居 B 购物)
     private String kind;
 
     // 图片

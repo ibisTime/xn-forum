@@ -14,9 +14,6 @@ public class XN610300Req {
     // 描述（必填）
     private String description;
 
-    // 状态(0 未发布 1上架中 2 已下架)（必填）
-    private String status;
-
     // 价格（必填）
     private String price;
 
@@ -53,14 +50,6 @@ public class XN610300Req {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getPrice() {

@@ -13,7 +13,8 @@ public interface IProdOrderBO extends IPaginableBO<ProdOrder> {
 
     public int removeProdOrder(String code);
 
-    public int refreshProdOrder(ProdOrder data);
+    public int refreshProdOrderStatus(String code, String status, String taker,
+            String remark);
 
     public List<ProdOrder> queryProdOrderList(ProdOrder condition);
 

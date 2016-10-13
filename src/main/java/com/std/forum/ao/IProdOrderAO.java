@@ -12,7 +12,9 @@ public interface IProdOrderAO {
 
     public int dropProdOrder(String code);
 
-    public int editProdOrder(ProdOrder data);
+    public int takeProduct(String code, String taker, String remark);
+
+    public int invalidProdOrder(String code, String takeNote);
 
     public Paginable<ProdOrder> queryProdOrderPage(int start, int limit,
             ProdOrder condition);

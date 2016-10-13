@@ -7,7 +7,6 @@ import com.std.forum.dto.req.XN610300Req;
 import com.std.forum.dto.req.XN610302Req;
 import com.std.forum.dto.req.XN610310Req;
 import com.std.forum.dto.req.XN610320Req;
-import com.std.forum.dto.req.XN610321Req;
 
 public class ProductConverter {
 
@@ -18,7 +17,6 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
-        result.setStatus(req.getStatus());
         result.setPrice(StringValidater.toInteger(req.getPrice()));
         result.setSiteCode(req.getSiteCode());
         return result;
@@ -32,7 +30,6 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
-        result.setStatus(req.getStatus());
         result.setPrice(StringValidater.toInteger(req.getPrice()));
         result.setSiteCode(req.getSiteCode());
         return result;
@@ -53,15 +50,6 @@ public class ProductConverter {
         result.setPayer(req.getUserId());
         result.setProductCode(req.getProductCode());
         result.setQuantity(StringValidater.toInteger(req.getQuantity()));
-        return result;
-    }
-
-    // 确认提货
-    public static ProdOrder converter(XN610321Req req) {
-        ProdOrder result = new ProdOrder();
-        result.setCode(req.getOrderCode());
-        result.setTaker(req.getTaker());
-        result.setRemark(req.getTakeNote());
         return result;
     }
 }

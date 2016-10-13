@@ -82,7 +82,7 @@ CREATE TABLE `tforum_post` (
   `approver` varchar(32) DEFAULT NULL COMMENT '审核人',
   `approve_datetime` datetime DEFAULT NULL COMMENT '审核时间',
   `approve_note` varchar(255) DEFAULT NULL COMMENT '审核说明',
-  `position` varchar(4) DEFAULT NULL COMMENT '位置(1 置顶 2 精华 3 头条)',
+  `location` varchar(4) DEFAULT NULL COMMENT '位置(1 置顶 2 精华 3 置顶+精华)',
   `order_no` int(11) DEFAULT NULL COMMENT '序号',
   `plate_code` varchar(32) DEFAULT NULL COMMENT '板块编号',
   PRIMARY KEY (`code`)

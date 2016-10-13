@@ -30,21 +30,27 @@ public class ProdOrderAOImpl implements IProdOrderAO {
         Integer price = product.getPrice() * data.getQuantity();
         data.setPayPrice(price);
         // 状态设为 已支付
-        data.setStatus("1");
         return prodOrderBO.saveProdOrder(data);
     }
 
     @Override
-    public int editProdOrder(ProdOrder data) {
-        if (!prodOrderBO.isProdOrderExist(data.getCode())) {
-            throw new BizException("xn0000", "该编号不存在");
+    public int takeProduct(String code, String taker, String takeNote) {
+        ProdOrder data = prodOrderBO.getProdOrder(code);
+        if (!EProdOrderStatus.PAY_YES.getCode().equals(data.getStatus())) {
+            throw new BizException("xn0000", "该订单已不是已支付状态");
         }
-        ProdOrder prodOrder = prodOrderBO.getProdOrder(data.getCode());
-        if (EProdOrderStatus.todoPAY.getCode().equalsIgnoreCase(
-            prodOrder.getStatus())) {
-            throw new BizException("xn0000", "该订单未支付，不能提货");
+        return prodOrderBO.refreshProdOrderStatus(code,
+            EProdOrderStatus.TAKE_YES.getCode(), taker, takeNote);
+    }
+
+    @Override
+    public int invalidProdOrder(String code, String takeNote) {
+        ProdOrder data = prodOrderBO.getProdOrder(code);
+        if (!EProdOrderStatus.PAY_YES.getCode().equals(data.getStatus())) {
+            throw new BizException("xn0000", "该订单已不是已支付状态");
         }
-        return prodOrderBO.refreshProdOrder(data);
+        return prodOrderBO.refreshProdOrderStatus(code,
+            EProdOrderStatus.INVALID.getCode(), null, takeNote);
     }
 
     @Override
