@@ -97,6 +97,13 @@
 		,remark = #{remark}
 		WHERE code = #{code}
 	</update>
+	
+	<update id="update_prodOrder_status" parameterType="prodOrder">
+		UPDATE tforum_prod_order
+		SET
+		status = #{status}
+		WHERE code = #{code}
+	</update>
 
 
 </mapper>

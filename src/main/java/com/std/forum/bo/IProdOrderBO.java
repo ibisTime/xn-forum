@@ -16,6 +16,8 @@ public interface IProdOrderBO extends IPaginableBO<ProdOrder> {
     public int refreshProdOrderStatus(String code, String status, String taker,
             String remark);
 
+    public int refreshProdOrderStatus(ProdOrder data);
+
     public List<ProdOrder> queryProdOrderList(ProdOrder condition);
 
     public ProdOrder getProdOrder(String code);

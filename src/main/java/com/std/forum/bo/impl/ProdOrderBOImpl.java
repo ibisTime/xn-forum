@@ -16,7 +16,6 @@ import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.EProdOrderStatus;
 import com.std.forum.exception.BizException;
 
-//CHECK ��鲢��ע�� 
 @Component
 public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
         IProdOrderBO {
@@ -91,5 +90,14 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
             }
         }
         return data;
+    }
+
+    @Override
+    public int refreshProdOrderStatus(ProdOrder data) {
+        int count = 0;
+        if (StringUtils.isNotBlank(data.getCode())) {
+            count = prodOrderDAO.updateStatus(data);
+        }
+        return count;
     }
 }
