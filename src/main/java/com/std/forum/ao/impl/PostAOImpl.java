@@ -57,37 +57,70 @@ public class PostAOImpl implements IPostAO {
     protected IUserBO userBO;
 
     /** 
-     * @see com.std.forum.ao.IPostAO#publishPost(com.std.forum.domain.Post)
+     * @see com.std.forum.ao.IPostAO#draftPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public String publishPost(Post data) {
+    public String draftPost(String title, String content, String pic,
+            String plateCode, String publisher) {
+        return postBO.savePost(title, content, pic, plateCode, publisher,
+            EPostStatus.DRAFT.getCode());
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void editPost(String code, String title, String content, String pic,
+            String plateCode, String publisher) {
+        postBO.refreshPost(code, title, content, pic, plateCode, publisher,
+            EPostStatus.DRAFT.getCode());
+    }
+
+    /**
+     * @see com.std.forum.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public String publishPost(String title, String content, String pic,
+            String plateCode, String publisher) {
         // 分类别遍历关键词
         Keyword condition = new Keyword();
         List<Keyword> kwList = keywordBO.queryKeywordList(condition);
         // 遍历关键词
         for (Keyword keyword : kwList) {
             // 若帖子标题与帖子内容包含关键词则抛出异常
-            if (data.getTitle().contains(keyword.getWord())) {
+            if (title.contains(keyword.getWord())) {
                 throw new BizException("xn000000", "标题包含非法词汇");
             }
-            if (data.getContent().contains(keyword.getWord())) {
+            if (content.contains(keyword.getWord())) {
                 throw new BizException("xn000000", "内容包含非法词汇");
             }
         }
-        XN805901Res res = userBO.getRemoteUser(data.getPublisher(),
-            data.getPublisher());
+        String status = EPostStatus.PUBLISHED.getCode();
+        XN805901Res res = userBO.getRemoteUser(publisher, publisher);
         String userLevel = res.getLevel();
-        if (!EUserLevel.ZERO.getCode().equals(userLevel)) {
-            data.setStatus(EPostStatus.PUBLISHED.getCode());
-        } else {
-            data.setStatus(EPostStatus.todoAPPROVE.getCode());
+        if (EUserLevel.ZERO.getCode().equals(userLevel)) {
+            status = EPostStatus.todoAPPROVE.getCode();
         }
-        // 发帖赞积分
-        return postBO.savePost(data);
+        // 发帖加积分
+        return postBO.savePost(title, content, pic, plateCode, publisher,
+            status);
+    }
+
+    public void publishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher) {
+        String status = EPostStatus.PUBLISHED.getCode();
+        XN805901Res res = userBO.getRemoteUser(publisher, publisher);
+        String userLevel = res.getLevel();
+        if (EUserLevel.ZERO.getCode().equals(userLevel)) {
+            status = EPostStatus.todoAPPROVE.getCode();
+        }
+        // 发帖加积分
+        postBO.refreshPost(code, title, content, pic, plateCode, publisher,
+            status);
     }
 
     @Override
-    public int removePostByPU(String code, String userId) {
+    public int removePostBySelf(String code, String userId) {
         int count = 0;
         Post data = postBO.getPost(code);
         if (data.getPublisher().equals(userId)) {
@@ -99,40 +132,30 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public int removePostByGL(String code) {
+    public int removePost(String code) {
         return postBO.removePost(code);
+    }
+
+    @Override
+    public int setPostLocation(String code, String location, String orderNo) {
+        return postBO.refreshPostLocation(code, location, orderNo);
     }
 
     /** 
      * @see com.std.forum.ao.IPostAO#approvePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public int approvePost(Post data) {
-        return postBO.refreshPostApprove(data);
+    public int approvePost(String code, String status, String approver,
+            String approveNote) {
+        return postBO.refreshPostApprove(code, status, approver, approveNote);
     }
 
     /** 
-     * @see com.std.forum.ao.IPostAO#reportPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * @see com.std.forum.ao.IPostAO#setPostHeadlines(java.lang.String, java.lang.String)
      */
     @Override
-    public int reportPost(Post data) {
-        return postBO.refreshPostReport(data.getCode());
-    }
-
-    /** 
-     * @see com.std.forum.ao.IPostAO#setUpPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-     */
-    @Override
-    public int setUpPost(Post data) {
-        return postBO.refreshPostAttr(data);
-    }
-
-    /** 
-     * @see com.std.forum.ao.IPostAO#addReadTime(java.lang.String)
-     */
-    @Override
-    public int addReadTime(String code) {
-        return postBO.refreshPostReadTime(code);
+    public int setPostHeadlines(String code, String isHeadlines) {
+        return postBO.refreshPostHeadlines(code, isHeadlines);
     }
 
     @Override
@@ -242,5 +265,23 @@ public class PostAOImpl implements IPostAO {
         condition.setType(ETalkType.SC.getCode());
         condition.setTalker(talker);
         return postBO.queryPostList(condition);
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostAO#reportPost(java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void reportPost(String code, String reporter, String reportNote) {
+        postTalkBO.savePostTalk(code, reporter, ETalkType.JB.getCode(),
+            reportNote);
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostAO#readPost(java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void readPost(String code, String reader) {
+        postTalkBO.savePostTalk(code, reader, ETalkType.YD.getCode(),
+            ETalkType.YD.getValue());
     }
 }

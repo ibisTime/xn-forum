@@ -21,19 +21,32 @@ import com.std.forum.domain.Post;
 public interface IPostAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
-    public String publishPost(Post post);
+    public String draftPost(String title, String content, String pic,
+            String plateCode, String publisher);
 
-    public int removePostByPU(String code, String userId);
+    public void editPost(String code, String title, String content, String pic,
+            String plateCode, String publisher);
 
-    public int removePostByGL(String code);
+    public String publishPost(String title, String content, String pic,
+            String plateCode, String publisher);
 
-    public int approvePost(Post data);
+    public void publishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher);
 
-    public int reportPost(Post data);
+    public int removePostBySelf(String code, String userId);
 
-    public int setUpPost(Post data);
+    public int removePost(String code);
 
-    public int addReadTime(String code);
+    public int approvePost(String code, String status, String approver,
+            String approveNote);
+
+    public void reportPost(String code, String reporter, String reportNote);
+
+    public void readPost(String code, String reader);
+
+    public int setPostHeadlines(String code, String isHeadlines);
+
+    public int setPostLocation(String code, String location, String orderNo);
 
     public Paginable<Post> queryPostPage(int start, int limit, Post condition);
 

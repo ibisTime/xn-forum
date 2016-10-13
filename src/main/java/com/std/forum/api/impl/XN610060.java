@@ -24,13 +24,13 @@ public class XN610060 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        int count = postAO.addReadTime(req.getPostCode());
-        return new BooleanRes(count > 0 ? true : false);
+        postAO.readPost(req.getPostCode(), req.getReader());
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610060Req.class);
-        StringValidater.validateBlank(req.getPostCode());
+        StringValidater.validateBlank(req.getPostCode(), req.getReader());
     }
 }

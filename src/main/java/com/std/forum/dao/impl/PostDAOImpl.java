@@ -82,14 +82,6 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
     }
 
     /** 
-     * @see com.std.forum.dao.IPostDAO#updateReport(com.std.forum.domain.Post)
-     */
-    @Override
-    public int updateReport(Post data) {
-        return super.update(NAMESPACE.concat("update_post_status"), data);
-    }
-
-    /** 
      * @see com.std.forum.dao.IPostDAO#updateApprove(com.std.forum.domain.Post)
      */
     @Override
@@ -101,21 +93,26 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      * @see com.std.forum.dao.IPostDAO#updateAttr(com.std.forum.domain.Post)
      */
     @Override
-    public int updateAttr(Post data) {
-        return super.update(NAMESPACE.concat("update_post_attr"), data);
+    public int updateLocation(Post data) {
+        return super.update(NAMESPACE.concat("update_post_location"), data);
     }
 
-    /** 
-     * @see com.std.forum.dao.IPostDAO#updateReadTime(com.std.forum.domain.Post)
-     */
     @Override
-    public int updateReadTime(Post data) {
-        return super.update(NAMESPACE.concat("update_post_readTime"), data);
+    public int updateHeadlines(Post data) {
+        return super.update(NAMESPACE.concat("update_post_headlines"), data);
     }
 
     @Override
     public long selectPostNum(Post condition) {
         return super.selectTotalCount(NAMESPACE.concat("select_post1_count"),
             condition);
+    }
+
+    /** 
+     * @see com.std.forum.dao.IPostDAO#update(com.std.forum.domain.Post)
+     */
+    @Override
+    public int update(Post data) {
+        return super.update(NAMESPACE.concat("update_post"), data);
     }
 }

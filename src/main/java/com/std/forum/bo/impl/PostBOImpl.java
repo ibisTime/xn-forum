@@ -20,7 +20,6 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
-import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 
 /** 
@@ -35,19 +34,39 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
     @Autowired
     private IPostDAO postDAO;
 
-    /** 
-     * @see com.std.forum.bo.IPostBO#savePost(com.std.forum.domain.Post)
+    /**
+     * @see com.std.forum.bo.IPostBO#savePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public String savePost(Post data) {
-        String code = null;
-        if (data != null) {
-            code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
-            data.setCode(code);
-            data.setPublishDatetime(new Date());
-            postDAO.insert(data);
-        }
+    public String savePost(String title, String content, String pic,
+            String plateCode, String publisher, String status) {
+        String code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
+        Post data = new Post();
+        data.setCode(code);
+        data.setTitle(title);
+        data.setContent(content);
+        data.setPic(pic);
+        data.setPlateCode(plateCode);
+        data.setPublisher(publisher);
+        data.setStatus(status);
+        data.setPublishDatetime(new Date());
+        postDAO.insert(data);
         return code;
+    }
+
+    @Override
+    public void refreshPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String status) {
+        Post data = new Post();
+        data.setCode(code);
+        data.setTitle(title);
+        data.setContent(content);
+        data.setPic(pic);
+        data.setPlateCode(plateCode);
+        data.setStatus(status);
+        data.setPublisher(publisher);
+        data.setPublishDatetime(new Date());
+        postDAO.update(data);
     }
 
     /** 
@@ -64,57 +83,21 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         return count;
     }
 
-    /** 
-     * @see com.std.forum.bo.IPostBO#refreshPostApprove(com.std.forum.domain.Post)
+    /**
+     * @see com.std.forum.bo.IPostBO#refreshPostApprove(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public int refreshPostApprove(Post data) {
-        int count = 0;
-        if (data != null) {
-            data.setApproveDatetime(new Date());
-            count = postDAO.updateApprove(data);
-        }
-        return count;
-    }
-
-    /** 
-     * @see com.std.forum.bo.IPostBO#refreshPostAttr(com.std.forum.domain.Post)
-     */
-    @Override
-    public int refreshPostAttr(Post data) {
-        int count = 0;
-        if (data != null) {
-            count = postDAO.updateAttr(data);
-        }
-        return count;
-    }
-
-    /** 
-     * @see com.std.forum.bo.IPostBO#refreshPostReport(com.std.forum.domain.Post)
-     */
-    @Override
-    public int refreshPostReport(String code) {
-        int count = 0;
-        if (StringUtils.isNotBlank(code)) {
-            Post data = new Post();
-            data.setStatus(EPostStatus.todoAPPROVE.getCode());
-            count = postDAO.updateReport(data);
-        }
-        return count;
-    }
-
-    /** 
-     * @see com.std.forum.bo.IPostBO#refreshPostReadTime(com.std.forum.domain.Post)
-     */
-    @Override
-    public int refreshPostReadTime(String code) {
+    public int refreshPostApprove(String code, String status, String approver,
+            String approveNote) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Post data = new Post();
             data.setCode(code);
-            Post oldPost = postDAO.select(data);
-            data.setReadTime(oldPost.getReadTime() + 1);
-            count = postDAO.updateReadTime(data);
+            data.setStatus(status);
+            data.setApprover(approver);
+            data.setApproveDatetime(new Date());
+            data.setApproveNote(approveNote);
+            count = postDAO.updateApprove(data);
         }
         return count;
     }
@@ -144,5 +127,33 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
     @Override
     public long getPostNum(Post condition) {
         return postDAO.selectPostNum(condition);
+    }
+
+    @Override
+    public int refreshPostLocation(String code, String location, String orderNo) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Post data = new Post();
+            data.setCode(code);
+            data.setLocation(location);
+            data.setOrderNo(orderNo);
+            count = postDAO.updateLocation(data);
+        }
+        return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IPostBO#refreshPostHeadlines(java.lang.String)
+     */
+    @Override
+    public int refreshPostHeadlines(String code, String isHeadlines) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Post data = new Post();
+            data.setCode(code);
+            data.setIsHeadlines(isHeadlines);
+            count = postDAO.updateHeadlines(data);
+        }
+        return count;
     }
 }

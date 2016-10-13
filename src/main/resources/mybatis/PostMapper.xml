@@ -114,6 +114,18 @@
 		)
 	</insert>
 	
+	<update id="update_post" parameterType="post">
+		UPDATE tforum_post
+		SET
+		title = #{title}
+		,content = #{content}
+		,pic = #{pic}
+		,plate_code = #{plateCode}
+		,status = #{status}
+		,publisher = #{publisher}
+		WHERE code = #{code}
+	</update>
+	
 	<delete id="delete_post" parameterType="post">
 		DELETE FROM
 		tforum_post
@@ -138,11 +150,18 @@
 		WHERE code = #{code}
 	</update>
 	
-	<update id="update_post_attr" parameterType="post">
+	<update id="update_post_location" parameterType="post">
 		UPDATE tforum_post
 		SET
 		location = #{location}
 		,order_no = #{orderNo}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_post_headlines" parameterType="post">
+		UPDATE tforum_post
+		SET
+		is_headlines = #{isHeadlines}
 		WHERE code = #{code}
 	</update>
 </mapper>

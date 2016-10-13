@@ -10,9 +10,8 @@ import com.std.forum.bo.IAccountBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
-import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.enums.EDirection;
+import com.std.forum.enums.ETalkType;
 
 @Service
 public class PostTalkAOImpl implements IPostTalkAO {
@@ -34,18 +33,18 @@ public class PostTalkAOImpl implements IPostTalkAO {
         if (null != postTalk) {
             count = postTalkBO.removePostTalk(postTalk.getCode());
         } else {
-            count = postTalkBO.savePostTalk(postCode, userId, type);
+            count = postTalkBO.savePostTalk(postCode, userId, type, null);
         }
         return count;
     }
 
     @Override
-    public int doPostTalkByAmount(String postCode, String userId, Long amount) {
-        Post post = postBO.getPost(postCode);
-        // 账户扣钱
-        accountBO.doTransferUsers(userId, post.getPublisher(),
-            EDirection.PLUS.getCode(), amount, new Long(0), "打赏");
-        return postTalkBO.savePostTalk(postCode, userId, amount);
+    public int doPostTalk(String postCode, String userId, Long amount) {
+        // // 账户扣钱
+        // accountBO.doTransferUsers(userId, post.getPublisher(),
+        // EDirection.PLUS.getCode(), amount, new Long(0), "打赏");
+        return postTalkBO.savePostTalk(postCode, userId,
+            ETalkType.DS.getCode(), String.valueOf(amount));
     }
 
     @Override

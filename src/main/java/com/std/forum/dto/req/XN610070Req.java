@@ -26,7 +26,7 @@ public class XN610070Req extends APageReq {
     private String isReport;
 
     // 是否推荐 （选填）
-    private String isHeadline;
+    private String isHeadlines;
 
     // 是否置顶（选填）
     private String isTop;
@@ -72,12 +72,12 @@ public class XN610070Req extends APageReq {
         this.isReport = isReport;
     }
 
-    public String getIsHeadline() {
-        return isHeadline;
+    public String getIsHeadlines() {
+        return isHeadlines;
     }
 
-    public void setIsHeadline(String isHeadline) {
-        this.isHeadline = isHeadline;
+    public void setIsHeadlines(String isHeadlines) {
+        this.isHeadlines = isHeadlines;
     }
 
     public String getIsTop() {

@@ -56,7 +56,7 @@ public class Post extends ABaseDO {
     private String status;
 
     // 是否头条
-    private String isHeadline;
+    private String isHeadlines;
 
     // UI位置
     private String location;
@@ -199,12 +199,12 @@ public class Post extends ABaseDO {
         this.status = status;
     }
 
-    public String getIsHeadline() {
-        return isHeadline;
+    public String getIsHeadlines() {
+        return isHeadlines;
     }
 
-    public void setIsHeadline(String isHeadline) {
-        this.isHeadline = isHeadline;
+    public void setIsHeadlines(String isHeadlines) {
+        this.isHeadlines = isHeadlines;
     }
 
     public Integer getReadTime() {

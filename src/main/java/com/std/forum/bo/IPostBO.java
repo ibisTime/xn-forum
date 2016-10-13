@@ -21,17 +21,20 @@ import com.std.forum.domain.Post;
  */
 public interface IPostBO extends IPaginableBO<Post> {
 
-    public String savePost(Post data);
+    public String savePost(String title, String content, String pic,
+            String plateCode, String publisher, String status);
+
+    public void refreshPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String status);
 
     public int removePost(String code);
 
-    public int refreshPostApprove(Post data);
+    public int refreshPostApprove(String code, String status, String approver,
+            String approveNote);
 
-    public int refreshPostAttr(Post data);
+    public int refreshPostLocation(String code, String location, String orderNo);
 
-    public int refreshPostReport(String code);
-
-    public int refreshPostReadTime(String code);
+    public int refreshPostHeadlines(String code, String isHeadlines);
 
     public Post getPost(String code);
 
