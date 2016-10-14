@@ -189,6 +189,7 @@ public class PostAOImpl implements IPostAO {
         Paginable<Post> postPage = postBO.getPaginable(start, limit, condition);
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
+            cutPic(post);
             this.getAllInfo(post, condition.getUserId());
         }
         return postPage;
@@ -202,8 +203,18 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Post getPost(String code, String userId) {
         Post post = postBO.getPost(code);
+        cutPic(post);
         getAllInfo(post, userId);
         return post;
+    }
+
+    private void cutPic(Post post) {
+        String pic = post.getPic();
+        if (StringUtils.isNotBlank(pic)) {
+            String[] picArr = pic.split("\\|\\|");
+            post.setPicArr(picArr);
+            post.setPic(null);
+        }
     }
 
     private void getAllInfo(Post post, String userId) {

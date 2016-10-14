@@ -41,6 +41,7 @@ public class ProductConverter {
         result.setName(req.getName());
         result.setKind(req.getKind());
         result.setStatus(req.getStatus());
+        result.setSiteCode(req.getSiteCode());
         return result;
     }
 

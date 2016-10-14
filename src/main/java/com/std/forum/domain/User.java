@@ -27,8 +27,11 @@ public class User extends ABaseDO {
     // userId
     private String userId;
 
-    // 登陆密码
+    // 登陆名
     private String loginName;
+
+    // 昵称
+    private String nickname;
 
     // 登陆密码
     private String loginPwd;
@@ -81,14 +84,40 @@ public class User extends ABaseDO {
     // 附件
     private String pdf;
 
+    // 现有金额
+    private Long amount;
+
+    // 累计金额
+    private Long ljAmount;
+
+    // 所属公司
+    private String companyCode;
+
     /***** 模糊查询使用字段 ******/
     private String loginNameForLikeQuery;
+
+    private String nicknameForLikeQuery;
 
     private String mobileForLikeQuery;
 
     private String realNameForLikeQuery;
 
     private String userRefereeName;
+
+    // 省
+    private String province;
+
+    // 市区
+    private String city;
+
+    // 区(县)
+    private String area;
+
+    // ossUserId
+    private String ossUserId;
+
+    // 帖子数
+    private Long totalPostNum;
 
     public String getLoginNameForLikeQuery() {
         return loginNameForLikeQuery;
@@ -272,5 +301,85 @@ public class User extends ABaseDO {
 
     public void setUserRefereeName(String userRefereeName) {
         this.userRefereeName = userRefereeName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
+    public Long getLjAmount() {
+        return ljAmount;
+    }
+
+    public void setLjAmount(Long ljAmount) {
+        this.ljAmount = ljAmount;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getNicknameForLikeQuery() {
+        return nicknameForLikeQuery;
+    }
+
+    public void setNicknameForLikeQuery(String nicknameForLikeQuery) {
+        this.nicknameForLikeQuery = nicknameForLikeQuery;
+    }
+
+    public String getOssUserId() {
+        return ossUserId;
+    }
+
+    public void setOssUserId(String ossUserId) {
+        this.ossUserId = ossUserId;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public Long getTotalPostNum() {
+        return totalPostNum;
+    }
+
+    public void setTotalPostNum(Long totalPostNum) {
+        this.totalPostNum = totalPostNum;
     }
 }

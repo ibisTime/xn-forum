@@ -116,6 +116,9 @@ public class Post extends ABaseDO {
     // 关键字查询
     private String keyword;
 
+    // 图片数组
+    private String[] picArr;
+
     public String getCode() {
         return code;
     }
@@ -354,5 +357,13 @@ public class Post extends ABaseDO {
 
     public void setTotalReadTimes(Long totalReadTimes) {
         this.totalReadTimes = totalReadTimes;
+    }
+
+    public String[] getPicArr() {
+        return picArr;
+    }
+
+    public void setPicArr(String[] picArr) {
+        this.picArr = picArr;
     }
 }
