@@ -8,6 +8,9 @@ package com.std.forum.dto.req;
  */
 public class XN610071Req {
 
+    // 当前用户（选填）
+    private String userId;
+
     // 标题（选填）
     private String title;
 
@@ -17,23 +20,20 @@ public class XN610071Req {
     // 状态 （选填）
     private String status;
 
-    // 是否举报（选填）
-    private String isReport;
-
     // 是否推荐 （选填）
-    private String isHeadline;
+    private String isHeadlines;
 
-    // 是否置顶（选填）
-    private String isTop;
-
-    // 是否精华（选填）
-    private String isEssence;
+    // 置顶 1/精华 2/置顶+精华 3（选填）
+    private String location;
 
     // 板块编号 （选填）
     private String plateCode;
 
     // 站点编号（选填）
     private String siteCode;
+
+    // 关键字搜索（选填）
+    private String keyword;
 
     // 发布开始时间
     private String dateStart;
@@ -65,36 +65,20 @@ public class XN610071Req {
         this.status = status;
     }
 
-    public String getIsReport() {
-        return isReport;
+    public String getIsHeadlines() {
+        return isHeadlines;
     }
 
-    public void setIsReport(String isReport) {
-        this.isReport = isReport;
+    public void setIsHeadlines(String isHeadlines) {
+        this.isHeadlines = isHeadlines;
     }
 
-    public String getIsHeadline() {
-        return isHeadline;
+    public String getLocation() {
+        return location;
     }
 
-    public void setIsHeadline(String isHeadline) {
-        this.isHeadline = isHeadline;
-    }
-
-    public String getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(String isTop) {
-        this.isTop = isTop;
-    }
-
-    public String getIsEssence() {
-        return isEssence;
-    }
-
-    public void setIsEssence(String isEssence) {
-        this.isEssence = isEssence;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPlateCode() {
@@ -127,5 +111,21 @@ public class XN610071Req {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

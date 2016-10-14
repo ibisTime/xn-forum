@@ -29,7 +29,9 @@ import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.ELocation;
 import com.std.forum.enums.EPostStatus;
+import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.ETalkType;
 import com.std.forum.enums.EUserLevel;
 import com.std.forum.exception.BizException;
@@ -137,7 +139,31 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public int setPostLocation(String code, String location, String orderNo) {
+    public int setPostLocation(String code, String isAdd, String location,
+            String orderNo) {
+        Post post = postBO.getPost(code);
+        if (EBoolean.YES.getCode().equals(isAdd)) {
+            if (ELocation.ZD.getCode().equals(post.getLocation())
+                    && !location.equals(post.getLocation())) {
+                location = ELocation.ZDJH.getCode();
+            }
+            if (ELocation.JH.getCode().equals(post.getLocation())
+                    && !location.equals(post.getLocation())) {
+                location = ELocation.ZDJH.getCode();
+            }
+        } else {
+            if (location.equals(post.getLocation())) {
+                location = "";
+            }
+            if (ELocation.ZDJH.getCode().equals(post.getLocation())) {
+                if (ELocation.ZD.getCode().equals(location)) {
+                    location = ELocation.JH.getCode();
+                }
+                if (ELocation.JH.getCode().equals(location)) {
+                    location = ELocation.ZD.getCode();
+                }
+            }
+        }
         return postBO.refreshPostLocation(code, location, orderNo);
     }
 
@@ -163,27 +189,7 @@ public class PostAOImpl implements IPostAO {
         Paginable<Post> postPage = postBO.getPaginable(start, limit, condition);
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
-            // 设置查询点赞记录条件
-            post.setIsDZ(EBoolean.NO.getCode());
-            post.setIsSC(EBoolean.NO.getCode());
-            if (StringUtils.isNotBlank(condition.getUserId())) {
-                PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(
-                    post.getCode(), condition.getUserId(),
-                    ETalkType.DZ.getCode());
-                if (null != dzPostTalk) {
-                    post.setIsDZ(EBoolean.YES.getCode());
-                }
-                PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(
-                    post.getCode(), condition.getUserId(),
-                    ETalkType.SC.getCode());
-                if (null != scPostTalk) {
-                    post.setIsSC(EBoolean.YES.getCode());
-                }
-            }
-            // 获取评论数
-            List<Comment> commentList = new ArrayList<Comment>();
-            searchCycleComment(post.getCode(), commentList);
-            post.setTotalCommNum(new Long(commentList.size()));
+            this.getAllInfo(post, condition.getUserId());
         }
         return postPage;
     }
@@ -196,35 +202,39 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Post getPost(String code, String userId) {
         Post post = postBO.getPost(code);
-        if (post != null) {
-            // 设置查询点赞记录条件
-            post.setIsDZ(EBoolean.NO.getCode());
-            post.setIsSC(EBoolean.NO.getCode());
-            if (StringUtils.isNotBlank(userId)) {
-                PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(code,
-                    userId, ETalkType.DZ.getCode());
-                if (null != dzPostTalk) {
-                    post.setIsDZ(EBoolean.YES.getCode());
-                }
-                PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(code,
-                    userId, ETalkType.SC.getCode());
-                if (null != scPostTalk) {
-                    post.setIsSC(EBoolean.YES.getCode());
-                }
-            }
-            // 获取点赞
-            List<PostTalk> postTalkList = postTalkBO.queryPostTalkSingleList(
-                code, ETalkType.DZ.getCode());
-            post.setPostTalkList(postTalkList);
-            // 获取评论
-            List<Comment> commentList = new ArrayList<Comment>();
-            searchCycleComment(post.getCode(), commentList);
-            // 排序
-            orderCommentList(commentList);
-            post.setCommentList(commentList);
-            post.setTotalCommNum(new Long(commentList.size()));
-        }
+        getAllInfo(post, userId);
         return post;
+    }
+
+    private void getAllInfo(Post post, String userId) {
+        String code = post.getCode();
+        // 设置查询点赞记录条件
+        post.setIsDZ(EBoolean.NO.getCode());
+        post.setIsSC(EBoolean.NO.getCode());
+        if (StringUtils.isNotBlank(userId)) {
+            PostTalk dzPostTalk = postTalkBO.getPostTalkByCondition(code,
+                userId, ETalkType.DZ.getCode());
+            if (null != dzPostTalk) {
+                post.setIsDZ(EBoolean.YES.getCode());
+            }
+            PostTalk scPostTalk = postTalkBO.getPostTalkByCondition(code,
+                userId, ETalkType.SC.getCode());
+            if (null != scPostTalk) {
+                post.setIsSC(EBoolean.YES.getCode());
+            }
+        }
+        // 获取点赞
+        List<PostTalk> likeList = postTalkBO.queryPostTalkSingleList(code,
+            ETalkType.DZ.getCode());
+        post.setLikeList(likeList);
+        post.setTotalLikeNum(new Long(likeList.size()));
+        // 获取评论
+        List<Comment> commentList = new ArrayList<Comment>();
+        searchCycleComment(post.getCode(), commentList);
+        // 排序
+        orderCommentList(commentList);
+        post.setCommentList(commentList);
+        post.setTotalCommNum(new Long(commentList.size()));
     }
 
     private void searchCycleComment(String parentCode, List<Comment> list) {
@@ -283,5 +293,23 @@ public class PostAOImpl implements IPostAO {
     public void readPost(String code, String reader) {
         postTalkBO.savePostTalk(code, reader, ETalkType.YD.getCode(),
             ETalkType.YD.getValue());
+    }
+
+    @Override
+    public Post getPostByCommentCode(String commentCode, String userId) {
+        Post post = null;
+        Comment comment = commentBO.getComment(commentCode);
+        while (true) {
+            String parentCode = comment.getParentCode();
+            if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
+                post = postBO.getPost(parentCode);
+                getAllInfo(post, userId);
+                break;
+            } else {
+                comment = commentBO.getComment(parentCode);
+                commentCode = comment.getCode();
+            }
+        }
+        return post;
     }
 }

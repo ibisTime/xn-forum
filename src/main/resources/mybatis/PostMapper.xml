@@ -18,7 +18,7 @@
 		<result column="approve_note" property="approveNote" />
 		<result column="status" property="status" />
 		<result column="plate_code" property="plateCode" />
-		<result column="total_dz_num" property="totalDzNum" />
+		<result column="total_read_times" property="totalReadTimes" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -27,6 +27,12 @@
 			</if>
 			<if test="title != null and title != '' ">
 		        AND t.title = #{title}
+			</if>
+			<if test="keyword != null and keyword != '' ">
+		        AND (t.title like "%"#{keyword}"%" or t.content like "%"#{keyword}"%")
+			</if>
+			<if test="status != null and status != '' ">
+		        AND t.status = #{status}
 			</if>
 			<if test="publisher != null and publisher != '' ">
 		        AND t.publisher = #{publisher}
@@ -70,7 +76,7 @@
 		,t.approve_note
 		,t.status
 		,t.plate_code
-		,(select count(1) from tforum_post_talk tpt where tpt.type = '1' and tpt.post_code = t.code) as total_dz_num
+		,(select count(1) from tforum_post_talk tpt where tpt.type = '5' and tpt.post_code = t.code) as total_read_times
 		FROM
 		tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
@@ -79,8 +85,8 @@
 
 	<select id="select_post_count" parameterType="post"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code
-		<include refid="where_condition" />
+		SELECT count(*) from (SELECT DISTINCT t.code FROM tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code
+		<include refid="where_condition" />) as post
 	</select>
 	
 	<select id="select_post1_count" parameterType="post"

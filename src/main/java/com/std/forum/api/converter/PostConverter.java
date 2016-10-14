@@ -12,9 +12,11 @@ public class PostConverter {
         Post result = new Post();
         result.setUserId(req.getUserId());
         result.setTitle(req.getTitle());
+        result.setKeyword(req.getKeyword());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
         result.setIsHeadlines(req.getIsHeadlines());
+        result.setLocation(req.getLocation());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),
@@ -27,10 +29,13 @@ public class PostConverter {
     // 列表查询帖子
     public static Post converter(XN610071Req req) {
         Post result = new Post();
+        result.setUserId(req.getUserId());
         result.setTitle(req.getTitle());
+        result.setKeyword(req.getKeyword());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
-        result.setIsHeadlines(req.getIsHeadline());
+        result.setIsHeadlines(req.getIsHeadlines());
+        result.setLocation(req.getLocation());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());
         result.setPublishDatetimeStart(DateUtil.strToDate(req.getDateStart(),

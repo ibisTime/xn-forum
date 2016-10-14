@@ -11,8 +11,8 @@ public class XN610060Req {
     // 帖子编号 （必填）
     private String postCode;
 
-    // 阅读者 （必填）
-    private String reader;
+    // 用户编号 （必填）
+    private String userId;
 
     public String getPostCode() {
         return postCode;
@@ -22,11 +22,11 @@ public class XN610060Req {
         this.postCode = postCode;
     }
 
-    public String getReader() {
-        return reader;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setReader(String reader) {
-        this.reader = reader;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

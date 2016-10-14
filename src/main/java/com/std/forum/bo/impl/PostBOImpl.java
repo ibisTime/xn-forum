@@ -21,6 +21,7 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.exception.BizException;
 
 /** 
  * 帖子BO
@@ -112,6 +113,9 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
             Post condition = new Post();
             condition.setCode(code);
             result = postDAO.select(condition);
+            if (result == null) {
+                throw new BizException("xn000000", "帖子编号不存在");
+            }
         }
         return result;
     }

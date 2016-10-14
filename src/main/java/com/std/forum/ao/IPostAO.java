@@ -46,7 +46,8 @@ public interface IPostAO {
 
     public int setPostHeadlines(String code, String isHeadlines);
 
-    public int setPostLocation(String code, String location, String orderNo);
+    public int setPostLocation(String code, String isAdd, String location,
+            String orderNo);
 
     public Paginable<Post> queryPostPage(int start, int limit, Post condition);
 
@@ -58,4 +59,5 @@ public interface IPostAO {
 
     public List<Post> querySCPostList(String userId);
 
+    public Post getPostByCommentCode(String commentCode, String userId);
 }

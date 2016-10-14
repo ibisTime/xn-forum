@@ -96,13 +96,16 @@ public class Post extends ABaseDO {
     private String type;
 
     // 该帖子被点赞数
-    private Long totalDzNum;
+    private Long totalLikeNum;
 
     // 该帖子被评论数
     private Long totalCommNum;
 
+    // 总的阅读次数
+    private Long totalReadTimes;
+
     // 点赞
-    private List<PostTalk> postTalkList;
+    private List<PostTalk> likeList;
 
     // 评论
     private List<Comment> commentList;
@@ -110,14 +113,8 @@ public class Post extends ABaseDO {
     // 站点
     private String siteCode;
 
-    // 阅读次数
-    private Integer readTime;
-
-    // 举报人
-    private String reporter;
-
-    // 举报说明
-    private String reportNote;
+    // 关键字查询
+    private String keyword;
 
     public String getCode() {
         return code;
@@ -207,14 +204,6 @@ public class Post extends ABaseDO {
         this.isHeadlines = isHeadlines;
     }
 
-    public Integer getReadTime() {
-        return readTime;
-    }
-
-    public void setReadTime(Integer readTime) {
-        this.readTime = readTime;
-    }
-
     public String getPlateCode() {
         return plateCode;
     }
@@ -271,12 +260,12 @@ public class Post extends ABaseDO {
         this.photo = photo;
     }
 
-    public Long getTotalDzNum() {
-        return totalDzNum;
+    public Long getTotalLikeNum() {
+        return totalLikeNum;
     }
 
-    public void setTotalDzNum(Long totalDzNum) {
-        this.totalDzNum = totalDzNum;
+    public void setTotalLikeNum(Long totalLikeNum) {
+        this.totalLikeNum = totalLikeNum;
     }
 
     public Long getTotalCommNum() {
@@ -295,12 +284,12 @@ public class Post extends ABaseDO {
         this.commentList = commentList;
     }
 
-    public List<PostTalk> getPostTalkList() {
-        return postTalkList;
+    public List<PostTalk> getLikeList() {
+        return likeList;
     }
 
-    public void setPostTalkList(List<PostTalk> postTalkList) {
-        this.postTalkList = postTalkList;
+    public void setLikeList(List<PostTalk> likeList) {
+        this.likeList = likeList;
     }
 
     public String getIsDZ() {
@@ -347,23 +336,23 @@ public class Post extends ABaseDO {
         return orderNo;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
 
-    public String getReporter() {
-        return reporter;
+    public Long getTotalReadTimes() {
+        return totalReadTimes;
     }
 
-    public void setReporter(String reporter) {
-        this.reporter = reporter;
-    }
-
-    public String getReportNote() {
-        return reportNote;
-    }
-
-    public void setReportNote(String reportNote) {
-        this.reportNote = reportNote;
+    public void setTotalReadTimes(Long totalReadTimes) {
+        this.totalReadTimes = totalReadTimes;
     }
 }

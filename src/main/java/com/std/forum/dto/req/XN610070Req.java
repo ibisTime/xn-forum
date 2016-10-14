@@ -22,23 +22,20 @@ public class XN610070Req extends APageReq {
     // 状态 （选填）
     private String status;
 
-    // 是否举报（选填）
-    private String isReport;
-
     // 是否推荐 （选填）
     private String isHeadlines;
 
-    // 是否置顶（选填）
-    private String isTop;
-
-    // 是否精华（选填）
-    private String isEssence;
+    // 置顶 1/精华 2/置顶+精华 3（选填）
+    private String location;
 
     // 板块编号 （选填）
     private String plateCode;
 
     // 站点编号（选填）
     private String siteCode;
+
+    // 关键字搜索（选填）
+    private String keyword;
 
     public String getTitle() {
         return title;
@@ -64,14 +61,6 @@ public class XN610070Req extends APageReq {
         this.status = status;
     }
 
-    public String getIsReport() {
-        return isReport;
-    }
-
-    public void setIsReport(String isReport) {
-        this.isReport = isReport;
-    }
-
     public String getIsHeadlines() {
         return isHeadlines;
     }
@@ -80,20 +69,12 @@ public class XN610070Req extends APageReq {
         this.isHeadlines = isHeadlines;
     }
 
-    public String getIsTop() {
-        return isTop;
+    public String getLocation() {
+        return location;
     }
 
-    public void setIsTop(String isTop) {
-        this.isTop = isTop;
-    }
-
-    public String getIsEssence() {
-        return isEssence;
-    }
-
-    public void setIsEssence(String isEssence) {
-        this.isEssence = isEssence;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPlateCode() {
@@ -118,5 +99,13 @@ public class XN610070Req extends APageReq {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

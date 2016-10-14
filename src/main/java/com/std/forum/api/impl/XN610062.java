@@ -4,33 +4,35 @@ import com.std.forum.ao.IPostAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.dto.req.XN610060Req;
+import com.std.forum.dto.req.XN610062Req;
 import com.std.forum.dto.res.BooleanRes;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 每查看帖子一次，增加一次阅读量，针对用户
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:51:54 
+/**
+ * 修改草稿帖子
+ * @author: xieyj 
+ * @since: 2016年10月13日 下午1:00:19 
  * @history:
  */
-public class XN610060 extends AProcessor {
+public class XN610062 extends AProcessor {
 
     private IPostAO postAO = SpringContextHolder.getBean(IPostAO.class);
 
-    private XN610060Req req = null;
+    private XN610062Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.readPost(req.getPostCode(), req.getUserId());
+        postAO.editPost(req.getCode(), req.getTitle(), req.getContent(),
+            req.getPic(), req.getPlateCode(), req.getPublisher());
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610060Req.class);
-        StringValidater.validateBlank(req.getPostCode(), req.getUserId());
+        req = JsonUtil.json2Bean(inputparams, XN610062Req.class);
+        StringValidater.validateBlank(req.getCode(), req.getContent(),
+            req.getPlateCode(), req.getPublisher());
     }
 }

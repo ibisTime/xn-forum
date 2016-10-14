@@ -11,7 +11,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 设置帖子置顶和精华
+ * 设置/取消帖子置顶和精华
  * @author: xieyj 
  * @since: 2016年10月13日 下午1:02:45 
  * @history:
@@ -24,8 +24,8 @@ public class XN610053 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.setPostLocation(req.getCode(), req.getLocation(),
-            req.getOrderNo());
+        postAO.setPostLocation(req.getCode(), req.getIsAdd(),
+            req.getLocation(), req.getOrderNo());
         return new BooleanRes(true);
     }
 

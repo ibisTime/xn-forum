@@ -18,6 +18,9 @@
 			<if test="parentCode != null and parentCode != '' ">
 		        AND t.parent_code = #{parentCode}
 			</if>
+			<if test="commer != null and commer != '' ">
+		        AND t.commer = #{commer}
+			</if>
 		</trim>
 	</sql>
 	
