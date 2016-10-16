@@ -331,7 +331,7 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postBO.queryPostList(condition);
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId());
+            this.getAllInfo(post, talker);
         }
         return postList;
     }
