@@ -314,6 +314,12 @@ public class PostAOImpl implements IPostAO {
     @Override
     public Paginable<Post> querySCPostPage(int start, int limit, Post condition) {
         condition.setType(ETalkType.SC.getCode());
+        Paginable<Post> postPage = postBO.getPaginable(start, limit, condition);
+        List<Post> postList = postPage.getList();
+        for (Post post : postList) {
+            cutPic(post);
+            this.getAllInfo(post, condition.getUserId());
+        }
         return postBO.getPaginable(start, limit, condition);
     }
 
@@ -322,7 +328,12 @@ public class PostAOImpl implements IPostAO {
         Post condition = new Post();
         condition.setType(ETalkType.SC.getCode());
         condition.setTalker(talker);
-        return postBO.queryPostList(condition);
+        List<Post> postList = postBO.queryPostList(condition);
+        for (Post post : postList) {
+            cutPic(post);
+            this.getAllInfo(post, condition.getUserId());
+        }
+        return postList;
     }
 
     /** 
