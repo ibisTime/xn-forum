@@ -320,7 +320,7 @@ public class PostAOImpl implements IPostAO {
             cutPic(post);
             this.getAllInfo(post, condition.getUserId());
         }
-        return postBO.getPaginable(start, limit, condition);
+        return postPage;
     }
 
     @Override
