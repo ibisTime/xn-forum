@@ -27,10 +27,7 @@ public interface IPostAO {
     public void editPost(String code, String title, String content, String pic,
             String plateCode, String publisher);
 
-    public String publishPost(String title, String content, String pic,
-            String plateCode, String publisher);
-
-    public void publishPost(String code, String title, String content,
+    public String publishPost(String code, String title, String content,
             String pic, String plateCode, String publisher);
 
     public int removePostBySelf(String code, String userId);

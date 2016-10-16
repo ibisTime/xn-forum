@@ -96,9 +96,6 @@ public class UserAOImpl implements IUserAO {
         XN805056Res res = userBO.getDetailUser(userId, userId);
         Long amount = ruleBO.getRuleByCondition(ERuleKind.JF, ERuleType.QD,
             res.getLevel());
-        if (amount == 0L) {
-            amount = ruleBO.getRuleByCondition(ERuleKind.JF, ERuleType.QD);
-        }
         userBO.doSign(userId, location, amount);
 
     }

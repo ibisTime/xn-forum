@@ -8,6 +8,7 @@
  */
 package com.std.forum.bo.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IKeywordDAO;
 import com.std.forum.domain.Keyword;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPrefixCode;
 
 /** 
@@ -109,5 +111,43 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
             }
         }
         return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IKeywordBO#checkContent(java.lang.String)
+     */
+    @Override
+    public List<Keyword> checkContent(String content, String level) {
+        List<Keyword> resultList = new ArrayList<Keyword>();
+        // 针对等级
+        Keyword condition = new Keyword();
+        condition.setLevel(level);
+        condition.setWeightStart(0.5);
+        List<Keyword> list = keywordDAO.selectList(condition);
+        for (Keyword keyword : list) {
+            if (content.indexOf(keyword.getWord()) >= 0) {
+                resultList.add(keyword);
+            }
+        }
+        // 针对所有
+        condition.setLevel(EBoolean.NO.getCode()); // level=0 所有
+        condition.setWeightStart(0.5);
+        List<Keyword> allList = keywordDAO.selectList(condition);
+        for (Keyword keyword : allList) {
+            if (content.indexOf(keyword.getWord()) >= 0) {
+                resultList.add(keyword);
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public String replaceKeyword(String content, String word) {
+        String replacement = "";
+        for (int i = 0; i < word.length(); i++) {
+            replacement += "*";
+        }
+        content = content.replaceAll(word, replacement);
+        return content;
     }
 }

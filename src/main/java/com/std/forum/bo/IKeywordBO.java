@@ -32,4 +32,24 @@ public interface IKeywordBO extends IPaginableBO<Keyword> {
     public Keyword getKeyword(String code);
 
     public List<Keyword> queryKeywordList(Keyword condition);
+
+    /**
+     * 检查内容，返回关键词对象列表
+     * @param content
+     * @param level
+     * @return 
+     * @create: 2016年10月16日 下午1:59:30 xieyj
+     * @history:
+     */
+    public List<Keyword> checkContent(String content, String level);
+
+    /**
+     * 过滤替换关键字
+     * @param content
+     * @param word
+     * @return 
+     * @create: 2016年10月16日 下午1:28:47 xieyj
+     * @history:
+     */
+    public String replaceKeyword(String content, String word);
 }

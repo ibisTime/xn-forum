@@ -24,7 +24,7 @@ public class XN610050 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return new PKCodeRes(postAO.publishPost(req.getTitle(),
+        return new PKCodeRes(postAO.publishPost(null, req.getTitle(),
             req.getContent(), req.getPic(), req.getPlateCode(),
             req.getPublisher()));
     }

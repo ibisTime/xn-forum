@@ -17,10 +17,8 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.base.PaginableBOImpl;
-import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
-import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -39,9 +37,8 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
      * @see com.std.forum.bo.IPostBO#savePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public String savePost(String title, String content, String pic,
+    public void savePost(String code, String title, String content, String pic,
             String plateCode, String publisher, String status) {
-        String code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
         Post data = new Post();
         data.setCode(code);
         data.setTitle(title);
@@ -52,7 +49,6 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         data.setStatus(status);
         data.setPublishDatetime(new Date());
         postDAO.insert(data);
-        return code;
     }
 
     @Override

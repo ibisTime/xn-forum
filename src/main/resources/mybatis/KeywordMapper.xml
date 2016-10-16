@@ -23,6 +23,12 @@
 			<if test="level != null and level != '' ">
 				AND t.level = #{level}
 			</if>
+			<if test="weightStart != null">
+				<![CDATA[AND t.weight >= #{weightStart}]]>
+			</if>
+			<if test="weight != null">
+				<![CDATA[AND t.weight = #{weight}]]>
+			</if>
 		</trim>
 	</sql>
 	

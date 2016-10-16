@@ -21,7 +21,7 @@ import com.std.forum.domain.Post;
  */
 public interface IPostBO extends IPaginableBO<Post> {
 
-    public String savePost(String title, String content, String pic,
+    public void savePost(String code, String title, String content, String pic,
             String plateCode, String publisher, String status);
 
     public void refreshPost(String code, String title, String content,

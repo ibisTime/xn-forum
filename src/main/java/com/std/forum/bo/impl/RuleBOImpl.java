@@ -118,6 +118,10 @@ public class RuleBOImpl extends PaginableBOImpl<Rule> implements IRuleBO {
             Rule rule = ruleList.get(0);
             amount = Long.valueOf(rule.getValue());
         }
+        if (amount == 0L) {
+            amount = this.getRuleByCondition(ERuleKind.JF, ERuleType.QD);
+        }
+
         return amount;
     }
 }
