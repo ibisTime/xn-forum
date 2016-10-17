@@ -8,24 +8,34 @@ public class ProdOrder extends ABaseDO {
 
     private static final long serialVersionUID = 1L;
 
+    // 编号
     private String code;
 
+    // 产品编号
     private String productCode;
 
+    // 数量
     private Integer quantity;
 
+    // 状态
     private String status;
 
+    // 支付价格
     private Integer payPrice;
 
+    // 支付人
     private String payer;
 
+    // 支付时间
     private Date payDatetime;
 
+    // 提货人
     private String taker;
 
+    // 提货时间
     private Date takeDatetime;
 
+    // 备注
     private String remark;
 
     public String getCode() {

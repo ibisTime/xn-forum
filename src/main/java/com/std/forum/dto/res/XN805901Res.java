@@ -13,12 +13,6 @@ public class XN805901Res {
     // 状态
     private String status;
 
-    // 拥有的服务list
-    private String serveList;
-
-    // 拥有的报价list
-    private String quoteList;
-
     // 用户等级
     private String level;
 
@@ -73,22 +67,6 @@ public class XN805901Res {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getServeList() {
-        return serveList;
-    }
-
-    public void setServeList(String serveList) {
-        this.serveList = serveList;
-    }
-
-    public String getQuoteList() {
-        return quoteList;
-    }
-
-    public void setQuoteList(String quoteList) {
-        this.quoteList = quoteList;
     }
 
     public String getLevel() {

@@ -14,16 +14,15 @@ import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.PostTalk;
 
 /** 
- * 点赞/收藏/打赏
+ * 点赞/收藏/打赏/举报/阅读
  * @author: xieyj 
  * @since: 2016年8月29日 下午1:21:32 
  * @history:
  */
 public interface IPostTalkBO extends IPaginableBO<PostTalk> {
 
-    public int savePostTalk(String postCode, String userId, String type);
-
-    public int savePostTalk(String postCode, String userId, Long amount);
+    public int savePostTalk(String postCode, String userId, String type,
+            String remark);
 
     public List<PostTalk> queryPostTalkSingleList(String postCode, String type);
 

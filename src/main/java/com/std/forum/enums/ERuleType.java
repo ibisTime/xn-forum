@@ -17,8 +17,8 @@ import java.util.Map;
  * @history:
  */
 public enum ERuleType {
-    ZC("A", "注册送积分"), QD("B", "每日签到"), ZLWS("C", "资料完善"), FT("D", "发帖"), PL(
-            "E", "评论"), JH("F", "加精华"), JB("G", "举报");
+    ZC("A", "注册送积分"), QD("B", "每日签到送积分"), ZLWS("C", "资料完善送积分"), FT("D", "发帖送积分"), PL(
+            "E", "评论送积分"), JH("F", "加精华送积分"), JB("G", "被举报扣积分");
     public static Map<String, ERuleType> getDirectionMap() {
         Map<String, ERuleType> map = new HashMap<String, ERuleType>();
         for (ERuleType direction : ERuleType.values()) {

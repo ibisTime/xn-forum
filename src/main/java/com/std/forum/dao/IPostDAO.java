@@ -20,9 +20,9 @@ public interface IPostDAO extends IBaseDAO<Post> {
     String NAMESPACE = IPostDAO.class.getName().concat(".");
 
     /**
-     * 举报
+     * 重新提交帖子
      */
-    public int updateReport(Post data);
+    public int update(Post data);
 
     /**
      * 审核
@@ -30,14 +30,14 @@ public interface IPostDAO extends IBaseDAO<Post> {
     public int updateApprove(Post data);
 
     /**
-     * 设置精华，头条，置顶
+     * 设置精华，置顶
      */
-    public int updateAttr(Post data);
+    public int updateLocation(Post data);
 
     /**
-     * 递增阅读量
+     * 设置头条
      */
-    public int updateReadTime(Post data);
+    public int updateHeadlines(Post data);
 
     public long selectPostNum(Post condition);
 }

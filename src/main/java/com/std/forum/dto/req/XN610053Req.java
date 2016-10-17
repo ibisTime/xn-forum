@@ -1,9 +1,9 @@
 package com.std.forum.dto.req;
 
-/** 
- * 设置帖子为头条，置顶，精华等属性
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:41:57 
+/**
+ * 设置/取消帖子为置顶，精华等属性
+ * @author: xieyj 
+ * @since: 2016年10月13日 下午3:28:37 
  * @history:
  */
 public class XN610053Req {
@@ -11,8 +11,8 @@ public class XN610053Req {
     // 帖子编号（必填）
     private String code;
 
-    // 是否头条（必填）
-    private String isHeadline;
+    // 是否增加(1 是 0 否) 否取消
+    private String isAdd;
 
     // UI位置（必填）
     private String location;
@@ -28,12 +28,12 @@ public class XN610053Req {
         this.code = code;
     }
 
-    public String getIsHeadline() {
-        return isHeadline;
+    public String getIsAdd() {
+        return isAdd;
     }
 
-    public void setIsHeadline(String isHeadline) {
-        this.isHeadline = isHeadline;
+    public void setIsAdd(String isAdd) {
+        this.isAdd = isAdd;
     }
 
     public String getLocation() {

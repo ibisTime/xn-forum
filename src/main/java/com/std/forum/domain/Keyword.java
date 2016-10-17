@@ -41,6 +41,8 @@ public class Keyword extends ABaseDO {
     private String remark;
 
     // *************db properties*******************
+    private Double weightStart;
+
     private String wordForQuery;
 
     public String getCode() {
@@ -105,6 +107,14 @@ public class Keyword extends ABaseDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Double getWeightStart() {
+        return weightStart;
+    }
+
+    public void setWeightStart(Double weightStart) {
+        this.weightStart = weightStart;
     }
 
     public String getWordForQuery() {

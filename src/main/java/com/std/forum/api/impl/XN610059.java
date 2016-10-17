@@ -26,8 +26,7 @@ public class XN610059 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Long amount = StringValidater.toLong(req.getAmount());
-        postTalkAO.doPostTalkByAmount(req.getPostCode(), req.getTalker(),
-            amount);
+        postTalkAO.doPostTalk(req.getPostCode(), req.getTalker(), amount);
         return new BooleanRes(true);
     }
 

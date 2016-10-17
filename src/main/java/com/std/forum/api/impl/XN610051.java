@@ -24,7 +24,7 @@ public class XN610051 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return new BooleanRes(postAO.removePostByPU(req.getCode(),
+        return new BooleanRes(postAO.removePostBySelf(req.getCode(),
             req.getUserId()) > 0 ? true : false);
     }
 

@@ -7,8 +7,8 @@ package com.std.forum.enums;
  * @history:
  */
 public enum EUserLevel {
-    ZERO("0", "新手上路"), ONE("1", "小试牛刀"), TWO("2", "大牛"), THREE("3", "元老"), FOUR(
-            "4", "骨灰级");
+    ONE("1", "新手上路"), TWO("2", "初级会员"), THREE("3", "中级会员"), FOUR("4", "高级会员"), FIVE(
+            "5", "金牌会员"), SIX("6", "论坛元老");
 
     EUserLevel(String code, String value) {
         this.code = code;

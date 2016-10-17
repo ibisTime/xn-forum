@@ -21,7 +21,6 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostTalkDAO;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EPrefixCode;
-import com.std.forum.enums.ETalkType;
 
 /** 
  * @author: xieyj 
@@ -38,7 +37,8 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
      * @see com.std.forum.bo.IPostTalkBO#savePostTalk(com.std.forum.domain.PostTalk)
      */
     @Override
-    public int savePostTalk(String postCode, String talker, String type) {
+    public int savePostTalk(String postCode, String talker, String type,
+            String remark) {
         int count = 0;
         if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(talker)) {
             PostTalk data = new PostTalk();
@@ -49,27 +49,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
             data.setTalker(talker);
             data.setType(type);
             data.setTalkDatetime(new Date());
-            count = postTalkDAO.insert(data);
-        }
-        return count;
-    }
-
-    /** 
-     * @see com.std.forum.bo.IPostTalkBO#savePostTalk(java.lang.String, java.lang.String, java.lang.Long)
-     */
-    @Override
-    public int savePostTalk(String postCode, String talker, Long amount) {
-        int count = 0;
-        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(talker)) {
-            PostTalk data = new PostTalk();
-            String code = OrderNoGenerater.generate(EPrefixCode.POSTTALK
-                .getCode());
-            data.setCode(code);
-            data.setPostCode(postCode);
-            data.setTalker(talker);
-            data.setType(ETalkType.DS.getCode());
-            data.setTalkDatetime(new Date());
-            data.setRemark(String.valueOf(amount));
+            data.setRemark(remark);
             count = postTalkDAO.insert(data);
         }
         return count;

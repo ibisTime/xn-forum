@@ -22,4 +22,6 @@ public interface IRuleBO extends IPaginableBO<Rule> {
     public Rule getRule(String code);
 
     public Long getRuleByCondition(ERuleKind kind, ERuleType type);
+
+    public Long getRuleByCondition(ERuleKind kind, ERuleType type, String level);
 }

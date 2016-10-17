@@ -6,7 +6,7 @@ import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.PostTalk;
 
 /** 
- * 点赞/收藏/打赏
+ * 点赞/收藏/打赏/举报/阅读
  * @author: zuixian 
  * @since: 2016年9月19日 下午2:43:03 
  * @history:
@@ -25,15 +25,15 @@ public interface IPostTalkAO {
     public int doPostTalk(String postCode, String userId, String type);
 
     /**
-     * 打赏帖子
+     * 打赏
      * @param postCode
      * @param userId
      * @param amount
      * @return 
-     * @create: 2016年9月28日 下午3:14:30 xieyj
+     * @create: 2016年10月13日 上午11:46:21 xieyj
      * @history:
      */
-    public int doPostTalkByAmount(String postCode, String userId, Long amount);
+    public int doPostTalk(String postCode, String userId, Long amount);
 
     /** 
      * 查询单一类型的记录

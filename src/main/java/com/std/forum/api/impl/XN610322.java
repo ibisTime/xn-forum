@@ -11,7 +11,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- *  订单作废
+ *  作废
  * @author: zuixian 
  * @since: 2016年10月12日 下午2:35:40 
  * @history:
@@ -25,13 +25,13 @@ public class XN610322 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        int count = prodOrderAO.editProdOrderStatus(req.getOrderCode());
-        return new BooleanRes(count > 0 ? true : false);
+        prodOrderAO.invalidProdOrder(req.getOrderCode(), req.getTakeNote());
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610322Req.class);
-        StringValidater.validateBlank(req.getOrderCode());
+        StringValidater.validateBlank(req.getOrderCode(), req.getTakeNote());
     }
 }

@@ -12,6 +12,7 @@ import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IProductDAO;
 import com.std.forum.domain.Product;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.enums.EProductStatus;
 import com.std.forum.exception.BizException;
 
 @Component
@@ -37,6 +38,7 @@ public class ProductBOImpl extends PaginableBOImpl<Product> implements
         if (data != null) {
             code = OrderNoGenerater.generate(EPrefixCode.PRODUCT.getCode());
             data.setCode(code);
+            data.setStatus(EProductStatus.todoPUBLISH.getCode());
             productDAO.insert(data);
         }
         return code;

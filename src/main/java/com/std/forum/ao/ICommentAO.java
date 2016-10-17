@@ -22,6 +22,12 @@ public interface ICommentAO {
 
     public List<Comment> queryCommentList(Comment condition);
 
-    public Paginable<Comment> querySitePage(int start, int limit,
+    public Paginable<Comment> queryCommentPage(int start, int limit,
+            Comment condition);
+
+    public Paginable<Comment> queryMyCommentPage(int start, int limit,
+            Comment condition);
+
+    public Paginable<Comment> queryCommentMyPage(int start, int limit,
             Comment condition);
 }

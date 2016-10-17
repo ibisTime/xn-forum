@@ -9,6 +9,7 @@
 package com.std.forum.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.std.forum.dao.base.ABaseDO;
 
@@ -47,6 +48,15 @@ public class Comment extends ABaseDO {
 
     // 父级昵称
     private String parentNickname;
+
+    // 评论帖子
+    private Post post;
+
+    // 针对评论
+    private Comment parentComment;
+
+    // 被评论
+    private List<Comment> nextCommentList;
 
     public String getCode() {
         return code;
@@ -110,5 +120,29 @@ public class Comment extends ABaseDO {
 
     public void setParentNickname(String parentNickname) {
         this.parentNickname = parentNickname;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
+    }
+
+    public List<Comment> getNextCommentList() {
+        return nextCommentList;
+    }
+
+    public void setNextCommentList(List<Comment> nextCommentList) {
+        this.nextCommentList = nextCommentList;
     }
 }

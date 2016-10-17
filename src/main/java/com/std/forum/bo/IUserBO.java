@@ -9,8 +9,11 @@
 package com.std.forum.bo;
 
 import com.std.forum.bo.base.IPaginableBO;
+import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.User;
+import com.std.forum.dto.req.XN805054Req;
 import com.std.forum.dto.req.XN805076Req;
+import com.std.forum.dto.res.XN805056Res;
 import com.std.forum.dto.res.XN805901Res;
 
 /** 
@@ -20,13 +23,8 @@ import com.std.forum.dto.res.XN805901Res;
  */
 public interface IUserBO extends IPaginableBO<User> {
 
-    /**
-     * 查询用户的详细信息
-     * @param userId
-     * @return 
-     * @create: 2016年8月29日 下午8:52:21 xieyj
-     * @history:
-     */
+    public XN805056Res getDetailUser(String tokenId, String userId);
+
     public XN805901Res getRemoteUser(String tokenId, String userId);
 
     /**
@@ -37,6 +35,11 @@ public interface IUserBO extends IPaginableBO<User> {
      * @history:
      */
     public String doRegister(XN805076Req req);
+
+    /**
+     * 
+     */
+    public void doSign(String userId, String location, Long amount);
 
     /**
      * 加减积分
@@ -51,4 +54,5 @@ public interface IUserBO extends IPaginableBO<User> {
     public void doTransfer(String userId, String direction, Long amount,
             String remark, String refNo);
 
+    public Paginable<User> queryUserPage(XN805054Req req);
 }

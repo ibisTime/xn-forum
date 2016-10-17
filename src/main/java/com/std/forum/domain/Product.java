@@ -12,7 +12,7 @@ public class Product extends ABaseDO {
     // 名称
     private String name;
 
-    // 类别
+    // 类别(A 家居 B 购物)
     private String kind;
 
     // 图片

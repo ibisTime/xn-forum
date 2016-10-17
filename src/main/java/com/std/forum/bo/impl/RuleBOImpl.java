@@ -92,7 +92,6 @@ public class RuleBOImpl extends PaginableBOImpl<Rule> implements IRuleBO {
     @Override
     public Long getRuleByCondition(ERuleKind kind, ERuleType type) {
         Long amount = 0L;
-        // 获取注册送积分数量
         Rule condition = new Rule();
         condition.setKind(kind.getCode());
         condition.setType(type.getCode());
@@ -101,6 +100,28 @@ public class RuleBOImpl extends PaginableBOImpl<Rule> implements IRuleBO {
             Rule rule = ruleList.get(0);
             amount = Long.valueOf(rule.getValue());
         }
+        return amount;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IRuleBO#getRuleByCondition(com.std.forum.enums.ERuleKind, com.std.forum.enums.ERuleType, java.lang.String)
+     */
+    @Override
+    public Long getRuleByCondition(ERuleKind kind, ERuleType type, String level) {
+        Long amount = 0L;
+        Rule condition = new Rule();
+        condition.setKind(kind.getCode());
+        condition.setType(type.getCode());
+        condition.setLevel(level);
+        List<Rule> ruleList = ruleDAO.selectList(condition);
+        if (!CollectionUtils.sizeIsEmpty(ruleList)) {
+            Rule rule = ruleList.get(0);
+            amount = Long.valueOf(rule.getValue());
+        }
+        if (amount == 0L) {
+            amount = this.getRuleByCondition(ERuleKind.JF, ERuleType.QD);
+        }
+
         return amount;
     }
 }

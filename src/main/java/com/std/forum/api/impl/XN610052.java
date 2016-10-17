@@ -24,8 +24,8 @@ public class XN610052 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return new BooleanRes(postAO.removePostByGL(req.getCode()) > 0 ? true
-                : false);
+        postAO.removePost(req.getCode());
+        return new BooleanRes(true);
     }
 
     @Override
@@ -33,5 +33,4 @@ public class XN610052 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN610052Req.class);
         StringValidater.validateBlank(req.getCode());
     }
-
 }

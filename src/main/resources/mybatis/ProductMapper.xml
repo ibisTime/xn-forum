@@ -93,7 +93,6 @@
 		,kind = #{kind}
 		,pic = #{pic}
 		,description = #{description}
-		,status = #{status}
 		,price = #{price}
 		,site_code = #{siteCode}
 		WHERE code = #{code}
