@@ -8,7 +8,6 @@ import com.std.forum.dao.IProdOrderDAO;
 import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.ProdOrder;
 
-//CHECK ��鲢��ע�� 
 @Repository("prodOrderDAOImpl")
 public class ProdOrderDAOImpl extends AMybatisTemplate implements IProdOrderDAO {
 
