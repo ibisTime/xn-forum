@@ -14,7 +14,7 @@ public interface IProductAO {
 
     public int editProduct(Product data);
 
-    public int editProductStatus(String code);
+    public int editProductStatus(String code, Integer price);
 
     public Paginable<Product> queryProductPage(int start, int limit,
             Product condition);
