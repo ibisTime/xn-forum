@@ -17,9 +17,6 @@ public class XN610302Req {
     // 描述（必填）
     private String description;
 
-    // 价格（必填）
-    private String price;
-
     // 站点编号（必填）
     private String siteCode;
 
@@ -53,14 +50,6 @@ public class XN610302Req {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getSiteCode() {

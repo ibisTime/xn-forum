@@ -17,7 +17,6 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
-        result.setPrice(StringValidater.toInteger(req.getPrice()));
         result.setSiteCode(req.getSiteCode());
         return result;
     }
@@ -30,7 +29,6 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
-        result.setPrice(StringValidater.toInteger(req.getPrice()));
         result.setSiteCode(req.getSiteCode());
         return result;
     }

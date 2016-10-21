@@ -102,6 +102,7 @@
 		UPDATE tforum_product
 		SET
 		status = #{status}
+		,price = #{price}
 		WHERE code = #{code}
 	</update>
 

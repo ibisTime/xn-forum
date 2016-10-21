@@ -28,6 +28,12 @@ public class ProductAOImpl implements IProductAO {
         if (!productBO.isProductExist(data.getCode())) {
             throw new BizException("xn0000", "该编号不存在");
         }
+        // 若产品状态不是未发布则不能修改
+        Product product = productBO.getProduct(data.getCode());
+        if (!(EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(product
+            .getStatus()))) {
+            throw new BizException("xn0000", "只能修改未发布的产品");
+        }
         return productBO.refreshProduct(data);
     }
 
@@ -62,7 +68,7 @@ public class ProductAOImpl implements IProductAO {
     }
 
     @Override
-    public int editProductStatus(String code) {
+    public int editProductStatus(String code, Integer price) {
         if (!productBO.isProductExist(code)) {
             throw new BizException("xn0000", "该编号不存在");
         }
@@ -74,16 +80,19 @@ public class ProductAOImpl implements IProductAO {
         if (EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(
             data.getStatus())) {
             product.setStatus(EProductStatus.PUBLISH_YES.getCode());
+            product.setPrice(price);
         }
         // 若产品状态是已下架，则将改为已上架
         if (EProductStatus.PUBLISH_NO.getCode().equalsIgnoreCase(
             data.getStatus())) {
             product.setStatus(EProductStatus.PUBLISH_YES.getCode());
+            product.setPrice(price);
         }
         // 若产品状态是已上架，则将改为已下架
         if (EProductStatus.PUBLISH_YES.getCode().equalsIgnoreCase(
             data.getStatus())) {
             product.setStatus(EProductStatus.PUBLISH_NO.getCode());
+            product.setPrice(price);
         }
         count = productBO.refreshProductStatus(product);
         return count;

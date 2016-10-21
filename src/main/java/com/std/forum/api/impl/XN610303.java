@@ -24,13 +24,14 @@ public class XN610303 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        int count = productAO.editProductStatus(req.getCode());
+        int count = productAO.editProductStatus(req.getCode(),
+            StringValidater.toInteger(req.getPrice()));
         return new BooleanRes(count > 0 ? true : false);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610303Req.class);
-        StringValidater.validateBlank(req.getCode());
+        StringValidater.validateBlank(req.getCode(), req.getPrice());
     }
 }
