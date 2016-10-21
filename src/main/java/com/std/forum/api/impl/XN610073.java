@@ -28,6 +28,7 @@ public class XN610073 extends AProcessor {
     public Object doBusiness() throws BizException {
         Post condition = new Post();
         condition.setTalker(req.getTalker());
+        condition.setUserId(req.getTalker());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;
