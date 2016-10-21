@@ -22,7 +22,6 @@ import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
-import com.std.forum.bo.IRuleBO;
 import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.core.OrderNoGenerater;
@@ -32,13 +31,10 @@ import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.enums.EBoolean;
-import com.std.forum.enums.EDirection;
 import com.std.forum.enums.ELocation;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.EReaction;
-import com.std.forum.enums.ERuleKind;
-import com.std.forum.enums.ERuleType;
 import com.std.forum.enums.ETalkType;
 import com.std.forum.enums.EUserLevel;
 import com.std.forum.exception.BizException;
@@ -65,8 +61,8 @@ public class PostAOImpl implements IPostAO {
     @Autowired
     protected IUserBO userBO;
 
-    @Autowired
-    protected IRuleBO ruleBO;
+    // @Autowired
+    // protected IRuleBO ruleBO;
 
     /** 
      * @see com.std.forum.ao.IPostAO#draftPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -141,12 +137,13 @@ public class PostAOImpl implements IPostAO {
         }
         // 无需审核发帖加积分
         if (EPostStatus.PUBLISHED.getCode().equals(status)) {
-            Long amount = ruleBO.getRuleByCondition(ERuleKind.JF, ERuleType.FT,
-                res.getLevel());
-            if (amount != 0) {
-                userBO.doTransfer(res.getUserId(), EDirection.PLUS.getCode(),
-                    amount, ERuleType.FT.getValue(), code);
-            }
+            // Long amount = ruleBO.getRuleByCondition(ERuleKind.JF,
+            // ERuleType.FT,
+            // res.getLevel());
+            // if (amount != 0) {
+            // userBO.doTransfer(res.getUserId(), EDirection.PLUS.getCode(),
+            // amount, ERuleType.FT.getValue(), code);
+            // }
         }
         if (isAdd == true) {
             postBO.savePost(code, title, content, pic, plateCode, publisher,

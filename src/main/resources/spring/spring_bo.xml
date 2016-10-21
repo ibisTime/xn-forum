@@ -11,8 +11,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<!-- 分页BO层注入paginableDao -->
-	<bean id="navigateBO" class="com.std.forum.bo.impl.NavigateBOImpl">
-		<property name="paginableDAO" ref="navigateDAOImpl" />
+	<bean id="keywordBO" class="com.std.forum.bo.impl.KeywordBOImpl">
+		<property name="paginableDAO" ref="keywordDAOImpl" />
 	</bean>
 	<bean id="plateBO" class="com.std.forum.bo.impl.PlateBOImpl">
 		<property name="paginableDAO" ref="plateDAOImpl" />
@@ -23,21 +23,13 @@
 	<bean id="postTalkBO" class="com.std.forum.bo.impl.PostTalkBOImpl">
 		<property name="paginableDAO" ref="postTalkDAOImpl" />
 	</bean>
-	
 	<bean id="commentBO" class="com.std.forum.bo.impl.CommentBOImpl">
 		<property name="paginableDAO" ref="commentDAOImpl" />
 	</bean>
-	<bean id="keywordBO" class="com.std.forum.bo.impl.KeywordBOImpl">
-		<property name="paginableDAO" ref="keywordDAOImpl" />
-	</bean>
 	
-	<bean id="ruleBO" class="com.std.forum.bo.impl.RuleBOImpl">
-		<property name="paginableDAO" ref="ruleDAOImpl" />
-	</bean>
 	<bean id="productBO" class="com.std.forum.bo.impl.ProductBOImpl">
 		<property name="paginableDAO" ref="productDAOImpl" />
 	</bean>
-	
 	<bean id="prodOrderBO" class="com.std.forum.bo.impl.ProdOrderBOImpl">
 		<property name="paginableDAO" ref="prodOrderDAOImpl" />
 	</bean>

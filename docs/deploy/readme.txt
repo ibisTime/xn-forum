@@ -27,7 +27,7 @@
 3，部署
   ssh root@121.43.101.148 -p 57652
   
-  cd /home/wwwroot/cswlm/tomcat_forum_biz/webapps
+  cd /home/wwwroot/forum/tomcat_forum_biz/webapps
   cp ./xn-forum/WEB-INF/classes/application.properties .
   cp ./xn-forum/WEB-INF/classes/config.properties .
   

@@ -22,8 +22,6 @@ import com.std.forum.util.RegexUtils;
 public class BizConnecter {
     public static final String YES = "0";
 
-    public static final String SMS_URL = PropertiesUtil.Config.SMS_URL;
-
     public static final String USER_URL = PropertiesUtil.Config.USER_URL;
 
     public static final String POST_URL = "...";
@@ -60,14 +58,8 @@ public class BizConnecter {
 
     private static String getPostUrl(String code) {
         String postUrl = POST_URL;
-        if (code.contains("799")) {
-            postUrl = SMS_URL;
-        } else if (code.contains("798")) {
-            // postUrl = IDENTIFY_URL;
-        } else if (code.startsWith("805")) {
+        if (code.startsWith("805")) {
             postUrl = USER_URL;
-        } else {
-            postUrl = POST_URL;
         }
         return postUrl;
     }
