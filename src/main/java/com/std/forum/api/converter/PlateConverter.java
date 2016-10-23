@@ -1,15 +1,15 @@
 package com.std.forum.api.converter;
 
 import com.std.forum.domain.Plate;
-import com.std.forum.dto.req.XN610040Req;
-import com.std.forum.dto.req.XN610041Req;
-import com.std.forum.dto.req.XN610045Req;
-import com.std.forum.dto.req.XN610046Req;
+import com.std.forum.dto.req.XN610020Req;
+import com.std.forum.dto.req.XN610021Req;
+import com.std.forum.dto.req.XN610030Req;
+import com.std.forum.dto.req.XN610031Req;
 
 public class PlateConverter {
 
     // 新增板块
-    public static Plate converter(XN610040Req req) {
+    public static Plate converter(XN610020Req req) {
         Plate result = new Plate();
         result.setName(req.getName());
         result.setKind(req.getKind());
@@ -25,7 +25,7 @@ public class PlateConverter {
     }
 
     // 修改板块
-    public static Plate converter(XN610041Req req) {
+    public static Plate converter(XN610021Req req) {
         Plate result = new Plate();
         result.setCode(req.getCode());
         result.setName(req.getName());
@@ -41,7 +41,7 @@ public class PlateConverter {
     }
 
     // 分页查询板块
-    public static Plate converter(XN610045Req req) {
+    public static Plate converter(XN610030Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());
         result.setKind(req.getKind());
@@ -52,7 +52,7 @@ public class PlateConverter {
     }
 
     // 列表查询板块
-    public static Plate converter(XN610046Req req) {
+    public static Plate converter(XN610031Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());
         result.setKind(req.getKind());

@@ -10,9 +10,9 @@ package com.std.forum.api.converter;
 
 import com.std.forum.core.StringValidater;
 import com.std.forum.domain.Keyword;
-import com.std.forum.dto.req.XN610090Req;
-import com.std.forum.dto.req.XN610092Req;
-import com.std.forum.dto.req.XN610100Req;
+import com.std.forum.dto.req.XN610000Req;
+import com.std.forum.dto.req.XN610002Req;
+import com.std.forum.dto.req.XN610010Req;
 
 /** 
  * @author: xieyj 
@@ -22,7 +22,7 @@ import com.std.forum.dto.req.XN610100Req;
 public class KeywordConverter {
 
     // 新增关键字
-    public static Keyword converter(XN610090Req req) {
+    public static Keyword converter(XN610000Req req) {
         Keyword result = new Keyword();
         result.setWord(req.getWord());
         result.setWeight(StringValidater.toDouble(req.getWeight()));
@@ -34,7 +34,7 @@ public class KeywordConverter {
     }
 
     // 修改关键字信息
-    public static Keyword converter(XN610092Req req) {
+    public static Keyword converter(XN610002Req req) {
         Keyword result = new Keyword();
         result.setCode(req.getCode());
         result.setWord(req.getWord());
@@ -47,7 +47,7 @@ public class KeywordConverter {
     }
 
     // 分页查询关键字信息
-    public static Keyword converter(XN610100Req req) {
+    public static Keyword converter(XN610010Req req) {
         Keyword result = new Keyword();
         result.setWordForQuery(req.getWord());
         result.setLevel(req.getLevel());

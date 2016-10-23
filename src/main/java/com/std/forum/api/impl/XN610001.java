@@ -1,35 +1,37 @@
 package com.std.forum.api.impl;
 
-import com.std.forum.ao.IPlateAO;
+import com.std.forum.ao.IKeywordAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.dto.req.XN610047Req;
+import com.std.forum.dto.req.XN610001Req;
+import com.std.forum.dto.res.BooleanRes;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- * 详情查询板块信息
+ * 删除关键词
  * @author: zuixian 
- * @since: 2016年9月19日 下午1:44:35 
+ * @since: 2016年9月28日 下午1:53:20 
  * @history:
  */
-public class XN610047 extends AProcessor {
+public class XN610001 extends AProcessor {
 
-    private IPlateAO plateAO = SpringContextHolder.getBean(IPlateAO.class);
+    private IKeywordAO keywordAO = SpringContextHolder
+        .getBean(IKeywordAO.class);
 
-    private XN610047Req req = null;
+    private XN610001Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        return plateAO.doGetPlate(req.getCode());
+        keywordAO.dropKeyword(req.getCode());
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610047Req.class);
+        req = JsonUtil.json2Bean(inputparams, XN610001Req.class);
         StringValidater.validateBlank(req.getCode());
     }
-
 }

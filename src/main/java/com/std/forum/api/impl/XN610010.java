@@ -2,45 +2,46 @@ package com.std.forum.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.std.forum.ao.IPlateAO;
+import com.std.forum.ao.IKeywordAO;
 import com.std.forum.api.AProcessor;
-import com.std.forum.api.converter.PlateConverter;
+import com.std.forum.api.converter.KeywordConverter;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.domain.Plate;
-import com.std.forum.dto.req.XN610045Req;
+import com.std.forum.domain.Keyword;
+import com.std.forum.dto.req.XN610010Req;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- * 分页查询板块信息
+ * 分页查询关键字
  * @author: zuixian 
- * @since: 2016年9月19日 下午1:44:05 
+ * @since: 2016年9月28日 下午1:53:50 
  * @history:
  */
-public class XN610045 extends AProcessor {
+public class XN610010 extends AProcessor {
 
-    private IPlateAO plateAO = SpringContextHolder.getBean(IPlateAO.class);
+    private IKeywordAO keywordAO = SpringContextHolder
+        .getBean(IKeywordAO.class);
 
-    private XN610045Req req = null;
+    private XN610010Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        Plate condition = PlateConverter.converter(req);
+        Keyword condition = KeywordConverter.converter(req);
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
-            orderColumn = IPlateAO.DEFAULT_ORDER_COLUMN;
+            orderColumn = IKeywordAO.DEFAULT_ORDER_COLUMN;
         }
         condition.setOrder(orderColumn, req.getOrderDir());
         int start = StringValidater.toInteger(req.getStart());
         int limit = StringValidater.toInteger(req.getLimit());
-        return plateAO.queryPlatePage(start, limit, condition);
+        return keywordAO.queryKeywordPage(start, limit, condition);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610045Req.class);
+        req = JsonUtil.json2Bean(inputparams, XN610010Req.class);
+        StringValidater.validateBlank(req.getStart(), req.getLimit());
     }
-
 }
