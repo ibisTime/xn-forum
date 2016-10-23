@@ -10,10 +10,10 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 前端用户删除帖子
- * @author: zuixian 
- * @since: 2016年9月19日 下午4:44:38 
+/**
+ * 锁帖/取消锁帖
+ * @author: xieyj 
+ * @since: 2016年10月23日 下午9:12:51 
  * @history:
  */
 public class XN610051 extends AProcessor {
@@ -24,14 +24,14 @@ public class XN610051 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return new BooleanRes(postAO.removePostBySelf(req.getCode(),
-            req.getUserId()) > 0 ? true : false);
+        postAO.setPostLock(req.getCode());
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610051Req.class);
-        StringValidater.validateBlank(req.getCode(), req.getUserId());
+        StringValidater.validateBlank(req.getCode());
     }
 
 }

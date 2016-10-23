@@ -1,6 +1,6 @@
 package com.std.forum.api.impl;
 
-import com.std.forum.ao.IPostAO;
+import com.std.forum.ao.IPostTalkAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
@@ -11,27 +11,29 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 设置/取消帖子置顶和精华
+ * 点赞/收藏，或取消点赞/收藏帖子
  * @author: xieyj 
- * @since: 2016年10月13日 下午1:02:45 
+ * @since: 2016年10月23日 下午9:21:09 
  * @history:
  */
 public class XN610053 extends AProcessor {
 
-    private IPostAO postAO = SpringContextHolder.getBean(IPostAO.class);
+    private IPostTalkAO postTalkAO = SpringContextHolder
+        .getBean(IPostTalkAO.class);
 
     private XN610053Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.setPostLocation(req.getCode(), req.getIsAdd(),
-            req.getLocation(), req.getOrderNo());
-        return new BooleanRes(true);
+        int count = postTalkAO.doPostTalk(req.getPostCode(), req.getTalker(),
+            req.getType());
+        return new BooleanRes(count > 0 ? true : false);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610053Req.class);
-        StringValidater.validateBlank(req.getCode(), req.getLocation());
+        StringValidater.validateBlank(req.getType(), req.getPostCode(),
+            req.getTalker());
     }
 }

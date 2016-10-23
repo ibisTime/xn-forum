@@ -81,4 +81,12 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
         return super.selectList(NAMESPACE.concat("select_comment"), start,
             count, condition, Comment.class);
     }
+
+    /** 
+     * @see com.std.forum.dao.IPostDAO#updateApprove(com.std.forum.domain.Post)
+     */
+    @Override
+    public int updateApprove(Comment data) {
+        return super.update(NAMESPACE.concat("update_comment_approve"), data);
+    }
 }

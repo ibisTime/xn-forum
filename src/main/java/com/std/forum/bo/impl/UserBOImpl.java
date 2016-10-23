@@ -6,6 +6,7 @@ import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.domain.User;
 import com.std.forum.dto.req.XN805300Req;
+import com.std.forum.dto.req.XN805301Req;
 import com.std.forum.dto.req.XN805901Req;
 import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.exception.BizException;
@@ -49,6 +50,18 @@ public class UserBOImpl extends PaginableBOImpl<User> implements IUserBO {
         req.setRemark(remark);
         req.setRefNo(refNo);
         BizConnecter.getBizData("805300", JsonUtils.object2Json(req),
+            Object.class);
+    }
+
+    @Override
+    public void doTransfer(String userId, String direction, String ruleType,
+            String refNo) {
+        XN805301Req req = new XN805301Req();
+        req.setUserId(userId);
+        req.setDirection(direction);
+        req.setRuleType(ruleType);
+        req.setRefNo(refNo);
+        BizConnecter.getBizData("805301", JsonUtils.object2Json(req),
             Object.class);
     }
 }

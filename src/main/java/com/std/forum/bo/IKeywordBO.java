@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.Keyword;
+import com.std.forum.enums.EReaction;
 
 /** 
  * 关键词过滤
@@ -37,11 +38,13 @@ public interface IKeywordBO extends IPaginableBO<Keyword> {
      * 检查内容，返回关键词对象列表
      * @param content
      * @param level
+     * @param reaction
      * @return 
-     * @create: 2016年10月16日 下午1:59:30 xieyj
+     * @create: 2016年10月23日 下午2:42:28 xieyj
      * @history:
      */
-    public List<Keyword> checkContent(String content, String level);
+    public List<Keyword> checkContent(String content, String level,
+            EReaction reaction);
 
     /**
      * 过滤替换关键字

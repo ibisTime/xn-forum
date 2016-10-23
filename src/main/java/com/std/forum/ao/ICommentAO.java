@@ -14,7 +14,7 @@ import com.std.forum.domain.Comment;
 public interface ICommentAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
-    public String doComment(Comment data);
+    public String doComment(String content, String parentCode, String commer);
 
     public int doRemoveComment(String code);
 

@@ -22,10 +22,10 @@ public class XN610070Req extends APageReq {
     // 状态 （选填）
     private String status;
 
-    // 是否推荐 （选填）
-    private String isHeadlines;
+    // 是否锁帖 （选填）
+    private String isLock;
 
-    // 置顶 1/精华 2/置顶+精华 3（选填）
+    // 置顶 A/精华 B/ 头条 C（选填）
     private String location;
 
     // 板块编号 （选填）
@@ -61,12 +61,12 @@ public class XN610070Req extends APageReq {
         this.status = status;
     }
 
-    public String getIsHeadlines() {
-        return isHeadlines;
+    public String getIsLock() {
+        return isLock;
     }
 
-    public void setIsHeadlines(String isHeadlines) {
-        this.isHeadlines = isHeadlines;
+    public void setIsLock(String isLock) {
+        this.isLock = isLock;
     }
 
     public String getLocation() {

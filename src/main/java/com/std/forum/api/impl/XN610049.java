@@ -1,38 +1,41 @@
 package com.std.forum.api.impl;
 
+import java.util.Date;
+
 import com.std.forum.ao.IPostAO;
 import com.std.forum.api.AProcessor;
+import com.std.forum.common.DateUtil;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.dto.req.XN610055Req;
+import com.std.forum.dto.req.XN610049Req;
 import com.std.forum.dto.res.BooleanRes;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 对帖子内容进行审核
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:50:18 
+/**
+ * 设置/取消帖子置顶,精华和头条
+ * @author: xieyj 
+ * @since: 2016年10月13日 下午1:02:45 
  * @history:
  */
-public class XN610055 extends AProcessor {
+public class XN610049 extends AProcessor {
 
     private IPostAO postAO = SpringContextHolder.getBean(IPostAO.class);
 
-    private XN610055Req req = null;
+    private XN610049Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.approvePost(req.getCode(), req.getStatus(), req.getApprover(),
-            req.getApproveNote());
+        Date endDatetime = DateUtil.getFrontDate(req.getEndDatetime(), true);
+        postAO.setPostLocation(req.getCode(), req.getIsAdd(),
+            req.getLocation(), endDatetime);
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610055Req.class);
-        StringValidater.validateBlank(req.getCode(), req.getStatus(),
-            req.getApprover(), req.getApproveNote());
+        req = JsonUtil.json2Bean(inputparams, XN610049Req.class);
+        StringValidater.validateBlank(req.getCode(), req.getLocation());
     }
 }

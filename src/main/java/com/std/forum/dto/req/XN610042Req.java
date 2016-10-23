@@ -6,7 +6,7 @@ package com.std.forum.dto.req;
  * @since: 2016年9月28日 下午1:43:45 
  * @history:
  */
-public class XN610057Req {
+public class XN610042Req {
 
     // 内容（必填）
     private String content;

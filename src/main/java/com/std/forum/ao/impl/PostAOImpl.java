@@ -9,6 +9,7 @@
 package com.std.forum.ao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -20,24 +21,30 @@ import org.springframework.transaction.annotation.Transactional;
 import com.std.forum.ao.IPostAO;
 import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IKeywordBO;
+import com.std.forum.bo.ILevelRuleBO;
+import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
+import com.std.forum.bo.IRuleBO;
 import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
-import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
+import com.std.forum.domain.LevelRule;
+import com.std.forum.domain.Plate;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.dto.res.XN610900Res;
 import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.EDirection;
 import com.std.forum.enums.ELocation;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.EReaction;
+import com.std.forum.enums.EReportType;
+import com.std.forum.enums.ERuleType;
 import com.std.forum.enums.ETalkType;
-import com.std.forum.enums.EUserLevel;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -51,6 +58,9 @@ public class PostAOImpl implements IPostAO {
     protected IPostBO postBO;
 
     @Autowired
+    protected IPlateBO plateBO;
+
+    @Autowired
     protected IPostTalkBO postTalkBO;
 
     @Autowired
@@ -62,161 +72,192 @@ public class PostAOImpl implements IPostAO {
     @Autowired
     protected IUserBO userBO;
 
-    // @Autowired
-    // protected IRuleBO ruleBO;
+    @Autowired
+    protected IRuleBO ruleBO;
 
-    /** 
-     * @see com.std.forum.ao.IPostAO#draftPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-     */
+    @Autowired
+    protected ILevelRuleBO levelRuleBO;
+
+    // 判断是否发帖
+    // 1、发帖，内容过滤，等级判断是否审核
+    // 2、草稿保存
     @Override
-    public String draftPost(String title, String content, String pic,
-            String plateCode, String publisher) {
-        String code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
-        postBO.savePost(code, title, content, pic, plateCode, publisher,
-            EPostStatus.DRAFT.getCode());
+    @Transactional
+    public String publishPost(String title, String content, String pic,
+            String plateCode, String publisher, String isPublish) {
+        String code = null;
+        if (EBoolean.NO.getCode().equals(isPublish)) {
+            code = postBO.savePost(title, content, pic, plateCode, publisher,
+                EPostStatus.DRAFT.getCode());
+        } else {
+            String status = null;
+            XN805901Res res = userBO.getRemoteUser(publisher, publisher);
+            String userLevel = res.getLevel();
+            // 对标题和内容进行关键字过滤
+            List<Keyword> keywordTitleList = keywordBO.checkContent(title,
+                userLevel, EReaction.REFUSE);
+            List<Keyword> keywordContentList = keywordBO.checkContent(content,
+                userLevel, EReaction.REFUSE);
+            if (CollectionUtils.isNotEmpty(keywordTitleList)
+                    || CollectionUtils.isNotEmpty(keywordContentList)) {
+                status = EPostStatus.FILTERED.getCode();
+                // 告知前端被过滤了
+            } else {
+                // 判断用户等级，是否审核
+                LevelRule levelRule = levelRuleBO.getLevelRule(res.getLevel());
+                if (EBoolean.YES.getCode().equals(levelRule.getEffect())) {
+                    status = EPostStatus.todoAPPROVE.getCode();
+                } else {
+                    status = EPostStatus.PUBLISHED.getCode();
+                }
+                code = postBO.savePost(title, content, pic, plateCode,
+                    publisher, status);
+                // 发帖加积分
+                if (EPostStatus.PUBLISHED.getCode().equals(status)) {
+                    userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
+                        ERuleType.FT.getCode(), code);
+                }
+            }
+        }
         return code;
-    }
-
-    /** 
-     * @see com.std.forum.ao.IPostAO#publishPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-     */
-    @Override
-    public void editPost(String code, String title, String content, String pic,
-            String plateCode, String publisher) {
-        postBO.refreshPost(code, title, content, pic, plateCode, publisher,
-            EPostStatus.DRAFT.getCode());
     }
 
     @Override
     @Transactional
-    public String publishPost(String code, String title, String content,
-            String pic, String plateCode, String publisher) {
-        String status = EPostStatus.PUBLISHED.getCode();
-        Boolean isAdd = false;
-        XN805901Res res = userBO.getRemoteUser(publisher, publisher);
-        String userLevel = res.getLevel();
-        // 对标题和内容进行关键字过滤
-        List<Keyword> keywordTitleList = keywordBO.checkContent(title,
-            userLevel);
-        for (Keyword keyword : keywordTitleList) {
-            if (keyword != null) {
-                if (EReaction.SHIELD.getCode().equals(keyword.getReaction())) {
-                    title = keywordBO.replaceKeyword(title, keyword.getWord());
-                } else if (EReaction.APPROVE.getCode().equals(
-                    keyword.getReaction())) {
-                    status = EPostStatus.todoAPPROVE.getCode();
-                } else if (EReaction.REFUSE.getCode().equals(
-                    keyword.getReaction())) {
-                    throw new BizException("xn000000", "帖子标题包含非法关键字:"
-                            + keyword.getWord() + ",请删除后发布");
-                }
-            }
-        }
-        List<Keyword> keywordContentList = keywordBO.checkContent(content,
-            userLevel);
-        for (Keyword keyword : keywordContentList) {
-            if (keyword != null) {
-                if (EReaction.SHIELD.getCode().equals(keyword.getReaction())) {
-                    content = keywordBO.replaceKeyword(content,
-                        keyword.getWord());
-                } else if (EReaction.APPROVE.getCode().equals(
-                    keyword.getReaction())) {
-                    status = EPostStatus.todoAPPROVE.getCode();
-                } else if (EReaction.REFUSE.getCode().equals(
-                    keyword.getReaction())) {
-                    throw new BizException("xn000000", "帖子内容包含非法关键字:["
-                            + keyword.getWord() + "],请删除后发布");
-                }
-            }
-        }
-        if (EUserLevel.ONE.getCode().equals(userLevel)) {
-            status = EPostStatus.todoAPPROVE.getCode();
-        }
-        if (StringUtils.isBlank(code)) {
-            code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
-            isAdd = true;
-        }
-        // 无需审核发帖加积分
-        if (EPostStatus.PUBLISHED.getCode().equals(status)) {
-            // Long amount = ruleBO.getRuleByCondition(ERuleKind.JF,
-            // ERuleType.FT,
-            // res.getLevel());
-            // if (amount != 0) {
-            // userBO.doTransfer(res.getUserId(), EDirection.PLUS.getCode(),
-            // amount, ERuleType.FT.getValue(), code);
-            // }
-        }
-        if (isAdd == true) {
-            postBO.savePost(code, title, content, pic, plateCode, publisher,
-                status);
+    public void draftPublishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String isPublish) {
+        if (EBoolean.NO.getCode().equals(isPublish)) {
+            postBO.refreshPost(code, title, content, pic, plateCode, publisher,
+                EPostStatus.DRAFT.getCode());
         } else {
+            String status = null;
+            XN805901Res res = userBO.getRemoteUser(publisher, publisher);
+            String userLevel = res.getLevel();
+            // 对标题和内容进行关键字过滤
+            List<Keyword> keywordTitleList = keywordBO.checkContent(title,
+                userLevel, EReaction.REFUSE);
+            List<Keyword> keywordContentList = keywordBO.checkContent(content,
+                userLevel, EReaction.REFUSE);
+            if (CollectionUtils.isNotEmpty(keywordTitleList)
+                    || CollectionUtils.isNotEmpty(keywordContentList)) {
+                status = EPostStatus.FILTERED.getCode();
+                // 告知前端被过滤了
+            } else {
+                // 判断用户等级，是否审核
+                LevelRule levelRule = levelRuleBO.getLevelRule(res.getLevel());
+                if (EBoolean.YES.getCode().equals(levelRule.getEffect())) {
+                    status = EPostStatus.todoAPPROVE.getCode();
+                } else {
+                    status = EPostStatus.PUBLISHED.getCode();
+                    // 发帖加积分
+                    userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
+                        ERuleType.FT.getCode(), code);
+                }
+            }
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
                 status);
         }
-        return code;
     }
 
     @Override
-    public int removePostBySelf(String code, String userId) {
-        int count = 0;
+    public void removePostBySelf(String code, String userId) {
         Post data = postBO.getPost(code);
         if (data.getPublisher().equals(userId)) {
-            count = postBO.removePost(code);
+            postBO.removePost(code);
         } else {
             throw new BizException("xn000000", "只能删除自己发布的帖子");
         }
-        return count;
     }
 
     @Override
-    public int removePost(String code) {
-        return postBO.removePost(code);
+    public void removePost(String code) {
+        postBO.removePost(code);
     }
 
     @Override
-    public int setPostLocation(String code, String isAdd, String location,
-            String orderNo) {
+    public void setPostLocation(String code, String isAdd, String location,
+            Date endDatetime) {
         Post post = postBO.getPost(code);
+        String postLocation = post.getLocation();
         if (EBoolean.YES.getCode().equals(isAdd)) {
-            if (ELocation.ZD.getCode().equals(post.getLocation())
-                    && !location.equals(post.getLocation())) {
-                location = ELocation.ZDJH.getCode();
-            }
-            if (ELocation.JH.getCode().equals(post.getLocation())
-                    && !location.equals(post.getLocation())) {
-                location = ELocation.ZDJH.getCode();
+            if (postLocation != null) {
+                if (postLocation.contains(location)) {
+                    throw new BizException("xn000000", "该帖子已是"
+                            + ELocation.getLocationResultMap().get(location)
+                                .getValue() + "帖子");
+                }
+                postLocation = postLocation + location;
+            } else {
+                postLocation = location;
             }
         } else {
-            if (location.equals(post.getLocation())) {
-                location = "";
-            }
-            if (ELocation.ZDJH.getCode().equals(post.getLocation())) {
-                if (ELocation.ZD.getCode().equals(location)) {
-                    location = ELocation.JH.getCode();
+            if (postLocation != null) {
+                int indexLocation = postLocation.indexOf(location);
+                if (indexLocation < 0) {
+                    throw new BizException("xn000000", "该帖子不是"
+                            + ELocation.getLocationResultMap().get(location)
+                                .getValue() + "帖子，无法取消");
                 }
-                if (ELocation.JH.getCode().equals(location)) {
-                    location = ELocation.ZD.getCode();
-                }
+                postLocation = postLocation.replaceAll(location, "");
             }
         }
-        return postBO.refreshPostLocation(code, location, orderNo);
+        postBO.refreshPostLocation(code, postLocation, endDatetime);
+        // 设置精华加积分
+        if (EBoolean.YES.getCode().equals(isAdd)
+                && ELocation.JH.getCode().equals(location)) {
+            userBO.doTransfer(post.getPublisher(), EDirection.PLUS.getCode(),
+                ERuleType.JH.getCode(), code);
+        }
     }
 
     /** 
      * @see com.std.forum.ao.IPostAO#approvePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public int approvePost(String code, String status, String approver,
-            String approveNote) {
-        return postBO.refreshPostApprove(code, status, approver, approveNote);
+    @Transactional
+    public void approvePost(String code, String approver, String approveResult,
+            String approveNote, String type) {
+        if (EReportType.TZ.getCode().equals(type)) {
+            Post post = postBO.getPost(code);
+            if (!EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())
+                    && !EPostStatus.toReportAPPROVE.getCode().equals(
+                        post.getStatus())) {
+                throw new BizException("xn000000", "帖子状态不是待审核状态");
+            }
+            postBO.refreshPostApprove(code, approveResult, approver,
+                approveNote);
+            // 审核通过加积分
+            if (EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())
+                    && EBoolean.YES.getCode().equals(approveResult)) {
+                userBO.doTransfer(post.getPublisher(),
+                    EDirection.PLUS.getCode(), ERuleType.FT.getCode(), code);
+            }
+        } else if (EReportType.PL.getCode().equals(type)) {
+            type = ETalkType.PLJB.getCode();
+        }
     }
 
     /** 
      * @see com.std.forum.ao.IPostAO#setPostHeadlines(java.lang.String, java.lang.String)
      */
     @Override
-    public int setPostHeadlines(String code, String isHeadlines) {
-        return postBO.refreshPostHeadlines(code, isHeadlines);
+    public void setPostLock(String code) {
+        Post post = postBO.getPost(code);
+        if (EBoolean.YES.getCode().equals(post.getIsLock())) {
+            postBO.refreshPostLock(code, EBoolean.NO.getCode());
+        } else {
+            postBO.refreshPostLock(code, EBoolean.YES.getCode());
+        }
+    }
+
+    @Override
+    public void editPostPlate(String code, String plateCode) {
+        postBO.getPost(code);
+        Plate plate = plateBO.getPlate(plateCode);
+        if (EBoolean.NO.getCode().equals(plate.getStatus())) {
+            throw new BizException("xn000000", "该版本状态为未启用");
+        }
+        postBO.refreshPostPlate(code, plateCode);
     }
 
     @Override
@@ -338,9 +379,15 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#reportPost(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void reportPost(String code, String reporter, String reportNote) {
-        postTalkBO.savePostTalk(code, reporter, ETalkType.JB.getCode(),
-            reportNote);
+    public void reportPost(String code, String reporter, String reportNote,
+            String type) {
+        // 判断是否达到举报条数，更新帖子或评论状态待审核
+        if (EReportType.TZ.getCode().equals(type)) {
+            type = ETalkType.TZJB.getCode();
+        } else if (EReportType.PL.getCode().equals(type)) {
+            type = ETalkType.PLJB.getCode();
+        }
+        postTalkBO.savePostTalk(code, reporter, type, reportNote);
     }
 
     /** 

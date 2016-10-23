@@ -15,12 +15,14 @@ public interface IPostTalkAO {
 
     String DEFAULT_ORDER_COLUMN = "code";
 
-    /** 
+    /**
      * 进行【点赞/收藏】操作或取消【点赞/收藏】操作
-     * @param data
+     * @param postCode
+     * @param userId
+     * @param type
      * @return 
-     * @create: 2016年9月19日 下午2:49:22 zuixian
-     * @history: 
+     * @create: 2016年10月23日 下午9:23:14 xieyj
+     * @history:
      */
     public int doPostTalk(String postCode, String userId, String type);
 

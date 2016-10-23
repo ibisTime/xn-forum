@@ -6,7 +6,7 @@ package com.std.forum.dto.req;
  * @since: 2016年9月28日 下午1:40:29 
  * @history:
  */
-public class XN610061Req {
+public class XN610040Req {
 
     // 标题（必填）
     private String title;
@@ -22,6 +22,9 @@ public class XN610061Req {
 
     // 发布人（必填）
     private String publisher;
+
+    // 是否发布
+    private String isPublish;
 
     public String getTitle() {
         return title;
@@ -61,5 +64,13 @@ public class XN610061Req {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(String isPublish) {
+        this.isPublish = isPublish;
     }
 }

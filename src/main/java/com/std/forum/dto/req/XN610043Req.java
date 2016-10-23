@@ -6,9 +6,9 @@ package com.std.forum.dto.req;
  * @since: 2016年9月28日 下午1:42:16 
  * @history:
  */
-public class XN610054Req {
+public class XN610043Req {
 
-    // 帖子编号（必填）
+    // 帖子/评论编号（必填）
     private String code;
 
     // 举报人（必填）
@@ -16,6 +16,9 @@ public class XN610054Req {
 
     // 举报说明（必填）
     private String reportNote;
+
+    // 类型(必填) 1 帖子，2 评论
+    private String type;
 
     public String getCode() {
         return code;
@@ -39,5 +42,13 @@ public class XN610054Req {
 
     public void setReportNote(String reportNote) {
         this.reportNote = reportNote;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

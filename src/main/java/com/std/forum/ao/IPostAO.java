@@ -8,6 +8,7 @@
  */
 package com.std.forum.ao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.std.forum.bo.base.Paginable;
@@ -22,30 +23,30 @@ import com.std.forum.dto.res.XN610900Res;
 public interface IPostAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
-    public String draftPost(String title, String content, String pic,
-            String plateCode, String publisher);
+    public String publishPost(String title, String content, String pic,
+            String plateCode, String publisher, String isPublish);
 
-    public void editPost(String code, String title, String content, String pic,
-            String plateCode, String publisher);
+    public void draftPublishPost(String code, String title, String content,
+            String pic, String plateCode, String publisher, String isPublish);
 
-    public String publishPost(String code, String title, String content,
-            String pic, String plateCode, String publisher);
+    public void removePostBySelf(String code, String userId);
 
-    public int removePostBySelf(String code, String userId);
+    public void removePost(String code);
 
-    public int removePost(String code);
+    public void approvePost(String code, String approver,
+            String approverResult, String approveNote, String type);
 
-    public int approvePost(String code, String status, String approver,
-            String approveNote);
-
-    public void reportPost(String code, String reporter, String reportNote);
+    public void reportPost(String code, String reporter, String reportNote,
+            String type);
 
     public void readPost(String code, String reader);
 
-    public int setPostHeadlines(String code, String isHeadlines);
+    public void setPostLock(String code);
 
-    public int setPostLocation(String code, String isAdd, String location,
-            String orderNo);
+    public void editPostPlate(String code, String plateCode);
+
+    public void setPostLocation(String code, String isAdd, String location,
+            Date endDatetime);
 
     public Paginable<Post> queryPostPage(int start, int limit, Post condition);
 

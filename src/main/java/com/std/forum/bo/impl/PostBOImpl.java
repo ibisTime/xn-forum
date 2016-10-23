@@ -17,8 +17,12 @@ import org.springframework.stereotype.Component;
 
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.base.PaginableBOImpl;
+import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPostDAO;
 import com.std.forum.domain.Post;
+import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.EPostStatus;
+import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -37,9 +41,10 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
      * @see com.std.forum.bo.IPostBO#savePost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void savePost(String code, String title, String content, String pic,
+    public String savePost(String title, String content, String pic,
             String plateCode, String publisher, String status) {
         Post data = new Post();
+        String code = OrderNoGenerater.generate(EPrefixCode.POST.getCode());
         data.setCode(code);
         data.setTitle(title);
         data.setContent(content);
@@ -49,6 +54,7 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         data.setStatus(status);
         data.setPublishDatetime(new Date());
         postDAO.insert(data);
+        return code;
     }
 
     @Override
@@ -84,13 +90,17 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
      * @see com.std.forum.bo.IPostBO#refreshPostApprove(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public int refreshPostApprove(String code, String status, String approver,
-            String approveNote) {
+    public int refreshPostApprove(String code, String approver,
+            String approveResult, String approveNote) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Post data = new Post();
             data.setCode(code);
-            data.setStatus(status);
+            if (EBoolean.YES.getCode().equals(approveResult)) {
+                data.setStatus(EPostStatus.APPROVE_YES.getCode());
+            } else {
+                data.setStatus(EPostStatus.APPROVE_NO.getCode());
+            }
             data.setApprover(approver);
             data.setApproveDatetime(new Date());
             data.setApproveNote(approveNote);
@@ -130,13 +140,15 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
     }
 
     @Override
-    public int refreshPostLocation(String code, String location, String orderNo) {
+    public int refreshPostLocation(String code, String location,
+            Date endDatetime) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Post data = new Post();
             data.setCode(code);
             data.setLocation(location);
-            data.setOrderNo(orderNo);
+            data.setValidDatetimeStart(new Date());
+            data.setValidDatetimeEnd(endDatetime);
             count = postDAO.updateLocation(data);
         }
         return count;
@@ -146,14 +158,27 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
      * @see com.std.forum.bo.IPostBO#refreshPostHeadlines(java.lang.String)
      */
     @Override
-    public int refreshPostHeadlines(String code, String isHeadlines) {
+    public int refreshPostLock(String code, String isLock) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Post data = new Post();
             data.setCode(code);
-            data.setIsHeadlines(isHeadlines);
-            count = postDAO.updateHeadlines(data);
+            data.setIsLock(isLock);
+            count = postDAO.updateLock(data);
         }
         return count;
     }
+
+    @Override
+    public int refreshPostPlate(String code, String plateCode) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Post data = new Post();
+            data.setCode(code);
+            data.setPlateCode(plateCode);
+            count = postDAO.updatePlate(data);
+        }
+        return count;
+    }
+
 }

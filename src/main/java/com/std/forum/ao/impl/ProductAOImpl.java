@@ -26,7 +26,7 @@ public class ProductAOImpl implements IProductAO {
     @Override
     public int editProduct(Product data) {
         if (!productBO.isProductExist(data.getCode())) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "商品编号不存在");
         }
         // 若产品状态不是未发布则不能修改
         Product product = productBO.getProduct(data.getCode());
@@ -40,7 +40,7 @@ public class ProductAOImpl implements IProductAO {
     @Override
     public int dropProduct(String code) {
         if (!productBO.isProductExist(code)) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "商品编号不存在");
         }
         Product data = productBO.getProduct(code);
         // 若产品状态不是未发布则不能删除
@@ -70,7 +70,7 @@ public class ProductAOImpl implements IProductAO {
     @Override
     public int editProductStatus(String code, Long price) {
         if (!productBO.isProductExist(code)) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "商品编号不存在");
         }
         int count = 0;
         Product product = new Product();

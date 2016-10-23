@@ -15,7 +15,7 @@ public class PostConverter {
         result.setKeyword(req.getKeyword());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
-        result.setIsHeadlines(req.getIsHeadlines());
+        result.setIsLock(req.getIsLock());
         result.setLocation(req.getLocation());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());
@@ -34,7 +34,7 @@ public class PostConverter {
         result.setKeyword(req.getKeyword());
         result.setPublisher(req.getPublisher());
         result.setStatus(req.getStatus());
-        result.setIsHeadlines(req.getIsHeadlines());
+        result.setIsLock(req.getIsLock());
         result.setLocation(req.getLocation());
         result.setPlateCode(req.getPlateCode());
         result.setSiteCode(req.getSiteCode());

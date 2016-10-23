@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.IPostTalkAO;
-import com.std.forum.bo.IAccountBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
+import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.enums.EDirection;
 import com.std.forum.enums.ETalkType;
 
 @Service
@@ -23,7 +25,7 @@ public class PostTalkAOImpl implements IPostTalkAO {
     protected IPostBO postBO;
 
     @Autowired
-    protected IAccountBO accountBO;
+    protected IUserBO userBO;
 
     @Override
     public int doPostTalk(String postCode, String userId, String type) {
@@ -39,12 +41,13 @@ public class PostTalkAOImpl implements IPostTalkAO {
     }
 
     @Override
+    @Transactional
     public int doPostTalk(String postCode, String userId, Long amount) {
-        // // 账户扣钱
-        // accountBO.doTransferUsers(userId, post.getPublisher(),
-        // EDirection.PLUS.getCode(), amount, new Long(0), "打赏");
-        return postTalkBO.savePostTalk(postCode, userId,
+        int id = postTalkBO.savePostTalk(postCode, userId,
             ETalkType.DS.getCode(), String.valueOf(amount));
+        userBO.doTransfer(userId, EDirection.PLUS.getCode(), amount, "打赏帖子",
+            postCode);
+        return id;
     }
 
     @Override

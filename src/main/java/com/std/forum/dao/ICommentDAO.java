@@ -19,4 +19,6 @@ import com.std.forum.domain.Comment;
  */
 public interface ICommentDAO extends IBaseDAO<Comment> {
     String NAMESPACE = ICommentDAO.class.getName().concat(".");
+
+    public int updateApprove(Comment data);
 }

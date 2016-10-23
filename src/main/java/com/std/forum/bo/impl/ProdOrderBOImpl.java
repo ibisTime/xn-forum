@@ -93,7 +93,7 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
             condition.setCode(code);
             data = prodOrderDAO.select(condition);
             if (data == null) {
-                throw new BizException("xn0000", "该编号不存在");
+                throw new BizException("xn0000", "订单编号不存在");
             }
         }
         return data;

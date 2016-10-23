@@ -23,6 +23,7 @@ import com.std.forum.dao.IKeywordDAO;
 import com.std.forum.domain.Keyword;
 import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.enums.EReaction;
 
 /** 
  * @author: xieyj 
@@ -117,12 +118,14 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
      * @see com.std.forum.bo.IKeywordBO#checkContent(java.lang.String)
      */
     @Override
-    public List<Keyword> checkContent(String content, String level) {
+    public List<Keyword> checkContent(String content, String level,
+            EReaction reaction) {
         List<Keyword> resultList = new ArrayList<Keyword>();
         // 针对等级
         Keyword condition = new Keyword();
         condition.setLevel(level);
         condition.setWeightStart(0.5);
+        condition.setReaction(reaction.getCode());
         List<Keyword> list = keywordDAO.selectList(condition);
         for (Keyword keyword : list) {
             if (content.indexOf(keyword.getWord()) >= 0) {

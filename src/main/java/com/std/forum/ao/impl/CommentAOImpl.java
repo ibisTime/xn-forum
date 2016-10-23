@@ -2,16 +2,28 @@ package com.std.forum.ao.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.std.forum.ao.ICommentAO;
 import com.std.forum.bo.ICommentBO;
+import com.std.forum.bo.IKeywordBO;
+import com.std.forum.bo.ILevelRuleBO;
 import com.std.forum.bo.IPostBO;
+import com.std.forum.bo.IRuleBO;
+import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Comment;
+import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
+import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.EDirection;
+import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
+import com.std.forum.enums.EReaction;
+import com.std.forum.enums.ERuleType;
+import com.std.forum.exception.BizException;
 
 @Service
 public class CommentAOImpl implements ICommentAO {
@@ -22,9 +34,55 @@ public class CommentAOImpl implements ICommentAO {
     @Autowired
     private IPostBO postBO;
 
+    @Autowired
+    private IKeywordBO keywordBO;
+
+    @Autowired
+    protected IRuleBO ruleBO;
+
+    @Autowired
+    protected ILevelRuleBO levelRuleBO;
+
+    @Autowired
+    protected IUserBO userBO;
+
     @Override
-    public String doComment(Comment data) {
-        return commentBO.saveComment(data);
+    public String doComment(String content, String parentCode, String commer) {
+        // 判断是否锁帖
+        Post post = getPostByParentCode(parentCode);
+        if (EBoolean.YES.getCode().equals(post.getIsLock())) {
+            throw new BizException("xn000000", "该帖已被锁定，无法评论");
+        }
+        // 判断非法词汇,无则正常发布
+        String status = EPostStatus.PUBLISHED.getCode();
+        List<Keyword> keywordContentList = keywordBO.checkContent(content,
+            EBoolean.NO.getCode(), EReaction.REFUSE);
+        if (!CollectionUtils.sizeIsEmpty(keywordContentList)) {
+            status = EPostStatus.FILTERED.getCode();
+        }
+        String code = commentBO
+            .saveComment(content, parentCode, status, commer);
+        // 评论加积分
+        if (EPostStatus.PUBLISHED.getCode().equals(status)) {
+            userBO.doTransfer(commer, EDirection.PLUS.getCode(),
+                ERuleType.PL.getCode(), code);
+        }
+        return code;
+    }
+
+    private Post getPostByParentCode(String code) {
+        Post post = null;
+        String parentCode = code;
+        while (true) {
+            if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
+                post = postBO.getPost(parentCode);
+                break;
+            } else {
+                Comment comment = commentBO.getComment(parentCode);
+                parentCode = comment.getParentCode();
+            }
+        }
+        return post;
     }
 
     @Override

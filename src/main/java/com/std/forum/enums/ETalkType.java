@@ -6,7 +6,8 @@ package com.std.forum.enums;
  * @history:
  */
 public enum ETalkType {
-    DZ("1", "点赞"), SC("2", "收藏"), DS("3", "打赏"), YD("4", "阅读"), JB("5", "举报"), ;
+    DZ("1", "点赞"), SC("2", "收藏"), DS("3", "打赏"), YD("4", "阅读"), TZJB("5",
+            "帖子举报"), PLJB("6", "评论举报");
 
     ETalkType(String code, String value) {
         this.code = code;

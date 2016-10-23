@@ -23,7 +23,7 @@ public class KeywordAOImpl implements IKeywordAO {
     @Override
     public int editKeyword(Keyword data) {
         if (data != null && !keywordBO.isKeywordExist(data.getCode())) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "关键字编号不存在");
         }
         return keywordBO.refreshKeyword(data);
     }
@@ -31,7 +31,7 @@ public class KeywordAOImpl implements IKeywordAO {
     @Override
     public int dropKeyword(String code) {
         if (!keywordBO.isKeywordExist(code)) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "关键字编号不存在");
         }
         return keywordBO.removeKeyword(code);
     }

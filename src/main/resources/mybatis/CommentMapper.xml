@@ -6,9 +6,14 @@
 		<result column="code" property="code" />
 		<result column="content" property="content" />
 		<result column="parent_code" property="parentCode" />
+		<result column="status" property="status" />
 		<result column="commer" property="commer" />
+		
 		<result column="nickname" property="nickname" />
 		<result column="comm_datetime" property="commDatetime" />
+		<result column="approver" property="approver" />
+		<result column="approve_datetime" property="approveDatetime" />
+		<result column="approve_note" property="approveNote" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -17,6 +22,9 @@
 			</if>
 			<if test="parentCode != null and parentCode != '' ">
 		        AND t.parent_code = #{parentCode}
+			</if>
+			<if test="status != null and status != '' ">
+		        AND t.status = #{status}
 			</if>
 			<if test="commer != null and commer != '' ">
 		        AND t.commer = #{commer}
@@ -29,9 +37,14 @@
 		t.code
 		,t.content
 		,t.parent_code
+		,t.status
 		,t.commer
+		
 		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname
 		,t.comm_datetime
+		,t.approver
+		,t.approve_datetime
+		,t.approve_note
 		FROM
 		tforum_comment t
 		<include refid="where_condition" />
@@ -50,17 +63,31 @@
 		code
 		,content
 		,parent_code
+		,status
 		,commer
+		
 		,comm_datetime
 		)
 		VALUES(
 		#{code}
 		,#{content}
 		,#{parentCode}
+		,#{status}
 		,#{commer}
+		
 		,#{commDatetime}
 		)
 	</insert>
+	
+	<update id="update_comment_approve" parameterType="comment">
+		UPDATE tforum_comment
+		SET
+		status = #{status}
+		,approver = #{approver}
+		,approve_datetime = #{approveDatetime}
+		,approve_note = #{approveNote}
+		WHERE code = #{code}
+	</update>
 	
 	<delete id="delete_comment" parameterType="comment">
 		DELETE FROM

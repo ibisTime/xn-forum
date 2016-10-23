@@ -27,7 +27,7 @@ public class PostTalk extends ABaseDO {
     // 编号
     private String code;
 
-    // 类型(1 点赞 2 收藏 3 打赏 4 举报)
+    // 类型(1 点赞 2 收藏 3 打赏 4 阅读 5 帖子举报 6 评论举报)
     private String type;
 
     // 帖子编号

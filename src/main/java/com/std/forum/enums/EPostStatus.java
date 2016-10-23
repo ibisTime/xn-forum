@@ -6,8 +6,9 @@ package com.std.forum.enums;
  * @history:
  */
 public enum EPostStatus {
-    DRAFT("-1", "草稿"), todoAPPROVE("0", "待审批"), APPROVE_NO("1", "审批通过"), APPROVE_YES(
-            "2", "审批不通过"), PUBLISHED("3", "已发布");
+    DRAFT("A", "草稿中"), PUBLISHED("B", "已发布"), todoAPPROVE("C1", "不信任待审批"), toReportAPPROVE(
+            "C2", "被举报待审批"), APPROVE_YES("D", "审批通过"), APPROVE_NO("E", "待回收"), FILTERED(
+            "F", "被过滤");
 
     EPostStatus(String code, String value) {
         this.code = code;

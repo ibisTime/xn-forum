@@ -8,6 +8,7 @@
  */
 package com.std.forum.bo;
 
+import java.util.Date;
 import java.util.List;
 
 import com.std.forum.bo.base.IPaginableBO;
@@ -21,7 +22,7 @@ import com.std.forum.domain.Post;
  */
 public interface IPostBO extends IPaginableBO<Post> {
 
-    public void savePost(String code, String title, String content, String pic,
+    public String savePost(String title, String content, String pic,
             String plateCode, String publisher, String status);
 
     public void refreshPost(String code, String title, String content,
@@ -29,12 +30,15 @@ public interface IPostBO extends IPaginableBO<Post> {
 
     public int removePost(String code);
 
-    public int refreshPostApprove(String code, String status, String approver,
-            String approveNote);
+    public int refreshPostApprove(String code, String approver,
+            String approveResult, String approveNote);
 
-    public int refreshPostLocation(String code, String location, String orderNo);
+    public int refreshPostLocation(String code, String location,
+            Date endDatetime);
 
-    public int refreshPostHeadlines(String code, String isHeadlines);
+    public int refreshPostLock(String code, String isLock);
+
+    public int refreshPostPlate(String code, String plateCode);
 
     public Post getPost(String code);
 

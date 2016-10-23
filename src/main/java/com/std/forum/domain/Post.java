@@ -55,9 +55,6 @@ public class Post extends ABaseDO {
     // 状态(0 待审核 1 审核通过 2 审核不通过 3 已发布)
     private String status;
 
-    // 是否头条
-    private String isHeadlines;
-
     // UI位置
     private String location;
 
@@ -66,6 +63,18 @@ public class Post extends ABaseDO {
 
     // 板块编号
     private String plateCode;
+
+    // 是否锁帖
+    private String isLock;
+
+    // 有效期开始时间
+    private Date validDatetimeStart;
+
+    // 有效期结束时间
+    private Date validDatetimeEnd;
+
+    // 备注
+    private String remark;
 
     // *****************db properties ********************
     // 昵称
@@ -197,14 +206,6 @@ public class Post extends ABaseDO {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getIsHeadlines() {
-        return isHeadlines;
-    }
-
-    public void setIsHeadlines(String isHeadlines) {
-        this.isHeadlines = isHeadlines;
     }
 
     public String getPlateCode() {
@@ -365,5 +366,37 @@ public class Post extends ABaseDO {
 
     public void setPicArr(String[] picArr) {
         this.picArr = picArr;
+    }
+
+    public String getIsLock() {
+        return isLock;
+    }
+
+    public void setIsLock(String isLock) {
+        this.isLock = isLock;
+    }
+
+    public Date getValidDatetimeStart() {
+        return validDatetimeStart;
+    }
+
+    public void setValidDatetimeStart(Date validDatetimeStart) {
+        this.validDatetimeStart = validDatetimeStart;
+    }
+
+    public Date getValidDatetimeEnd() {
+        return validDatetimeEnd;
+    }
+
+    public void setValidDatetimeEnd(Date validDatetimeEnd) {
+        this.validDatetimeEnd = validDatetimeEnd;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

@@ -98,8 +98,13 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
     }
 
     @Override
-    public int updateHeadlines(Post data) {
-        return super.update(NAMESPACE.concat("update_post_headlines"), data);
+    public int updateLock(Post data) {
+        return super.update(NAMESPACE.concat("update_post_lock"), data);
+    }
+
+    @Override
+    public int updatePlate(Post data) {
+        return super.update(NAMESPACE.concat("update_post_plate"), data);
     }
 
     @Override

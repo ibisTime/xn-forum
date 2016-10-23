@@ -5,20 +5,20 @@ import java.util.Map;
 
 /**
  * @author: xieyj 
- * @since: 2016年10月23日 下午7:50:12 
+ * @since: 2016年10月23日 下午6:58:18 
  * @history:
  */
-public enum ELocation {
-    ZD("A", "置顶"), JH("B", "精华"), TT("C", "头条");
-    public static Map<String, ELocation> getLocationResultMap() {
-        Map<String, ELocation> map = new HashMap<String, ELocation>();
-        for (ELocation status : ELocation.values()) {
+public enum EReportType {
+    TZ("1", "帖子"), PL("2", "评论");
+    public static Map<String, EReportType> getReportTypeResultMap() {
+        Map<String, EReportType> map = new HashMap<String, EReportType>();
+        for (EReportType status : EReportType.values()) {
             map.put(status.getCode(), status);
         }
         return map;
     }
 
-    ELocation(String code, String value) {
+    EReportType(String code, String value) {
         this.code = code;
         this.value = value;
     }

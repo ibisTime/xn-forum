@@ -1,6 +1,12 @@
 package com.std.forum.dto.req;
 
-public class XN610062Req {
+/** 
+ * 发布帖子，填写帖子基本信息
+ * @author: zuixian 
+ * @since: 2016年9月28日 下午1:40:29 
+ * @history:
+ */
+public class XN610041Req {
 
     // 编号（必填）
     private String code;
@@ -19,6 +25,17 @@ public class XN610062Req {
 
     // 发布人（必填）
     private String publisher;
+
+    // 是否发布
+    private String isPublish;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTitle() {
         return title;
@@ -60,11 +77,11 @@ public class XN610062Req {
         this.publisher = publisher;
     }
 
-    public String getCode() {
-        return code;
+    public String getIsPublish() {
+        return isPublish;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setIsPublish(String isPublish) {
+        this.isPublish = isPublish;
     }
 }

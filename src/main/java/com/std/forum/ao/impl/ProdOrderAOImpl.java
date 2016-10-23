@@ -80,7 +80,7 @@ public class ProdOrderAOImpl implements IProdOrderAO {
     @Override
     public int dropProdOrder(String code) {
         if (!prodOrderBO.isProdOrderExist(code)) {
-            throw new BizException("xn0000", "该编号不存在");
+            throw new BizException("xn0000", "订单编号不存在");
         }
         return prodOrderBO.removeProdOrder(code);
     }

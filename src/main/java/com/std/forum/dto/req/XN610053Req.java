@@ -1,54 +1,37 @@
 package com.std.forum.dto.req;
 
-/**
- * 设置/取消帖子为置顶，精华等属性
- * @author: xieyj 
- * @since: 2016年10月13日 下午3:28:37 
- * @history:
- */
 public class XN610053Req {
 
+    // 类型（必填）
+    private String type;
+
     // 帖子编号（必填）
-    private String code;
+    private String postCode;
 
-    // 是否增加(1 是 0 否) 否取消
-    private String isAdd;
+    // 操作人编号（必填）
+    private String talker;
 
-    // UI位置（必填）
-    private String location;
-
-    // 序号（选填）
-    private String orderNo;
-
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getIsAdd() {
-        return isAdd;
+    public String getPostCode() {
+        return postCode;
     }
 
-    public void setIsAdd(String isAdd) {
-        this.isAdd = isAdd;
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
-    public String getLocation() {
-        return location;
+    public String getTalker() {
+        return talker;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setTalker(String talker) {
+        this.talker = talker;
     }
 }

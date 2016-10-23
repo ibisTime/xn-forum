@@ -1,21 +1,32 @@
 package com.std.forum.dto.req;
 
 /** 
- *  将发布的帖子删除(OSS)
+ *  每查看帖子一次，增加一次阅读量，不针对用户
  * @author: zuixian 
- * @since: 2016年9月28日 下午1:41:40 
+ * @since: 2016年9月28日 下午1:44:53 
  * @history:
  */
 public class XN610052Req {
 
-    // 帖子编号（必填）
-    private String code;
+    // 帖子编号 （必填）
+    private String postCode;
 
-    public String getCode() {
-        return code;
+    // 用户编号 （必填）
+    private String userId;
+
+    public String getPostCode() {
+        return postCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

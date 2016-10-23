@@ -17,7 +17,14 @@
 		
 		<result column="approve_note" property="approveNote" />
 		<result column="status" property="status" />
+		<result column="location" property="location" />
+		<result column="order_no" property="orderNo" />
 		<result column="plate_code" property="plateCode" />
+		
+		<result column="is_lock" property="isLock" />
+		<result column="valid_datetime_start" property="validDatetimeStart" />
+		<result column="valid_datetime_end" property="validDatetimeEnd" />
+		<result column="remark" property="remark" />
 		<result column="total_read_times" property="totalReadTimes" />
 	</resultMap>
 	<sql id="where_condition">
@@ -75,7 +82,14 @@
 		
 		,t.approve_note
 		,t.status
+		,t.location
+		,t.order_no
 		,t.plate_code
+		
+		,t.is_lock
+		,t.valid_datetime_start
+		,t.valid_datetime_end
+		,t.remark
 		,(select count(1) from tforum_post_talk tpt where tpt.type = '5' and tpt.post_code = t.code) as total_read_times
 		FROM
 		tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
@@ -160,14 +174,22 @@
 		UPDATE tforum_post
 		SET
 		location = #{location}
-		,order_no = #{orderNo}
+		,valid_datetime_start = #{validDatetimeStart}
+		,valid_datetime_end = #{validDatetimeEnd}
 		WHERE code = #{code}
 	</update>
 	
-	<update id="update_post_headlines" parameterType="post">
+	<update id="update_post_lock" parameterType="post">
 		UPDATE tforum_post
 		SET
-		is_headlines = #{isHeadlines}
+		is_lock = #{isLock}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_post_plate" parameterType="post">
+		UPDATE tforum_post
+		SET
+		plate_code = #{plateCode}
 		WHERE code = #{code}
 	</update>
 </mapper>

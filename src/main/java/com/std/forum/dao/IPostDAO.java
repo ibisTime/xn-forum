@@ -35,9 +35,14 @@ public interface IPostDAO extends IBaseDAO<Post> {
     public int updateLocation(Post data);
 
     /**
-     * 设置头条
+     * 设置锁定
      */
-    public int updateHeadlines(Post data);
+    public int updateLock(Post data);
+
+    /**
+     * 转版
+     */
+    public int updatePlate(Post data);
 
     public long selectPostNum(Post condition);
 }

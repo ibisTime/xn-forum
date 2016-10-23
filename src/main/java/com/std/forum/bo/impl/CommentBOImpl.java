@@ -35,15 +35,19 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
     @Autowired
     private ICommentDAO commentDAO;
 
-    /** 
-     * @see com.std.forum.bo.ICommentBO#saveComment(com.std.forum.domain.Comment)
-     */
     @Override
-    public String saveComment(Comment data) {
+    public String saveComment(String content, String parentCode, String status,
+            String commer) {
         String code = null;
-        if (data != null) {
+        if (StringUtils.isNotBlank(content)
+                && StringUtils.isNotBlank(parentCode)
+                && StringUtils.isNotBlank(commer)) {
             code = OrderNoGenerater.generate(EPrefixCode.COMMENT.getCode());
+            Comment data = new Comment();
             data.setCode(code);
+            data.setContent(content);
+            data.setParentCode(parentCode);
+            data.setCommer(commer);
             data.setCommDatetime(new Date());
             commentDAO.insert(data);
         }
@@ -89,6 +93,25 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             Comment data = new Comment();
             data.setCode(code);
             count = commentDAO.delete(data);
+        }
+        return count;
+    }
+
+    /**
+     * @see com.std.forum.bo.IPostBO#refreshPostApprove(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public int refreshCommentApprove(String code, String status,
+            String approver, String approveNote) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Comment data = new Comment();
+            data.setCode(code);
+            data.setStatus(status);
+            data.setApprover(approver);
+            data.setApproveDatetime(new Date());
+            data.setApproveNote(approveNote);
+            count = commentDAO.updateApprove(data);
         }
         return count;
     }
