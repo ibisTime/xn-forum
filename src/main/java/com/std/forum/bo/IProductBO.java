@@ -17,6 +17,8 @@ public interface IProductBO extends IPaginableBO<Product> {
 
     public int refreshProductStatus(Product data);
 
+    public int refreshProductQuantity(String code, Integer quantity);
+
     public List<Product> queryProductList(Product condition);
 
     public Product getProduct(String code);

@@ -54,4 +54,12 @@ public class ProductDAOImpl extends AMybatisTemplate implements IProductDAO {
     public int updateStatus(Product data) {
         return super.update(NAMESPACE.concat("update_product_status"), data);
     }
+
+    /** 
+     * @see com.std.forum.dao.IProductDAO#updateQuantity(com.std.forum.domain.Product)
+     */
+    @Override
+    public int updateQuantity(Product data) {
+        return super.update(NAMESPACE.concat("update_product_quantity"), data);
+    }
 }

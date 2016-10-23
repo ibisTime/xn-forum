@@ -14,6 +14,9 @@ public class XN610300Req {
     // 描述（必填）
     private String description;
 
+    // 库存量（必填）
+    private String quantity;
+
     // 站点编号（必填）
     private String siteCode;
 
@@ -55,5 +58,13 @@ public class XN610300Req {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

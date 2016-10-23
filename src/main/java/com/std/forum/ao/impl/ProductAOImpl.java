@@ -68,7 +68,7 @@ public class ProductAOImpl implements IProductAO {
     }
 
     @Override
-    public int editProductStatus(String code, Integer price) {
+    public int editProductStatus(String code, Long price) {
         if (!productBO.isProductExist(code)) {
             throw new BizException("xn0000", "该编号不存在");
         }

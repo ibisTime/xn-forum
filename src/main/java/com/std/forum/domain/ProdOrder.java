@@ -21,7 +21,7 @@ public class ProdOrder extends ABaseDO {
     private String status;
 
     // 支付价格
-    private Integer payPrice;
+    private Long payPrice;
 
     // 支付人
     private String payer;
@@ -70,11 +70,11 @@ public class ProdOrder extends ABaseDO {
         this.status = status;
     }
 
-    public Integer getPayPrice() {
+    public Long getPayPrice() {
         return payPrice;
     }
 
-    public void setPayPrice(Integer payPrice) {
+    public void setPayPrice(Long payPrice) {
         this.payPrice = payPrice;
     }
 

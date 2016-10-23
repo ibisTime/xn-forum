@@ -87,4 +87,16 @@ public class ProductBOImpl extends PaginableBOImpl<Product> implements
     public int refreshProductStatus(Product data) {
         return productDAO.updateStatus(data);
     }
+
+    @Override
+    public int refreshProductQuantity(String code, Integer quantity) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Product data = new Product();
+            data.setCode(code);
+            data.setQuantity(quantity);
+            count = productDAO.updateQuantity(data);
+        }
+        return count;
+    }
 }

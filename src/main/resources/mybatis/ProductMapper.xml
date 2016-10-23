@@ -10,6 +10,7 @@
 		<result column="description" property="description" />
 		<result column="status" property="status" />
 		<result column="price" property="price" />
+		<result column="quantity" property="quantity" />
 		<result column="site_code" property="siteCode" />
 	</resultMap>
 	<sql id="where_condition">
@@ -45,6 +46,7 @@
 		,t.description
 		,t.status
 		,t.price
+		,t.quantity
 		,t.site_code
 		FROM
 		tforum_product t
@@ -71,7 +73,7 @@
 		,pic
 		,description
 		,status
-		,price
+		,quantity
 		,site_code
 		)
 		VALUES(
@@ -81,7 +83,7 @@
 		,#{pic}
 		,#{description}
 		,#{status}
-		,#{price}
+		,#{quantity}
 		,#{siteCode}
 		)
 	</insert>
@@ -93,7 +95,7 @@
 		,kind = #{kind}
 		,pic = #{pic}
 		,description = #{description}
-		,price = #{price}
+		,quantity = #{quantity}
 		,site_code = #{siteCode}
 		WHERE code = #{code}
 	</update>
@@ -103,6 +105,13 @@
 		SET
 		status = #{status}
 		,price = #{price}
+		WHERE code = #{code}
+	</update>
+	
+		<update id="update_product_quantity" parameterType="product">
+		UPDATE tforum_product
+		SET
+		quantity = quantity - ${quantity}
 		WHERE code = #{code}
 	</update>
 

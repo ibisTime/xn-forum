@@ -1,12 +1,10 @@
 package com.std.forum.api.converter;
 
 import com.std.forum.core.StringValidater;
-import com.std.forum.domain.ProdOrder;
 import com.std.forum.domain.Product;
 import com.std.forum.dto.req.XN610300Req;
 import com.std.forum.dto.req.XN610302Req;
 import com.std.forum.dto.req.XN610310Req;
-import com.std.forum.dto.req.XN610320Req;
 
 public class ProductConverter {
 
@@ -17,6 +15,7 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
+        result.setQuantity(StringValidater.toInteger(req.getQuantity()));
         result.setSiteCode(req.getSiteCode());
         return result;
     }
@@ -29,6 +28,7 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setPic(req.getPic());
         result.setDescription(req.getDescription());
+        result.setQuantity(StringValidater.toInteger(req.getQuantity()));
         result.setSiteCode(req.getSiteCode());
         return result;
     }
@@ -40,15 +40,6 @@ public class ProductConverter {
         result.setKind(req.getKind());
         result.setStatus(req.getStatus());
         result.setSiteCode(req.getSiteCode());
-        return result;
-    }
-
-    // 兑换产品
-    public static ProdOrder converter(XN610320Req req) {
-        ProdOrder result = new ProdOrder();
-        result.setPayer(req.getUserId());
-        result.setProductCode(req.getProductCode());
-        result.setQuantity(StringValidater.toInteger(req.getQuantity()));
         return result;
     }
 }

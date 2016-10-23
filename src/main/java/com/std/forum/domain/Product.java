@@ -25,7 +25,10 @@ public class Product extends ABaseDO {
     private String status;
 
     // 价格
-    private Integer price;
+    private Long price;
+
+    // 库存量
+    private Integer quantity;
 
     // 站点编号
     private String siteCode;
@@ -78,12 +81,20 @@ public class Product extends ABaseDO {
         this.status = status;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getSiteCode() {

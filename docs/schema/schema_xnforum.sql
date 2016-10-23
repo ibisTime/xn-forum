@@ -111,12 +111,13 @@ DROP TABLE IF EXISTS `tforum_product`;
 CREATE TABLE `tforum_product` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `name` varchar(64) DEFAULT NULL,
-  `category` varchar(4) DEFAULT NULL COMMENT '类别',
+  `kind` varchar(4) DEFAULT NULL COMMENT '类别',
   `pic` varchar(255) DEFAULT NULL COMMENT '图片',
   `description` text COMMENT '描述',
   `status` varchar(4) DEFAULT NULL COMMENT '状态(1 上架中 0 已下架)',
   `price` bigint(20) DEFAULT NULL COMMENT '价格',
-  `site_cdoe` varchar(32) DEFAULT NULL COMMENT '站点编号',
+  `quantity` int(11) DEFAULT NULL COMMENT '库存',
+  `site_code` varchar(32) DEFAULT NULL COMMENT '站点编号',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -127,12 +128,13 @@ DROP TABLE IF EXISTS `tforum_prod_order`;
 CREATE TABLE `tforum_prod_order` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `product_code` varchar(32) DEFAULT NULL COMMENT '商品编号',
-  `status` varchar(4) DEFAULT NULL COMMENT '状态(1 已支付 2 已取货)',
+  `quantity` int(11) DEFAULT NULL COMMENT '数量',
+  `status` varchar(4) DEFAULT NULL COMMENT '状态(0 待支付 1 已支付 2 待提货  3 已取货)',
   `pay_price` bigint(20) DEFAULT NULL COMMENT '支付价格',
   `payer` varchar(32) DEFAULT NULL COMMENT '支付人',
   `pay_datetime` datetime DEFAULT NULL COMMENT '支付时间',
-  `dealer` varchar(32) DEFAULT NULL COMMENT '确认人',
-  `deal_datetime` datetime DEFAULT NULL COMMENT '确认时间',
+  `taker` varchar(32) DEFAULT NULL COMMENT '提货人',
+  `take_datetime` datetime DEFAULT NULL COMMENT '提货时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

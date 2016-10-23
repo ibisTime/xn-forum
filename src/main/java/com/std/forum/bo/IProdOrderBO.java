@@ -9,7 +9,8 @@ public interface IProdOrderBO extends IPaginableBO<ProdOrder> {
 
     public boolean isProdOrderExist(String code);
 
-    public String saveProdOrder(ProdOrder data);
+    public String saveProdOrder(String userId, String productCode,
+            Integer quantity, Long payPrice);
 
     public int removeProdOrder(String code);
 

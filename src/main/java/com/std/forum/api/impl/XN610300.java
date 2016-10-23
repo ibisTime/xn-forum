@@ -36,5 +36,6 @@ public class XN610300 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN610300Req.class);
         StringValidater.validateBlank(req.getName(), req.getKind(),
             req.getPic(), req.getDescription(), req.getSiteCode());
+        StringValidater.validateNumber(req.getQuantity());
     }
 }
