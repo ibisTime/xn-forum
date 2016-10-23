@@ -35,6 +35,9 @@
 			<if test="location != null and location != '' ">
 		        AND t.location = #{location}
 			</if>
+			<if test="userId != null and userId != '' ">
+		        AND t.user_id = #{userId}
+			</if>
 			<if test="siteCode != null and siteCode != '' ">
 		        AND t.site_code = #{siteCode}
 			</if>

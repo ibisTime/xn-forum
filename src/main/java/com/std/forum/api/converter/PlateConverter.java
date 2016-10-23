@@ -4,7 +4,6 @@ import com.std.forum.domain.Plate;
 import com.std.forum.dto.req.XN610020Req;
 import com.std.forum.dto.req.XN610021Req;
 import com.std.forum.dto.req.XN610030Req;
-import com.std.forum.dto.req.XN610031Req;
 
 public class PlateConverter {
 
@@ -42,17 +41,6 @@ public class PlateConverter {
 
     // 分页查询板块
     public static Plate converter(XN610030Req req) {
-        Plate result = new Plate();
-        result.setNameForQuery(req.getName());
-        result.setKind(req.getKind());
-        result.setLocation(req.getLocation());
-        result.setStatus(req.getStatus());
-        result.setSiteCode(req.getSiteCode());
-        return result;
-    }
-
-    // 列表查询板块
-    public static Plate converter(XN610031Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());
         result.setKind(req.getKind());

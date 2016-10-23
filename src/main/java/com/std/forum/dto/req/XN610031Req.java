@@ -19,6 +19,9 @@ public class XN610031Req {
     // 状态(选填)
     private String status;
 
+    // 版主(选填)
+    private String userId;
+
     // 站点编号(选填)
     private String siteCode;
 
@@ -28,14 +31,6 @@ public class XN610031Req {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSiteCode() {
-        return siteCode;
-    }
-
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
     }
 
     public String getKind() {
@@ -60,5 +55,21 @@ public class XN610031Req {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }
