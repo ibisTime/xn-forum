@@ -29,6 +29,7 @@ import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.dto.res.XN610900Res;
 import com.std.forum.dto.res.XN805901Res;
 import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.ELocation;
@@ -367,5 +368,18 @@ public class PostAOImpl implements IPostAO {
             }
         }
         return post;
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostAO#totalPostNum(java.lang.String)
+     */
+    @Override
+    public XN610900Res totalPostNum(String userId) {
+        XN610900Res res = new XN610900Res();
+        Post condition = new Post();
+        condition.setPublisher(userId);
+        Long totalPostNum = postBO.getTotalCount(condition);
+        res.setTotalPostNum(totalPostNum);
+        return res;
     }
 }

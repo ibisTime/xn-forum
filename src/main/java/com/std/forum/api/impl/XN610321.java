@@ -25,14 +25,13 @@ public class XN610321 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        prodOrderAO.takeProduct(req.getOrderCode(), req.getTaker(),
-            req.getTakeNote());
+        prodOrderAO.takeProduct(req.getOrderCode(), req.getTakeNote());
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610321Req.class);
-        StringValidater.validateBlank(req.getOrderCode(), req.getTaker());
+        StringValidater.validateBlank(req.getOrderCode());
     }
 }

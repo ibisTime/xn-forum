@@ -51,13 +51,13 @@ public class ProdOrderAOImpl implements IProdOrderAO {
     }
 
     @Override
-    public int takeProduct(String code, String taker, String takeNote) {
+    public int takeProduct(String code, String takeNote) {
         ProdOrder data = prodOrderBO.getProdOrder(code);
         if (!EProdOrderStatus.PAY_YES.getCode().equals(data.getStatus())) {
             throw new BizException("xn0000", "该订单已不是已支付状态");
         }
         return prodOrderBO.refreshProdOrderStatus(code,
-            EProdOrderStatus.TAKE_YES.getCode(), taker, takeNote);
+            EProdOrderStatus.TAKE_YES.getCode(), null, takeNote);
     }
 
     @Override

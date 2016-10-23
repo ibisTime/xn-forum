@@ -13,7 +13,7 @@ public interface IProdOrderAO {
 
     public int dropProdOrder(String code);
 
-    public int takeProduct(String code, String taker, String remark);
+    public int takeProduct(String code, String remark);
 
     public void invalidProdOrder(String code, String takeNote);
 
