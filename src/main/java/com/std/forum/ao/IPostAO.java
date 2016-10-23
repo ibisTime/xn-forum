@@ -36,9 +36,6 @@ public interface IPostAO {
     public void approvePost(String code, String approver,
             String approverResult, String approveNote, String type);
 
-    public void reportPost(String code, String reporter, String reportNote,
-            String type);
-
     public void readPost(String code, String reader);
 
     public void setPostLock(String code);

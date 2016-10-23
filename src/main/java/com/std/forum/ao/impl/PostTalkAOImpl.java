@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.IPostTalkAO;
+import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
+import com.std.forum.bo.IRuleBO;
 import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
+import com.std.forum.domain.Comment;
+import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EDirection;
+import com.std.forum.enums.EReportType;
 import com.std.forum.enums.ETalkType;
 
 @Service
@@ -26,6 +31,12 @@ public class PostTalkAOImpl implements IPostTalkAO {
 
     @Autowired
     protected IUserBO userBO;
+
+    @Autowired
+    protected ICommentBO commentBO;
+
+    @Autowired
+    protected IRuleBO ruleBO;
 
     @Override
     public int doPostTalk(String postCode, String userId, String type) {
@@ -48,6 +59,41 @@ public class PostTalkAOImpl implements IPostTalkAO {
         userBO.doTransfer(userId, EDirection.PLUS.getCode(), amount, "打赏帖子",
             postCode);
         return id;
+    }
+
+    @Override
+    @Transactional
+    public void reportPost(String code, String reporter, String reportNote,
+            String type) {
+        // 判断是否达到举报条数，更新帖子或评论状态待审核
+        if (EReportType.TZ.getCode().equals(type)) {
+            type = ETalkType.TZJB.getCode();
+            Post post = postBO.getPost(code);
+            String publisher = post.getPublisher();
+            PostTalk condition = new PostTalk();
+            condition.setPlateCode(code);
+            condition.setTalker(publisher);
+            condition.setType(type);
+            List<PostTalk> talkList = postTalkBO.queryPostTalkList(condition);
+            int maxTimes = ruleBO.getJBTimesByUserId(publisher).intValue();
+            if (maxTimes <= talkList.size() + 1) {
+                postBO.refreshPostReport(code, reportNote);
+            }
+        } else if (EReportType.PL.getCode().equals(type)) {
+            type = ETalkType.PLJB.getCode();
+            Comment comment = commentBO.getComment(code);
+            String commer = comment.getCommer();
+            PostTalk condition = new PostTalk();
+            condition.setPlateCode(code);
+            condition.setTalker(commer);
+            condition.setType(type);
+            List<PostTalk> talkList = postTalkBO.queryPostTalkList(condition);
+            int maxTimes = ruleBO.getJBTimesByUserId(commer).intValue();
+            if (maxTimes <= talkList.size() + 1) {
+                commentBO.refreshCommentReport(code, reportNote);
+            }
+        }
+        postTalkBO.savePostTalk(code, reporter, type, reportNote);
     }
 
     @Override

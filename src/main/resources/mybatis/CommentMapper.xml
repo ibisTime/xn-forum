@@ -14,6 +14,8 @@
 		<result column="approver" property="approver" />
 		<result column="approve_datetime" property="approveDatetime" />
 		<result column="approve_note" property="approveNote" />
+		
+		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -45,6 +47,7 @@
 		,t.approver
 		,t.approve_datetime
 		,t.approve_note
+		,t.remark
 		FROM
 		tforum_comment t
 		<include refid="where_condition" />
@@ -86,6 +89,14 @@
 		,approver = #{approver}
 		,approve_datetime = #{approveDatetime}
 		,approve_note = #{approveNote}
+		WHERE code = #{code}
+	</update>
+	
+	<update id="update_comment_status" parameterType="comment">
+		UPDATE tforum_comment
+		SET
+		status = #{status}
+		,remark = #{remark}
 		WHERE code = #{code}
 	</update>
 	

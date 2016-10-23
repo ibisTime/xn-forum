@@ -21,6 +21,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.ICommentDAO;
 import com.std.forum.domain.Comment;
+import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 
 /** 
@@ -111,6 +112,22 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             data.setApprover(approver);
             data.setApproveDatetime(new Date());
             data.setApproveNote(approveNote);
+            count = commentDAO.updateApprove(data);
+        }
+        return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.ICommentBO#refreshCommentReport(java.lang.String, java.lang.String)
+     */
+    @Override
+    public int refreshCommentReport(String code, String remark) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Comment data = new Comment();
+            data.setCode(code);
+            data.setStatus(EPostStatus.toReportAPPROVE.getCode());
+            data.setRemark(remark);
             count = commentDAO.updateApprove(data);
         }
         return count;

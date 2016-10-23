@@ -1,6 +1,6 @@
 package com.std.forum.api.impl;
 
-import com.std.forum.ao.IPostAO;
+import com.std.forum.ao.IPostTalkAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
@@ -18,13 +18,14 @@ import com.std.forum.spring.SpringContextHolder;
  */
 public class XN610043 extends AProcessor {
 
-    private IPostAO postAO = SpringContextHolder.getBean(IPostAO.class);
+    private IPostTalkAO postTalkAO = SpringContextHolder
+        .getBean(IPostTalkAO.class);
 
     private XN610043Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.reportPost(req.getCode(), req.getReporter(),
+        postTalkAO.reportPost(req.getCode(), req.getReporter(),
             req.getReportNote(), req.getType());
         return new BooleanRes(true);
     }

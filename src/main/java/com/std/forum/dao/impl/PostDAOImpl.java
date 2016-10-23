@@ -120,4 +120,12 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
     public int update(Post data) {
         return super.update(NAMESPACE.concat("update_post"), data);
     }
+
+    /** 
+     * @see com.std.forum.dao.IPostDAO#updateStatus(com.std.forum.domain.Post)
+     */
+    @Override
+    public int updateStatus(Post data) {
+        return super.update(NAMESPACE.concat("update_post_status"), data);
+    }
 }

@@ -52,6 +52,9 @@ public class Comment extends ABaseDO {
     // 审核说明
     private String approveNote;
 
+    // 备注
+    private String remark;
+
     // ****************db properties ***************
     private String parentCommer;
 
@@ -188,5 +191,13 @@ public class Comment extends ABaseDO {
 
     public void setApproveNote(String approveNote) {
         this.approveNote = approveNote;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

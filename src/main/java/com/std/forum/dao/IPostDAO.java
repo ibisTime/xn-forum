@@ -30,6 +30,11 @@ public interface IPostDAO extends IBaseDAO<Post> {
     public int updateApprove(Post data);
 
     /**
+     * 举报更新状态
+     */
+    public int updateStatus(Post data);
+
+    /**
      * 设置精华，置顶
      */
     public int updateLocation(Post data);

@@ -37,6 +37,18 @@ public interface IPostTalkAO {
      */
     public int doPostTalk(String postCode, String userId, Long amount);
 
+    /**
+     * 举报帖子/评论
+     * @param code
+     * @param reporter
+     * @param reportNote
+     * @param type 
+     * @create: 2016年10月23日 下午10:32:25 xieyj
+     * @history:
+     */
+    public void reportPost(String code, String reporter, String reportNote,
+            String type);
+
     /** 
      * 查询单一类型的记录
      * @param postCode

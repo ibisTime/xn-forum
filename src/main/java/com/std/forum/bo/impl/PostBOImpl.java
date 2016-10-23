@@ -181,4 +181,20 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
         return count;
     }
 
+    /** 
+     * @see com.std.forum.bo.IPostBO#refreshPostReport(java.lang.String, java.lang.String)
+     */
+    @Override
+    public int refreshPostReport(String code, String remark) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Post data = new Post();
+            data.setCode(code);
+            data.setStatus(EPostStatus.toReportAPPROVE.getCode());
+            data.setRemark(remark);
+            count = postDAO.updatePlate(data);
+        }
+        return count;
+    }
+
 }

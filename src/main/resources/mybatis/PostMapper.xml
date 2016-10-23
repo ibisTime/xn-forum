@@ -167,6 +167,7 @@
 		UPDATE tforum_post
 		SET
 		status = #{status}
+		,remark = #{remark}
 		WHERE code = #{code}
 	</update>
 	

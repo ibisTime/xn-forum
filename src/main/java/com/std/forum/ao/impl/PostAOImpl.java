@@ -232,8 +232,29 @@ public class PostAOImpl implements IPostAO {
                 userBO.doTransfer(post.getPublisher(),
                     EDirection.PLUS.getCode(), ERuleType.FT.getCode(), code);
             }
+            // 举报审核不通过，扣积分
+            if (EPostStatus.toReportAPPROVE.getCode().equals(post.getStatus())
+                    && EBoolean.NO.getCode().equals(approveResult)) {
+                userBO.doTransfer(post.getPublisher(),
+                    EDirection.MINUS.getCode(), ERuleType.TZJB.getCode(), code);
+            }
         } else if (EReportType.PL.getCode().equals(type)) {
             type = ETalkType.PLJB.getCode();
+            Comment comment = commentBO.getComment(code);
+            if (!EPostStatus.todoAPPROVE.getCode().equals(comment.getStatus())
+                    && !EPostStatus.toReportAPPROVE.getCode().equals(
+                        comment.getStatus())) {
+                throw new BizException("xn000000", "评论状态不是待审核状态");
+            }
+            commentBO.refreshCommentApprove(code, approveResult, approver,
+                approveNote);
+            // 举报审核不通过，扣积分
+            if (EPostStatus.toReportAPPROVE.getCode().equals(
+                comment.getStatus())
+                    && EBoolean.NO.getCode().equals(approveResult)) {
+                userBO.doTransfer(comment.getCommer(),
+                    EDirection.MINUS.getCode(), ERuleType.PLJB.getCode(), code);
+            }
         }
     }
 
@@ -373,21 +394,6 @@ public class PostAOImpl implements IPostAO {
             this.getAllInfo(post, talker);
         }
         return postList;
-    }
-
-    /** 
-     * @see com.std.forum.ao.IPostAO#reportPost(java.lang.String, java.lang.String, java.lang.String)
-     */
-    @Override
-    public void reportPost(String code, String reporter, String reportNote,
-            String type) {
-        // 判断是否达到举报条数，更新帖子或评论状态待审核
-        if (EReportType.TZ.getCode().equals(type)) {
-            type = ETalkType.TZJB.getCode();
-        } else if (EReportType.PL.getCode().equals(type)) {
-            type = ETalkType.PLJB.getCode();
-        }
-        postTalkBO.savePostTalk(code, reporter, type, reportNote);
     }
 
     /** 

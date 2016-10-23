@@ -29,6 +29,8 @@ public interface ICommentBO extends IPaginableBO<Comment> {
     public int refreshCommentApprove(String code, String status,
             String approver, String approveNote);
 
+    public int refreshCommentReport(String code, String remark);
+
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);

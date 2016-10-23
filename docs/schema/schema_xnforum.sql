@@ -104,6 +104,7 @@ CREATE TABLE `tforum_comment` (
   `approver` varchar(32) DEFAULT NULL COMMENT '审核人',
   `approve_datetime` datetime DEFAULT NULL COMMENT '审核时间',
   `approve_note` varchar(255) DEFAULT NULL COMMENT '审核意见',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
