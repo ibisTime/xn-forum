@@ -465,7 +465,7 @@ public class PostAOImpl implements IPostAO {
         condition.setLocation(ELocation.ZD.getCode());
         postList.addAll(postBO.queryPostList(condition));
         for (Post post : postList) {
-            if (post.getValidDatetimeEnd().after(new Date())) {
+            if (post.getValidDatetimeEnd().before(new Date())) {
                 postBO.refreshPostLocation(post.getCode(), null, null);
             }
         }
