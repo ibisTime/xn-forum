@@ -205,27 +205,19 @@ public class PostAOImpl implements IPostAO {
     public void setPostLocation(String code, String isAdd, String location,
             Date endDatetime) {
         Post post = postBO.getPost(code);
-        String postLocation = post.getLocation();
-        if (EBoolean.YES.getCode().equals(isAdd)) {
-            if (postLocation != null) {
-                if (postLocation.contains(location)) {
-                    throw new BizException("xn000000", "该帖子已是"
-                            + ELocation.getLocationResultMap().get(location)
-                                .getValue() + "帖子");
-                }
-                postLocation = postLocation + location;
-            } else {
-                postLocation = location;
+        String postLocation = null;
+
+        if (EBoolean.NO.getCode().equalsIgnoreCase(isAdd)) {
+            if (!location.equalsIgnoreCase(post.getLocation())) {
+                throw new BizException("xn000000", "帖子没有" + location
+                        + "属性,不能取消");
             }
         } else {
-            if (postLocation != null) {
-                int indexLocation = postLocation.indexOf(location);
-                if (indexLocation < 0) {
-                    throw new BizException("xn000000", "该帖子不是"
-                            + ELocation.getLocationResultMap().get(location)
-                                .getValue() + "帖子，无法取消");
-                }
-                postLocation = postLocation.replaceAll(location, "");
+            if (!location.equalsIgnoreCase(post.getLocation())) {
+                postLocation = location;
+            } else {
+                throw new BizException("xn000000", "帖子已经具有该属性" + location
+                        + "属性");
             }
         }
         postBO.refreshPostLocation(code, postLocation, endDatetime);
@@ -485,6 +477,24 @@ public class PostAOImpl implements IPostAO {
                 throw new BizException("xn000000", "该评论不是待回收状态");
             }
             commentBO.refreshCommentReturn(code);
+        }
+    }
+
+    // 定时取消帖子的置顶，精华，头条的过时属性
+    @Override
+    public void doChangePostLocation() {
+        Post condition = new Post();
+        List<Post> postList = new ArrayList<Post>();
+        condition.setLocation(ELocation.JH.getCode());
+        postList.addAll(postBO.queryPostList(condition));
+        condition.setLocation(ELocation.TT.getCode());
+        postList.addAll(postBO.queryPostList(condition));
+        condition.setLocation(ELocation.ZD.getCode());
+        postList.addAll(postBO.queryPostList(condition));
+        for (Post post : postList) {
+            if (post.getValidDatetimeEnd().before(new Date())) {
+                postBO.refreshPostLocation(post.getCode(), null, null);
+            }
         }
     }
 }

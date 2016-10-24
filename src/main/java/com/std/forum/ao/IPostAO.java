@@ -91,4 +91,6 @@ public interface IPostAO {
     public Post getPostByCommentCode(String commentCode, String userId);
 
     public XN610900Res totalPostNum(String userId);
+
+    public void doChangePostLocation();
 }
