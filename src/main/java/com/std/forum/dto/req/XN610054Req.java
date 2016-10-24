@@ -15,7 +15,7 @@ public class XN610054Req {
     private String amount;
 
     // 操作人 （必填）
-    private String talker;
+    private String userId;
 
     public String getPostCode() {
         return postCode;
@@ -33,11 +33,11 @@ public class XN610054Req {
         this.amount = amount;
     }
 
-    public String getTalker() {
-        return talker;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTalker(String talker) {
-        this.talker = talker;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

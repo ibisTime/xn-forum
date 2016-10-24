@@ -26,14 +26,14 @@ public class XN610054 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Long amount = StringValidater.toLong(req.getAmount());
-        postTalkAO.doPostTalk(req.getPostCode(), req.getTalker(), amount);
+        postTalkAO.doPostTalk(req.getPostCode(), req.getUserId(), amount);
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610054Req.class);
-        StringValidater.validateBlank(req.getPostCode(), req.getTalker());
+        StringValidater.validateBlank(req.getPostCode(), req.getUserId());
         StringValidater.validateAmount(req.getAmount());
     }
 }
