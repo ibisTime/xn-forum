@@ -31,6 +31,8 @@ public interface ICommentBO extends IPaginableBO<Comment> {
 
     public int refreshCommentReport(String code, String remark);
 
+    public int refreshCommentReturn(String code);
+
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);

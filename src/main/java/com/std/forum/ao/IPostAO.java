@@ -29,12 +29,17 @@ public interface IPostAO {
     public void draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish);
 
-    public void removePostBySelf(String code, String userId);
+    public void dropPostBySelf(String code, String userId);
 
-    public void removePost(String code);
+    public void dropPost(String code, String userId, String type);
 
     public void approvePost(String code, String approver,
             String approverResult, String approveNote, String type);
+
+    public void approvePostList(List<String> codeList, String approver,
+            String approveResult, String approveNote, String type);
+
+    public void returnPost(String code, String type);
 
     public void readPost(String code, String reader);
 

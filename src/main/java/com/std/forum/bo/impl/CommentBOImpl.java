@@ -132,4 +132,20 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
         }
         return count;
     }
+
+    /** 
+     * @see com.std.forum.bo.ICommentBO#refreshCommentReturn(java.lang.String)
+     */
+    @Override
+    public int refreshCommentReturn(String code) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Comment data = new Comment();
+            data.setCode(code);
+            data.setStatus(EPostStatus.APPROVE_YES.getCode());
+            count = commentDAO.updateStatus(data);
+        }
+        return count;
+    }
+
 }

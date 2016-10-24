@@ -17,7 +17,7 @@ import com.std.forum.domain.Comment;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.enums.EDirection;
-import com.std.forum.enums.EReportType;
+import com.std.forum.enums.EPostType;
 import com.std.forum.enums.ETalkType;
 
 @Service
@@ -66,7 +66,7 @@ public class PostTalkAOImpl implements IPostTalkAO {
     public void reportPost(String code, String reporter, String reportNote,
             String type) {
         // 判断是否达到举报条数，更新帖子或评论状态待审核
-        if (EReportType.TZ.getCode().equals(type)) {
+        if (EPostType.TZ.getCode().equals(type)) {
             type = ETalkType.TZJB.getCode();
             Post post = postBO.getPost(code);
             String publisher = post.getPublisher();
@@ -79,7 +79,7 @@ public class PostTalkAOImpl implements IPostTalkAO {
             if (maxTimes <= talkList.size() + 1) {
                 postBO.refreshPostReport(code, reportNote);
             }
-        } else if (EReportType.PL.getCode().equals(type)) {
+        } else if (EPostType.PL.getCode().equals(type)) {
             type = ETalkType.PLJB.getCode();
             Comment comment = commentBO.getComment(code);
             String commer = comment.getCommer();

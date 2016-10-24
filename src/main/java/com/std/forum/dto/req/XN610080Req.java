@@ -1,14 +1,8 @@
 package com.std.forum.dto.req;
 
-/** 
- * 对自己评论内容进行删除
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:43:54 
- * @history:
- */
-public class XN610058Req {
+public class XN610080Req {
 
-    // 评论编号 （必填）
+    // 编号（选填）
     private String code;
 
     public String getCode() {
@@ -18,4 +12,5 @@ public class XN610058Req {
     public void setCode(String code) {
         this.code = code;
     }
+
 }

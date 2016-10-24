@@ -9,9 +9,6 @@
 5，验证：项目跑起来。在浏览器输入“http://IP:端口/项目名/api”，出现版本信息即成功。
 
 
-
-
-
 部署步骤：
 1，切换到本地tomcat部署包所在目录,例如
   cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp9/wtpwebapps
@@ -41,4 +38,4 @@
   ../bin/shutdown.sh
   ../bin/startup.sh
   
-http://121.43.101.148:5401/xn-forum/api
+http://121.43.101.148:5402/xn-forum/api

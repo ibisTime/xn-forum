@@ -86,13 +86,15 @@ public class CommentAOImpl implements ICommentAO {
     }
 
     @Override
-    public int doRemoveComment(String code) {
+    public int dropComment(String code) {
         return commentBO.removeComment(code);
     }
 
     @Override
     public Comment getComment(String code) {
-        return commentBO.getComment(code);
+        Comment comment = commentBO.getComment(code);
+        getParentComment(comment);
+        return comment;
     }
 
     @Override
@@ -103,29 +105,24 @@ public class CommentAOImpl implements ICommentAO {
     @Override
     public Paginable<Comment> queryCommentPage(int start, int limit,
             Comment condition) {
-        return commentBO.getPaginable(start, limit, condition);
-    }
-
-    /** 
-     * @see com.std.forum.ao.ICommentAO#queryMyCommentPage(int, int, com.std.forum.domain.Comment)
-     */
-    @Override
-    public Paginable<Comment> queryMyCommentPage(int start, int limit,
-            Comment condition) {
         Paginable<Comment> page = commentBO.getPaginable(start, limit,
             condition);
         List<Comment> list = page.getList();
         for (Comment comment : list) {
-            String parentCode = comment.getParentCode();
-            if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
-                Post post = postBO.getPost(parentCode);
-                comment.setPost(post);
-            } else {
-                Comment data = commentBO.getComment(parentCode);
-                comment.setParentComment(data);
-            }
+            getParentComment(comment);
         }
         return page;
+    }
+
+    private void getParentComment(Comment comment) {
+        String parentCode = comment.getParentCode();
+        if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
+            Post post = postBO.getPost(parentCode);
+            comment.setPost(post);
+        } else {
+            Comment data = commentBO.getComment(parentCode);
+            comment.setParentComment(data);
+        }
     }
 
     /** 

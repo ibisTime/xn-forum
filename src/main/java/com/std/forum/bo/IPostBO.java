@@ -35,6 +35,8 @@ public interface IPostBO extends IPaginableBO<Post> {
 
     public int refreshPostReport(String code, String remark);
 
+    public int refreshPostReturn(String code);
+
     public int refreshPostLocation(String code, String location,
             Date endDatetime);
 

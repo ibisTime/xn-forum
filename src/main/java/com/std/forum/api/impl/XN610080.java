@@ -4,34 +4,32 @@ import com.std.forum.ao.ICommentAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.dto.req.XN610058Req;
-import com.std.forum.dto.res.BooleanRes;
+import com.std.forum.dto.req.XN610080Req;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 对自己评论内容进行删除
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:51:23 
+/**
+ * 评论详情查询
+ * @author: xieyj 
+ * @since: 2016年10月13日 下午2:10:14 
  * @history:
  */
-public class XN610058 extends AProcessor {
+public class XN610080 extends AProcessor {
 
     private ICommentAO commentAO = SpringContextHolder
         .getBean(ICommentAO.class);
 
-    private XN610058Req req = null;
+    private XN610080Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        return new BooleanRes(
-            commentAO.doRemoveComment(req.getCode()) > 0 ? true : false);
+        return commentAO.getComment(req.getCode());
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610058Req.class);
+        req = JsonUtil.json2Bean(inputparams, XN610080Req.class);
         StringValidater.validateBlank(req.getCode());
     }
 }

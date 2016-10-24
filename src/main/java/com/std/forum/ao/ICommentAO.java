@@ -16,16 +16,13 @@ public interface ICommentAO {
 
     public String doComment(String content, String parentCode, String commer);
 
-    public int doRemoveComment(String code);
+    public int dropComment(String code);
 
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);
 
     public Paginable<Comment> queryCommentPage(int start, int limit,
-            Comment condition);
-
-    public Paginable<Comment> queryMyCommentPage(int start, int limit,
             Comment condition);
 
     public Paginable<Comment> queryCommentMyPage(int start, int limit,

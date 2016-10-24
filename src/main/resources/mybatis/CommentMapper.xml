@@ -22,6 +22,9 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
+			<if test="content != null and content != '' ">
+		        AND t.content like "%"#{content}"%"
+			</if>
 			<if test="parentCode != null and parentCode != '' ">
 		        AND t.parent_code = #{parentCode}
 			</if>
@@ -96,7 +99,9 @@
 		UPDATE tforum_comment
 		SET
 		status = #{status}
-		,remark = #{remark}
+		<if test="remark != null and remark != '' ">
+				,remark = #{remark}
+		</if>
 		WHERE code = #{code}
 	</update>
 	

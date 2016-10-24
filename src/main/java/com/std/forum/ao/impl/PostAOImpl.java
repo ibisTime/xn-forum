@@ -40,9 +40,9 @@ import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EDirection;
 import com.std.forum.enums.ELocation;
 import com.std.forum.enums.EPostStatus;
+import com.std.forum.enums.EPostType;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.EReaction;
-import com.std.forum.enums.EReportType;
 import com.std.forum.enums.ERuleType;
 import com.std.forum.enums.ETalkType;
 import com.std.forum.exception.BizException;
@@ -160,7 +160,7 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public void removePostBySelf(String code, String userId) {
+    public void dropPostBySelf(String code, String userId) {
         Post data = postBO.getPost(code);
         if (data.getPublisher().equals(userId)) {
             postBO.removePost(code);
@@ -170,8 +170,15 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public void removePost(String code) {
-        postBO.removePost(code);
+    public void dropPost(String code, String userId, String type) {
+        // userId 逻辑判断
+        if (EPostType.TZ.getCode().equals(type)) {
+            postBO.getPost(code);
+            postBO.removePost(code);
+        } else if (EPostType.PL.getCode().equals(type)) {
+            commentBO.getComment(code);
+            commentBO.removeComment(code);
+        }
     }
 
     @Override
@@ -217,7 +224,7 @@ public class PostAOImpl implements IPostAO {
     @Transactional
     public void approvePost(String code, String approver, String approveResult,
             String approveNote, String type) {
-        if (EReportType.TZ.getCode().equals(type)) {
+        if (EPostType.TZ.getCode().equals(type)) {
             Post post = postBO.getPost(code);
             if (!EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())
                     && !EPostStatus.toReportAPPROVE.getCode().equals(
@@ -238,7 +245,7 @@ public class PostAOImpl implements IPostAO {
                 userBO.doTransfer(post.getPublisher(),
                     EDirection.MINUS.getCode(), ERuleType.TZJB.getCode(), code);
             }
-        } else if (EReportType.PL.getCode().equals(type)) {
+        } else if (EPostType.PL.getCode().equals(type)) {
             type = ETalkType.PLJB.getCode();
             Comment comment = commentBO.getComment(code);
             if (!EPostStatus.todoAPPROVE.getCode().equals(comment.getStatus())
@@ -255,6 +262,14 @@ public class PostAOImpl implements IPostAO {
                 userBO.doTransfer(comment.getCommer(),
                     EDirection.MINUS.getCode(), ERuleType.PLJB.getCode(), code);
             }
+        }
+    }
+
+    @Override
+    public void approvePostList(List<String> codeList, String approver,
+            String approveResult, String approveNote, String type) {
+        for (String code : codeList) {
+            this.approvePost(code, approver, approveResult, approveNote, type);
         }
     }
 
@@ -276,7 +291,7 @@ public class PostAOImpl implements IPostAO {
         postBO.getPost(code);
         Plate plate = plateBO.getPlate(plateCode);
         if (EBoolean.NO.getCode().equals(plate.getStatus())) {
-            throw new BizException("xn000000", "该版本状态为未启用");
+            throw new BizException("xn000000", "该板块状态为未启用");
         }
         postBO.refreshPostPlate(code, plateCode);
     }
@@ -434,5 +449,25 @@ public class PostAOImpl implements IPostAO {
         Long totalPostNum = postBO.getTotalCount(condition);
         res.setTotalPostNum(totalPostNum);
         return res;
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostAO#returnPost(java.lang.String)
+     */
+    @Override
+    public void returnPost(String code, String type) {
+        if (EPostType.TZ.getCode().equals(type)) {
+            Post post = postBO.getPost(code);
+            if (!EPostStatus.APPROVE_NO.getCode().equals(post.getStatus())) {
+                throw new BizException("xn000000", "该帖子不是待回收状态");
+            }
+            postBO.refreshPostReturn(code);
+        } else if (EPostType.PL.getCode().equals(type)) {
+            Comment comment = commentBO.getComment(code);
+            if (!EPostStatus.APPROVE_NO.getCode().equals(comment.getStatus())) {
+                throw new BizException("xn000000", "该评论不是待回收状态");
+            }
+            commentBO.refreshCommentReturn(code);
+        }
     }
 }
