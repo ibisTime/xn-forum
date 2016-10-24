@@ -15,7 +15,6 @@ import com.std.forum.bo.IUserBO;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.enums.EDirection;
 import com.std.forum.enums.EPostType;
 import com.std.forum.enums.ETalkType;
 
@@ -51,9 +50,10 @@ public class PostTalkAOImpl implements IPostTalkAO {
     @Override
     @Transactional
     public void doPostTalk(String postCode, String userId, Long amount) {
+        Post post = postBO.getPost(postCode);
         postTalkBO.savePostTalk(postCode, userId, ETalkType.DS.getCode(),
             String.valueOf(amount));
-        userBO.doTransfer(userId, EDirection.PLUS.getCode(), amount, "打赏帖子",
+        userBO.doTransferAdd(userId, post.getPublisher(), amount, "打赏帖子",
             postCode);
     }
 

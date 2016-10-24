@@ -1,40 +1,51 @@
 package com.std.forum.dto.req;
 
 public class XN805301Req {
-    // 用户编号(必填)
-    private String userId;
+    // from用户(必填)
+    private String fromUser;
 
-    // 方向(必填)
-    private String direction;
+    // to用户(必填)
+    private String toUser;
 
-    // 类型(必填)
-    private String ruleType;
+    // 金额(必填)
+    private String amount;
+
+    // 备注(选填)
+    private String remark;
 
     // 参考号(选填)
     private String refNo;
 
-    public String getUserId() {
-        return userId;
+    public String getFromUser() {
+        return fromUser;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getToUser() {
+        return toUser;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
     }
 
-    public String getRuleType() {
-        return ruleType;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setRuleType(String ruleType) {
-        this.ruleType = ruleType;
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getRefNo() {
@@ -44,4 +55,5 @@ public class XN805301Req {
     public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
+
 }
