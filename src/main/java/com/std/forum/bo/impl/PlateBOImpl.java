@@ -112,4 +112,18 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
     public List<Plate> queryPlateList(Plate condition) {
         return plateDAO.selectList(condition);
     }
+
+    /** 
+     * @see com.std.forum.bo.IPlateBO#getPlateByUserId(java.lang.String)
+     */
+    @Override
+    public List<Plate> getPlateByUserId(String userId) {
+        List<Plate> list = null;
+        if (StringUtils.isNotBlank(userId)) {
+            Plate condition = new Plate();
+            condition.setUserId(userId);
+            list = plateDAO.selectList(condition);
+        }
+        return list;
+    }
 }

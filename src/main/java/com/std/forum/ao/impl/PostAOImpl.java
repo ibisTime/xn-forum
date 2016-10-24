@@ -10,7 +10,9 @@ package com.std.forum.ao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +47,7 @@ import com.std.forum.enums.EPrefixCode;
 import com.std.forum.enums.EReaction;
 import com.std.forum.enums.ERuleType;
 import com.std.forum.enums.ETalkType;
+import com.std.forum.enums.EUserKind;
 import com.std.forum.exception.BizException;
 
 /** 
@@ -163,12 +166,36 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     public void dropPost(String code, String userId, String type) {
-        // userId 逻辑判断
+        Post post = null;
+        Comment comment = null;
+        if (EPostType.PL.getCode().equals(type)) {
+            comment = commentBO.getComment(code);
+            post = getPostByCommentCode(code, null);
+        } else {
+            post = postBO.getPost(code);
+        }
+        Plate plate = plateBO.getPlate(post.getPlateCode());
+        String companyCode = plate.getSiteCode();
+        XN805901Res res = userBO.getRemoteUser(userId, userId);
+        if (EUserKind.Operator.getCode().equals(res.getKind())) {
+            if (!companyCode.equals(res.getCompanyCode())) {
+                throw new BizException("xn000000", "当前用户不是该帖子的管理员，无法删除");
+            }
+        } else {
+            List<Plate> plateList = plateBO.getPlateByUserId(userId);
+            Map<String, Plate> map = new HashMap<String, Plate>();
+            for (Plate data : plateList) {
+                map.put(data.getCode(), data);
+            }
+            if (map.get(plate.getCode()) == null
+                    && !userId.equals(comment.getCommer())
+                    && !userId.equals(post.getPublisher())) {
+                throw new BizException("xn000000", "当前用户不是该板块版主或发布用户，无法删除");
+            }
+        }
         if (EPostType.TZ.getCode().equals(type)) {
-            postBO.getPost(code);
             postBO.removePost(code);
         } else if (EPostType.PL.getCode().equals(type)) {
-            commentBO.getComment(code);
             commentBO.removeComment(code);
         }
     }
