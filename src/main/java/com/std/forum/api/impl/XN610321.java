@@ -25,7 +25,7 @@ public class XN610321 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        prodOrderAO.takeProduct(req.getOrderCode(), req.getTakeNote());
+        prodOrderAO.takeYes(req.getOrderCode(), req.getTakeNote());
         return new BooleanRes(true);
     }
 

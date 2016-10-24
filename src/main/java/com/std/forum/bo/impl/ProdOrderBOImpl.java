@@ -45,7 +45,7 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
             data.setProductCode(productCode);
             data.setPayPrice(payPrice);
             data.setQuantity(quantity);
-            data.setStatus(EProdOrderStatus.PAY_YES.getCode());
+            data.setStatus(EProdOrderStatus.PAYED.getCode());
             data.setPayer(userId);
             data.setPayDatetime(new Date());
             prodOrderDAO.insert(data);
@@ -65,19 +65,17 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
     }
 
     @Override
-    public int refreshProdOrderStatus(String code, String status, String taker,
-            String remark) {
-        int count = 0;
-        if (StringUtils.isNotBlank(code)) {
-            ProdOrder data = new ProdOrder();
-            data.setCode(code);
-            data.setStatus(status);
-            data.setTaker(taker);
-            data.setTakeDatetime(new Date());
-            data.setRemark(remark);
-            count = prodOrderDAO.update(data);
+    public ProdOrder refreshStatus(String code, EProdOrderStatus toStatus,
+            String takeNote) {
+        ProdOrder data = this.getProdOrder(code);
+        if (!EProdOrderStatus.PAYED.getCode().equals(data.getStatus())) {
+            throw new BizException("xn0000", "该订单已不是已支付状态");
         }
-        return count;
+        data.setStatus(toStatus.getCode());
+        data.setTakeDatetime(new Date());
+        data.setRemark(takeNote);
+        prodOrderDAO.update(data);
+        return data;
     }
 
     @Override
@@ -97,14 +95,5 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
             }
         }
         return data;
-    }
-
-    @Override
-    public int refreshProdOrderStatus(ProdOrder data) {
-        int count = 0;
-        if (StringUtils.isNotBlank(data.getCode())) {
-            count = prodOrderDAO.updateStatus(data);
-        }
-        return count;
     }
 }

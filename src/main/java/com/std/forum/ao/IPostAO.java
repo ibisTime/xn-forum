@@ -23,30 +23,58 @@ import com.std.forum.dto.res.XN610900Res;
 public interface IPostAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
+    /*
+     * 发帖
+     */
     public String publishPost(String title, String content, String pic,
             String plateCode, String publisher, String isPublish);
 
+    /*
+     * 草稿发帖
+     */
     public void draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish);
 
-    public void dropPostBySelf(String code, String userId);
-
+    /*
+     * 删除帖子/评论
+     */
     public void dropPost(String code, String userId, String type);
 
+    /*
+     * 审核帖子/评论
+     */
     public void approvePost(String code, String approver,
             String approverResult, String approveNote, String type);
 
+    /*
+     * 批量审核帖子/评论
+     */
     public void approvePostList(List<String> codeList, String approver,
             String approveResult, String approveNote, String type);
 
+    /*
+     * 还原帖子/评论
+     */
     public void returnPost(String code, String type);
 
+    /*
+     * 阅读帖子
+     */
     public void readPost(String code, String reader);
 
-    public void setPostLock(String code);
+    /*
+     * 锁帖
+     */
+    public void lockPost(String code);
 
+    /*
+     * 改版
+     */
     public void editPostPlate(String code, String plateCode);
 
+    /*
+     * 设置置顶，精华和头条
+     */
     public void setPostLocation(String code, String isAdd, String location,
             Date endDatetime);
 

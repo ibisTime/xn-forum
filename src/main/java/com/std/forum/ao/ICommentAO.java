@@ -14,9 +14,10 @@ import com.std.forum.domain.Comment;
 public interface ICommentAO {
     String DEFAULT_ORDER_COLUMN = "code";
 
+    /*
+     * 发布评论
+     */
     public String doComment(String content, String parentCode, String commer);
-
-    public int dropComment(String code);
 
     public Comment getComment(String code);
 

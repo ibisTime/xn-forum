@@ -11,7 +11,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- *  作废
+ * 作废
  * @author: zuixian 
  * @since: 2016年10月12日 下午2:35:40 
  * @history:
@@ -25,7 +25,7 @@ public class XN610322 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        prodOrderAO.invalidProdOrder(req.getOrderCode(), req.getTakeNote());
+        prodOrderAO.takeNo(req.getOrderCode(), req.getTakeNote());
         return new BooleanRes(true);
     }
 

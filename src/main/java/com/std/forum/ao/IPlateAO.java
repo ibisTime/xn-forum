@@ -23,7 +23,7 @@ public interface IPlateAO {
 
     public String addPlate(Plate data);
 
-    public int editPlate(Plate data);
+    public void editPlate(Plate data);
 
     public Paginable<Plate> queryPlatePage(int start, int limit, Plate condition);
 

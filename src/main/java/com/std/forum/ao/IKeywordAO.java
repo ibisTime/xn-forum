@@ -8,9 +8,9 @@ public interface IKeywordAO {
 
     public String addKeyword(Keyword data);
 
-    public int dropKeyword(String code);
+    public void dropKeyword(String code);
 
-    public int editKeyword(Keyword data);
+    public void editKeyword(Keyword data);
 
     public Paginable<Keyword> queryKeywordPage(int start, int limit,
             Keyword condition);

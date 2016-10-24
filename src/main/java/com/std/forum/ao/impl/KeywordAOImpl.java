@@ -21,19 +21,19 @@ public class KeywordAOImpl implements IKeywordAO {
     }
 
     @Override
-    public int editKeyword(Keyword data) {
-        if (data != null && !keywordBO.isKeywordExist(data.getCode())) {
-            throw new BizException("xn0000", "关键字编号不存在");
-        }
-        return keywordBO.refreshKeyword(data);
-    }
-
-    @Override
-    public int dropKeyword(String code) {
+    public void dropKeyword(String code) {
         if (!keywordBO.isKeywordExist(code)) {
             throw new BizException("xn0000", "关键字编号不存在");
         }
-        return keywordBO.removeKeyword(code);
+        keywordBO.removeKeyword(code);
+    }
+
+    @Override
+    public void editKeyword(Keyword data) {
+        if (data != null && !keywordBO.isKeywordExist(data.getCode())) {
+            throw new BizException("xn0000", "关键字编号不存在");
+        }
+        keywordBO.refreshKeyword(data);
     }
 
     @Override

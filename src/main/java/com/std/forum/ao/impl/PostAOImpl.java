@@ -110,13 +110,13 @@ public class PostAOImpl implements IPostAO {
                 } else {
                     status = EPostStatus.PUBLISHED.getCode();
                 }
-                code = postBO.savePost(title, content, pic, plateCode,
-                    publisher, status);
-                // 发帖加积分
-                if (EPostStatus.PUBLISHED.getCode().equals(status)) {
-                    userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
-                        ERuleType.FT.getCode(), code);
-                }
+            }
+            code = postBO.savePost(title, content, pic, plateCode, publisher,
+                status);
+            // 发帖加积分
+            if (EPostStatus.PUBLISHED.getCode().equals(status)) {
+                userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
+                    ERuleType.FT.getCode(), code);
             }
         }
         return code;
@@ -149,23 +149,15 @@ public class PostAOImpl implements IPostAO {
                     status = EPostStatus.todoAPPROVE.getCode();
                 } else {
                     status = EPostStatus.PUBLISHED.getCode();
-                    // 发帖加积分
-                    userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
-                        ERuleType.FT.getCode(), code);
                 }
             }
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
                 status);
-        }
-    }
-
-    @Override
-    public void dropPostBySelf(String code, String userId) {
-        Post data = postBO.getPost(code);
-        if (data.getPublisher().equals(userId)) {
-            postBO.removePost(code);
-        } else {
-            throw new BizException("xn000000", "只能删除自己发布的帖子");
+            // 发帖加积分
+            if (EPostStatus.PUBLISHED.getCode().equals(status)) {
+                userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
+                    ERuleType.FT.getCode(), code);
+            }
         }
     }
 
@@ -182,6 +174,7 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
+    @Transactional
     public void setPostLocation(String code, String isAdd, String location,
             Date endDatetime) {
         Post post = postBO.getPost(code);
@@ -209,7 +202,7 @@ public class PostAOImpl implements IPostAO {
             }
         }
         postBO.refreshPostLocation(code, postLocation, endDatetime);
-        // 设置精华加积分
+        // 设置精华加积分(前面已判断是否重复加)
         if (EBoolean.YES.getCode().equals(isAdd)
                 && ELocation.JH.getCode().equals(location)) {
             userBO.doTransfer(post.getPublisher(), EDirection.PLUS.getCode(),
@@ -229,7 +222,7 @@ public class PostAOImpl implements IPostAO {
             if (!EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())
                     && !EPostStatus.toReportAPPROVE.getCode().equals(
                         post.getStatus())) {
-                throw new BizException("xn000000", "帖子状态不是待审核状态");
+                throw new BizException("xn000000", "帖子不是待审核状态");
             }
             postBO.refreshPostApprove(code, approveResult, approver,
                 approveNote);
@@ -239,7 +232,7 @@ public class PostAOImpl implements IPostAO {
                 userBO.doTransfer(post.getPublisher(),
                     EDirection.PLUS.getCode(), ERuleType.FT.getCode(), code);
             }
-            // 举报审核不通过，扣积分
+            // 被举报，确认存在问题，扣积分
             if (EPostStatus.toReportAPPROVE.getCode().equals(post.getStatus())
                     && EBoolean.NO.getCode().equals(approveResult)) {
                 userBO.doTransfer(post.getPublisher(),
@@ -255,7 +248,7 @@ public class PostAOImpl implements IPostAO {
             }
             commentBO.refreshCommentApprove(code, approveResult, approver,
                 approveNote);
-            // 举报审核不通过，扣积分
+            // 被举报，确认存在问题，扣积分
             if (EPostStatus.toReportAPPROVE.getCode().equals(
                 comment.getStatus())
                     && EBoolean.NO.getCode().equals(approveResult)) {
@@ -274,10 +267,10 @@ public class PostAOImpl implements IPostAO {
     }
 
     /** 
-     * @see com.std.forum.ao.IPostAO#setPostHeadlines(java.lang.String, java.lang.String)
+     * @see com.std.forum.ao.IPostAO#lockPost(java.lang.String)
      */
     @Override
-    public void setPostLock(String code) {
+    public void lockPost(String code) {
         Post post = postBO.getPost(code);
         if (EBoolean.YES.getCode().equals(post.getIsLock())) {
             postBO.refreshPostLock(code, EBoolean.NO.getCode());
@@ -451,9 +444,6 @@ public class PostAOImpl implements IPostAO {
         return res;
     }
 
-    /** 
-     * @see com.std.forum.ao.IPostAO#returnPost(java.lang.String)
-     */
     @Override
     public void returnPost(String code, String type) {
         if (EPostType.TZ.getCode().equals(type)) {
@@ -462,7 +452,7 @@ public class PostAOImpl implements IPostAO {
                 throw new BizException("xn000000", "该帖子不是待回收状态");
             }
             postBO.refreshPostReturn(code);
-        } else if (EPostType.PL.getCode().equals(type)) {
+        } else {
             Comment comment = commentBO.getComment(code);
             if (!EPostStatus.APPROVE_NO.getCode().equals(comment.getStatus())) {
                 throw new BizException("xn000000", "该评论不是待回收状态");

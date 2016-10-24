@@ -11,7 +11,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- * 浏览帖子，对帖子内容或其上级评论进行评论
+ * 对帖子或评论进行评论
  * @author: zuixian 
  * @since: 2016年9月28日 下午1:50:59 
  * @history:

@@ -24,7 +24,7 @@ public class XN610051 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        postAO.setPostLock(req.getCode());
+        postAO.lockPost(req.getCode());
         return new BooleanRes(true);
     }
 

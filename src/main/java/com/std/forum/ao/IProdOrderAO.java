@@ -8,14 +8,9 @@ import com.std.forum.domain.ProdOrder;
 public interface IProdOrderAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
 
-    public String addProdOrder(String userId, String productCode,
-            Integer quantity);
+    public void takeYes(String orderCode, String takeNote);
 
-    public int dropProdOrder(String code);
-
-    public int takeProduct(String code, String remark);
-
-    public void invalidProdOrder(String code, String takeNote);
+    public void takeNo(String orderCode, String takeNote);
 
     public Paginable<ProdOrder> queryProdOrderPage(int start, int limit,
             ProdOrder condition);

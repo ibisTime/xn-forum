@@ -24,8 +24,8 @@ public class XN610301 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        int count = productAO.dropProduct(req.getCode());
-        return new BooleanRes(count > 0 ? true : false);
+        productAO.dropProduct(req.getCode());
+        return new BooleanRes(true);
     }
 
     @Override

@@ -6,7 +6,7 @@ package com.std.forum.enums;
  * @history:
  */
 public enum EProdOrderStatus {
-    PAY_YES("1", "已支付"), TAKE_YES("2", "已取货"), INVALID("3", "作废");
+    PAYED("1", "已支付"), TAKE_YES("2", "已取货"), TAKE_NO("3", "作废");
 
     EProdOrderStatus(String code, String value) {
         this.code = code;

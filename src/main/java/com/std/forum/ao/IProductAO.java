@@ -10,11 +10,14 @@ public interface IProductAO {
 
     public String addProduct(Product data);
 
-    public int dropProduct(String code);
+    public void dropProduct(String code);
 
-    public int editProduct(Product data);
+    public void editProduct(Product data);
 
-    public int editProductStatus(String code, Long price);
+    public void editProductStatus(String code, Long price);
+
+    public String exchangeProduct(String userId, String productCode,
+            Integer quantity);
 
     public Paginable<Product> queryProductPage(int start, int limit,
             Product condition);

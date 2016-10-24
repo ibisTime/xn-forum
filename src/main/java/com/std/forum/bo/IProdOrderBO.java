@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.ProdOrder;
+import com.std.forum.enums.EProdOrderStatus;
 
 public interface IProdOrderBO extends IPaginableBO<ProdOrder> {
 
@@ -14,10 +15,8 @@ public interface IProdOrderBO extends IPaginableBO<ProdOrder> {
 
     public int removeProdOrder(String code);
 
-    public int refreshProdOrderStatus(String code, String status, String taker,
-            String remark);
-
-    public int refreshProdOrderStatus(ProdOrder data);
+    public ProdOrder refreshStatus(String code, EProdOrderStatus toStatus,
+            String takeNote);
 
     public List<ProdOrder> queryProdOrderList(ProdOrder condition);
 

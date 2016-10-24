@@ -25,9 +25,9 @@ public class XN610053 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        int count = postTalkAO.doPostTalk(req.getPostCode(), req.getTalker(),
-            req.getType());
-        return new BooleanRes(count > 0 ? true : false);
+        postTalkAO
+            .doPostTalk(req.getPostCode(), req.getTalker(), req.getType());
+        return new BooleanRes(true);
     }
 
     @Override

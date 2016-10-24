@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.IProductAO;
+import com.std.forum.bo.IProdOrderBO;
 import com.std.forum.bo.IProductBO;
+import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Product;
+import com.std.forum.enums.EDirection;
 import com.std.forum.enums.EProductStatus;
 import com.std.forum.exception.BizException;
 
@@ -18,37 +22,76 @@ public class ProductAOImpl implements IProductAO {
     @Autowired
     private IProductBO productBO;
 
+    @Autowired
+    private IProdOrderBO prodOrderBO;
+
+    @Autowired
+    private IUserBO userBO;
+
     @Override
     public String addProduct(Product data) {
         return productBO.saveProduct(data);
     }
 
     @Override
-    public int editProduct(Product data) {
-        if (!productBO.isProductExist(data.getCode())) {
-            throw new BizException("xn0000", "商品编号不存在");
-        }
-        // 若产品状态不是未发布则不能修改
-        Product product = productBO.getProduct(data.getCode());
-        if (!(EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(product
-            .getStatus()))) {
-            throw new BizException("xn0000", "只能修改未发布的产品");
-        }
-        return productBO.refreshProduct(data);
-    }
-
-    @Override
-    public int dropProduct(String code) {
-        if (!productBO.isProductExist(code)) {
-            throw new BizException("xn0000", "商品编号不存在");
-        }
+    public void dropProduct(String code) {
         Product data = productBO.getProduct(code);
         // 若产品状态不是未发布则不能删除
         if (!(EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(data
             .getStatus()))) {
             throw new BizException("xn0000", "只能删除未发布的产品");
         }
-        return productBO.removeProduct(code);
+        productBO.removeProduct(code);
+    }
+
+    @Override
+    public void editProduct(Product data) {
+        // 若产品状态不是未发布则不能修改
+        Product product = productBO.getProduct(data.getCode());
+        if (!(EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(product
+            .getStatus()))) {
+            throw new BizException("xn0000", "只能修改未发布的产品");
+        }
+        productBO.refreshProduct(data);
+    }
+
+    @Override
+    public void editProductStatus(String code, Long price) {
+        Product data = productBO.getProduct(code);
+        if (EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(
+            data.getStatus())
+                || EProductStatus.PUBLISH_NO.getCode().equalsIgnoreCase(
+                    data.getStatus())) {
+            // 若产品状态是未发布或已下架，则将改为已上架
+            data.setStatus(EProductStatus.PUBLISH_YES.getCode());
+        } else {
+            // 若产品状态是已上架，则将改为已下架
+            data.setStatus(EProductStatus.PUBLISH_NO.getCode());
+        }
+        data.setPrice(price);
+        productBO.refreshProductStatus(data);
+    }
+
+    @Override
+    @Transactional
+    public String exchangeProduct(String userId, String productCode,
+            Integer quantity) {
+        String code = null;
+        // 判断库存量
+        Product product = productBO.getProduct(productCode);
+        if (product.getQuantity() != null && product.getQuantity() == 0) {
+            throw new BizException("xn0000", "该商品库存量不足，无法购买");
+        }
+        // 减去库存量
+        productBO.refreshProductQuantity(productCode, quantity);
+        // 新增订单
+        Long totalPrice = product.getPrice() * quantity;
+        code = prodOrderBO.saveProdOrder(userId, productCode, quantity,
+            totalPrice);
+        // 扣除用户积分(必须放最后)
+        userBO.doTransfer(userId, EDirection.MINUS.getCode(), totalPrice,
+            "兑换商品:[" + product.getName() + ",购买" + quantity + "件]", code);
+        return code;
     }
 
     @Override
@@ -65,36 +108,5 @@ public class ProductAOImpl implements IProductAO {
     @Override
     public Product getProduct(String code) {
         return productBO.getProduct(code);
-    }
-
-    @Override
-    public int editProductStatus(String code, Long price) {
-        if (!productBO.isProductExist(code)) {
-            throw new BizException("xn0000", "商品编号不存在");
-        }
-        int count = 0;
-        Product product = new Product();
-        product.setCode(code);
-        Product data = productBO.getProduct(code);
-        // 若产品状态是未发布，则将改为已上架
-        if (EProductStatus.todoPUBLISH.getCode().equalsIgnoreCase(
-            data.getStatus())) {
-            product.setStatus(EProductStatus.PUBLISH_YES.getCode());
-            product.setPrice(price);
-        }
-        // 若产品状态是已下架，则将改为已上架
-        if (EProductStatus.PUBLISH_NO.getCode().equalsIgnoreCase(
-            data.getStatus())) {
-            product.setStatus(EProductStatus.PUBLISH_YES.getCode());
-            product.setPrice(price);
-        }
-        // 若产品状态是已上架，则将改为已下架
-        if (EProductStatus.PUBLISH_YES.getCode().equalsIgnoreCase(
-            data.getStatus())) {
-            product.setStatus(EProductStatus.PUBLISH_NO.getCode());
-            product.setPrice(price);
-        }
-        count = productBO.refreshProductStatus(product);
-        return count;
     }
 }

@@ -51,13 +51,13 @@ public class PlateAOImpl implements IPlateAO {
      * @see com.std.forum.ao.IPlateAO#editPlate(com.std.forum.domain.Plate)
      */
     @Override
-    public int editPlate(Plate data) {
+    public void editPlate(Plate data) {
         // 获取板块信息
         Plate plate = plateBO.getPlate(data.getCode());
         // 判断板块名称是否存在
         plateBO.isExistPlateName(data.getCode(), data.getName(),
             plate.getSiteCode());
-        return plateBO.refreshPlate(data);
+        plateBO.refreshPlate(data);
     }
 
     /** 

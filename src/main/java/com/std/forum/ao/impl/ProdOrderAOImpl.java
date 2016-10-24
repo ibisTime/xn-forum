@@ -15,7 +15,6 @@ import com.std.forum.domain.ProdOrder;
 import com.std.forum.domain.Product;
 import com.std.forum.enums.EDirection;
 import com.std.forum.enums.EProdOrderStatus;
-import com.std.forum.exception.BizException;
 
 @Service
 public class ProdOrderAOImpl implements IProdOrderAO {
@@ -30,59 +29,21 @@ public class ProdOrderAOImpl implements IProdOrderAO {
     private IUserBO userBO;
 
     @Override
-    @Transactional
-    public String addProdOrder(String userId, String productCode,
-            Integer quantity) {
-        String code = null;
-        // 判断库存量
-        Product product = productBO.getProduct(productCode);
-        if (product.getQuantity() != null && product.getQuantity() == 0) {
-            throw new BizException("xn0000", "该商品库存量不足，无法购买");
-        }
-        // 减去库存量
-        productBO.refreshProductQuantity(productCode, quantity);
-        Long totalPrice = product.getPrice() * quantity;
-        code = prodOrderBO.saveProdOrder(userId, productCode, quantity,
-            totalPrice);
-        // 扣除用户积分
-        userBO.doTransfer(userId, EDirection.MINUS.getCode(), totalPrice,
-            "兑换商品:[" + product.getName() + ",购买" + quantity + "件]", code);
-        return code;
-    }
-
-    @Override
-    public int takeProduct(String code, String takeNote) {
-        ProdOrder data = prodOrderBO.getProdOrder(code);
-        if (!EProdOrderStatus.PAY_YES.getCode().equals(data.getStatus())) {
-            throw new BizException("xn0000", "该订单已不是已支付状态");
-        }
-        return prodOrderBO.refreshProdOrderStatus(code,
-            EProdOrderStatus.TAKE_YES.getCode(), null, takeNote);
+    public void takeYes(String code, String takeNote) {
+        prodOrderBO.refreshStatus(code, EProdOrderStatus.TAKE_YES, takeNote);
     }
 
     @Override
     @Transactional
-    public void invalidProdOrder(String code, String takeNote) {
-        ProdOrder data = prodOrderBO.getProdOrder(code);
-        if (!EProdOrderStatus.PAY_YES.getCode().equals(data.getStatus())) {
-            throw new BizException("xn0000", "该订单已不是已支付状态");
-        }
-        prodOrderBO.refreshProdOrderStatus(code,
-            EProdOrderStatus.INVALID.getCode(), null, takeNote);
+    public void takeNo(String code, String takeNote) {
+        ProdOrder data = prodOrderBO.refreshStatus(code,
+            EProdOrderStatus.TAKE_NO, takeNote);
         // 订单作废，退还积分
         Product product = productBO.getProduct(data.getProductCode());
         userBO.doTransfer(data.getPayer(), EDirection.PLUS.getCode(),
             data.getPayPrice(),
             "退还商品:[" + product.getName() + "，退还积分" + data.getPayPrice() / 1000,
             code);
-    }
-
-    @Override
-    public int dropProdOrder(String code) {
-        if (!prodOrderBO.isProdOrderExist(code)) {
-            throw new BizException("xn0000", "订单编号不存在");
-        }
-        return prodOrderBO.removeProdOrder(code);
     }
 
     @Override

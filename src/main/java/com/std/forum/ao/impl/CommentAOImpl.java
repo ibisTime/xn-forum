@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.ICommentAO;
 import com.std.forum.bo.ICommentBO;
@@ -47,6 +48,7 @@ public class CommentAOImpl implements ICommentAO {
     protected IUserBO userBO;
 
     @Override
+    @Transactional
     public String doComment(String content, String parentCode, String commer) {
         // 判断是否锁帖
         Post post = getPostByParentCode(parentCode);
@@ -83,11 +85,6 @@ public class CommentAOImpl implements ICommentAO {
             }
         }
         return post;
-    }
-
-    @Override
-    public int dropComment(String code) {
-        return commentBO.removeComment(code);
     }
 
     @Override

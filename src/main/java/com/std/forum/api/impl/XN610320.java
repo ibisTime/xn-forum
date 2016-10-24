@@ -1,6 +1,6 @@
 package com.std.forum.api.impl;
 
-import com.std.forum.ao.IProdOrderAO;
+import com.std.forum.ao.IProductAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
@@ -11,21 +11,21 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /** 
- * 通过积分兑换相应的商品
+ * 兑换商品
  * @author: zuixian 
  * @since: 2016年10月12日 下午2:35:30 
  * @history:
  */
 public class XN610320 extends AProcessor {
 
-    private IProdOrderAO prodOrderAO = SpringContextHolder
-        .getBean(IProdOrderAO.class);
+    private IProductAO productAO = SpringContextHolder
+        .getBean(IProductAO.class);
 
     private XN610320Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        String code = prodOrderAO.addProdOrder(req.getUserId(),
+        String code = productAO.exchangeProduct(req.getUserId(),
             req.getProductCode(), StringValidater.toInteger(req.getQuantity()));
         return new PKCodeRes(code);
     }
