@@ -58,7 +58,7 @@ import com.std.forum.exception.BizException;
 @Service
 public class PostAOImpl implements IPostAO {
     @Autowired
-    protected static IPostBO postBO;
+    protected IPostBO postBO;
 
     @Autowired
     protected IPlateBO plateBO;
@@ -505,36 +505,5 @@ public class PostAOImpl implements IPostAO {
                 }
             }
         }
-    }
-
-    public static void doChangePostLocation1() {
-        System.out.println("doChangePostLocation");
-        Post condition = new Post();
-        List<Post> postList = new ArrayList<Post>();
-        condition.setLocation(ELocation.JH.getCode());
-        List<Post> list = new ArrayList<Post>();
-        list = postBO.queryPostList(condition);
-        if (null != list) {
-            postList.addAll(list);
-        }
-        condition.setLocation(ELocation.TT.getCode());
-        if (null != postBO.queryPostList(condition)) {
-            postList.addAll(postBO.queryPostList(condition));
-        }
-        condition.setLocation(ELocation.ZD.getCode());
-        if (null != postBO.queryPostList(condition)) {
-            postList.addAll(postBO.queryPostList(condition));
-        }
-        if (null != postList) {
-            for (Post post : postList) {
-                if (post.getValidDatetimeEnd().before(new Date())) {
-                    postBO.refreshPostLocation(post.getCode(), null, null);
-                }
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        doChangePostLocation1();
     }
 }
