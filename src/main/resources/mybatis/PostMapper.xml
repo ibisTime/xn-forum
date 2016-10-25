@@ -26,6 +26,7 @@
 		<result column="valid_datetime_end" property="validDatetimeEnd" />
 		<result column="remark" property="remark" />
 		<result column="total_read_times" property="totalReadTimes" />
+		<result column="plate_name" property="plateName" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -90,6 +91,7 @@
 		,t.valid_datetime_start
 		,t.valid_datetime_end
 		,t.remark
+		,tp.name as plate_name
 		,(select count(1) from tforum_post_talk tpt where tpt.type = '5' and tpt.post_code = t.code) as total_read_times
 		FROM
 		tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 

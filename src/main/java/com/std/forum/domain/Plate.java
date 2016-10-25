@@ -66,10 +66,16 @@ public class Plate extends ABaseDO {
     private String nameForQuery;
 
     // 活跃人数
-    private String personCount;
+    private Long personCount;
 
     // 帖子数
-    private String postCount;
+    private Long postCount;
+
+    // 置顶
+    private Long zdCount;
+
+    // 精华
+    private Long jhCount;
 
     public String getCode() {
         return code;
@@ -135,20 +141,36 @@ public class Plate extends ABaseDO {
         this.nameForQuery = nameForQuery;
     }
 
-    public String getPersonCount() {
+    public Long getPersonCount() {
         return personCount;
     }
 
-    public void setPersonCount(String personCount) {
+    public void setPersonCount(Long personCount) {
         this.personCount = personCount;
     }
 
-    public String getPostCount() {
+    public Long getPostCount() {
         return postCount;
     }
 
-    public void setPostCount(String postCount) {
+    public void setPostCount(Long postCount) {
         this.postCount = postCount;
+    }
+
+    public Long getZdCount() {
+        return zdCount;
+    }
+
+    public void setZdCount(Long zdCount) {
+        this.zdCount = zdCount;
+    }
+
+    public Long getJhCount() {
+        return jhCount;
+    }
+
+    public void setJhCount(Long jhCount) {
+        this.jhCount = jhCount;
     }
 
     public String getKind() {
