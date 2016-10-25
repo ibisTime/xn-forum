@@ -35,6 +35,9 @@
 			<if test="title != null and title != '' ">
 		        AND t.title = #{title}
 			</if>
+			<if test="location != null and location != '' ">
+		        AND t.location = #{location}
+			</if>
 			<if test="keyword != null and keyword != '' ">
 		        AND (t.title like "%"#{keyword}"%" or t.content like "%"#{keyword}"%")
 			</if>

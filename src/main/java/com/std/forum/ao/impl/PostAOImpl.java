@@ -55,7 +55,7 @@ import com.std.forum.exception.BizException;
 @Service
 public class PostAOImpl implements IPostAO {
     @Autowired
-    protected IPostBO postBO;
+    protected static IPostBO postBO;
 
     @Autowired
     protected IPlateBO plateBO;
@@ -456,18 +456,58 @@ public class PostAOImpl implements IPostAO {
     // 定时取消帖子的置顶，精华，头条的过时属性
     @Override
     public void doChangePostLocation() {
+        System.out.println("doChangePostLocation");
         Post condition = new Post();
         List<Post> postList = new ArrayList<Post>();
         condition.setLocation(ELocation.JH.getCode());
-        postList.addAll(postBO.queryPostList(condition));
+        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
+            postList.addAll(postBO.queryPostList(condition));
+        }
         condition.setLocation(ELocation.TT.getCode());
-        postList.addAll(postBO.queryPostList(condition));
+        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
+            postList.addAll(postBO.queryPostList(condition));
+        }
         condition.setLocation(ELocation.ZD.getCode());
-        postList.addAll(postBO.queryPostList(condition));
-        for (Post post : postList) {
-            if (post.getValidDatetimeEnd().before(new Date())) {
-                postBO.refreshPostLocation(post.getCode(), null, null);
+        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
+            postList.addAll(postBO.queryPostList(condition));
+        }
+        if (CollectionUtils.isNotEmpty(postList)) {
+            for (Post post : postList) {
+                if (post.getValidDatetimeEnd().before(new Date())) {
+                    postBO.refreshPostLocation(post.getCode(), null, null);
+                }
             }
         }
+    }
+
+    public static void doChangePostLocation1() {
+        System.out.println("doChangePostLocation");
+        Post condition = new Post();
+        List<Post> postList = new ArrayList<Post>();
+        condition.setLocation(ELocation.JH.getCode());
+        List<Post> list = new ArrayList<Post>();
+        list = postBO.queryPostList(condition);
+        if (null != list) {
+            postList.addAll(list);
+        }
+        condition.setLocation(ELocation.TT.getCode());
+        if (null != postBO.queryPostList(condition)) {
+            postList.addAll(postBO.queryPostList(condition));
+        }
+        condition.setLocation(ELocation.ZD.getCode());
+        if (null != postBO.queryPostList(condition)) {
+            postList.addAll(postBO.queryPostList(condition));
+        }
+        if (null != postList) {
+            for (Post post : postList) {
+                if (post.getValidDatetimeEnd().before(new Date())) {
+                    postBO.refreshPostLocation(post.getCode(), null, null);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        doChangePostLocation1();
     }
 }
