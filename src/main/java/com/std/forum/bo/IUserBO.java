@@ -35,6 +35,19 @@ public interface IUserBO extends IPaginableBO<User> {
             String remark, String refNo);
 
     /**
+     * 用户间单账户划转
+     * @param fromUser
+     * @param toUser
+     * @param amount
+     * @param remark
+     * @param refNo 
+     * @create: 2016年10月24日 下午11:14:29 xieyj
+     * @history:
+     */
+    public void doTransferAdd(String fromUser, String toUser, Long amount,
+            String remark, String refNo);
+
+    /**
      * 活动加减积分
      * @param userId
      * @param direction

@@ -101,9 +101,7 @@ public class PlateAOImpl implements IPlateAO {
         ptCondition.setPlateCode(plate.getCode());
         Post pCondition = new Post();
         pCondition.setPlateCode(plate.getCode());
-        long pCount = postBO.getPostNum(pCondition);
         long ptCount = postTalkBO.getPersonCount(ptCondition);
-        plate.setPostCount(String.valueOf(pCount));
-        plate.setPersonCount(String.valueOf(ptCount));
+        plate.setPersonCount(ptCount);
     }
 }

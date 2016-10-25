@@ -128,6 +128,9 @@ public class Post extends ABaseDO {
     // 图片数组
     private String[] picArr;
 
+    // 板块名称
+    private String plateName;
+
     public String getCode() {
         return code;
     }
@@ -398,5 +401,13 @@ public class Post extends ABaseDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPlateName() {
+        return plateName;
+    }
+
+    public void setPlateName(String plateName) {
+        this.plateName = plateName;
     }
 }

@@ -17,6 +17,9 @@
 		
 		<result column="update_datetime" property="updateDatetime" />
 		<result column="remark" property="remark" />
+		<result column="post_count" property="postCount" />
+		<result column="zd_count" property="zdCount" />
+		<result column="jh_count" property="jhCount" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -63,6 +66,9 @@
 		
 		,update_datetime
 		,remark
+		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code) as post_count
+		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='A') as zd_count
+		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='B') as jh_count
 		FROM
 		tforum_plate t
 		<include refid="where_condition" />

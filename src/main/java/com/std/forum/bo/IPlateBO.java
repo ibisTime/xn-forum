@@ -37,5 +37,7 @@ public interface IPlateBO extends IPaginableBO<Plate> {
 
     public Plate getPlate(String code);
 
+    public List<Plate> getPlateByUserId(String userId);
+
     public List<Plate> queryPlateList(Plate condition);
 }
