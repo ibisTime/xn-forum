@@ -13,7 +13,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 对批量帖子/评论进行审核
+ * 对帖子/评论进行批量审核
  * @author: xieyj 
  * @since: 2016年10月23日 下午7:12:45 
  * @history:

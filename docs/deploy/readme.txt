@@ -14,10 +14,6 @@
   cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp9/wtpwebapps
   
 2，打包
-  rm -rf user.tar.gz
-  tar zcvf user.tar.gz std-user/
-  scp -P57652 ./user.tar.gz root@121.43.101.148:/mnt/wwwroot/
-  
   scp -P57652 ./xn-forum.war root@121.43.101.148:/home
   
   

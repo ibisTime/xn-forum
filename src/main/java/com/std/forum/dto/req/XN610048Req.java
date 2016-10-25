@@ -1,52 +1,32 @@
 package com.std.forum.dto.req;
 
+import java.util.List;
+
 public class XN610048Req {
 
     // 帖子编号（必填）
-    private String code;
+    private List<String> codeList;
 
-    // 审核结果(必填)
-    private String approveResult;
-
-    // 审核人（必填）
-    private String approver;
-
-    // 审核说明（必填）
-    private String approveNote;
+    // 用户编号(必填)
+    private String userId;
 
     // 类型(必填)
     private String type;
 
-    public String getCode() {
-        return code;
+    public List<String> getCodeList() {
+        return codeList;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodeList(List<String> codeList) {
+        this.codeList = codeList;
     }
 
-    public String getApprover() {
-        return approver;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setApprover(String approver) {
-        this.approver = approver;
-    }
-
-    public String getApproveNote() {
-        return approveNote;
-    }
-
-    public void setApproveNote(String approveNote) {
-        this.approveNote = approveNote;
-    }
-
-    public String getApproveResult() {
-        return approveResult;
-    }
-
-    public void setApproveResult(String approveResult) {
-        this.approveResult = approveResult;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getType() {
