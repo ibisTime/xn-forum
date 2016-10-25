@@ -29,6 +29,7 @@ public class XN610079 extends AProcessor {
     public Object doBusiness() throws BizException {
         Comment condition = new Comment();
         condition.setContent(req.getContent());
+        condition.setStatus(req.getStatus());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = ICommentAO.DEFAULT_ORDER_COLUMN;
