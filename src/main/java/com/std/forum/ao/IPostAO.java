@@ -41,6 +41,11 @@ public interface IPostAO {
     public void dropPost(String code, String userId, String type);
 
     /*
+     * 批量删除帖子/评论
+     */
+    public void dropPostList(List<String> codeList, String userId, String type);
+
+    /*
      * 审核帖子/评论
      */
     public void approvePost(String code, String approver,

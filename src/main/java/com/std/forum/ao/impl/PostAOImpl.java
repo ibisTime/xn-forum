@@ -200,6 +200,17 @@ public class PostAOImpl implements IPostAO {
         }
     }
 
+    /** 
+     * @see com.std.forum.ao.IPostAO#dropPostList(java.util.List, java.lang.String, java.lang.String)
+     */
+    @Override
+    @Transactional
+    public void dropPostList(List<String> codeList, String userId, String type) {
+        for (String code : codeList) {
+            dropPost(code, userId, type);
+        }
+    }
+
     @Override
     @Transactional
     public void setPostLocation(String code, String isAdd, String location,
