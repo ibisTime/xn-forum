@@ -73,6 +73,9 @@
 			<if test="talker != null and talker != '' ">
 		        AND tpt.talker = #{talker}
 			</if>
+			<if test="location != null and location != '' ">
+		        AND t.location = #{location}
+			</if>
 		</trim>
 	</sql>
 	

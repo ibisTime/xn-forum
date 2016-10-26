@@ -62,8 +62,9 @@ public class CommentAOImpl implements ICommentAO {
         if (!CollectionUtils.sizeIsEmpty(keywordContentList)) {
             status = EPostStatus.FILTERED.getCode();
         }
-        String code = commentBO
-            .saveComment(content, parentCode, status, commer);
+        Post parentPost = getPostByParentCode(parentCode);
+        String code = commentBO.saveComment(content, parentCode, status,
+            commer, parentPost.getCode());
         // 评论加积分
         if (EPostStatus.PUBLISHED.getCode().equals(status)) {
             userBO.doTransfer(commer, EDirection.PLUS.getCode(),

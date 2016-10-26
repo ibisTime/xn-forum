@@ -38,7 +38,7 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
 
     @Override
     public String saveComment(String content, String parentCode, String status,
-            String commer) {
+            String commer, String postCode) {
         String code = null;
         if (StringUtils.isNotBlank(content)
                 && StringUtils.isNotBlank(parentCode)
@@ -48,8 +48,10 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             data.setCode(code);
             data.setContent(content);
             data.setParentCode(parentCode);
+            data.setStatus(status);
             data.setCommer(commer);
             data.setCommDatetime(new Date());
+            data.setPostCode(postCode);
             commentDAO.insert(data);
         }
         return code;
@@ -144,6 +146,20 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             data.setCode(code);
             data.setStatus(EPostStatus.APPROVE_YES.getCode());
             count = commentDAO.updateStatus(data);
+        }
+        return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.ICommentBO#removeCommentByPost(java.lang.String)
+     */
+    @Override
+    public int removeCommentByPost(String postCode) {
+        int count = 0;
+        if (StringUtils.isNotBlank(postCode)) {
+            Comment data = new Comment();
+            data.setPostCode(postCode);
+            count = commentDAO.deleteCommentByPostCode(data);
         }
         return count;
     }

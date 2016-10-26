@@ -55,6 +55,9 @@ public class Comment extends ABaseDO {
     // 备注
     private String remark;
 
+    // 帖子编号
+    private String postCode;
+
     // ****************db properties ***************
     private String parentCommer;
 
@@ -72,6 +75,9 @@ public class Comment extends ABaseDO {
 
     // 被评论
     private List<Comment> nextCommentList;
+
+    // 所属站点
+    private String siteCode;
 
     public String getCode() {
         return code;
@@ -199,5 +205,21 @@ public class Comment extends ABaseDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }

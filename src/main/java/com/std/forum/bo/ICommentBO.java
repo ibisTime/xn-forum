@@ -22,9 +22,11 @@ import com.std.forum.domain.Comment;
 public interface ICommentBO extends IPaginableBO<Comment> {
 
     public String saveComment(String content, String parentCode, String status,
-            String commer);
+            String commer, String postCode);
 
     public int removeComment(String code);
+
+    public int removeCommentByPost(String code);
 
     public int refreshCommentApprove(String code, String status,
             String approver, String approveNote);

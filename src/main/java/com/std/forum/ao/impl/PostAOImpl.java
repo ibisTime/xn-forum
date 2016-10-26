@@ -165,6 +165,7 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
+    @Transactional
     public void dropPost(String code, String userId, String type) {
         Post post = null;
         Comment comment = null;
@@ -195,6 +196,8 @@ public class PostAOImpl implements IPostAO {
         }
         if (EPostType.TZ.getCode().equals(type)) {
             postBO.removePost(code);
+            // 删除帖子相关的评论
+            commentBO.removeCommentByPost(code);
         } else if (EPostType.PL.getCode().equals(type)) {
             commentBO.removeComment(code);
         }
@@ -217,7 +220,6 @@ public class PostAOImpl implements IPostAO {
             Date endDatetime) {
         Post post = postBO.getPost(code);
         String postLocation = null;
-
         if (EBoolean.NO.getCode().equalsIgnoreCase(isAdd)) {
             if (!location.equalsIgnoreCase(post.getLocation())) {
                 throw new BizException("xn000000", "帖子没有" + location
@@ -227,8 +229,7 @@ public class PostAOImpl implements IPostAO {
             if (!location.equalsIgnoreCase(post.getLocation())) {
                 postLocation = location;
             } else {
-                throw new BizException("xn000000", "帖子已经具有该属性" + location
-                        + "属性");
+                throw new BizException("xn000000", "帖子已有" + location + "属性");
             }
         }
         postBO.refreshPostLocation(code, postLocation, endDatetime);
@@ -249,12 +250,14 @@ public class PostAOImpl implements IPostAO {
             String approveNote, String type) {
         if (EPostType.TZ.getCode().equals(type)) {
             Post post = postBO.getPost(code);
-            if (!EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())
+            if (EBoolean.NO.getCode().equals(approveResult)
+                    && !EPostStatus.todoAPPROVE.getCode().equals(
+                        post.getStatus())
                     && !EPostStatus.toReportAPPROVE.getCode().equals(
                         post.getStatus())) {
                 throw new BizException("xn000000", "帖子不是待审核状态");
             }
-            postBO.refreshPostApprove(code, approveResult, approver,
+            postBO.refreshPostApprove(code, approver, approveResult,
                 approveNote);
             // 审核通过加积分
             if (EPostStatus.todoAPPROVE.getCode().equals(post.getStatus())

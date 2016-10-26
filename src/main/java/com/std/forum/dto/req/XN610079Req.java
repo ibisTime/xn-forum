@@ -13,6 +13,9 @@ public class XN610079Req extends APageReq {
     // 状态
     private String status;
 
+    // 站点编号
+    private String siteCode;
+
     public String getContent() {
         return content;
     }
@@ -27,5 +30,13 @@ public class XN610079Req extends APageReq {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 }

@@ -18,6 +18,7 @@
 		<result column="update_datetime" property="updateDatetime" />
 		<result column="remark" property="remark" />
 		<result column="post_count" property="postCount" />
+		<result column="all_post_count" property="allPostCount" />
 		<result column="zd_count" property="zdCount" />
 		<result column="jh_count" property="jhCount" />
 	</resultMap>
@@ -67,6 +68,7 @@
 		,update_datetime
 		,remark
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.status in('B','D')) as post_count
+		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code) as all_post_count
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='A') as zd_count
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='B') as jh_count
 		FROM

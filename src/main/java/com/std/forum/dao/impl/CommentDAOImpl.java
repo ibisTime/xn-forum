@@ -97,4 +97,12 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
     public int updateStatus(Comment data) {
         return super.update(NAMESPACE.concat("update_comment_status"), data);
     }
+
+    /** 
+     * @see com.std.forum.dao.ICommentDAO#deleteCommentByPostCode(com.std.forum.domain.Comment)
+     */
+    @Override
+    public int deleteCommentByPostCode(Comment data) {
+        return super.delete(NAMESPACE.concat("delete_comment_post"), data);
+    }
 }

@@ -16,6 +16,7 @@
 		<result column="approve_note" property="approveNote" />
 		
 		<result column="remark" property="remark" />
+		<result column="post_code" property="postCode" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -41,6 +42,9 @@
 			<if test="commer != null and commer != '' ">
 		        AND t.commer = #{commer}
 			</if>
+			<if test="siteCode != null and siteCode != '' ">
+		        AND tpt.site_code = #{siteCode}
+			</if>
 		</trim>
 	</sql>
 	
@@ -58,15 +62,16 @@
 		,t.approve_datetime
 		,t.approve_note
 		,t.remark
+		,t.post_code
 		FROM
-		tforum_comment t
+		tforum_comment t left join tforum_post tp on t.post_code = tp.code left join tforum_plate tpt on tp.plate_code = tpt.code
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>
 
 	<select id="select_comment_count" parameterType="comment"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_comment t
+		SELECT count(1) FROM tforum_comment t left join tforum_post tp on t.post_code = tp.code left join tforum_plate tpt on tp.plate_code = tpt.code
 		<include refid="where_condition" />
 	</select>
 
@@ -80,6 +85,7 @@
 		,commer
 		
 		,comm_datetime
+		,post_code
 		)
 		VALUES(
 		#{code}
@@ -89,6 +95,7 @@
 		,#{commer}
 		
 		,#{commDatetime}
+		,#{postCode}
 		)
 	</insert>
 	
@@ -117,5 +124,12 @@
 		tforum_comment
 		WHERE
 		code = #{code}
+	</delete>
+	
+	<delete id="delete_comment_post" parameterType="comment">
+		DELETE FROM
+		tforum_comment
+		WHERE
+		post_code = #{postCode}
 	</delete>
 </mapper>

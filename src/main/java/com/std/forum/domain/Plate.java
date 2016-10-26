@@ -71,6 +71,12 @@ public class Plate extends ABaseDO {
     // 帖子数
     private Long postCount;
 
+    // 帖子数
+    private Long allPostCount;
+
+    // 今日发帖数
+    private Long todayCount;
+
     // 置顶
     private Long zdCount;
 
@@ -213,4 +219,19 @@ public class Plate extends ABaseDO {
         this.location = location;
     }
 
+    public Long getTodayCount() {
+        return todayCount;
+    }
+
+    public void setTodayCount(Long todayCount) {
+        this.todayCount = todayCount;
+    }
+
+    public Long getAllPostCount() {
+        return allPostCount;
+    }
+
+    public void setAllPostCount(Long allPostCount) {
+        this.allPostCount = allPostCount;
+    }
 }

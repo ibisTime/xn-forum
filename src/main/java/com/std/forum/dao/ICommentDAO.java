@@ -24,4 +24,5 @@ public interface ICommentDAO extends IBaseDAO<Comment> {
 
     public int updateStatus(Comment data);
 
+    public int deleteCommentByPostCode(Comment data);
 }

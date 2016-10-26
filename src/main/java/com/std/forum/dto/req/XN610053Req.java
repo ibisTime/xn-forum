@@ -9,7 +9,7 @@ public class XN610053Req {
     private String postCode;
 
     // 操作人编号（必填）
-    private String talker;
+    private String userId;
 
     public String getType() {
         return type;
@@ -27,11 +27,11 @@ public class XN610053Req {
         this.postCode = postCode;
     }
 
-    public String getTalker() {
-        return talker;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTalker(String talker) {
-        this.talker = talker;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
