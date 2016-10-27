@@ -11,14 +11,16 @@
 		
 		<result column="order_no" property="orderNo" />
 		<result column="user_id" property="userId" />
+		<result column="login_name" property="loginName" />
 		<result column="site_code" property="siteCode" />
 		<result column="status" property="status" />
-		<result column="updater" property="updater" />
 		
+		<result column="updater" property="updater" />
 		<result column="update_datetime" property="updateDatetime" />
 		<result column="remark" property="remark" />
 		<result column="post_count" property="postCount" />
 		<result column="all_post_count" property="allPostCount" />
+		
 		<result column="zd_count" property="zdCount" />
 		<result column="jh_count" property="jhCount" />
 	</resultMap>
@@ -61,6 +63,7 @@
 		
 		,order_no
 		,user_id
+		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.user_id) as login_name
 		,site_code
 		,status
 		,updater

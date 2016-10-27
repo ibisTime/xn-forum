@@ -46,6 +46,9 @@ public class Plate extends ABaseDO {
     // 版主编号
     private String userId;
 
+    // 版主loginName
+    private String loginName;
+
     // 站点编号
     private String siteCode;
 
@@ -233,5 +236,13 @@ public class Plate extends ABaseDO {
 
     public void setAllPostCount(Long allPostCount) {
         this.allPostCount = allPostCount;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 }

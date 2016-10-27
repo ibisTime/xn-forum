@@ -9,22 +9,24 @@
 		<result column="pic" property="pic" />
 		<result column="publisher" property="publisher" />
 		
+		<result column="login_name" property="loginName" />
 		<result column="nickname" property="nickname" />
 		<result column="photo" property="photo" />
 		<result column="publish_datetime" property="publishDatetime" />
 		<result column="approver" property="approver" />
-		<result column="approve_datetime" property="approveDatetime" />
 		
+		<result column="approve_datetime" property="approveDatetime" />
 		<result column="approve_note" property="approveNote" />
 		<result column="status" property="status" />
 		<result column="location" property="location" />
 		<result column="order_no" property="orderNo" />
-		<result column="plate_code" property="plateCode" />
 		
+		<result column="plate_code" property="plateCode" />
 		<result column="is_lock" property="isLock" />
 		<result column="valid_datetime_start" property="validDatetimeStart" />
 		<result column="valid_datetime_end" property="validDatetimeEnd" />
 		<result column="remark" property="remark" />
+		
 		<result column="total_read_times" property="totalReadTimes" />
 		<result column="plate_name" property="plateName" />
 	</resultMap>
@@ -76,9 +78,6 @@
 			<if test="talker != null and talker != '' ">
 		        AND tpt.talker = #{talker}
 			</if>
-			<if test="location != null and location != '' ">
-		        AND t.location = #{location}
-			</if>
 		</trim>
 	</sql>
 	
@@ -91,6 +90,7 @@
 		,t.pic
 		,t.publisher
 		
+		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.publisher) as login_name
 		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.publisher) as nickname
 		,(select photo from ${userDB}.tstd_user_ext tue where tue.user_id=t.publisher) as photo
 		,t.publish_datetime
@@ -108,9 +108,9 @@
 		,t.valid_datetime_end
 		,t.remark
 		,tp.name as plate_name
-		,(select count(1) from tforum_post_talk tpt where tpt.type = '5' and tpt.post_code = t.code) as total_read_times
+		,(select count(1) from tforum_post_talk tpt where tpt.type = '4' and tpt.post_code = t.code) as total_read_times
 		FROM
-		tforum_post t inner join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
+		tforum_post t left join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>

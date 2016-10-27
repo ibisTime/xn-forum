@@ -250,7 +250,7 @@ public class PostAOImpl implements IPostAO {
             String approveNote, String type) {
         if (EPostType.TZ.getCode().equals(type)) {
             Post post = postBO.getPost(code);
-            if (EBoolean.NO.getCode().equals(approveResult)
+            if (EBoolean.YES.getCode().equals(approveResult)
                     && !EPostStatus.todoAPPROVE.getCode().equals(
                         post.getStatus())
                     && !EPostStatus.toReportAPPROVE.getCode().equals(

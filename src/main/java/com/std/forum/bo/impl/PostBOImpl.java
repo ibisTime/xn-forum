@@ -207,7 +207,7 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
             data.setCode(code);
             data.setStatus(EPostStatus.toReportAPPROVE.getCode());
             data.setRemark(remark);
-            count = postDAO.updatePlate(data);
+            count = postDAO.updateStatus(data);
         }
         return count;
     }

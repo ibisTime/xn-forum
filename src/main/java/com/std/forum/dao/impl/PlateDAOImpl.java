@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.std.forum.common.PropertiesUtil;
 import com.std.forum.dao.IPlateDAO;
 import com.std.forum.dao.base.support.AMybatisTemplate;
 import com.std.forum.domain.Plate;
@@ -46,6 +47,7 @@ public class PlateDAOImpl extends AMybatisTemplate implements IPlateDAO {
      */
     @Override
     public Plate select(Plate condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return (Plate) super.select(NAMESPACE.concat("select_plate"),
             condition, Plate.class);
     }
@@ -55,6 +57,7 @@ public class PlateDAOImpl extends AMybatisTemplate implements IPlateDAO {
      */
     @Override
     public long selectTotalCount(Plate condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(NAMESPACE.concat("select_plate_count"),
             condition);
     }
@@ -64,6 +67,7 @@ public class PlateDAOImpl extends AMybatisTemplate implements IPlateDAO {
      */
     @Override
     public List<Plate> selectList(Plate condition) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_plate"), condition,
             Plate.class);
     }
@@ -73,6 +77,7 @@ public class PlateDAOImpl extends AMybatisTemplate implements IPlateDAO {
      */
     @Override
     public List<Plate> selectList(Plate condition, int start, int count) {
+        condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectList(NAMESPACE.concat("select_plate"), start, count,
             condition, Plate.class);
     }

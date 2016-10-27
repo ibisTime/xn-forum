@@ -77,6 +77,9 @@ public class Post extends ABaseDO {
     private String remark;
 
     // *****************db properties ********************
+    // 登录名
+    private String loginName;
+
     // 昵称
     private String nickname;
 
@@ -409,5 +412,13 @@ public class Post extends ABaseDO {
 
     public void setPlateName(String plateName) {
         this.plateName = plateName;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 }
