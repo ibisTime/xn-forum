@@ -222,14 +222,17 @@ public class PostAOImpl implements IPostAO {
         String postLocation = null;
         if (EBoolean.NO.getCode().equalsIgnoreCase(isAdd)) {
             if (!location.equalsIgnoreCase(post.getLocation())) {
-                throw new BizException("xn000000", "帖子没有" + location
-                        + "属性,不能取消");
+                throw new BizException("xn000000", "该贴不是"
+                        + ELocation.getLocationResultMap().get(location)
+                            .getValue() + "贴,不能取消");
             }
         } else {
             if (!location.equalsIgnoreCase(post.getLocation())) {
                 postLocation = location;
             } else {
-                throw new BizException("xn000000", "帖子已有" + location + "属性");
+                throw new BizException("xn000000", "该贴已是"
+                        + ELocation.getLocationResultMap().get(location)
+                            .getValue() + "贴");
             }
         }
         postBO.refreshPostLocation(code, postLocation, endDatetime);
