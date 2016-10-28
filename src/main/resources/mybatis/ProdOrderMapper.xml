@@ -5,14 +5,15 @@
 	<resultMap id="prodOrder_DB_Result" type="prodOrder">
 		<result column="code" property="code" />
 		<result column="product_code" property="productCode" />
+		<result column="product_name" property="productName" />
 		<result column="quantity" property="quantity" />
 		<result column="status" property="status" />
 		<result column="pay_price" property="payPrice" />
 		<result column="payer" property="payer" />
 		<result column="pay_datetime" property="payDatetime" />
-		<result column="taker" property="taker" />
 		<result column="take_datetime" property="takeDatetime" />
 		<result column="remark" property="remark" />
+		<result column="site_code" property="siteCode" />
 	</resultMap>
 	
 	<sql id="where_condition">
@@ -20,14 +21,17 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
+			<if test="productName != null and productName != '' ">
+				AND tp.name like "%"#{productName}"%"
+			</if>
 			<if test="payer != null and payer != '' ">
 				AND t.payer = #{payer}
 			</if>
-			<if test="taker != null and taker != '' ">
-				AND t.taker like "%"#{taker}"%"
-			</if>
 			<if test="status != null and status != '' ">
 				AND t.status = #{status}
+			</if>
+			<if test="siteCode != null and siteCode != '' ">
+				AND tp.site_code = #{siteCode}
 			</if>
 		</trim>
 	</sql>
@@ -36,16 +40,17 @@
 		SELECT
 		t.code
 		,t.product_code
+		,tp.name as product_name
 		,t.quantity
 		,t.status
 		,t.pay_price
 		,t.payer
 		,t.pay_datetime
-		,t.taker
 		,t.take_datetime
 		,t.remark
+		,tp.site_code
 		FROM
-		tforum_prod_order t
+		tforum_prod_order t inner join tforum_product tp on t.product_code = tp.code
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -56,7 +61,7 @@
 
 	<select id="select_prodOrder_count" parameterType="prodOrder"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_prod_order t
+		SELECT count(1) FROM tforum_prod_order t inner join tforum_product tp on t.product_code = tp.code
 		<include refid="where_condition" />
 	</select>
 
@@ -70,7 +75,6 @@
 		,pay_price
 		,payer
 		,pay_datetime
-		,taker
 		,take_datetime
 		,remark
 		)
@@ -82,7 +86,6 @@
 		,#{payPrice}
 		,#{payer}
 		,#{payDatetime}
-		,#{taker}
 		,#{takeDatetime}
 		,#{remark}
 		)
@@ -92,7 +95,6 @@
 		UPDATE tforum_prod_order
 		SET
 		status = #{status}
-		,taker = #{taker}
 		,take_datetime = #{takeDatetime}
 		,remark = #{remark}
 		WHERE code = #{code}

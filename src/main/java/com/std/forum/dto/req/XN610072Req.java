@@ -14,6 +14,9 @@ public class XN610072Req {
     // 当前用户编号 （选填）
     private String userId;
 
+    // 评论状态 （选填）
+    private String commStatus;
+
     public String getCode() {
         return code;
     }
@@ -28,5 +31,13 @@ public class XN610072Req {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getCommStatus() {
+        return commStatus;
+    }
+
+    public void setCommStatus(String commStatus) {
+        this.commStatus = commStatus;
     }
 }

@@ -24,17 +24,12 @@
 			<if test="kind != null and kind != '' ">
 				AND t.kind = #{kind}
 			</if>
-			<choose>
-				 <when test="status == '02'">
-				  AND (t.status = 0 or t.status = 2)
-				 </when>
-				 <when test="status != null and status != '' ">
-				  AND t.status = #{status}
-				 </when>
-				 <otherwise>
-				  AND 1 = 1
-				 </otherwise>
-			</choose>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+			<if test="siteCode != null and siteCode != '' ">
+				AND t.site_code = #{siteCode}
+			</if>
 		</trim>
 	</sql>
 	<select id="select_product" parameterType="product" resultMap="product_DB_Result">

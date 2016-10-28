@@ -32,7 +32,7 @@ public interface IPostAO {
     /*
      * 草稿发帖
      */
-    public void draftPublishPost(String code, String title, String content,
+    public String draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish);
 
     /*
@@ -87,7 +87,7 @@ public interface IPostAO {
 
     public List<Post> queryPostList(Post condition);
 
-    public Post getPost(String code, String userId);
+    public Post getPost(String code, String userId, String commStatus);
 
     public Paginable<Post> querySCPostPage(int start, int limit, Post condition);
 

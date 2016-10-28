@@ -9,10 +9,10 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 分页查询我的订单
- * @author: zuixian 
- * @since: 2016年10月12日 下午2:35:51 
+/**
+ * 订单详情
+ * @author: xieyj 
+ * @since: 2016年10月28日 上午9:59:03 
  * @history:
  */
 public class XN610331 extends AProcessor {

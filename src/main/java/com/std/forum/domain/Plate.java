@@ -68,8 +68,11 @@ public class Plate extends ABaseDO {
 
     private String nameForQuery;
 
-    // 活跃人数
-    private Long personCount;
+    // 点赞数
+    private Long dzCount;
+
+    // 评论数
+    private Long plCount;
 
     // 帖子数
     private Long postCount;
@@ -78,7 +81,7 @@ public class Plate extends ABaseDO {
     private Long allPostCount;
 
     // 今日发帖数
-    private Long todayCount;
+    private Long todayPostCount;
 
     // 置顶
     private Long zdCount;
@@ -150,14 +153,6 @@ public class Plate extends ABaseDO {
         this.nameForQuery = nameForQuery;
     }
 
-    public Long getPersonCount() {
-        return personCount;
-    }
-
-    public void setPersonCount(Long personCount) {
-        this.personCount = personCount;
-    }
-
     public Long getPostCount() {
         return postCount;
     }
@@ -222,12 +217,12 @@ public class Plate extends ABaseDO {
         this.location = location;
     }
 
-    public Long getTodayCount() {
-        return todayCount;
+    public Long getTodayPostCount() {
+        return todayPostCount;
     }
 
-    public void setTodayCount(Long todayCount) {
-        this.todayCount = todayCount;
+    public void setTodayPostCount(Long todayPostCount) {
+        this.todayPostCount = todayPostCount;
     }
 
     public Long getAllPostCount() {
@@ -244,5 +239,21 @@ public class Plate extends ABaseDO {
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+    }
+
+    public Long getDzCount() {
+        return dzCount;
+    }
+
+    public void setDzCount(Long dzCount) {
+        this.dzCount = dzCount;
+    }
+
+    public Long getPlCount() {
+        return plCount;
+    }
+
+    public void setPlCount(Long plCount) {
+        this.plCount = plCount;
     }
 }

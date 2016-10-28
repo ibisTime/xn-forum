@@ -19,8 +19,6 @@ import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Plate;
-import com.std.forum.domain.Post;
-import com.std.forum.domain.PostTalk;
 
 /** 
  * @author: xieyj 
@@ -65,11 +63,7 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public Paginable<Plate> queryPlatePage(int start, int limit, Plate condition) {
-        Paginable<Plate> platePage = plateBO.getPaginable(start, limit,
-            condition);
-        List<Plate> plateList = platePage.getList();
-        totalPostToPlateList(plateList);
-        return platePage;
+        return plateBO.getPaginable(start, limit, condition);
     }
 
     /** 
@@ -77,9 +71,7 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public List<Plate> queryPlateList(Plate condition) {
-        List<Plate> plateList = plateBO.queryPlateList(condition);
-        totalPostToPlateList(plateList);
-        return plateList;
+        return plateBO.queryPlateList(condition);
     }
 
     /** 
@@ -88,20 +80,5 @@ public class PlateAOImpl implements IPlateAO {
     @Override
     public Plate doGetPlate(String code) {
         return plateBO.getPlate(code);
-    }
-
-    private void totalPostToPlateList(List<Plate> plateList) {
-        for (Plate plate : plateList) {
-            totalPostToPlate(plate);
-        }
-    }
-
-    private void totalPostToPlate(Plate plate) {
-        PostTalk ptCondition = new PostTalk();
-        ptCondition.setPlateCode(plate.getCode());
-        Post pCondition = new Post();
-        pCondition.setPlateCode(plate.getCode());
-        long ptCount = postTalkBO.getPersonCount(ptCondition);
-        plate.setPersonCount(ptCount);
     }
 }

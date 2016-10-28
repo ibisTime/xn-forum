@@ -76,9 +76,11 @@ public class ProductAOImpl implements IProductAO {
     @Transactional
     public String exchangeProduct(String userId, String productCode,
             Integer quantity) {
-        String code = null;
         // 判断库存量
         Product product = productBO.getProduct(productCode);
+        if (!EProductStatus.PUBLISH_YES.getCode().equals(product.getStatus())) {
+            throw new BizException("xn0000", "该商品还未上架");
+        }
         if (product.getQuantity() != null && product.getQuantity() == 0) {
             throw new BizException("xn0000", "该商品库存量不足，无法购买");
         }
@@ -86,7 +88,7 @@ public class ProductAOImpl implements IProductAO {
         productBO.refreshProductQuantity(productCode, quantity);
         // 新增订单
         Long totalPrice = product.getPrice() * quantity;
-        code = prodOrderBO.saveProdOrder(userId, productCode, quantity,
+        String code = prodOrderBO.saveProdOrder(userId, productCode, quantity,
             totalPrice);
         // 扣除用户积分(必须放最后)
         userBO.doTransfer(userId, EDirection.MINUS.getCode(), totalPrice,

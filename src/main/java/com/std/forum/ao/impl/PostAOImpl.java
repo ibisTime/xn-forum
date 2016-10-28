@@ -104,7 +104,6 @@ public class PostAOImpl implements IPostAO {
             if (CollectionUtils.isNotEmpty(keywordTitleList)
                     || CollectionUtils.isNotEmpty(keywordContentList)) {
                 status = EPostStatus.FILTERED.getCode();
-                // 告知前端被过滤了
             } else {
                 // 判断用户等级，是否审核
                 LevelRule levelRule = levelRuleBO.getLevelRule(res.getLevel());
@@ -116,6 +115,10 @@ public class PostAOImpl implements IPostAO {
             }
             code = postBO.savePost(title, content, pic, plateCode, publisher,
                 status);
+            // 告知前端被过滤了
+            if (EPostStatus.FILTERED.getCode().equals(status)) {
+                code = code + ";filter:true";
+            }
             // 发帖加积分
             if (EPostStatus.PUBLISHED.getCode().equals(status)) {
                 userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
@@ -127,7 +130,7 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     @Transactional
-    public void draftPublishPost(String code, String title, String content,
+    public String draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish) {
         if (EBoolean.NO.getCode().equals(isPublish)) {
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
@@ -144,7 +147,6 @@ public class PostAOImpl implements IPostAO {
             if (CollectionUtils.isNotEmpty(keywordTitleList)
                     || CollectionUtils.isNotEmpty(keywordContentList)) {
                 status = EPostStatus.FILTERED.getCode();
-                // 告知前端被过滤了
             } else {
                 // 判断用户等级，是否审核
                 LevelRule levelRule = levelRuleBO.getLevelRule(res.getLevel());
@@ -156,12 +158,17 @@ public class PostAOImpl implements IPostAO {
             }
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
                 status);
+            // 告知前端被过滤了
+            if (EPostStatus.FILTERED.getCode().equals(status)) {
+                code = code + ";filter:true";
+            }
             // 发帖加积分
             if (EPostStatus.PUBLISHED.getCode().equals(status)) {
                 userBO.doTransfer(publisher, EDirection.PLUS.getCode(),
                     ERuleType.FT.getCode(), code);
             }
         }
+        return code;
     }
 
     @Override
@@ -169,11 +176,20 @@ public class PostAOImpl implements IPostAO {
     public void dropPost(String code, String userId, String type) {
         Post post = null;
         Comment comment = null;
+        String publisher = null;
         if (EPostType.PL.getCode().equals(type)) {
             comment = commentBO.getComment(code);
-            post = getPostByCommentCode(code, null);
+            publisher = comment.getCommer();
+            post = postBO.getPost(comment.getPostCode());
         } else {
             post = postBO.getPost(code);
+            publisher = post.getPublisher();
+            PostTalk condition = new PostTalk();
+            condition.setPostCode(post.getCode());
+            List<PostTalk> talkList = postTalkBO.queryPostTalkList(condition);
+            for (PostTalk postTalk : talkList) {
+                postTalkBO.removePostTalk(postTalk.getCode());
+            }
         }
         Plate plate = plateBO.getPlate(post.getPlateCode());
         String companyCode = plate.getSiteCode();
@@ -188,9 +204,7 @@ public class PostAOImpl implements IPostAO {
             for (Plate data : plateList) {
                 map.put(data.getCode(), data);
             }
-            if (map.get(plate.getCode()) == null
-                    && !userId.equals(comment.getCommer())
-                    && !userId.equals(post.getPublisher())) {
+            if (null == map.get(plate.getCode()) && !userId.equals(publisher)) {
                 throw new BizException("xn000000", "当前用户不是该板块版主或发布用户，无法删除");
             }
         }
@@ -200,6 +214,12 @@ public class PostAOImpl implements IPostAO {
             commentBO.removeCommentByPost(code);
         } else if (EPostType.PL.getCode().equals(type)) {
             commentBO.removeComment(code);
+            // 删除下级，下下级评论
+            List<Comment> commentList = new ArrayList<Comment>();
+            searchCycleComment(code, commentList, null);
+            for (Comment data : commentList) {
+                commentBO.removeComment(data.getCode());
+            }
         }
     }
 
@@ -331,7 +351,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId());
+            this.getAllInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode());
         }
         return postPage;
     }
@@ -342,10 +363,10 @@ public class PostAOImpl implements IPostAO {
     }
 
     @Override
-    public Post getPost(String code, String userId) {
+    public Post getPost(String code, String userId, String commStatus) {
         Post post = postBO.getPost(code);
         cutPic(post);
-        getAllInfo(post, userId);
+        getAllInfo(post, userId, commStatus);
         return post;
     }
 
@@ -358,7 +379,7 @@ public class PostAOImpl implements IPostAO {
         }
     }
 
-    private void getAllInfo(Post post, String userId) {
+    private void getAllInfo(Post post, String userId, String commStatus) {
         String code = post.getCode();
         // 设置查询点赞记录条件
         post.setIsDZ(EBoolean.NO.getCode());
@@ -382,21 +403,23 @@ public class PostAOImpl implements IPostAO {
         post.setTotalLikeNum(new Long(likeList.size()));
         // 获取评论
         List<Comment> commentList = new ArrayList<Comment>();
-        searchCycleComment(post.getCode(), commentList);
+        searchCycleComment(post.getCode(), commentList, commStatus);
         // 排序
         orderCommentList(commentList);
         post.setCommentList(commentList);
         post.setTotalCommNum(new Long(commentList.size()));
     }
 
-    private void searchCycleComment(String parentCode, List<Comment> list) {
+    private void searchCycleComment(String parentCode, List<Comment> list,
+            String status) {
         Comment condition = new Comment();
         condition.setParentCode(parentCode);
+        condition.setStatus(status);
         List<Comment> nextList = commentBO.queryCommentList(condition);
         if (CollectionUtils.isNotEmpty(nextList)) {
             list.addAll(nextList);
             for (int i = 0; i < nextList.size(); i++) {
-                searchCycleComment(nextList.get(i).getCode(), list);
+                searchCycleComment(nextList.get(i).getCode(), list, status);
             }
         }
     }
@@ -422,7 +445,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId());
+            this.getAllInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode());
         }
         return postPage;
     }
@@ -435,7 +459,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postBO.queryPostList(condition);
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, talker);
+            this.getAllInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode());
         }
         return postList;
     }
@@ -457,7 +482,7 @@ public class PostAOImpl implements IPostAO {
             String parentCode = comment.getParentCode();
             if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
                 post = postBO.getPost(parentCode);
-                getAllInfo(post, userId);
+                getAllInfo(post, userId, EPostStatus.PUBLISHALL.getCode());
                 break;
             } else {
                 comment = commentBO.getComment(parentCode);

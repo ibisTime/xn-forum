@@ -23,7 +23,8 @@ public class XN610072 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return postAO.getPost(req.getCode(), req.getUserId());
+        return postAO.getPost(req.getCode(), req.getUserId(),
+            req.getCommStatus());
     }
 
     @Override

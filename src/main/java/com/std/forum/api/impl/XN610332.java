@@ -12,10 +12,10 @@ import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
-/** 
- * 分页查询我的订单
- * @author: zuixian 
- * @since: 2016年10月12日 下午2:35:51 
+/**
+ * 分页查询订单
+ * @author: xieyj 
+ * @since: 2016年10月28日 上午9:53:54 
  * @history:
  */
 public class XN610332 extends AProcessor {
@@ -28,7 +28,8 @@ public class XN610332 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         ProdOrder condition = new ProdOrder();
-        condition.setTaker(req.getTaker());
+        condition.setSiteCode(req.getSiteCode());
+        condition.setProductName(req.getProductName());
         condition.setStatus(req.getStatus());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {

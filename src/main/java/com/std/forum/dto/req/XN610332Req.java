@@ -7,19 +7,14 @@ public class XN610332Req extends APageReq {
      */
     private static final long serialVersionUID = 1L;
 
-    // 提货人(选填)
-    private String taker;
+    // 站点编号(选填)
+    private String siteCode;
+
+    // 商品名称(选填)
+    private String productName;
 
     // 状态(选填)
     private String status;
-
-    public String getTaker() {
-        return taker;
-    }
-
-    public void setTaker(String taker) {
-        this.taker = taker;
-    }
 
     public String getStatus() {
         return status;
@@ -27,5 +22,21 @@ public class XN610332Req extends APageReq {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

@@ -49,16 +49,30 @@ public class ProdOrderAOImpl implements IProdOrderAO {
     @Override
     public Paginable<ProdOrder> queryProdOrderPage(int start, int limit,
             ProdOrder condition) {
-        return prodOrderBO.getPaginable(start, limit, condition);
+        Paginable<ProdOrder> page = prodOrderBO.getPaginable(start, limit,
+            condition);
+        List<ProdOrder> list = page.getList();
+        for (ProdOrder prodOrder : list) {
+            prodOrder.setProduct(productBO.getProduct(prodOrder
+                .getProductCode()));
+        }
+        return page;
     }
 
     @Override
     public List<ProdOrder> queryProdOrderList(ProdOrder condition) {
-        return prodOrderBO.queryProdOrderList(condition);
+        List<ProdOrder> list = prodOrderBO.queryProdOrderList(condition);
+        for (ProdOrder prodOrder : list) {
+            prodOrder.setProduct(productBO.getProduct(prodOrder
+                .getProductCode()));
+        }
+        return list;
     }
 
     @Override
     public ProdOrder getProdOrder(String code) {
-        return prodOrderBO.getProdOrder(code);
+        ProdOrder prodOrder = prodOrderBO.getProdOrder(code);
+        prodOrder.setProduct(productBO.getProduct(prodOrder.getProductCode()));
+        return prodOrder;
     }
 }

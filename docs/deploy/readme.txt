@@ -15,6 +15,7 @@
   
 2，打包
   scp -P57652 ./xn-forum.war root@121.43.101.148:/home
+  T6dh%$%$ss1
   
   
 3，部署

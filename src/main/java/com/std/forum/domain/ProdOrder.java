@@ -29,14 +29,21 @@ public class ProdOrder extends ABaseDO {
     // 支付时间
     private Date payDatetime;
 
-    // 提货人
-    private String taker;
-
     // 提货时间
     private Date takeDatetime;
 
     // 备注
     private String remark;
+
+    // **********************db properties**********************
+    // 商品名称
+    private String productName;
+
+    // 站点编号
+    private String siteCode;
+
+    // 商品
+    private Product product;
 
     public String getCode() {
         return code;
@@ -94,14 +101,6 @@ public class ProdOrder extends ABaseDO {
         this.payDatetime = payDatetime;
     }
 
-    public String getTaker() {
-        return taker;
-    }
-
-    public void setTaker(String taker) {
-        this.taker = taker;
-    }
-
     public Date getTakeDatetime() {
         return takeDatetime;
     }
@@ -116,5 +115,29 @@ public class ProdOrder extends ABaseDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getSiteCode() {
+        return siteCode;
+    }
+
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

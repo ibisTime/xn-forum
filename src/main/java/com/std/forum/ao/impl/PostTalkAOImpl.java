@@ -43,7 +43,8 @@ public class PostTalkAOImpl implements IPostTalkAO {
         if (null != postTalk) {
             postTalkBO.removePostTalk(postTalk.getCode());
         } else {
-            postTalkBO.savePostTalk(postCode, userId, type, null);
+            postTalkBO.savePostTalk(postCode, userId, type, ETalkType
+                .getTalkTypeMap().get(type).getValue());
         }
     }
 

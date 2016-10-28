@@ -69,6 +69,8 @@ public class CommentAOImpl implements ICommentAO {
         if (EPostStatus.PUBLISHED.getCode().equals(status)) {
             userBO.doTransfer(commer, EDirection.PLUS.getCode(),
                 ERuleType.PL.getCode(), code);
+        } else {
+            code = code + ";filter:true";
         }
         return code;
     }
