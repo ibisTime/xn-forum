@@ -3,7 +3,6 @@ package com.std.forum.api.impl;
 import org.apache.commons.lang3.StringUtils;
 
 import com.std.forum.ao.ICommentAO;
-import com.std.forum.ao.IPostAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
@@ -32,7 +31,7 @@ public class XN610076 extends AProcessor {
         condition.setCommer(req.getUserId());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
-            orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;
+            orderColumn = ICommentAO.DEFAULT_ORDER_COLUMN;
         }
         condition.setOrder(orderColumn, req.getOrderDir());
         int start = StringValidater.toInteger(req.getStart());

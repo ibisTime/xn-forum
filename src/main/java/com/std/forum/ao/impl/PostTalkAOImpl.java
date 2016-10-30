@@ -15,8 +15,10 @@ import com.std.forum.bo.IUserBO;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
+import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPostType;
 import com.std.forum.enums.ETalkType;
+import com.std.forum.exception.BizException;
 
 @Service
 public class PostTalkAOImpl implements IPostTalkAO {
@@ -67,6 +69,9 @@ public class PostTalkAOImpl implements IPostTalkAO {
         if (EPostType.TZ.getCode().equals(type)) {
             type = ETalkType.TZJB.getCode();
             Post post = postBO.getPost(code);
+            if (EPostStatus.APPROVE_YES.getCode().equals(post.getStatus())) {
+                throw new BizException("xn000000", "该帖已审核通过，不能举报");
+            }
             boolean result = this.isToMax(code, post.getPublisher(), type,
                 reportNoteBuffer);
             if (result) {
@@ -75,6 +80,9 @@ public class PostTalkAOImpl implements IPostTalkAO {
         } else {
             type = ETalkType.PLJB.getCode();
             Comment comment = commentBO.getComment(code);
+            if (EPostStatus.APPROVE_YES.getCode().equals(comment.getStatus())) {
+                throw new BizException("xn000000", "该评论已审核通过，不能举报");
+            }
             boolean result = this.isToMax(code, comment.getCommer(), type,
                 reportNoteBuffer);
             if (result) {

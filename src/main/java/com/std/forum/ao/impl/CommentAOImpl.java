@@ -123,6 +123,10 @@ public class CommentAOImpl implements ICommentAO {
             Comment data = commentBO.getComment(parentCode);
             comment.setParentComment(data);
         }
+        if (null == comment.getPost()) {
+            Post post = postBO.getPost(comment.getPostCode());
+            comment.setPost(post);
+        }
     }
 
     /** 
@@ -135,6 +139,10 @@ public class CommentAOImpl implements ICommentAO {
             condition);
         List<Comment> list = page.getList();
         for (Comment comment : list) {
+            // 获取帖子
+            Post post = postBO.getPost(comment.getPostCode());
+            comment.setPost(post);
+            // 获取下级评论
             Comment cCondition = new Comment();
             cCondition.setParentCode(comment.getCode());
             List<Comment> nextCommentList = commentBO
