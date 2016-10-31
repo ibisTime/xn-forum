@@ -164,6 +164,7 @@
 		,plate_code = #{plateCode}
 		,status = #{status}
 		,publisher = #{publisher}
+		,publish_datetime = #{publishDatetime}
 		WHERE code = #{code}
 	</update>
 	

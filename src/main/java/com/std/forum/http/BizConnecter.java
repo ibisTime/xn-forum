@@ -62,6 +62,7 @@ public class BizConnecter {
                 || code.startsWith("807")) {
             postUrl = USER_URL;
         }
+        System.out.println("访问请求:" + postUrl);
         return postUrl;
     }
 }
