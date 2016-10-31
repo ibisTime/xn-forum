@@ -58,21 +58,21 @@
 	
 	<select id="select_plate" parameterType="plate" resultMap="plate_DB_Result">
 		SELECT
-		code
-		,name
-		,kind
-		,pic
-		,location
+		t.code
+		,t.name
+		,t.kind
+		,t.pic
+		,t.location
 		
-		,order_no
-		,user_id
+		,t.order_no
+		,t.user_id
 		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.user_id) as login_name
-		,site_code
-		,status
+		,t.site_code
+		,t.status
 		
-		,updater
-		,update_datetime
-		,remark
+		,t.updater
+		,t.update_datetime
+		,t.remark
 		,(SELECT count(1) from tforum_post_talk tpt inner join tforum_post tp on tpt.post_code = tp.code where tp.plate_code = t.code and tpt.type = '1') as dz_count
 		,(SELECT count(1) from tforum_comment tc inner join tforum_post tp on tc.post_code = tp.code where tp.plate_code = t.code and tc.status in('B','D')) as pl_count
 		
@@ -84,7 +84,7 @@
 		FROM
 		tforum_plate t
 		<include refid="where_condition" />
-		ORDER BY t.code DESC	
+		ORDER BY t.order_no asc, t.code DESC
 	</select>
 
 	<select id="select_plate_count" parameterType="plate"

@@ -28,15 +28,13 @@ public class XN610049 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Date endDatetime = DateUtil.getFrontDate(req.getEndDatetime(), true);
-        postAO.setPostLocation(req.getCode(), req.getIsAdd(),
-            req.getLocation(), endDatetime);
+        postAO.setPostLocation(req.getCode(), req.getLocation(), endDatetime);
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610049Req.class);
-        StringValidater.validateBlank(req.getCode(), req.getLocation(),
-            req.getEndDatetime());
+        StringValidater.validateBlank(req.getCode(), req.getLocation());
     }
 }

@@ -236,24 +236,18 @@ public class PostAOImpl implements IPostAO {
 
     @Override
     @Transactional
-    public void setPostLocation(String code, String isAdd, String location,
-            Date endDatetime) {
+    public void setPostLocation(String code, String location, Date endDatetime) {
         Post post = postBO.getPost(code);
-        String postLocation = null;
-        if (EBoolean.NO.getCode().equalsIgnoreCase(isAdd)) {
-            if (!location.equalsIgnoreCase(post.getLocation())) {
-                throw new BizException("xn000000", "该贴不是"
-                        + ELocation.getLocationResultMap().get(location)
-                            .getValue() + "贴,不能取消");
-            }
+        String postLocation = post.getLocation();
+        String isAdd = EBoolean.NO.getCode();
+        if (StringUtils.isNotBlank(location) && location.equals(postLocation)) {
+            postLocation = null;
         } else {
-            if (!location.equalsIgnoreCase(post.getLocation())) {
-                postLocation = location;
-            } else {
-                throw new BizException("xn000000", "该贴已是"
-                        + ELocation.getLocationResultMap().get(location)
-                            .getValue() + "贴");
+            if (null == endDatetime) {
+                throw new BizException("xn000000", "请输入截止有效时间");
             }
+            postLocation = location;
+            isAdd = EBoolean.YES.getCode();
         }
         postBO.refreshPostLocation(code, postLocation, endDatetime);
         // 设置精华加积分(前面已判断是否重复加)

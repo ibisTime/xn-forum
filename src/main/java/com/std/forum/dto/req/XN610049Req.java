@@ -11,9 +11,6 @@ public class XN610049Req {
     // 帖子编号（必填）
     private String code;
 
-    // 是否增加(1 是 0 否) 否取消
-    private String isAdd;
-
     // UI位置（必填）
     private String location;
 
@@ -26,14 +23,6 @@ public class XN610049Req {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getIsAdd() {
-        return isAdd;
-    }
-
-    public void setIsAdd(String isAdd) {
-        this.isAdd = isAdd;
     }
 
     public String getLocation() {

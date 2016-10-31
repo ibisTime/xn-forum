@@ -2,6 +2,7 @@ package com.std.forum.ao.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,8 +73,11 @@ public class PostTalkAOImpl implements IPostTalkAO {
             if (EPostStatus.APPROVE_YES.getCode().equals(post.getStatus())) {
                 throw new BizException("xn000000", "该帖已审核通过，不能举报");
             }
-            boolean result = this.isToMax(code, post.getPublisher(), type,
-                reportNoteBuffer);
+            if (EPostStatus.toReportAPPROVE.getCode().equals(post.getStatus())) {
+                throw new BizException("xn000000", "该帖已举报成功，正等待处理");
+            }
+            boolean result = this.isToMax(code, post.getPublisher(), reporter,
+                type, reportNoteBuffer);
             if (result) {
                 postBO.refreshPostReport(code, reportNoteBuffer.toString());
             }
@@ -83,8 +87,8 @@ public class PostTalkAOImpl implements IPostTalkAO {
             if (EPostStatus.APPROVE_YES.getCode().equals(comment.getStatus())) {
                 throw new BizException("xn000000", "该评论已审核通过，不能举报");
             }
-            boolean result = this.isToMax(code, comment.getCommer(), type,
-                reportNoteBuffer);
+            boolean result = this.isToMax(code, comment.getCommer(), reporter,
+                type, reportNoteBuffer);
             if (result) {
                 commentBO.refreshCommentReport(code,
                     reportNoteBuffer.toString());
@@ -93,15 +97,20 @@ public class PostTalkAOImpl implements IPostTalkAO {
         postTalkBO.savePostTalk(code, reporter, type, reportNote);
     }
 
-    private boolean isToMax(String code, String talker, String type,
-            StringBuffer reportNote) {
+    private boolean isToMax(String code, String publisher, String reporter,
+            String type, StringBuffer reportNote) {
         boolean result = false;
+        // 判断该用户是否已举报
         PostTalk condition = new PostTalk();
-        condition.setPlateCode(code);
-        condition.setTalker(talker);
-        condition.setType(type);
-        List<PostTalk> reportList = postTalkBO.queryPostTalkList(condition);
-        int maxTimes = ruleBO.getJBTimesByUserId(talker).intValue();
+        condition.setPostCode(code);
+        condition.setTalker(reporter);
+        List<PostTalk> reporterList = postTalkBO.queryPostTalkList(condition);
+        if (CollectionUtils.isNotEmpty(reporterList)) {
+            throw new BizException("xn000000", "该用户已经举报过该贴，无需再次举报");
+        }
+        List<PostTalk> reportList = postTalkBO.queryPostTalkSingleList(code,
+            type);
+        int maxTimes = ruleBO.getJBTimesByUserId(publisher).intValue();
         StringBuffer sb = new StringBuffer();
         if (reportList.size() + 1 >= maxTimes) {
             for (PostTalk postTalk : reportList) {
