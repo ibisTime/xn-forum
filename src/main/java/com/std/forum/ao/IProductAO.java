@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Product;
+import com.std.forum.dto.res.XN610320Res;
 
 public interface IProductAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
@@ -16,7 +17,7 @@ public interface IProductAO {
 
     public void editProductStatus(String code, Long price);
 
-    public String exchangeProduct(String userId, String productCode,
+    public XN610320Res exchangeProduct(String userId, String productCode,
             Integer quantity);
 
     public Paginable<Product> queryProductPage(int start, int limit,

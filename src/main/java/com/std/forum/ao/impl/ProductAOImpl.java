@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.std.forum.ao.IProductAO;
 import com.std.forum.bo.IProdOrderBO;
 import com.std.forum.bo.IProductBO;
+import com.std.forum.bo.ISiteBO;
 import com.std.forum.bo.IUserBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Product;
+import com.std.forum.dto.res.XN610320Res;
+import com.std.forum.dto.res.XN806010Res;
 import com.std.forum.enums.EDirection;
 import com.std.forum.enums.EProductStatus;
 import com.std.forum.exception.BizException;
@@ -27,6 +30,9 @@ public class ProductAOImpl implements IProductAO {
 
     @Autowired
     private IUserBO userBO;
+
+    @Autowired
+    private ISiteBO siteBO;
 
     @Override
     public String addProduct(Product data) {
@@ -74,7 +80,7 @@ public class ProductAOImpl implements IProductAO {
 
     @Override
     @Transactional
-    public String exchangeProduct(String userId, String productCode,
+    public XN610320Res exchangeProduct(String userId, String productCode,
             Integer quantity) {
         // 判断库存量
         Product product = productBO.getProduct(productCode);
@@ -86,14 +92,17 @@ public class ProductAOImpl implements IProductAO {
         }
         // 减去库存量
         productBO.refreshProductQuantity(productCode, quantity);
+        XN806010Res site = siteBO.getCompany(product.getSiteCode());
+        String takeAddress = site.getProvince() + " " + site.getCity() + " "
+                + site.getArea() + " " + site.getAddress();
         // 新增订单
         Long totalPrice = product.getPrice() * quantity;
         String code = prodOrderBO.saveProdOrder(userId, productCode, quantity,
-            totalPrice);
+            totalPrice, "提货地点:" + takeAddress);
         // 扣除用户积分(必须放最后)
         userBO.doTransfer(userId, EDirection.MINUS.getCode(), totalPrice,
             "兑换商品:[" + product.getName() + ",购买" + quantity + "件]", code);
-        return code;
+        return new XN610320Res(code, takeAddress);
     }
 
     @Override

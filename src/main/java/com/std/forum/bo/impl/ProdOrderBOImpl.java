@@ -35,7 +35,7 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
 
     @Override
     public String saveProdOrder(String userId, String productCode,
-            Integer quantity, Long payPrice) {
+            Integer quantity, Long payPrice, String remark) {
         String code = null;
         if (StringUtils.isNotBlank(userId)
                 && StringUtils.isNotBlank(productCode)) {
@@ -48,6 +48,7 @@ public class ProdOrderBOImpl extends PaginableBOImpl<ProdOrder> implements
             data.setStatus(EProdOrderStatus.PAYED.getCode());
             data.setPayer(userId);
             data.setPayDatetime(new Date());
+            data.setRemark(remark);
             prodOrderDAO.insert(data);
         }
         return code;

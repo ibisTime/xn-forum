@@ -5,7 +5,6 @@ import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
 import com.std.forum.dto.req.XN610320Req;
-import com.std.forum.dto.res.PKCodeRes;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
@@ -25,9 +24,8 @@ public class XN610320 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        String code = productAO.exchangeProduct(req.getUserId(),
-            req.getProductCode(), StringValidater.toInteger(req.getQuantity()));
-        return new PKCodeRes(code);
+        return productAO.exchangeProduct(req.getUserId(), req.getProductCode(),
+            StringValidater.toInteger(req.getQuantity()));
     }
 
     @Override
