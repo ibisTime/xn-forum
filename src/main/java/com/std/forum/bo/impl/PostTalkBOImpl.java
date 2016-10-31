@@ -41,9 +41,9 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
             String remark) {
         int count = 0;
         if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(talker)) {
-            PostTalk data = new PostTalk();
             String code = OrderNoGenerater.generate(EPrefixCode.POSTTALK
                 .getCode());
+            PostTalk data = new PostTalk();
             data.setCode(code);
             data.setPostCode(postCode);
             data.setTalker(talker);

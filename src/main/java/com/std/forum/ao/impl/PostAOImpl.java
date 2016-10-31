@@ -463,8 +463,8 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#readPost(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public void readPost(String code, String reader) {
-        postTalkBO.savePostTalk(code, reader, ETalkType.YD.getCode(),
+    public void readPost(String postCode, String reader) {
+        postTalkBO.savePostTalk(postCode, reader, ETalkType.YD.getCode(),
             ETalkType.YD.getValue());
     }
 
