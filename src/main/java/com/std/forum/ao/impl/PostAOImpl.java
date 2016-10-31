@@ -490,10 +490,11 @@ public class PostAOImpl implements IPostAO {
      * @see com.std.forum.ao.IPostAO#totalPostNum(java.lang.String)
      */
     @Override
-    public XN610900Res totalPostNum(String userId) {
+    public XN610900Res totalPostNum(String userId, String status) {
         XN610900Res res = new XN610900Res();
         Post condition = new Post();
         condition.setPublisher(userId);
+        condition.setStatus(status);
         Long totalPostNum = postBO.getTotalCount(condition);
         res.setTotalPostNum(totalPostNum);
         return res;

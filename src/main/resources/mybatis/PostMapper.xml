@@ -45,6 +45,9 @@
 		        AND (t.title like "%"#{keyword}"%" or t.content like "%"#{keyword}"%")
 			</if>
 			<choose>
+			     <when test='status == "NO_A"'>
+				 	AND t.status not in ('A')
+				 </when>
 				 <when test='status == "CC"'>
 				 	AND t.status in ('C1','C2')
 				 </when>
