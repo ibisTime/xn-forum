@@ -88,6 +88,8 @@ public class PostAOImpl implements IPostAO {
     @Transactional
     public String publishPost(String title, String content, String pic,
             String plateCode, String publisher, String isPublish) {
+        // 判断板块是否存在
+        plateBO.getPlate(plateCode);
         String code = null;
         if (EBoolean.NO.getCode().equals(isPublish)) {
             code = postBO.savePost(title, content, pic, plateCode, publisher,
@@ -132,6 +134,8 @@ public class PostAOImpl implements IPostAO {
     @Transactional
     public String draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish) {
+        // 判断板块是否存在
+        plateBO.getPlate(plateCode);
         if (EBoolean.NO.getCode().equals(isPublish)) {
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
                 EPostStatus.DRAFT.getCode());
