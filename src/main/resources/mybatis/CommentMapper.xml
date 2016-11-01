@@ -10,11 +10,12 @@
 		<result column="commer" property="commer" />
 		
 		<result column="nickname" property="nickname" />
+		<result column="login_name" property="loginName" />
 		<result column="comm_datetime" property="commDatetime" />
 		<result column="approver" property="approver" />
 		<result column="approve_datetime" property="approveDatetime" />
-		<result column="approve_note" property="approveNote" />
 		
+		<result column="approve_note" property="approveNote" />
 		<result column="remark" property="remark" />
 		<result column="post_code" property="postCode" />
 	</resultMap>
@@ -56,10 +57,12 @@
 		,t.status
 		,t.commer
 		
-		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname
+		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname,
+		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.commer) as login_name,
 		,t.comm_datetime
 		,t.approver
 		,t.approve_datetime
+		
 		,t.approve_note
 		,t.remark
 		,t.post_code

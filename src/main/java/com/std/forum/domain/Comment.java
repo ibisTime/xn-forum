@@ -64,6 +64,9 @@ public class Comment extends ABaseDO {
     // 昵称
     private String nickname;
 
+    // 登录名
+    private String loginName;
+
     // 父级昵称
     private String parentNickname;
 
@@ -221,5 +224,13 @@ public class Comment extends ABaseDO {
 
     public void setSiteCode(String siteCode) {
         this.siteCode = siteCode;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 }
