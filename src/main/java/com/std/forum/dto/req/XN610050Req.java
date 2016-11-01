@@ -5,7 +5,7 @@ public class XN610050Req {
     // 帖子编号（必填）
     private String code;
 
-    // 板块编号（必填）
+    // 版块编号（必填）
     private String plateCode;
 
     public String getCode() {

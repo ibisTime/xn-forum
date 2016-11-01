@@ -7,7 +7,7 @@ import com.std.forum.dto.req.XN610030Req;
 
 public class PlateConverter {
 
-    // 新增板块
+    // 新增版块
     public static Plate converter(XN610020Req req) {
         Plate result = new Plate();
         result.setName(req.getName());
@@ -23,7 +23,7 @@ public class PlateConverter {
         return result;
     }
 
-    // 修改板块
+    // 修改版块
     public static Plate converter(XN610021Req req) {
         Plate result = new Plate();
         result.setCode(req.getCode());
@@ -39,7 +39,7 @@ public class PlateConverter {
         return result;
     }
 
-    // 分页查询板块
+    // 分页查询版块
     public static Plate converter(XN610030Req req) {
         Plate result = new Plate();
         result.setNameForQuery(req.getName());

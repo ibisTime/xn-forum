@@ -13,7 +13,7 @@ import java.util.Date;
 import com.std.forum.dao.base.ABaseDO;
 
 /** 
- * 板块
+ * 版块
  * @author: xieyj 
  * @since: 2016年8月28日 下午8:20:42 
  * @history:

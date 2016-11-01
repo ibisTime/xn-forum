@@ -121,24 +121,26 @@ public class KeywordBOImpl extends PaginableBOImpl<Keyword> implements
     public List<Keyword> checkContent(String content, String level,
             EReaction reaction) {
         List<Keyword> resultList = new ArrayList<Keyword>();
-        // 针对等级
-        Keyword condition = new Keyword();
-        condition.setLevel(level);
-        condition.setWeightStart(0.5);
-        condition.setReaction(reaction.getCode());
-        List<Keyword> list = keywordDAO.selectList(condition);
-        for (Keyword keyword : list) {
-            if (content.indexOf(keyword.getWord()) >= 0) {
-                resultList.add(keyword);
+        if (StringUtils.isNotBlank(content)) {
+            // 针对等级
+            Keyword condition = new Keyword();
+            condition.setLevel(level);
+            condition.setWeightStart(0.5);
+            condition.setReaction(reaction.getCode());
+            List<Keyword> list = keywordDAO.selectList(condition);
+            for (Keyword keyword : list) {
+                if (content.indexOf(keyword.getWord()) >= 0) {
+                    resultList.add(keyword);
+                }
             }
-        }
-        // 针对所有
-        condition.setLevel(EBoolean.NO.getCode()); // level=0 所有
-        condition.setWeightStart(0.5);
-        List<Keyword> allList = keywordDAO.selectList(condition);
-        for (Keyword keyword : allList) {
-            if (content.indexOf(keyword.getWord()) >= 0) {
-                resultList.add(keyword);
+            // 针对所有
+            condition.setLevel(EBoolean.NO.getCode()); // level=0 所有
+            condition.setWeightStart(0.5);
+            List<Keyword> allList = keywordDAO.selectList(condition);
+            for (Keyword keyword : allList) {
+                if (content.indexOf(keyword.getWord()) >= 0) {
+                    resultList.add(keyword);
+                }
             }
         }
         return resultList;

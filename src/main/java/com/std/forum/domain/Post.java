@@ -61,7 +61,7 @@ public class Post extends ABaseDO {
     // UI序号
     private String orderNo;
 
-    // 板块编号
+    // 版块编号
     private String plateCode;
 
     // 是否锁帖
@@ -131,7 +131,7 @@ public class Post extends ABaseDO {
     // 图片数组
     private String[] picArr;
 
-    // 板块名称
+    // 版块名称
     private String plateName;
 
     public String getCode() {

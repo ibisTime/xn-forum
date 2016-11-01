@@ -13,7 +13,7 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 修改板块信息
+ * 修改版块信息
  * @author: xieyj 
  * @since: 2016年10月10日 下午5:40:38 
  * @history:

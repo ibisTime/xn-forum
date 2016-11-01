@@ -50,9 +50,9 @@ public class PlateAOImpl implements IPlateAO {
      */
     @Override
     public void editPlate(Plate data) {
-        // 获取板块信息
+        // 获取版块信息
         Plate plate = plateBO.getPlate(data.getCode());
-        // 判断板块名称是否存在
+        // 判断版块名称是否存在
         plateBO.isExistPlateName(data.getCode(), data.getName(),
             plate.getSiteCode());
         plateBO.refreshPlate(data);

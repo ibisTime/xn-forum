@@ -17,7 +17,7 @@ public class XN610040Req {
     // 多张图片（选填）
     private String pic;
 
-    // 所属板块（必填）
+    // 所属版块（必填）
     private String plateCode;
 
     // 发布人（必填）

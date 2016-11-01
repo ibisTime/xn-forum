@@ -1,7 +1,7 @@
 package com.std.forum.dto.req;
 
 /** 
- * 板块新增
+ * 版块新增
  * @author: xieyj 
  * @since: 2016年8月29日 下午2:38:43 
  * @history:

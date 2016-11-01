@@ -14,7 +14,7 @@ import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.Plate;
 
 /** 
- * 板块
+ * 版块
  * @author: xieyj 
  * @since: 2016年8月29日 下午1:21:32 
  * @history:

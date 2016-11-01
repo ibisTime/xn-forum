@@ -88,7 +88,7 @@ public class PostAOImpl implements IPostAO {
     @Transactional
     public String publishPost(String title, String content, String pic,
             String plateCode, String publisher, String isPublish) {
-        // 判断板块是否存在
+        // 判断版块是否存在
         plateBO.getPlate(plateCode);
         String code = null;
         if (EBoolean.NO.getCode().equals(isPublish)) {
@@ -134,7 +134,7 @@ public class PostAOImpl implements IPostAO {
     @Transactional
     public String draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish) {
-        // 判断板块是否存在
+        // 判断版块是否存在
         plateBO.getPlate(plateCode);
         if (EBoolean.NO.getCode().equals(isPublish)) {
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
@@ -209,7 +209,7 @@ public class PostAOImpl implements IPostAO {
                 map.put(data.getCode(), data);
             }
             if (null == map.get(plate.getCode()) && !userId.equals(publisher)) {
-                throw new BizException("xn000000", "当前用户不是该板块版主或发布用户，无法删除");
+                throw new BizException("xn000000", "当前用户不是该版块版主或发布用户，无法删除");
             }
         }
         if (EPostType.TZ.getCode().equals(type)) {
@@ -338,7 +338,7 @@ public class PostAOImpl implements IPostAO {
         postBO.getPost(code);
         Plate plate = plateBO.getPlate(plateCode);
         if (EBoolean.NO.getCode().equals(plate.getStatus())) {
-            throw new BizException("xn000000", "该板块状态为未启用");
+            throw new BizException("xn000000", "该版块状态为未启用");
         }
         postBO.refreshPostPlate(code, plateCode);
     }
@@ -524,21 +524,11 @@ public class PostAOImpl implements IPostAO {
     // 定时取消帖子的置顶，精华，头条的过时属性
     @Override
     public void doChangePostLocation() {
-        System.out.println("doChangePostLocation");
+        System.out
+            .println("*************doChangePostLocation start*************");
         Post condition = new Post();
-        List<Post> postList = new ArrayList<Post>();
-        condition.setLocation(ELocation.JH.getCode());
-        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
-            postList.addAll(postBO.queryPostList(condition));
-        }
-        condition.setLocation(ELocation.TT.getCode());
-        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
-            postList.addAll(postBO.queryPostList(condition));
-        }
-        condition.setLocation(ELocation.ZD.getCode());
-        if (CollectionUtils.isNotEmpty(postBO.queryPostList(condition))) {
-            postList.addAll(postBO.queryPostList(condition));
-        }
+        condition.setLocation(ELocation.ALL.getCode());
+        List<Post> postList = postBO.queryPostList(condition);
         if (CollectionUtils.isNotEmpty(postList)) {
             for (Post post : postList) {
                 if (post.getValidDatetimeEnd().before(new Date())) {
@@ -546,5 +536,7 @@ public class PostAOImpl implements IPostAO {
                 }
             }
         }
+        System.out
+            .println("*************doChangePostLocation end*************");
     }
 }

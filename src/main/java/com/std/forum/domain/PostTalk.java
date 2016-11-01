@@ -45,7 +45,7 @@ public class PostTalk extends ABaseDO {
     // 备注
     private String remark;
 
-    // 板块编号
+    // 版块编号
     private String plateCode;
 
     // ------------db properties------------

@@ -9,7 +9,7 @@ import java.util.Map;
  * @history:
  */
 public enum ELocation {
-    ZD("A", "置顶"), JH("B", "精华"), TT("C", "头条");
+    ZD("A", "置顶"), JH("B", "精华"), TT("C", "头条"), ALL("D", "所有");
     public static Map<String, ELocation> getLocationResultMap() {
         Map<String, ELocation> map = new HashMap<String, ELocation>();
         for (ELocation status : ELocation.values()) {

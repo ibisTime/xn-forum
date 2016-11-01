@@ -56,7 +56,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
             }
         }
         if (resultFlag == true) {
-            throw new BizException("xn000000", "板块名称已存在");
+            throw new BizException("xn000000", "版块名称已存在");
         }
     }
 
@@ -99,7 +99,7 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
             condition.setCode(code);
             result = plateDAO.select(condition);
             if (result == null) {
-                throw new BizException("xn000000", "板块编号不存在");
+                throw new BizException("xn000000", "版块编号不存在");
             }
         }
         return result;

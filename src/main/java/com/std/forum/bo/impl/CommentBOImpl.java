@@ -21,6 +21,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.ICommentDAO;
 import com.std.forum.domain.Comment;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPostStatus;
 import com.std.forum.enums.EPrefixCode;
 
@@ -104,13 +105,17 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
      * @see com.std.forum.bo.IPostBO#refreshPostApprove(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public int refreshCommentApprove(String code, String status,
+    public int refreshCommentApprove(String code, String approveResult,
             String approver, String approveNote) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Comment data = new Comment();
             data.setCode(code);
-            data.setStatus(status);
+            if (EBoolean.YES.getCode().equals(approveResult)) {
+                data.setStatus(EPostStatus.APPROVE_YES.getCode());
+            } else {
+                data.setStatus(EPostStatus.APPROVE_NO.getCode());
+            }
             data.setApprover(approver);
             data.setApproveDatetime(new Date());
             data.setApproveNote(approveNote);
@@ -130,7 +135,7 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
             data.setCode(code);
             data.setStatus(EPostStatus.toReportAPPROVE.getCode());
             data.setRemark(remark);
-            count = commentDAO.updateApprove(data);
+            count = commentDAO.updateStatus(data);
         }
         return count;
     }

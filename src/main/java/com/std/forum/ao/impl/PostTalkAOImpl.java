@@ -84,6 +84,9 @@ public class PostTalkAOImpl implements IPostTalkAO {
         } else {
             type = ETalkType.PLJB.getCode();
             Comment comment = commentBO.getComment(code);
+            if (comment == null) {
+                throw new BizException("xn000000", "评论编号不存在");
+            }
             if (EPostStatus.APPROVE_YES.getCode().equals(comment.getStatus())) {
                 throw new BizException("xn000000", "该评论已审核通过，不能举报");
             }
@@ -106,7 +109,7 @@ public class PostTalkAOImpl implements IPostTalkAO {
         condition.setTalker(reporter);
         List<PostTalk> reporterList = postTalkBO.queryPostTalkList(condition);
         if (CollectionUtils.isNotEmpty(reporterList)) {
-            throw new BizException("xn000000", "该用户已经举报过该贴，无需再次举报");
+            throw new BizException("xn000000", "您已举报成功，无需再次举报");
         }
         List<PostTalk> reportList = postTalkBO.queryPostTalkSingleList(code,
             type);

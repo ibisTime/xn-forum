@@ -28,7 +28,7 @@ public class XN610070Req extends APageReq {
     // 置顶 A/精华 B/ 头条 C（选填）
     private String location;
 
-    // 板块编号 （选填）
+    // 版块编号 （选填）
     private String plateCode;
 
     // 站点编号（选填）

@@ -7,7 +7,7 @@ package com.std.forum.enums;
  * @history:
  */
 public enum EPrefixCode {
-    SITE("ZD", "站点"), PLATE("BK", "板块"), POST("TZ", "帖子"), POSTTALK("JL", "交流"), COMMENT(
+    SITE("ZD", "站点"), PLATE("BK", "版块"), POST("TZ", "帖子"), POSTTALK("JL", "交流"), COMMENT(
             "PL", "评论"), KEYWORD("GJ", "关键字"), NAVIGATE("DH", "导航"), RULE("GZ",
             "规则"), PRODUCT("CP", "产品"), PRODORDER("DD", "产品订单");
 

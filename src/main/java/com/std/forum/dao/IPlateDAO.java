@@ -12,7 +12,7 @@ import com.std.forum.dao.base.IBaseDAO;
 import com.std.forum.domain.Plate;
 
 /** 
- * 板块DAO
+ * 版块DAO
  * @author: xieyj 
  * @since: 2016年8月28日 下午9:38:49 
  * @history:
@@ -21,7 +21,7 @@ public interface IPlateDAO extends IBaseDAO<Plate> {
     String NAMESPACE = IPlateDAO.class.getName().concat(".");
 
     /**
-     * 更新板块
+     * 更新版块
      */
     public int update(Plate data);
 

@@ -162,7 +162,11 @@ public class PostBOImpl extends PaginableBOImpl<Post> implements IPostBO {
             Post data = new Post();
             data.setCode(code);
             data.setLocation(location);
-            data.setValidDatetimeStart(new Date());
+            if (null == endDatetime) {
+                data.setValidDatetimeStart(endDatetime);
+            } else {
+                data.setValidDatetimeStart(new Date());
+            }
             data.setValidDatetimeEnd(endDatetime);
             count = postDAO.updateLocation(data);
         }

@@ -38,9 +38,17 @@
 			<if test="title != null and title != '' ">
 		        AND t.title = #{title}
 			</if>
-			<if test="location != null and location != '' ">
-		        AND t.location = #{location}
-			</if>
+			<choose>
+			     <when test='location == "D"'>
+				 	AND t.location in ('A','B','C')
+				 </when>
+				 <otherwise>
+					 <if test="location != null and location != '' ">
+		        		AND t.location = #{location}
+					 </if>
+				 </otherwise>
+			</choose>
+			
 			<if test="keyword != null and keyword != '' ">
 		        AND (t.title like "%"#{keyword}"%" or t.content like "%"#{keyword}"%")
 			</if>
@@ -115,7 +123,7 @@
 		FROM
 		tforum_post t left join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
-		ORDER BY t.code DESC	
+		ORDER BY t.valid_datetime_start DESC, t.code DESC	
 	</select>
 
 	<select id="select_post_count" parameterType="post"

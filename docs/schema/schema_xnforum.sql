@@ -57,8 +57,8 @@ CREATE TABLE `tforum_plate` (
 DROP TABLE IF EXISTS `tforum_post`;
 CREATE TABLE `tforum_post` (
   `code` varchar(32) NOT NULL COMMENT '编号',
-  `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `content` text COMMENT '内容',
+  `title` text CHARACTER SET utf8mb4 COMMENT '标题',
+  `content` text CHARACTER SET utf8mb4 COMMENT '内容',
   `pic` text COMMENT '图片',
   `status` varchar(4) DEFAULT NULL COMMENT '状态',
   `publisher` varchar(32) DEFAULT NULL COMMENT '发布人',
@@ -96,7 +96,7 @@ CREATE TABLE `tforum_post_talk` (
 DROP TABLE IF EXISTS `tforum_comment`;
 CREATE TABLE `tforum_comment` (
   `code` varchar(32) NOT NULL COMMENT '编号',
-  `content` text COMMENT '内容',
+  `content` text CHARACTER SET utf8mb4 COMMENT '内容',
   `parent_code` varchar(32) DEFAULT NULL COMMENT '上级编号',
   `status` varchar(4) DEFAULT NULL COMMENT '状态',
   `commer` varchar(32) DEFAULT NULL COMMENT '评论人',
@@ -104,7 +104,7 @@ CREATE TABLE `tforum_comment` (
   `approver` varchar(32) DEFAULT NULL COMMENT '审核人',
   `approve_datetime` datetime DEFAULT NULL COMMENT '审核时间',
   `approve_note` varchar(255) DEFAULT NULL COMMENT '审核意见',
-  `remark` text DEFAULT NULL COMMENT '备注',
+  `remark` text COMMENT '备注',
   `post_code` varchar(32) DEFAULT NULL COMMENT '帖子编号',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
