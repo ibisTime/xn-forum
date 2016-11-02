@@ -35,5 +35,6 @@ public class XN610043 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN610043Req.class);
         StringValidater.validateBlank(req.getCode(), req.getReporter(),
             req.getReportNote(), req.getType());
+        StringValidater.validateEmoji(req.getReportNote());
     }
 }
