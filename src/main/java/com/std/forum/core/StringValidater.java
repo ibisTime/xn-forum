@@ -38,7 +38,7 @@ public class StringValidater {
             int len = param.length();
             for (int i = 0; i < len; i++) {
                 if (isEmojiCharacter(param.charAt(i))) {
-                    throw new BizException("xn000000", "包含表情符号，请删除");
+                    throw new BizException("xn000000", "包含表情符号，请删除哦");
                 }
             }
         }
