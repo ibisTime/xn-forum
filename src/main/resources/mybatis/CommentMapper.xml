@@ -40,6 +40,13 @@
 					</if>
 				 </otherwise>
 			</choose>
+			<choose>
+				 <when test='isNextComment == "1"'>
+				 	AND EXISTS (select * from tforum_comment tfc where tfc.parent_code = t.code)
+				 </when>
+				 <otherwise>
+				 </otherwise>
+			</choose>
 			<if test="commer != null and commer != '' ">
 		        AND t.commer = #{commer}
 			</if>
@@ -77,7 +84,7 @@
 		SELECT count(1) FROM tforum_comment t left join tforum_post tp on t.post_code = tp.code left join tforum_plate tpt on tp.plate_code = tpt.code
 		<include refid="where_condition" />
 	</select>
-
+	
 	<insert id="insert_comment" parameterType="comment">
 		INSERT INTO
 		tforum_comment(

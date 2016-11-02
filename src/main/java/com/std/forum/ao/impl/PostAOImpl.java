@@ -290,7 +290,7 @@ public class PostAOImpl implements IPostAO {
             if (EPostStatus.toReportAPPROVE.getCode().equals(post.getStatus())
                     && EBoolean.NO.getCode().equals(approveResult)) {
                 userBO.doTransfer(post.getPublisher(),
-                    EDirection.MINUS.getCode(), ERuleType.TZJB.getCode(), code);
+                    EDirection.MINUS.getCode(), ERuleType.TZWG.getCode(), code);
             }
         } else if (EPostType.PL.getCode().equals(type)) {
             type = ETalkType.PLJB.getCode();
@@ -307,7 +307,7 @@ public class PostAOImpl implements IPostAO {
                 comment.getStatus())
                     && EBoolean.NO.getCode().equals(approveResult)) {
                 userBO.doTransfer(comment.getCommer(),
-                    EDirection.MINUS.getCode(), ERuleType.PLJB.getCode(), code);
+                    EDirection.MINUS.getCode(), ERuleType.PLWG.getCode(), code);
             }
         }
     }

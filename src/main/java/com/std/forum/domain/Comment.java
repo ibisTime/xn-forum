@@ -79,6 +79,9 @@ public class Comment extends ABaseDO {
     // 被评论
     private List<Comment> nextCommentList;
 
+    // 1 下面一定有评论
+    private String isNextComment;
+
     // 所属站点
     private String siteCode;
 
@@ -232,5 +235,13 @@ public class Comment extends ABaseDO {
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+    }
+
+    public String getIsNextComment() {
+        return isNextComment;
+    }
+
+    public void setIsNextComment(String isNextComment) {
+        this.isNextComment = isNextComment;
     }
 }

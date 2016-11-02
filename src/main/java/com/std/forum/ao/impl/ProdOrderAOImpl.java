@@ -41,9 +41,7 @@ public class ProdOrderAOImpl implements IProdOrderAO {
         // 订单作废，退还积分
         Product product = productBO.getProduct(data.getProductCode());
         userBO.doTransfer(data.getPayer(), EDirection.PLUS.getCode(),
-            data.getPayPrice(),
-            "退还商品:[" + product.getName() + "，退还积分" + data.getPayPrice() / 1000,
-            code);
+            data.getPayPrice(), "退还商品:" + product.getName(), code);
     }
 
     @Override

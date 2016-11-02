@@ -65,7 +65,7 @@ public class CommentAOImpl implements ICommentAO {
         Post parentPost = getPostByParentCode(parentCode);
         String code = commentBO.saveComment(content, parentCode, status,
             commer, parentPost.getCode());
-        // 评论加积分
+        // 评论送钱
         if (EPostStatus.PUBLISHED.getCode().equals(status)) {
             userBO.doTransfer(commer, EDirection.PLUS.getCode(),
                 ERuleType.PL.getCode(), code);

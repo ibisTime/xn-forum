@@ -9,6 +9,7 @@ import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
 import com.std.forum.domain.Comment;
 import com.std.forum.dto.req.XN610077Req;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
@@ -30,6 +31,7 @@ public class XN610077 extends AProcessor {
     public Object doBusiness() throws BizException {
         Comment condition = new Comment();
         condition.setCommer(req.getUserId());
+        condition.setIsNextComment(EBoolean.YES.getCode());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;

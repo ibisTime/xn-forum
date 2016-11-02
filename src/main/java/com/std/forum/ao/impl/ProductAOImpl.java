@@ -101,7 +101,7 @@ public class ProductAOImpl implements IProductAO {
             totalPrice, "提货地点:" + takeAddress);
         // 扣除用户积分(必须放最后)
         userBO.doTransfer(userId, EDirection.MINUS.getCode(), totalPrice,
-            "兑换商品:[" + product.getName() + ",购买" + quantity + "件]", code);
+            "兑换商品:" + product.getName() + ",购买" + quantity + "件", code);
         return new XN610320Res(code, takeAddress);
     }
 
