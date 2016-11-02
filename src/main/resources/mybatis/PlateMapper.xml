@@ -78,7 +78,7 @@
 		
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.status in('B','D')) as post_count
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code) as all_post_count
-		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and date(tp.publish_datetime) = curdate()) as today_post_count
+		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and date(tp.publish_datetime) = curdate() and tp.status in('B','D')) as today_post_count
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='A') as zd_count
 		,(SELECT count(1) from tforum_post tp where tp.plate_code = t.code and tp.location='B') as jh_count
 		FROM
