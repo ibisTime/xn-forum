@@ -33,4 +33,7 @@
 	<bean id="prodOrderBO" class="com.std.forum.bo.impl.ProdOrderBOImpl">
 		<property name="paginableDAO" ref="prodOrderDAOImpl" />
 	</bean>
+	<bean id="categoryBO" class="com.std.forum.bo.impl.CategoryBOImpl">
+		<property name="paginableDAO" ref="categoryDAOImpl" />
+	</bean>
 </beans>

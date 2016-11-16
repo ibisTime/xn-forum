@@ -31,7 +31,7 @@ public class Plate extends ABaseDO {
     // 名称
     private String name;
 
-    // 类别(1 生活 2 工作)
+    // 类别
     private String kind;
 
     // 图片

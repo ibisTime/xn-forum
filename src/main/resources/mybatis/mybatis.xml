@@ -10,5 +10,6 @@
 		
 		<typeAlias alias="product" type="com.std.forum.domain.Product" />
 		<typeAlias alias="prodOrder" type="com.std.forum.domain.ProdOrder" />
+		<typeAlias alias="category" type="com.std.forum.domain.Category" />
 	</typeAliases>
 </configuration>	
