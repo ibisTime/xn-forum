@@ -142,12 +142,12 @@ public class CommentAOImpl implements ICommentAO {
             // 获取帖子
             Post post = postBO.getPost(comment.getPostCode());
             comment.setPost(post);
-            // 获取下级评论
-            Comment cCondition = new Comment();
-            cCondition.setParentCode(comment.getCode());
-            List<Comment> nextCommentList = commentBO
-                .queryCommentList(cCondition);
-            comment.setNextCommentList(nextCommentList);
+            // 获取上级评论
+            if (!comment.getParentCode().equals(comment.getPostCode())) {
+                Comment parentComment = commentBO.getComment(comment
+                    .getParentCode());
+                comment.setParentComment(parentComment);
+            }
         }
         return page;
     }

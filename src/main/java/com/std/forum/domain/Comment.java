@@ -9,7 +9,6 @@
 package com.std.forum.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import com.std.forum.dao.base.ABaseDO;
 
@@ -76,14 +75,14 @@ public class Comment extends ABaseDO {
     // 针对评论
     private Comment parentComment;
 
-    // 被评论
-    private List<Comment> nextCommentList;
-
-    // 1 下面一定有评论
-    private String isNextComment;
-
     // 所属站点
     private String siteCode;
+
+    // 1 评论我的
+    private String isCommentMy;
+
+    // 发布人
+    private String publisher;
 
     public String getCode() {
         return code;
@@ -165,14 +164,6 @@ public class Comment extends ABaseDO {
         this.parentComment = parentComment;
     }
 
-    public List<Comment> getNextCommentList() {
-        return nextCommentList;
-    }
-
-    public void setNextCommentList(List<Comment> nextCommentList) {
-        this.nextCommentList = nextCommentList;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -237,11 +228,19 @@ public class Comment extends ABaseDO {
         this.loginName = loginName;
     }
 
-    public String getIsNextComment() {
-        return isNextComment;
+    public String getIsCommentMy() {
+        return isCommentMy;
     }
 
-    public void setIsNextComment(String isNextComment) {
-        this.isNextComment = isNextComment;
+    public void setIsCommentMy(String isCommentMy) {
+        this.isCommentMy = isCommentMy;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 }

@@ -3,7 +3,6 @@ package com.std.forum.api.impl;
 import org.apache.commons.lang3.StringUtils;
 
 import com.std.forum.ao.ICommentAO;
-import com.std.forum.ao.IPostAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
@@ -30,11 +29,11 @@ public class XN610077 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Comment condition = new Comment();
-        condition.setCommer(req.getUserId());
-        condition.setIsNextComment(EBoolean.YES.getCode());
+        condition.setPublisher(req.getUserId());
+        condition.setIsCommentMy(EBoolean.YES.getCode());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
-            orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;
+            orderColumn = ICommentAO.DEFAULT_ORDER_COLUMN;
         }
         condition.setOrder(orderColumn, req.getOrderDir());
         int start = StringValidater.toInteger(req.getStart());
