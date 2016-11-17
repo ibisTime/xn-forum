@@ -64,6 +64,7 @@
 		,t.commer
 		
 		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname
+		,(select photo from ${userDB}.tstd_user_ext tue where tue.user_id=t.commer) as photo
 		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.commer) as login_name
 		,t.comm_datetime
 		,t.approver

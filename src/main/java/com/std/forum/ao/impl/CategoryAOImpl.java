@@ -18,6 +18,11 @@ import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.ECategoryType;
 import com.std.forum.exception.BizException;
 
+/**
+ * @author: xieyj 
+ * @since: 2016年11月17日 上午8:35:16 
+ * @history:
+ */
 @Service
 public class CategoryAOImpl implements ICategoryAO {
 

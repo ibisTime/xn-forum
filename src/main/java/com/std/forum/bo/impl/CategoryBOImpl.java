@@ -14,6 +14,11 @@ import com.std.forum.domain.Category;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
+/**
+ * @author: xieyj 
+ * @since: 2016年11月17日 上午8:32:03 
+ * @history:
+ */
 @Component
 public class CategoryBOImpl extends PaginableBOImpl<Category> implements
         ICategoryBO {

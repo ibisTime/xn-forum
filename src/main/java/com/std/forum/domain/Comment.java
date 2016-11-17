@@ -66,6 +66,9 @@ public class Comment extends ABaseDO {
     // 登录名
     private String loginName;
 
+    // 头像
+    private String photo;
+
     // 父级昵称
     private String parentNickname;
 
@@ -242,5 +245,13 @@ public class Comment extends ABaseDO {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
