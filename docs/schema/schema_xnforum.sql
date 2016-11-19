@@ -16,6 +16,20 @@ SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+--  Table structure for `tforum_category`
+-- ----------------------------
+CREATE TABLE `tforum_category` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `parent_code` varchar(32) DEFAULT NULL COMMENT '父节点',
+  `type` varchar(4) DEFAULT NULL COMMENT '类型',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `pic` varchar(255) DEFAULT NULL COMMENT '图片',
+  `order_no` int(11) DEFAULT NULL COMMENT '序号',
+  `company_code` varchar(32) DEFAULT NULL COMMENT '公司编号',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `tforum_keyword`
 -- ----------------------------
 DROP TABLE IF EXISTS `tforum_keyword`;
@@ -38,7 +52,7 @@ DROP TABLE IF EXISTS `tforum_plate`;
 CREATE TABLE `tforum_plate` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
-  `kind` varchar(4) DEFAULT NULL COMMENT '大类',
+  `kind` varchar(32) DEFAULT NULL COMMENT '大类',
   `pic` varchar(255) DEFAULT NULL COMMENT '图片',
   `location` varchar(4) DEFAULT NULL COMMENT '位置(1 帖子引流)',
   `order_no` int(11) DEFAULT NULL COMMENT '序号',
@@ -116,7 +130,7 @@ DROP TABLE IF EXISTS `tforum_product`;
 CREATE TABLE `tforum_product` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `name` varchar(64) DEFAULT NULL,
-  `kind` varchar(4) DEFAULT NULL COMMENT '类别',
+  `kind` varchar(32) DEFAULT NULL COMMENT '类别',
   `pic` varchar(255) DEFAULT NULL COMMENT '图片',
   `description` text COMMENT '描述',
   `status` varchar(4) DEFAULT NULL COMMENT '状态(1 上架中 0 已下架)',
