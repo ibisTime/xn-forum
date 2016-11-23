@@ -37,6 +37,7 @@ public class XN610802 extends AProcessor {
         if (StringUtils.isNotBlank(req.getOrderNo())) {
             data.setOrderNo(Integer.valueOf(req.getOrderNo()));
         }
+        data.setCompanyCode(req.getCompanyCode());
         categoryAO.editCategory(data);
         return new BooleanRes(true);
     }
@@ -45,6 +46,6 @@ public class XN610802 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610802Req.class);
         StringValidater.validateBlank(req.getCode(), req.getParentCode(),
-            req.getType(), req.getName());
+            req.getType(), req.getName(), req.getCompanyCode());
     }
 }

@@ -9,6 +9,7 @@
 		<result column="name" property="name" />
 		<result column="pic" property="pic" />
 		<result column="order_no" property="orderNo" />
+		<result column="belong" property="belong" />
 		<result column="company_code" property="companyCode" />
 	</resultMap>
 	<sql id="where_condition">
@@ -26,7 +27,7 @@
 				AND t.name = #{name}
 			</if>
 			<if test="companyCode != null and companyCode != '' ">
-				AND t.company_code = #{companyCode}
+				AND (t.company_code = #{companyCode} or (t.belong = 1 and NOT EXISTS (select * from tforum_category tc where tc.belong = t.code and tc.company_code = #{companyCode})))
 			</if>
 		</trim>
 	</sql>
@@ -38,6 +39,7 @@
 		,t.name
 		,t.pic
 		,t.order_no
+		,t.belong
 		,t.company_code
 		FROM
 		tforum_category t
@@ -64,6 +66,7 @@
 		,name
 		,pic
 		,order_no
+		,belong
 		,company_code
 		)
 		VALUES(
@@ -73,6 +76,7 @@
 		,#{name}
 		,#{pic}
 		,#{orderNo}
+		,#{belong}
 		,#{companyCode}
 		)
 	</insert>
