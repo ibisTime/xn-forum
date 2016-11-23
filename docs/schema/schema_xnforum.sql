@@ -18,6 +18,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 --  Table structure for `tforum_category`
 -- ----------------------------
+DROP TABLE IF EXISTS `tforum_category`;
 CREATE TABLE `tforum_category` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `parent_code` varchar(32) DEFAULT NULL COMMENT '父节点',
