@@ -1,5 +1,7 @@
 package com.std.forum.api.impl;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.std.forum.ao.ICategoryAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
@@ -28,6 +30,11 @@ public class XN610806 extends AProcessor {
         condition.setType(req.getType());
         condition.setName(req.getName());
         condition.setCompanyCode(req.getCompanyCode());
+        String orderColumn = req.getOrderColumn();
+        if (StringUtils.isBlank(orderColumn)) {
+            orderColumn = ICategoryAO.DEFAULT_ORDER_COLUMN;
+        }
+        condition.setOrder(orderColumn, req.getOrderDir());
         return categoryAO.queryCategoryList(condition);
     }
 

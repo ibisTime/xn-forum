@@ -13,6 +13,26 @@ public class XN610806Req {
     // 所属公司编号(必填)
     private String companyCode;
 
+    private String orderColumn;// 分页字段
+
+    private String orderDir;// 分页方向
+
+    public String getOrderColumn() {
+        return orderColumn;
+    }
+
+    public void setOrderColumn(String orderColumn) {
+        this.orderColumn = orderColumn;
+    }
+
+    public String getOrderDir() {
+        return orderDir;
+    }
+
+    public void setOrderDir(String orderDir) {
+        this.orderDir = orderDir;
+    }
+
     public String getParentCode() {
         return parentCode;
     }

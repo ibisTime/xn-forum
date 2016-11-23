@@ -87,7 +87,8 @@ public class ProductAOImpl implements IProductAO {
         if (!EProductStatus.PUBLISH_YES.getCode().equals(product.getStatus())) {
             throw new BizException("xn0000", "该商品还未上架");
         }
-        if (product.getQuantity() != null && product.getQuantity() == 0) {
+        if (product.getQuantity() != null
+                && (product.getQuantity() - quantity) < 0) {
             throw new BizException("xn0000", "该商品库存量不足，无法购买");
         }
         // 减去库存量
