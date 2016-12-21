@@ -123,7 +123,7 @@
 		FROM
 		tforum_post t left join tforum_plate tp on t.plate_code = tp.code left join tforum_post_talk tpt on t.code = tpt.post_code 
 		<include refid="where_condition" />
-		ORDER BY t.valid_datetime_start DESC, t.code DESC	
+		ORDER BY t.valid_datetime_start DESC, t.publish_datetime DESC	
 	</select>
 
 	<select id="select_post_count" parameterType="post"
