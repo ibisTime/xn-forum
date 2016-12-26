@@ -29,6 +29,7 @@ public class XN610075 extends AProcessor {
         Post condition = new Post();
         condition.setPublisher(req.getUserId());
         condition.setStatus(req.getStatus());
+        condition.setUserId(req.getUserId());
         String orderColumn = req.getOrderColumn();
         if (StringUtils.isBlank(orderColumn)) {
             orderColumn = IPostAO.DEFAULT_ORDER_COLUMN;

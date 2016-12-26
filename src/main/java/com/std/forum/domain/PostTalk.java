@@ -49,8 +49,29 @@ public class PostTalk extends ABaseDO {
     private String plateCode;
 
     // ------------db properties------------
+
     // 昵称
     private String nickname;
+
+    // 帖子名称
+    private String postTitle;
+
+    // 帖子内容
+    private String postContent;
+
+    // 发布人
+    private String publisher;
+
+    // 头像
+    private String photo;
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 
     public String getCode() {
         return code;
@@ -122,5 +143,29 @@ public class PostTalk extends ABaseDO {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public String getPostContent() {
+        return postContent;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

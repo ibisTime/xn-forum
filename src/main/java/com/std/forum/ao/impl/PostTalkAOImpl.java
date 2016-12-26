@@ -13,6 +13,7 @@ import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.IRuleBO;
 import com.std.forum.bo.IUserBO;
+import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
@@ -124,5 +125,22 @@ public class PostTalkAOImpl implements IPostTalkAO {
             result = true;
         }
         return result;
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostTalkAO#queryPostTalkPage(int, int, com.std.forum.domain.PostTalk)
+     */
+    @Override
+    public Paginable<PostTalk> queryPostTalkPage(int start, int limit,
+            PostTalk condition) {
+        return postTalkBO.getPaginable(start, limit, condition);
+    }
+
+    /** 
+     * @see com.std.forum.ao.IPostTalkAO#queryPostTalkList(com.std.forum.domain.Post)
+     */
+    @Override
+    public List<PostTalk> queryPostTalkList(PostTalk condition) {
+        return postTalkBO.queryPostTalkList(condition);
     }
 }

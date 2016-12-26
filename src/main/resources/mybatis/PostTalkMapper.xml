@@ -6,10 +6,13 @@
 		<result column="code" property="code" />
 		<result column="type" property="type" />
 		<result column="post_code" property="postCode" />
+		<result column="post_title" property="postTitle" />
+		<result column="post_content" property="postContent" />
 		<result column="talker" property="talker" />
 		<result column="nickname" property="nickname" />
-		<result column="remark" property="remark" />
+		<result column="photo" property="photo" />
 		<result column="talk_datetime" property="talkDatetime" />
+		<result column="remark" property="remark" />
 	</resultMap>
 	
 	<sql id="where_condition">
@@ -26,28 +29,35 @@
 			<if test="talker != null and talker != '' ">
 		        AND t.talker = #{talker}
 			</if>
+			<if test="publisher != null and publisher != '' ">
+		        AND tp.publisher = #{publisher}
+			</if>
 		</trim>
 	</sql>
 	
 	<select id="select_postTalk" parameterType="postTalk" resultMap="postTalk_DB_Result">
 		SELECT
-		code
-		,type
-		,post_code
-		,talker
-		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.talker) as nickname
+		t.code
+		,t.type
+		,t.post_code
+		,tp.title as post_title
+		,tp.content as post_content
 		
-		,talk_datetime
-		,remark
+		,t.talker
+		
+		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.talker) as nickname
+		,(select photo from ${userDB}.tstd_user_ext tue where tue.user_id=t.talker) as photo
+		,t.talk_datetime
+		,t.remark
 		FROM
-		tforum_post_talk t
+		tforum_post_talk t inner join tforum_post tp on t.post_code = tp.code
 		<include refid="where_condition" />
 		ORDER BY t.code DESC	
 	</select>
 	
 	<select id="select_postTalk_count" parameterType="postTalk"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tforum_post_talk t
+		SELECT count(1) FROM tforum_post_talk t inner join tforum_post tp on t.post_code = tp.code
 		<include refid="where_condition" />
 	</select>
 	

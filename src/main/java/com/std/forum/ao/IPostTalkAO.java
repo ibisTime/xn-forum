@@ -1,5 +1,10 @@
 package com.std.forum.ao;
 
+import java.util.List;
+
+import com.std.forum.bo.base.Paginable;
+import com.std.forum.domain.PostTalk;
+
 /**
  * 点赞/收藏/打赏/阅读/帖子举报/评论举报
  * @author: xieyj 
@@ -25,4 +30,9 @@ public interface IPostTalkAO {
      */
     public void reportPost(String code, String reporter, String reportNote,
             String type);
+
+    public Paginable<PostTalk> queryPostTalkPage(int start, int limit,
+            PostTalk condition);
+
+    public List<PostTalk> queryPostTalkList(PostTalk condition);
 }

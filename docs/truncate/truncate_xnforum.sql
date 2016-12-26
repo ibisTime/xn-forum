@@ -5,3 +5,4 @@ truncate tforum_post;
 truncate tforum_post_talk;
 truncate tforum_prod_order;
 truncate tforum_product;
+truncate tforum_category;

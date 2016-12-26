@@ -41,11 +41,10 @@
 				 </otherwise>
 			</choose>
 			<choose>
-				 <when test='isNextComment == "1"'>
-				 	AND EXISTS (select * from tforum_comment tfc where tfc.parent_code = t.code)
+				 <when test='isCommentMy == "1"'>
+				 	AND (EXISTS (select * from tforum_comment tfc where tfc.code = t.parent_code and tfc.commer=#{publisher})
+				 	OR EXISTS (select * from tforum_post tfp where tfp.code = t.parent_code and tfp.publisher=#{publisher}))
 				 </when>
-				 <otherwise>
-				 </otherwise>
 			</choose>
 			<if test="commer != null and commer != '' ">
 		        AND t.commer = #{commer}
@@ -65,6 +64,7 @@
 		,t.commer
 		
 		,(select nickname from ${userDB}.tstd_user tu where tu.user_id=t.commer) as nickname
+		,(select photo from ${userDB}.tstd_user_ext tue where tue.user_id=t.commer) as photo
 		,(select login_name from ${userDB}.tstd_user tu where tu.user_id=t.commer) as login_name
 		,t.comm_datetime
 		,t.approver
