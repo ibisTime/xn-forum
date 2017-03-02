@@ -21,6 +21,7 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.IPlateDAO;
 import com.std.forum.domain.Plate;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
@@ -125,5 +126,13 @@ public class PlateBOImpl extends PaginableBOImpl<Plate> implements IPlateBO {
             list = plateDAO.selectList(condition);
         }
         return list;
+    }
+
+    @Override
+    public List<Plate> queryDefaultPlateList(String kind) {
+        Plate condition = new Plate();
+        condition.setKind(kind);
+        condition.setSiteCode(EBoolean.NO.getCode());
+        return plateDAO.selectList(condition);
     }
 }

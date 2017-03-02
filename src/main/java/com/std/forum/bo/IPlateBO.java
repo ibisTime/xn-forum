@@ -40,4 +40,6 @@ public interface IPlateBO extends IPaginableBO<Plate> {
     public List<Plate> getPlateByUserId(String userId);
 
     public List<Plate> queryPlateList(Plate condition);
+
+    public List<Plate> queryDefaultPlateList(String kind);
 }

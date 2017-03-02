@@ -1,6 +1,8 @@
 package com.std.forum.bo.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import com.std.forum.bo.base.PaginableBOImpl;
 import com.std.forum.core.OrderNoGenerater;
 import com.std.forum.dao.ICategoryDAO;
 import com.std.forum.domain.Category;
+import com.std.forum.enums.EBoolean;
+import com.std.forum.enums.ECategoryType;
 import com.std.forum.enums.EPrefixCode;
 import com.std.forum.exception.BizException;
 
@@ -40,11 +44,30 @@ public class CategoryBOImpl extends PaginableBOImpl<Category> implements
     public String saveCategory(Category data) {
         String code = null;
         if (data != null) {
-            code = OrderNoGenerater.generate(EPrefixCode.CATEGORY.getCode());
+            code = OrderNoGenerater.generateME(EPrefixCode.CATEGORY.getCode());
             data.setCode(code);
             categoryDAO.insert(data);
         }
         return code;
+    }
+
+    @Override
+    public Map<String, String> saveDefaultCategory(List<Category> list,
+            String companyCode) {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        for (Category category : list) {
+            Category data = new Category();
+            data.setParentCode(category.getParentCode());
+            data.setType(category.getType());
+            data.setName(category.getName());
+            data.setPic(category.getPic());
+            data.setOrderNo(category.getOrderNo());
+            data.setBelong(null);
+            data.setCompanyCode(companyCode);
+            String newCode = saveCategory(data);
+            resultMap.put(category.getCode(), newCode);
+        }
+        return resultMap;
     }
 
     @Override
@@ -84,5 +107,14 @@ public class CategoryBOImpl extends PaginableBOImpl<Category> implements
             }
         }
         return data;
+    }
+
+    @Override
+    public List<Category> queryCategoryList() {
+        Category condition = new Category();
+        condition.setType(ECategoryType.PLATE.getCode());
+        condition.setBelong(EBoolean.YES.getCode());
+        condition.setCompanyCode(EBoolean.NO.getCode());
+        return categoryDAO.selectList(condition);
     }
 }

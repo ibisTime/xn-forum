@@ -30,4 +30,13 @@ public interface IPlateAO {
     public List<Plate> queryPlateList(Plate condition);
 
     public Plate doGetPlate(String code);
+
+    /**
+     * 初始化平台拥有的分类和板块
+     * @param companyCode
+     * @param userId 
+     * @create: 2017年3月1日 下午5:42:58 xieyj
+     * @history:
+     */
+    public void initPlatPlate(String companyCode, String userId);
 }

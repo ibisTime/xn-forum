@@ -8,16 +8,21 @@
  */
 package com.std.forum.ao.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.IPlateAO;
+import com.std.forum.bo.ICategoryBO;
 import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.base.Paginable;
+import com.std.forum.domain.Category;
 import com.std.forum.domain.Plate;
 
 /** 
@@ -35,6 +40,9 @@ public class PlateAOImpl implements IPlateAO {
 
     @Autowired
     protected IPostBO postBO;
+
+    @Autowired
+    protected ICategoryBO categoryBO;
 
     /** 
      * @see com.std.forum.ao.IPlateAO#addPlate(com.std.forum.domain.Plate)
@@ -80,5 +88,36 @@ public class PlateAOImpl implements IPlateAO {
     @Override
     public Plate doGetPlate(String code) {
         return plateBO.getPlate(code);
+    }
+
+    /**
+     * @see com.std.forum.ao.IPlateAO#initPlatPlate(java.lang.String, java.lang.String)
+     */
+    @Override
+    @Transactional
+    public void initPlatPlate(String companyCode, String userId) {
+        List<Category> categoryList = categoryBO.queryCategoryList();
+        Map<String, String> resultMap = categoryBO.saveDefaultCategory(
+            categoryList, companyCode);
+        for (Category category : categoryList) {
+            List<Plate> plateList = plateBO.queryDefaultPlateList(category
+                .getCode());
+            String kind = resultMap.get(category.getCode());
+            for (Plate plate : plateList) {
+                Plate data = new Plate();
+                data.setName(plate.getName());
+                data.setPic(plate.getPic());
+                data.setLocation(plate.getLocation());
+                data.setOrderNo(plate.getOrderNo());
+                data.setStatus(plate.getStatus());
+                data.setUpdater("li");
+                data.setUpdateDatetime(new Date());
+                data.setRemark(plate.getRemark());
+                data.setKind(kind);
+                data.setSiteCode(companyCode);
+                data.setUserId(userId);
+                plateBO.savePlate(data);
+            }
+        }
     }
 }
