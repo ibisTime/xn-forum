@@ -14,12 +14,13 @@
   cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp9/wtpwebapps
   
 2，打包
-  scp -P57652 ./xn-forum.war root@121.43.101.148:/home
+  scp -P22 ./xn-forum.war root@121.43.101.148:/home
   T6dh%$%$ss1
   
 3，部署
-  ssh root@121.43.101.148 -p 57652
+  ssh root@121.43.101.148 -p 22
   
+  T6dh%$%$ss1
   cd /home/wwwroot/forum/tomcat_forum_biz/webapps
   cp ./xn-forum/WEB-INF/classes/application.properties .
   cp ./xn-forum/WEB-INF/classes/config.properties .

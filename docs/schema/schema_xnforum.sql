@@ -1,24 +1,4 @@
-/*
- Navicat MySQL Data Transfer
-
- Source Server         : localhost
- Source Server Version : 50624
- Source Host           : localhost
- Source Database       : csw_forum
-
- Target Server Version : 50624
- File Encoding         : utf-8
-
- Date: 10/09/2016 11:34:46 AM
-*/
-
-SET NAMES utf8;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
---  Table structure for `tforum_category`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_category`;
+DROP TABLE IF EXISTS  `tforum_category`;
 CREATE TABLE `tforum_category` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `parent_code` varchar(32) DEFAULT NULL COMMENT '父节点',
@@ -31,10 +11,23 @@ CREATE TABLE `tforum_category` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `tforum_keyword`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_keyword`;
+DROP TABLE IF EXISTS  `tforum_comment`;
+CREATE TABLE `tforum_comment` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `content` text CHARACTER SET utf8mb4 COMMENT '内容',
+  `parent_code` varchar(32) DEFAULT NULL COMMENT '上级编号',
+  `status` varchar(4) DEFAULT NULL COMMENT '状态',
+  `commer` varchar(32) DEFAULT NULL COMMENT '评论人',
+  `comm_datetime` datetime DEFAULT NULL COMMENT '评论时间',
+  `approver` varchar(32) DEFAULT NULL COMMENT '审核人',
+  `approve_datetime` datetime DEFAULT NULL COMMENT '审核时间',
+  `approve_note` varchar(255) DEFAULT NULL COMMENT '审核意见',
+  `remark` text COMMENT '备注',
+  `post_code` varchar(32) DEFAULT NULL COMMENT '帖子编号',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS  `tforum_keyword`;
 CREATE TABLE `tforum_keyword` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `word` varchar(255) DEFAULT NULL COMMENT '词语',
@@ -47,10 +40,7 @@ CREATE TABLE `tforum_keyword` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `tforum_plate`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_plate`;
+DROP TABLE IF EXISTS  `tforum_plate`;
 CREATE TABLE `tforum_plate` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
@@ -67,10 +57,7 @@ CREATE TABLE `tforum_plate` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `tforum_post`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_post`;
+DROP TABLE IF EXISTS  `tforum_post`;
 CREATE TABLE `tforum_post` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `title` text CHARACTER SET utf8mb4 COMMENT '标题',
@@ -88,14 +75,11 @@ CREATE TABLE `tforum_post` (
   `is_lock` char(1) DEFAULT NULL COMMENT '是否锁帖',
   `valid_datetime_start` datetime DEFAULT NULL COMMENT '有效期起',
   `valid_datetime_end` datetime DEFAULT NULL COMMENT '有效期止',
-  `remark` text DEFAULT NULL COMMENT '备注',
+  `remark` text COMMENT '备注',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `tforum_post_talk`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_post_talk`;
+DROP TABLE IF EXISTS  `tforum_post_talk`;
 CREATE TABLE `tforum_post_talk` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `type` varchar(4) DEFAULT NULL COMMENT '类型(1 点赞 2 收藏 3 打赏 4 举报 5 阅读)',
@@ -106,46 +90,7 @@ CREATE TABLE `tforum_post_talk` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `tforum_comment`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_comment`;
-CREATE TABLE `tforum_comment` (
-  `code` varchar(32) NOT NULL COMMENT '编号',
-  `content` text CHARACTER SET utf8mb4 COMMENT '内容',
-  `parent_code` varchar(32) DEFAULT NULL COMMENT '上级编号',
-  `status` varchar(4) DEFAULT NULL COMMENT '状态',
-  `commer` varchar(32) DEFAULT NULL COMMENT '评论人',
-  `comm_datetime` datetime DEFAULT NULL COMMENT '评论时间',
-  `approver` varchar(32) DEFAULT NULL COMMENT '审核人',
-  `approve_datetime` datetime DEFAULT NULL COMMENT '审核时间',
-  `approve_note` varchar(255) DEFAULT NULL COMMENT '审核意见',
-  `remark` text COMMENT '备注',
-  `post_code` varchar(32) DEFAULT NULL COMMENT '帖子编号',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `tforum_product`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_product`;
-CREATE TABLE `tforum_product` (
-  `code` varchar(32) NOT NULL COMMENT '编号',
-  `name` varchar(64) DEFAULT NULL,
-  `kind` varchar(32) DEFAULT NULL COMMENT '类别',
-  `pic` varchar(255) DEFAULT NULL COMMENT '图片',
-  `description` text COMMENT '描述',
-  `status` varchar(4) DEFAULT NULL COMMENT '状态(1 上架中 0 已下架)',
-  `price` bigint(20) DEFAULT NULL COMMENT '价格',
-  `quantity` int(11) DEFAULT NULL COMMENT '库存',
-  `site_code` varchar(32) DEFAULT NULL COMMENT '站点编号',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `tforum_prod_order`
--- ----------------------------
-DROP TABLE IF EXISTS `tforum_prod_order`;
+DROP TABLE IF EXISTS  `tforum_prod_order`;
 CREATE TABLE `tforum_prod_order` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `product_code` varchar(32) DEFAULT NULL COMMENT '商品编号',
@@ -160,4 +105,16 @@ CREATE TABLE `tforum_prod_order` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET FOREIGN_KEY_CHECKS = 1;
+DROP TABLE IF EXISTS  `tforum_product`;
+CREATE TABLE `tforum_product` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `name` varchar(64) DEFAULT NULL,
+  `kind` varchar(32) DEFAULT NULL COMMENT '类别',
+  `pic` varchar(255) DEFAULT NULL COMMENT '图片',
+  `description` text COMMENT '描述',
+  `status` varchar(4) DEFAULT NULL COMMENT '状态(1 上架中 0 已下架)',
+  `price` bigint(20) DEFAULT NULL COMMENT '价格',
+  `quantity` int(11) DEFAULT NULL COMMENT '库存',
+  `site_code` varchar(32) DEFAULT NULL COMMENT '站点编号',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
