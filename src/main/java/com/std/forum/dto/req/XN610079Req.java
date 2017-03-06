@@ -10,11 +10,22 @@ public class XN610079Req extends APageReq {
     // 内容（选填）
     private String content;
 
-    // 状态
+    // 状态（选填）
     private String status;
 
-    // 站点编号
+    // 站点编号（选填）
     private String siteCode;
+
+    // 帖子编号（必填）
+    private String postCode;
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
 
     public String getContent() {
         return content;
