@@ -38,4 +38,10 @@ public interface ICommentBO extends IPaginableBO<Comment> {
     public Comment getComment(String code);
 
     public List<Comment> queryCommentList(Comment condition);
+
+    public List<Comment> queryCommentList(String postCode, String status,
+            int limit);
+
+    public long getCommentTotalCount(String postCode, String status);
+
 }

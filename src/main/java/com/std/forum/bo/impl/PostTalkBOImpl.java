@@ -70,6 +70,31 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
         return resultList;
     }
 
+    /**
+     * 获取前30条数据
+     * @param postCode
+     * @param type
+     * @return 
+     * @create: 2017年3月6日 下午4:49:58 xieyj
+     * @history:
+     */
+    @Override
+    public List<PostTalk> queryPostTalkList(String postCode, String type,
+            int limit) {
+        List<PostTalk> resultList = null;
+        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(type)) {
+            PostTalk condition = new PostTalk();
+            condition.setPostCode(postCode);
+            condition.setType(type);
+            if (limit != 0) {
+                resultList = postTalkDAO.selectList(condition, 1, limit);
+            } else {
+                resultList = postTalkDAO.selectList(condition);
+            }
+        }
+        return resultList;
+    }
+
     /** 
      * @see com.std.forum.bo.IPostTalkBO#queryPostTalkList(com.std.forum.domain.PostTalk)
      */
@@ -119,5 +144,20 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
             count = postTalkDAO.delete(data);
         }
         return count;
+    }
+
+    /** 
+     * @see com.std.forum.bo.IPostTalkBO#getPostTalkTotalCount(java.lang.String, java.lang.String)
+     */
+    @Override
+    public long getPostTalkTotalCount(String postCode, String type) {
+        long totalCount = 0;
+        if (StringUtils.isNotBlank(postCode) && StringUtils.isNotBlank(type)) {
+            PostTalk condition = new PostTalk();
+            condition.setPostCode(postCode);
+            condition.setType(type);
+            totalCount = postTalkDAO.selectTotalCount(condition);
+        }
+        return totalCount;
     }
 }

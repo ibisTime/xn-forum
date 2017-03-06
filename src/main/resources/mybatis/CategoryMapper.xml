@@ -27,7 +27,7 @@
 				AND t.name = #{name}
 			</if>
 			<if test="companyCode != null and companyCode != '' ">
-				AND (t.company_code = #{companyCode} or (t.belong = 1 and NOT EXISTS (select * from tforum_category tc where tc.belong = t.code and tc.company_code = #{companyCode})))
+				AND t.company_code = #{companyCode}
 			</if>
 		</trim>
 	</sql>

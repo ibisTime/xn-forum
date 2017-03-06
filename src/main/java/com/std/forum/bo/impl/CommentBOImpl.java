@@ -169,4 +169,42 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
         return count;
     }
 
+    /** 
+     * @see com.std.forum.bo.ICommentBO#queryCommentList(java.lang.String, java.lang.String)
+     */
+    @Override
+    public List<Comment> queryCommentList(String postCode, String status,
+            int limit) {
+        Comment condition = new Comment();
+        condition.setPostCode(postCode);
+        condition.setStatus(status);
+        List<Comment> resultList = null;
+        if (limit != 0) {
+            resultList = commentDAO.selectList(condition, 1, limit);
+        } else {
+            resultList = commentDAO.selectList(condition);
+        }
+        if (CollectionUtils.isNotEmpty(resultList)) {
+            for (Comment comment : resultList) {
+                Comment result = getComment(comment.getParentCode());
+                if (result != null) {
+                    comment.setParentCommer(result.getCommer());
+                    comment.setParentNickname(result.getNickname());
+                }
+            }
+        }
+        return resultList;
+    }
+
+    /** 
+     * @see com.std.forum.bo.ICommentBO#getCommentTotalCount(java.lang.String, java.lang.String)
+     */
+    @Override
+    public long getCommentTotalCount(String postCode, String status) {
+        Comment condition = new Comment();
+        condition.setPostCode(postCode);
+        condition.setStatus(status);
+        return commentDAO.selectTotalCount(condition);
+    }
+
 }

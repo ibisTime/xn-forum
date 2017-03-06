@@ -349,8 +349,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId(),
-                EPostStatus.PUBLISHALL.getCode());
+            getPartInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode(), 30);
         }
         return postPage;
     }
@@ -364,7 +364,7 @@ public class PostAOImpl implements IPostAO {
     public Post getPost(String code, String userId, String commStatus) {
         Post post = postBO.getPost(code);
         cutPic(post);
-        getAllInfo(post, userId, commStatus);
+        getPartInfo(post, userId, commStatus, 0);
         return post;
     }
 
@@ -377,7 +377,16 @@ public class PostAOImpl implements IPostAO {
         }
     }
 
-    private void getAllInfo(Post post, String userId, String commStatus) {
+    /**
+     * 获取30条评论数据和统计数据
+     * @param post
+     * @param userId
+     * @param commStatus 
+     * @create: 2017年3月6日 下午4:42:38 xieyj
+     * @history:
+     */
+    private void getPartInfo(Post post, String userId, String commStatus,
+            int size) {
         String code = post.getCode();
         // 设置查询点赞记录条件
         post.setIsDZ(EBoolean.NO.getCode());
@@ -395,17 +404,22 @@ public class PostAOImpl implements IPostAO {
             }
         }
         // 获取点赞
-        List<PostTalk> likeList = postTalkBO.queryPostTalkSingleList(code,
-            ETalkType.DZ.getCode());
+        List<PostTalk> likeList = postTalkBO.queryPostTalkList(code,
+            ETalkType.DZ.getCode(), size);
         post.setLikeList(likeList);
-        post.setTotalLikeNum(new Long(likeList.size()));
+        long totalDzCount = postTalkBO.getPostTalkTotalCount(code,
+            ETalkType.DZ.getCode());
+        post.setTotalLikeNum(totalDzCount);
+
         // 获取评论
-        List<Comment> commentList = new ArrayList<Comment>();
-        searchCycleComment(post.getCode(), commentList, commStatus);
+        List<Comment> commentList = commentBO.queryCommentList(code,
+            commStatus, size);
         // 排序
         orderCommentList(commentList);
         post.setCommentList(commentList);
-        post.setTotalCommNum(new Long(commentList.size()));
+        // 计算所有评论数
+        long totalComment = commentBO.getCommentTotalCount(code, commStatus);
+        post.setTotalCommNum(totalComment);
     }
 
     private void searchCycleComment(String parentCode, List<Comment> list,
@@ -443,8 +457,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postPage.getList();
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId(),
-                EPostStatus.PUBLISHALL.getCode());
+            this.getPartInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode(), 30);
         }
         return postPage;
     }
@@ -457,8 +471,8 @@ public class PostAOImpl implements IPostAO {
         List<Post> postList = postBO.queryPostList(condition);
         for (Post post : postList) {
             cutPic(post);
-            this.getAllInfo(post, condition.getUserId(),
-                EPostStatus.PUBLISHALL.getCode());
+            getPartInfo(post, condition.getUserId(),
+                EPostStatus.PUBLISHALL.getCode(), 30);
         }
         return postList;
     }
@@ -480,7 +494,7 @@ public class PostAOImpl implements IPostAO {
             String parentCode = comment.getParentCode();
             if (EPrefixCode.POST.getCode().equals(parentCode.substring(0, 2))) {
                 post = postBO.getPost(parentCode);
-                getAllInfo(post, userId, EPostStatus.PUBLISHALL.getCode());
+                getPartInfo(post, userId, EPostStatus.PUBLISHALL.getCode(), 0);
                 break;
             } else {
                 comment = commentBO.getComment(parentCode);

@@ -52,6 +52,9 @@
 			<if test="siteCode != null and siteCode != '' ">
 		        AND tpt.site_code = #{siteCode}
 			</if>
+			<if test="postCode != null and postCode != '' ">
+		        AND t.post_code = #{postCode}
+			</if>
 		</trim>
 	</sql>
 	

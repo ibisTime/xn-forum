@@ -26,6 +26,11 @@ public interface IPostTalkBO extends IPaginableBO<PostTalk> {
 
     public List<PostTalk> queryPostTalkSingleList(String postCode, String type);
 
+    public List<PostTalk> queryPostTalkList(String postCode, String type,
+            int limit);
+
+    public long getPostTalkTotalCount(String postCode, String type);
+
     public List<PostTalk> queryPostTalkList(PostTalk condition);
 
     public PostTalk getPostTalk(String code);

@@ -2,7 +2,7 @@ package com.std.forum.dto.req;
 
 public class XN610025Req {
 
-    // 用户编号(必填)
+    // 用户编号(选填)
     private String userId;
 
     // 公司编号(必填)
