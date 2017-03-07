@@ -34,7 +34,7 @@ public class XN610020 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610020Req.class);
         StringValidater.validateBlank(req.getKind(), req.getName(),
-            req.getStatus(), req.getLocation(), req.getOrderNo(),
-            req.getUserId(), req.getPic(), req.getSiteCode(), req.getUpdater());
+            req.getStatus(), req.getLocation(), req.getOrderNo(), req.getPic(),
+            req.getSiteCode(), req.getUpdater());
     }
 }
