@@ -180,7 +180,7 @@ public class CommentBOImpl extends PaginableBOImpl<Comment> implements
         condition.setStatus(status);
         List<Comment> resultList = null;
         if (limit != 0) {
-            resultList = commentDAO.selectList(condition, 1, limit);
+            resultList = commentDAO.selectList(condition, 0, limit);
         } else {
             resultList = commentDAO.selectList(condition);
         }

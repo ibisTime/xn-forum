@@ -378,11 +378,12 @@ public class PostAOImpl implements IPostAO {
     }
 
     /**
-     * 获取30条评论数据和统计数据
+     * 获取数据
      * @param post
      * @param userId
-     * @param commStatus 
-     * @create: 2017年3月6日 下午4:42:38 xieyj
+     * @param commStatus
+     * @param size 
+     * @create: 2017年3月8日 下午1:46:33 xieyj
      * @history:
      */
     private void getPartInfo(Post post, String userId, String commStatus,
@@ -410,7 +411,6 @@ public class PostAOImpl implements IPostAO {
         long totalDzCount = postTalkBO.getPostTalkTotalCount(code,
             ETalkType.DZ.getCode());
         post.setTotalLikeNum(totalDzCount);
-
         // 获取评论
         List<Comment> commentList = commentBO.queryCommentList(code,
             commStatus, size);

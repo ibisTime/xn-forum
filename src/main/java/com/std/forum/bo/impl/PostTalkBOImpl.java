@@ -71,12 +71,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
     }
 
     /**
-     * 获取前30条数据
-     * @param postCode
-     * @param type
-     * @return 
-     * @create: 2017年3月6日 下午4:49:58 xieyj
-     * @history:
+     * @see com.std.forum.bo.IPostTalkBO#queryPostTalkList(java.lang.String, java.lang.String, int)
      */
     @Override
     public List<PostTalk> queryPostTalkList(String postCode, String type,
@@ -87,7 +82,7 @@ public class PostTalkBOImpl extends PaginableBOImpl<PostTalk> implements
             condition.setPostCode(postCode);
             condition.setType(type);
             if (limit != 0) {
-                resultList = postTalkDAO.selectList(condition, 1, limit);
+                resultList = postTalkDAO.selectList(condition, 0, limit);
             } else {
                 resultList = postTalkDAO.selectList(condition);
             }
