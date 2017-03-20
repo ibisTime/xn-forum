@@ -3,6 +3,9 @@
 <configuration>
 	<typeAliases>		
 		<typeAlias alias="keyword" type="com.std.forum.domain.Keyword" />
+		<typeAlias alias="sysDict" type="com.xnjr.base.domain.SYSDict" />
+		<typeAlias alias="sysConfig" type="com.xnjr.base.domain.SYSConfig" />
+		
 		<typeAlias alias="plate" type="com.std.forum.domain.Plate" />
 		<typeAlias alias="post" type="com.std.forum.domain.Post" />
 		<typeAlias alias="postTalk" type="com.std.forum.domain.PostTalk" />

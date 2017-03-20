@@ -12,7 +12,7 @@ import com.std.forum.core.StringValidater;
 import com.std.forum.domain.Keyword;
 import com.std.forum.dto.req.XN610000Req;
 import com.std.forum.dto.req.XN610002Req;
-import com.std.forum.dto.req.XN610010Req;
+import com.std.forum.dto.req.XN610005Req;
 
 /** 
  * @author: xieyj 
@@ -47,7 +47,7 @@ public class KeywordConverter {
     }
 
     // 分页查询关键字信息
-    public static Keyword converter(XN610010Req req) {
+    public static Keyword converter(XN610005Req req) {
         Keyword result = new Keyword();
         result.setWordForQuery(req.getWord());
         result.setLevel(req.getLevel());

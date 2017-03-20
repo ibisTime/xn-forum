@@ -6,7 +6,7 @@ package com.std.forum.dto.req;
  * @since: 2016年9月28日 下午1:47:44 
  * @history:
  */
-public class XN610010Req extends APageReq {
+public class XN610005Req extends APageReq {
 
     private static final long serialVersionUID = 1L;
 
