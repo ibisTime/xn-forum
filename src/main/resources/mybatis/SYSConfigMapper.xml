@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xnjr.base.dao.ISYSConfigDAO">
+<mapper namespace="com.std.forum.dao.ISYSConfigDAO">
 	<resultMap id="sysConfig_DB_Result" type="sysConfig">
 		<result column="id" property="id" />
-		<result column="to_system" property="toSystem" />
+		<result column="type" property="type" />
 		<result column="ckey" property="ckey" />
 		<result column="cvalue" property="cvalue" />
-		<result column="note" property="note" />
 		<result column="updater" property="updater" />
 		<result column="update_datetime" property="updateDatetime" />
 		<result column="remark" property="remark" />
@@ -17,8 +16,8 @@
 			<if test="id != null">
 				AND t.id = #{id}
 			</if>
-			<if test="toSystem != null and toSystem != '' ">
-				AND t.to_system = #{toSystem}
+			<if test="type != null and type != '' ">
+				AND t.type = #{type}
 			</if>
 			<if test="ckey != null and ckey != '' ">
 				AND t.ckey = #{ckey}
@@ -43,10 +42,9 @@
 		resultMap="sysConfig_DB_Result">
 		SELECT
 		id
-		,to_system
+		,type
 		,ckey
 		,cvalue
-		,note
 		,updater
 		,update_datetime
 		,remark
@@ -69,19 +67,17 @@
 	<insert id="insert_sysConfig" parameterType="sysConfig"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tsys_config(
-		to_system
+		type
 		,ckey
 		,cvalue
-		,note
 		,updater
 		,update_datetime
 		,remark
 		)
 		VALUES(
-		#{toSystem}
+		#{type}
 		,#{ckey}
 		,#{cvalue}
-		,#{note}
 		,#{updater}
 		,#{updateDatetime}
 		,#{remark}
@@ -91,7 +87,6 @@
 	<update id="update_value" parameterType="sysConfig">
 		UPDATE tsys_config SET
 		cvalue = #{cvalue}
-		,note = #{note}
 		,updater = #{updater}
 		,update_datetime = #{updateDatetime}
 		,remark=#{remark}

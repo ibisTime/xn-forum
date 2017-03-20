@@ -12,9 +12,6 @@ public class XN610910Req {
     // 值（必填）
     private String cvalue;
 
-    // 配置说明（必填）
-    private String note;
-
     // 更新人（必填）
     private String updater;
 
@@ -35,14 +32,6 @@ public class XN610910Req {
 
     public void setCvalue(String cvalue) {
         this.cvalue = cvalue;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public String getUpdater() {

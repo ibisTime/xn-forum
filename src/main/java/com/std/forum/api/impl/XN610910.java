@@ -28,7 +28,6 @@ public class XN610910 extends AProcessor {
         SYSConfig data = new SYSConfig();
         data.setId(req.getId());
         data.setCvalue(req.getCvalue());
-        data.setNote(req.getNote());
         data.setUpdater(req.getUpdater());
         data.setRemark(req.getRemark());
         sysConfigAO.editSYSConfig(data);
@@ -38,8 +37,7 @@ public class XN610910 extends AProcessor {
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610910Req.class);
-        StringValidater.validateBlank(req.getCvalue(), req.getNote(),
-            req.getUpdater());
+        StringValidater.validateBlank(req.getCvalue(), req.getUpdater());
 
     }
 

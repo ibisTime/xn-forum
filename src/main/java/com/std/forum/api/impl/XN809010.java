@@ -30,7 +30,6 @@ public class XN809010 extends AProcessor {
         data.setToSystem("8");// 8 代表生意家 作为服务时启用该字段
         data.setCkey(req.getCkey());
         data.setCvalue(req.getCvalue());
-        data.setNote(req.getNote());
         data.setUpdater(req.getUpdater());
         data.setRemark(req.getRemark());
         return new PKIdRes(sysConfigAO.addSYSConfig(data));

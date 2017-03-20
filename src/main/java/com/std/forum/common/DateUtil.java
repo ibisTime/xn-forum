@@ -1,38 +1,39 @@
 package com.std.forum.common;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class DateUtil {
 
-    /**
-     * @Fields DATE_FORMAT_STRING : (数据库返回时间格式)
-     */
     public static final String DB_DATE_FORMAT_STRING = "yyyyMMdd";
 
-    /**
-     * @Fields DISPLAY_DATE_FORMAT_STRING : (前台显示时间格式)
-     */
     public static final String FRONT_DATE_FORMAT_STRING = "yyyy-MM-dd";
 
-    /**
-     * @Fields DATA_TIME_PATTERN : 日期格式
-     */
     public static final String DATA_TIME_PATTERN_1 = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DATA_TIME_PATTERN_2 = "yyyy-MM-dd HH:mm";
 
     public static final String DATA_TIME_PATTERN_3 = "yyyyMMDDhhmmss";
 
-    public static final String DATA_TIME_PATTERN_4 = "yyyyMMddHHmmssSSS";
+    public static final String DATA_TIME_PATTERN_4 = "yyyyMMDDhhmmss";
+
+    public static final String DATA_TIME_PATTERN_5 = "yyyyMMddHHmmssSSS";
+
+    public static final String DATA_TIME_PATTERN_6 = "yyyy年MM月dd日";
 
     public static final String TIME_BEGIN = " 00:00:00";
 
-    public static final String TIME_END = " 23:59:59";;
+    public static final String TIME_MIDDLE = " 12:00:00";
+
+    public static final String TIME_END = " 23:59:59";
+
+    public static Date getEndDatetime(String inputRepayDate) {
+        Date repayDatetime = DateUtil.strToDate(inputRepayDate
+                + DateUtil.TIME_END, DateUtil.DATA_TIME_PATTERN_1);
+        return repayDatetime;
+    }
 
     public static Date getRelativeDate(Date startDate, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -91,6 +92,20 @@ public class DateUtil {
         return (Date) currentDate.getTime().clone();
     }
 
+    /**
+     * 相对参数today的明日起始时刻。比如今天是11日23点，明日起始时刻为12日0点0分0秒
+     * @param today
+     * @return 
+     * @create: 2015年11月16日 上午11:49:51 myb858
+     * @history:
+     */
+    public static Date getTomorrowStart(Date today) {
+        String str = dateToStr(today, FRONT_DATE_FORMAT_STRING);
+        Date tommrow = getRelativeDate(
+            strToDate(str, FRONT_DATE_FORMAT_STRING), 24 * 3600);
+        return tommrow;
+    }
+
     /** 
      * String 按格式pattern转Date
      * @param str
@@ -121,6 +136,7 @@ public class DateUtil {
         try {
             string = strDate.replace("-", "");
         } catch (Exception e) {
+            // e.printStackTrace();
         }
         return string;
     }
@@ -154,68 +170,44 @@ public class DateUtil {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(returnDate);
                 calendar.add(calendar.DATE, 1);// 把日期往后增加一天.整数往后推,负数往前移动
+                calendar.add(calendar.SECOND, -1);
                 returnDate = calendar.getTime(); // 这个时间就是日期往后推一天的结果
             }
         } catch (Exception e) {
-
+            // e.printStackTrace();
         }
         return returnDate;
     }
 
     /**
-     * 根据两个日期，指定几号，获取日期数组
-     * @param dateStartStr 
-     * @param dateEndStr
-     * @param number
+     * 统计两个时间差，返回的是天数(即24小时算一天，少于24小时就为0，用这个的时候最好把小时、分钟等去掉)
+     * @param beginStr 开始时间
+     * @param endStr 结束时间
+     * @param format 时间格式
+     * @return
+     */
+    public static int daysBetween(String beginStr, String endStr, String format) {
+        Date end = strToDate(endStr, format);
+        Date begin = strToDate(beginStr, format);
+        long times = end.getTime() - begin.getTime();
+        return (int) (times / 60 / 60 / 1000 / 24);
+    }
+
+    /**
+     * 统计两个时间差，返回的是天数(即24小时算一天，少于24小时就为0，用这个的时候最好把小时、分钟等去掉)
+     * @param beginDate
+     * @param endDate
      * @return 
-     * @create: 2016年1月7日 上午9:53:59 xieyj
+     * @create: 2015年11月16日 上午11:20:51 myb858
      * @history:
      */
-    public static List<Date> getDatesArray(String dateStartStr,
-            String dateEndStr, int number) {
-        // 时间格式转化
-        Date dateStart = strToDate(dateStartStr, FRONT_DATE_FORMAT_STRING);
-        Date dateEnd = strToDate(dateEndStr, FRONT_DATE_FORMAT_STRING);
-        Calendar calDateStart = Calendar.getInstance();
-        calDateStart.setTime(dateStart);
-        Calendar calDateEnd = Calendar.getInstance();
-        calDateEnd.setTime(dateEnd);
-        // 时间List数组
-        List<Date> arrayDate = new ArrayList<Date>();
-        int k = 0;
-        // 末尾时间比较
-        while (calDateEnd.after(calDateStart)) {
-            if (k == 0) {
-                k++;
-                // 添加起初时间
-                arrayDate.add(dateStart);
-                // 判断首次是否加一个月
-                int calDateStartMonth = calDateStart.get(Calendar.DAY_OF_MONTH);
-                if (calDateStartMonth > number) {
-                    calDateStart.add(Calendar.MONTH, 1);
-                } else if (calDateStartMonth == number) {
-                    continue;
-                }
-            } else {
-                calDateStart.add(Calendar.MONTH, 1);
-            }
-            calDateStart.set(Calendar.DAY_OF_MONTH, number);
-            // 判断是否循环到最后,比较
-            if (calDateStart.after(calDateEnd)) {
-                arrayDate.add(calDateEnd.getTime());
-            } else {
-                arrayDate.add(calDateStart.getTime());
-            }
-        }
-        return arrayDate;
+    public static int daysBetween(Date beginDate, Date endDate) {
+        long times = endDate.getTime() - beginDate.getTime();
+        return (int) (times / 60 / 60 / 1000 / 24);
     }
 
     public static void main(String[] args) {
-        List<Date> arrayDate = getDatesArray("2014-01-01", "2014-03-01", 2);
-
-        for (int i = 0; i < arrayDate.size(); i++) {
-            System.out.println(dateToStr(arrayDate.get(i),
-                FRONT_DATE_FORMAT_STRING));
-        }
+        System.out.println(DateUtil.strToDate("2016-01-01",
+            DateUtil.FRONT_DATE_FORMAT_STRING));
     }
 }
