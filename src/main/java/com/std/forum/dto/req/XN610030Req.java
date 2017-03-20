@@ -1,32 +1,26 @@
 package com.std.forum.dto.req;
 
-/** 
- * 版块分页查询
- * @author: xieyj 
- * @since: 2016年8月29日 下午2:38:43 
+/**
+ * 新增小板块模板
+ * @author: asus 
+ * @since: 2017年3月20日 下午6:56:44 
  * @history:
  */
-public class XN610030Req extends APageReq {
-
-    /** 
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
-     */
-    private static final long serialVersionUID = 1L;
-
-    // 名称(选填)
+public class XN610030Req {
+    // 名称
     private String name;
 
-    // 大类(选填)
-    private String kind;
+    // 大板块模板
+    private String parentCode;
 
-    // 位置(选填)
-    private String location;
+    // 图片
+    private String pic;
 
-    // 状态(选填)
-    private String status;
+    // 次序
+    private String orderNo;
 
-    // 站点编号(选填)
-    private String siteCode;
+    // 修改人
+    private String updater;
 
     public String getName() {
         return name;
@@ -36,35 +30,35 @@ public class XN610030Req extends APageReq {
         this.name = name;
     }
 
-    public String getSiteCode() {
-        return siteCode;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setSiteCode(String siteCode) {
-        this.siteCode = siteCode;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
-    public String getKind() {
-        return kind;
+    public String getPic() {
+        return pic;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
-    public String getLocation() {
-        return location;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getStatus() {
-        return status;
+    public String getUpdater() {
+        return updater;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setUpdater(String updater) {
+        this.updater = updater;
     }
 }

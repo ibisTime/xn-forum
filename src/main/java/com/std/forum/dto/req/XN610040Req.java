@@ -1,45 +1,53 @@
 package com.std.forum.dto.req;
 
-/** 
- * 发布帖子，填写帖子基本信息
- * @author: zuixian 
- * @since: 2016年9月28日 下午1:40:29 
+/**
+ * 新增小板块
+ * @author: asus 
+ * @since: 2017年3月20日 下午7:41:23 
  * @history:
  */
 public class XN610040Req {
+    // 板块名称
+    private String name;
 
-    // 标题（必填）
-    private String title;
+    // 大板块
+    private String parentCode;
 
-    // 内容（必填）
-    private String content;
-
-    // 多张图片（选填）
+    // 图片
     private String pic;
 
-    // 所属版块（必填）
-    private String plateCode;
+    // 序号
+    private String orderNo;
 
-    // 发布人（必填）
-    private String publisher;
+    // 版主编号
+    private String userId;
 
-    // 是否发布
-    private String isPublish;
+    // 站点编号
+    private String companyCode;
 
-    public String getTitle() {
-        return title;
+    // 状态
+    private String status;
+
+    // 更新人
+    private String updater;
+
+    // 备注
+    private String remark;
+
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContent() {
-        return content;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
     public String getPic() {
@@ -50,27 +58,51 @@ public class XN610040Req {
         this.pic = pic;
     }
 
-    public String getPlateCode() {
-        return plateCode;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setPlateCode(String plateCode) {
-        this.plateCode = plateCode;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getIsPublish() {
-        return isPublish;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsPublish(String isPublish) {
-        this.isPublish = isPublish;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 }

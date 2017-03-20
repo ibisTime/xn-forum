@@ -28,7 +28,7 @@ public class ProductDAOImpl extends AMybatisTemplate implements IProductDAO {
     }
 
     @Override
-    public long selectTotalCount(Product condition) {
+    public Long selectTotalCount(Product condition) {
         return super.selectTotalCount(NAMESPACE.concat("select_product_count"),
             condition);
     }

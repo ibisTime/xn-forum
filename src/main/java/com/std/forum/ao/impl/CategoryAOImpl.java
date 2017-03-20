@@ -8,11 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.std.forum.ao.ICategoryAO;
 import com.std.forum.bo.ICategoryBO;
-import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IProductBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Category;
-import com.std.forum.domain.Plate;
 import com.std.forum.domain.Product;
 import com.std.forum.enums.EBoolean;
 import com.std.forum.enums.ECategoryType;
@@ -28,9 +26,6 @@ public class CategoryAOImpl implements ICategoryAO {
 
     @Autowired
     private ICategoryBO categoryBO;
-
-    @Autowired
-    private IPlateBO plateBO;
 
     @Autowired
     private IProductBO productBO;
@@ -72,12 +67,11 @@ public class CategoryAOImpl implements ICategoryAO {
         // }
         // 判断类别是否使用，使用后无法删除
         if (ECategoryType.PLATE.getCode().equals(data.getType())) {
-            Plate condition = new Plate();
-            condition.setKind(code);
-            long totalCount = plateBO.getTotalCount(condition);
-            if (totalCount > 0) {
-                throw new BizException("xn0000", "该分类已使用，无法删除");
-            }
+            /*
+             * Plate condition = new Plate(); condition.setKind(code); long
+             * totalCount = plateBO.getTotalCount(condition); if (totalCount >
+             * 0) { throw new BizException("xn0000", "该分类已使用，无法删除"); }
+             */
         } else {
             Product condition = new Product();
             condition.setKind(code);

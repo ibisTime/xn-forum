@@ -52,7 +52,7 @@ public class SYSDictDAOImpl extends AMybatisTemplate implements ISYSDictDAO {
      * @see com.xnjr.base.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(SYSDict condition) {
+    public Long selectTotalCount(SYSDict condition) {
         return super.selectTotalCount("select_sysDict_count", condition);
     }
 

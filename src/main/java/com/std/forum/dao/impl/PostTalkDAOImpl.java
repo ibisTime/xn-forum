@@ -56,7 +56,7 @@ public class PostTalkDAOImpl extends AMybatisTemplate implements IPostTalkDAO {
      * @see com.std.forum.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(PostTalk condition) {
+    public Long selectTotalCount(PostTalk condition) {
         condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(
             NAMESPACE.concat("select_postTalk_count"), condition);

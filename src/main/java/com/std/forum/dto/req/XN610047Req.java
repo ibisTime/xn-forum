@@ -1,37 +1,59 @@
 package com.std.forum.dto.req;
 
-public class XN610047Req {
+/**
+ * 列表查询小板块
+ * @author: asus 
+ * @since: 2017年3月20日 下午8:13:22 
+ * @history:
+ */
+public class XN610047Req extends APageReq {
 
-    // 帖子编号（必填）
-    private String code;
+    /** 
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+     */
+    private static final long serialVersionUID = 1L;
 
-    // 用户编号(必填)
-    private String userId;
+    // 名称
+    private String name;
 
-    // 类型(必填)
-    private String type;
+    // 大板块
+    private String parentCode;
 
-    public String getCode() {
-        return code;
+    // 状态
+    private String status;
+
+    // 站点编号
+    private String companyCode;
+
+    public String getName() {
+        return name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 }

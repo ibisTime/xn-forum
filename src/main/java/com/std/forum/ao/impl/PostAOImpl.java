@@ -10,9 +10,7 @@ package com.std.forum.ao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +22,6 @@ import com.std.forum.ao.IPostAO;
 import com.std.forum.bo.ICommentBO;
 import com.std.forum.bo.IKeywordBO;
 import com.std.forum.bo.ILevelRuleBO;
-import com.std.forum.bo.IPlateBO;
 import com.std.forum.bo.IPostBO;
 import com.std.forum.bo.IPostTalkBO;
 import com.std.forum.bo.IRuleBO;
@@ -33,7 +30,6 @@ import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Comment;
 import com.std.forum.domain.Keyword;
 import com.std.forum.domain.LevelRule;
-import com.std.forum.domain.Plate;
 import com.std.forum.domain.Post;
 import com.std.forum.domain.PostTalk;
 import com.std.forum.dto.res.XN610900Res;
@@ -61,9 +57,6 @@ public class PostAOImpl implements IPostAO {
     protected IPostBO postBO;
 
     @Autowired
-    protected IPlateBO plateBO;
-
-    @Autowired
     protected IPostTalkBO postTalkBO;
 
     @Autowired
@@ -89,7 +82,7 @@ public class PostAOImpl implements IPostAO {
     public String publishPost(String title, String content, String pic,
             String plateCode, String publisher, String isPublish) {
         // 判断版块是否存在
-        plateBO.getPlate(plateCode);
+        // plateBO.getPlate(plateCode);
         String code = null;
         if (EBoolean.NO.getCode().equals(isPublish)) {
             code = postBO.savePost(title, content, pic, plateCode, publisher,
@@ -135,7 +128,7 @@ public class PostAOImpl implements IPostAO {
     public String draftPublishPost(String code, String title, String content,
             String pic, String plateCode, String publisher, String isPublish) {
         // 判断版块是否存在
-        plateBO.getPlate(plateCode);
+        // plateBO.getPlate(plateCode);
         if (EBoolean.NO.getCode().equals(isPublish)) {
             postBO.refreshPost(code, title, content, pic, plateCode, publisher,
                 EPostStatus.DRAFT.getCode());
@@ -195,22 +188,23 @@ public class PostAOImpl implements IPostAO {
                 postTalkBO.removePostTalk(postTalk.getCode());
             }
         }
-        Plate plate = plateBO.getPlate(post.getPlateCode());
-        String companyCode = plate.getSiteCode();
+        // plate = plateBO.getPlate(post.getPlateCode());
+        // String companyCode = plate.getSiteCode();
         XN805901Res res = userBO.getRemoteUser(userId, userId);
         if (EUserKind.Operator.getCode().equals(res.getKind())) {
-            if (!companyCode.equals(res.getCompanyCode())) {
-                throw new BizException("xn000000", "当前用户不是该帖子的管理员，无法删除");
-            }
+            // if (!companyCode.equals(res.getCompanyCode())) {
+            // throw new BizException("xn000000", "当前用户不是该帖子的管理员，无法删除");
+            // }
         } else {
-            List<Plate> plateList = plateBO.getPlateByUserId(userId);
-            Map<String, Plate> map = new HashMap<String, Plate>();
-            for (Plate data : plateList) {
-                map.put(data.getCode(), data);
-            }
-            if (null == map.get(plate.getCode()) && !userId.equals(publisher)) {
-                throw new BizException("xn000000", "当前用户不是该版块版主或发布用户，无法删除");
-            }
+            // List<Plate> plateList = plateBO.getPlateByUserId(userId);
+            // Map<String, Plate> map = new HashMap<String, Plate>();
+            // for (Plate data : plateList) {
+            // map.put(data.getCode(), data);
+            // }
+            // if (null == map.get(plate.getCode()) &&
+            // !userId.equals(publisher)) {
+            // throw new BizException("xn000000", "当前用户不是该版块版主或发布用户，无法删除");
+            // }
         }
         if (EPostType.TZ.getCode().equals(type)) {
             postBO.removePost(code);
@@ -336,10 +330,10 @@ public class PostAOImpl implements IPostAO {
     @Override
     public void editPostPlate(String code, String plateCode) {
         postBO.getPost(code);
-        Plate plate = plateBO.getPlate(plateCode);
-        if (EBoolean.NO.getCode().equals(plate.getStatus())) {
-            throw new BizException("xn000000", "该版块状态为未启用");
-        }
+        // Plate plate = plateBO.getPlate(plateCode);
+        // if (EBoolean.NO.getCode().equals(plate.getStatus())) {
+        // throw new BizException("xn000000", "该版块状态为未启用");
+        // }
         postBO.refreshPostPlate(code, plateCode);
     }
 

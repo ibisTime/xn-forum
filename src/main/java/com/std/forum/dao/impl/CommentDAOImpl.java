@@ -56,7 +56,7 @@ public class CommentDAOImpl extends AMybatisTemplate implements ICommentDAO {
      * @see com.std.forum.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(Comment condition) {
+    public Long selectTotalCount(Comment condition) {
         condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(NAMESPACE.concat("select_comment_count"),
             condition);

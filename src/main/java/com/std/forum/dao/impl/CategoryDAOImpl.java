@@ -45,7 +45,7 @@ public class CategoryDAOImpl extends AMybatisTemplate implements ICategoryDAO {
      * @see com.xnjr.mall.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(Category condition) {
+    public Long selectTotalCount(Category condition) {
         return super.selectTotalCount(
             NAMESPACE.concat("select_category_count"), condition);
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IBplateDAO">
+	<resultMap id="bplate_DB_Result" type="bplate">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="order_no" property="orderNo" />
+		<result column="company_code" property="companyCode" />
+		<result column="status" property="status" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="name != null and name != '' ">
+				AND t.name like "%"#{name}"%"
+			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_bplate" parameterType="bplate" resultMap="bplate_DB_Result">
+		SELECT
+		t.code
+		,t.name
+		,t.order_no
+		,t.company_code
+		,t.status
+		,t.updater
+		,t.update_datetime
+		,t.remark
+		FROM
+		tforum_bplate t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_bplate_count" parameterType="bplate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_bplate t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_bplate" parameterType="bplate">
+		INSERT INTO
+		tforum_bplate(
+		code
+		,name
+		,order_no
+		,company_code
+		,status
+		,updater
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{orderNo}
+		,#{companyCode}
+		,#{status}
+		,#{updater}
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_bplate" parameterType="bplate">
+		UPDATE tforum_bplate
+		SET
+		name = #{name}
+		,order_no = #{orderNo}
+		,company_code = #{companyCode}
+		,status = #{status}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+	<delete id="delete_bplate" parameterType="bplate">
+		DELETE FROM
+		tforum_bplate
+		WHERE
+		code = #{code}
+	</delete>
+
+</mapper>

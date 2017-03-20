@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.ISplateDAO">
+	<resultMap id="splate_DB_Result" type="splate">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="bplate_code" property="bplateCode" />
+		<result column="pic" property="pic" />
+		<result column="order_no" property="orderNo" />
+		<result column="moderator" property="moderator" />
+		<result column="company_code" property="companyCode" />
+		<result column="status" property="status" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
+			<if test="moderator != null and moderator != '' ">
+				AND t.moderator = #{moderator}
+			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_splate" parameterType="splate" resultMap="splate_DB_Result">
+		SELECT
+		t.code
+		,t.name
+		,t.bplate_code
+		,t.pic
+		,t.order_no
+		,t.moderator
+		,t.company_code
+		,t.status
+		,t.updater
+		,t.update_datetime
+		,t.remark
+		FROM
+		tforum_splate t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_splate_count" parameterType="splate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_splate t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_splate" parameterType="splate">
+		INSERT INTO
+		tforum_splate(
+		code
+		,name
+		,bplate_code
+		,pic
+		,order_no
+		,moderator
+		,company_code
+		,status
+		,updater
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{bplateCode}
+		,#{pic}
+		,#{orderNo}
+		,#{moderator}
+		,#{companyCode}
+		,#{status}
+		,#{updater}
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_splate" parameterType="splate">
+		UPDATE tforum_splate
+		SET
+		name = #{name}
+		,bplate_code = #{bplateCode}
+		,pic = #{pic}
+		,order_no = #{orderNo}
+		,moderator = #{moderator}
+		,company_code = #{companyCode}
+		,status = #{status}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+	<delete id="delete_splate" parameterType="splate">
+		DELETE FROM
+		tforum_splate
+		WHERE
+		code = #{code}
+	</delete>
+</mapper>

@@ -54,7 +54,7 @@ public class SYSConfigDAOImpl extends AMybatisTemplate implements ISYSConfigDAO 
      * @see com.xnjr.base.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(SYSConfig condition) {
+    public Long selectTotalCount(SYSConfig condition) {
         return super.selectTotalCount(
             NAMESPACE.concat("select_sysConfig_count"), condition);
     }

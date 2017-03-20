@@ -84,7 +84,7 @@ public abstract class AMybatisTemplate {
      * @param data
      * @return
      */
-    protected long selectTotalCount(String statement, ABaseDO data) {
+    protected Long selectTotalCount(String statement, ABaseDO data) {
         return readDao.selectTotalCount(statement, data);
     }
 

@@ -1,61 +1,59 @@
 package com.std.forum.dto.req;
 
-import java.util.List;
+/**
+ * 分页查询小板块
+ * @author: asus 
+ * @since: 2017年3月20日 下午8:13:22 
+ * @history:
+ */
+public class XN610045Req extends APageReq {
 
-public class XN610045Req {
+    /** 
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+     */
+    private static final long serialVersionUID = 1L;
 
-    // 帖子/评论编号（必填）
-    private List<String> codeList;
+    // 名称
+    private String name;
 
-    // 审核结果(必填)
-    private String approveResult;
+    // 大板块
+    private String parentCode;
 
-    // 审核人（必填）
-    private String approver;
+    // 状态
+    private String status;
 
-    // 审核说明（必填）
-    private String approveNote;
+    // 站点编号
+    private String companyCode;
 
-    // 类型(必填)
-    private String type;
-
-    public List<String> getCodeList() {
-        return codeList;
+    public String getName() {
+        return name;
     }
 
-    public void setCodeList(List<String> codeList) {
-        this.codeList = codeList;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getApproveResult() {
-        return approveResult;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setApproveResult(String approveResult) {
-        this.approveResult = approveResult;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
-    public String getApprover() {
-        return approver;
+    public String getStatus() {
+        return status;
     }
 
-    public void setApprover(String approver) {
-        this.approver = approver;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getApproveNote() {
-        return approveNote;
+    public String getCompanyCode() {
+        return companyCode;
     }
 
-    public void setApproveNote(String approveNote) {
-        this.approveNote = approveNote;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 }

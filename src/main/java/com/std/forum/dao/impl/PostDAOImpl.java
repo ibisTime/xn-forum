@@ -55,7 +55,7 @@ public class PostDAOImpl extends AMybatisTemplate implements IPostDAO {
      * @see com.std.forum.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(Post condition) {
+    public Long selectTotalCount(Post condition) {
         condition.setUserDB(PropertiesUtil.Config.USER_DB);
         return super.selectTotalCount(NAMESPACE.concat("select_post_count"),
             condition);

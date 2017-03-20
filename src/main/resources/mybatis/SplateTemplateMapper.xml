@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.ISplateTemplateDAO">
+	<resultMap id="splateTemplate_DB_Result" type="splateTemplate">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="bplate_code" property="bplateCode" />
+		<result column="pic" property="pic" />
+		<result column="order_no" property="orderNo" />
+		<result column="updater" property="updater" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_splateTemplate" parameterType="splateTemplate" resultMap="splateTemplate_DB_Result">
+		SELECT
+		t.code
+		,t.name
+		,t.bplate_code
+		,t.pic
+		,t.order_no
+		,t.updater
+		,t.update_datetime
+		,t.remark
+		FROM
+		tforum_splate_template t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_splateTemplate_count" parameterType="splateTemplate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_splate_template t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_splateTemplate" parameterType="splateTemplate">
+		INSERT INTO
+		tforum_splate_template(
+		code
+		,name
+		,bplate_code
+		,pic
+		,order_no
+		,updater
+		,update_datetime
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{bplateCode}
+		,#{pic}
+		,#{orderNo}
+		,#{updater}
+		,#{updateDatetime}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_splateTemplate" parameterType="splateTemplate">
+		UPDATE tforum_splate_template
+		SET
+		name = #{name}
+		,bplate_code = #{bplateCode}
+		,pic = #{pic}
+		,order_no = #{orderNo}
+		,updater = #{updater}
+		,update_datetime = #{updateDatetime}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+	<delete id="delete_splateTemplate" parameterType="splateTemplate">
+		DELETE FROM
+		tforum_splate_template
+		WHERE
+		code = #{code}
+	</delete>
+</mapper>

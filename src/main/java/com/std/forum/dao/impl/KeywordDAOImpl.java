@@ -54,7 +54,7 @@ public class KeywordDAOImpl extends AMybatisTemplate implements IKeywordDAO {
      * @see com.std.forum.dao.base.IBaseDAO#selectTotalCount(java.lang.Object)
      */
     @Override
-    public long selectTotalCount(Keyword condition) {
+    public Long selectTotalCount(Keyword condition) {
         return super.selectTotalCount(NAMESPACE.concat("select_keyword_count"),
             condition);
     }

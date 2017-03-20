@@ -22,7 +22,7 @@ public interface IBaseDAO<T> {
 
     public T select(T condition);
 
-    public long selectTotalCount(T condition);
+    public Long selectTotalCount(T condition);
 
     public List<T> selectList(T condition);
 
