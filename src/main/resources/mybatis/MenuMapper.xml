@@ -74,18 +74,27 @@
 		)
 	</insert>
 
-	<update id="update_menu" parameterType="menu">
+	<update id="update_menu_byglobal" parameterType="menu">
 		UPDATE tforum_menu
 		SET
 		name = #{name}
 		,pic = #{pic}
 		,order_no = #{orderNo}
 		,belong = #{belong}
-		,company_code = #{companyCode}
 		,remark = #{remark}
 		WHERE code = #{code}
 	</update>
 
+	<update id="update_menu_bylocal" parameterType="menu">
+		UPDATE tforum_menu
+		SET
+		name = #{name}
+		,pic = #{pic}
+		,order_no = #{orderNo}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+	
 	<delete id="delete_menu" parameterType="menu">
 		DELETE FROM
 		tforum_menu

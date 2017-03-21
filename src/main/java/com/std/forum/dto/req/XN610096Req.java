@@ -1,13 +1,13 @@
 package com.std.forum.dto.req;
 
 /**
- * 详情查询
+ * 详情查询子系统配置
  * @author: asus 
- * @since: 2017年3月21日 下午2:30:51 
+ * @since: 2017年3月21日 下午7:47:07 
  * @history:
  */
-public class XN610086Req {
-    // 编号（必填）
+public class XN610096Req {
+    // 编号
     private String code;
 
     public String getCode() {

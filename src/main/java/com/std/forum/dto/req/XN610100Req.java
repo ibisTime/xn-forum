@@ -1,0 +1,97 @@
+package com.std.forum.dto.req;
+
+/**
+ * 总部修改banner 
+ * @author: asus 
+ * @since: 2017年3月21日 下午8:09:10 
+ * @history:
+ */
+public class XN610100Req {
+    // 编号
+    private String code;
+
+    // 名称
+    private String name;
+
+    // 访问Url
+    private String url;
+
+    // 图片
+    private String pic;
+
+    // UI位置
+    private String location;
+
+    // ui顺序
+    private String orderNo;
+
+    // 属于
+    private String belong;
+
+    // 备注
+    private String remark;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getBelong() {
+        return belong;
+    }
+
+    public void setBelong(String belong) {
+        this.belong = belong;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+}

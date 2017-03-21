@@ -10,9 +10,9 @@ import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 详情查询
+ * 前端列表查询菜单
  * @author: asus 
- * @since: 2017年3月21日 下午2:30:51 
+ * @since: 2017年3月21日 下午2:13:31 
  * @history:
  */
 public class XN610087 extends AProcessor {
@@ -22,12 +22,13 @@ public class XN610087 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return menuAO.getMenu(req.getCode());
+        return menuAO.queryMenuList(req.getCompanyCode());
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610087Req.class);
-        StringValidater.validateBlank(req.getCode());
+        StringValidater.validateBlank(req.getCompanyCode());
     }
+
 }

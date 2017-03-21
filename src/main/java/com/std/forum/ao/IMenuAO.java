@@ -13,10 +13,6 @@ import com.std.forum.dto.req.XN610081Req;
 public interface IMenuAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
 
-    public String addMenu(Menu data);
-
-    public int dropMenu(String code);
-
     /**
      * 总部修改菜单
      * @param req
@@ -24,7 +20,7 @@ public interface IMenuAO {
      * @create: 2017年3月21日 下午1:54:40 asus
      * @history:
      */
-    public void editMenu(XN610080Req req);
+    public void editMenuByGlobal(XN610080Req req);
 
     /**
      * 地方修改菜单
@@ -33,11 +29,9 @@ public interface IMenuAO {
      * @create: 2017年3月21日 下午1:55:01 asus
      * @history:
      */
-    public void editMenu(XN610081Req req);
+    public void editMenuByLocal(XN610081Req req);
 
     public Paginable<Menu> queryMenuPage(int start, int limit, Menu condition);
-
-    public List<Menu> queryMenuList(Menu condition);
 
     public List<Menu> queryMenuList(String companyCode);
 

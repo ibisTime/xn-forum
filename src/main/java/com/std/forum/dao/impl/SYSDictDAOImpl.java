@@ -74,7 +74,7 @@ public class SYSDictDAOImpl extends AMybatisTemplate implements ISYSDictDAO {
     }
 
     /**
-     * @see com.xnjr.base.dao.ISYSDictDAO#update(com.xnjr.base.domain.SYSDict)
+     * @see com.xnjr.base.dao.ISYSDictDAO#updateByGlobal(com.xnjr.base.domain.SYSDict)
      */
     @Override
     public int update(SYSDict data) {

@@ -58,7 +58,7 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
     }
 
     @Override
-    public int refreshMenu(String code, String name, String pic,
+    public int refreshMenuByGlobal(String code, String name, String pic,
             String orderNo, String belong, String remark) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
@@ -69,7 +69,23 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
             data.setOrderNo(orderNo);
             data.setBelong(belong);
             data.setRemark(remark);
-            count = menuDAO.update(data);
+            count = menuDAO.updateByGlobal(data);
+        }
+        return count;
+    }
+
+    @Override
+    public int refreshMenuByLocal(String code, String name, String pic,
+            String orderNo, String remark) {
+        int count = 0;
+        if (StringUtils.isNotBlank(code)) {
+            Menu data = new Menu();
+            data.setCode(code);
+            data.setName(name);
+            data.setPic(pic);
+            data.setOrderNo(orderNo);
+            data.setRemark(remark);
+            count = menuDAO.updateByLocal(data);
         }
         return count;
     }

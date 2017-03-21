@@ -10,6 +10,9 @@
 		
 		<typeAlias alias="splateTemplate" type="com.std.forum.domain.SplateTemplate" />
 		<typeAlias alias="splate" type="com.std.forum.domain.Splate" />
+		<typeAlias alias="menu" type="com.std.forum.domain.Menu" />
+		<typeAlias alias="banner" type="com.std.forum.domain.Banner" />
+		<typeAlias alias="subsystem" type="com.std.forum.domain.Subsystem" />
 		
 		<typeAlias alias="post" type="com.std.forum.domain.Post" />
 		<typeAlias alias="postTalk" type="com.std.forum.domain.PostTalk" />

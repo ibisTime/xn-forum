@@ -23,7 +23,7 @@ public class XN610081 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        menuAO.editMenu(req);
+        menuAO.editMenuByLocal(req);
         return new BooleanRes(true);
     }
 

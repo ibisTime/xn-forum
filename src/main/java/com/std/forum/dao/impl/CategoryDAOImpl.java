@@ -69,7 +69,7 @@ public class CategoryDAOImpl extends AMybatisTemplate implements ICategoryDAO {
     }
 
     /** 
-     * @see com.xnjr.mall.dao.ICategoryDAO#update(com.xnjr.mall.domain.Category)
+     * @see com.xnjr.mall.dao.ICategoryDAO#updateByGlobal(com.xnjr.mall.domain.Category)
      */
     @Override
     public int update(Category data) {

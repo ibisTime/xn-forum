@@ -7,5 +7,7 @@ import com.std.forum.domain.Menu;
 public interface IMenuDAO extends IBaseDAO<Menu> {
     String NAMESPACE = IMenuDAO.class.getName().concat(".");
 
-    public int update(Menu data);
+    public int updateByGlobal(Menu data);
+
+    public int updateByLocal(Menu data);
 }

@@ -31,13 +31,21 @@ public class BannerBOImpl extends PaginableBOImpl<Banner> implements IBannerBO {
     }
 
     @Override
-    public String saveBanner(Banner data) {
-        String code = null;
-        if (data != null) {
-            code = OrderNoGenerater.generateME(EPrefixCode.BANNER.getCode());
-            data.setCode(code);
-            bannerDAO.insert(data);
-        }
+    public String saveBanner(String name, String url, String pic,
+            String location, String orderNo, String belong, String companyCode,
+            String remark) {
+        Banner data = new Banner();
+        String code = OrderNoGenerater.generateME(EPrefixCode.BANNER.getCode());
+        data.setCode(code);
+        data.setName(name);
+        data.setUrl(url);
+        data.setPic(pic);
+        data.setLocation(location);
+        data.setOrderNo(orderNo);
+        data.setBelong(belong);
+        data.setCompanyCode(companyCode);
+        data.setRemark(remark);
+        bannerDAO.insert(data);
         return code;
     }
 
@@ -48,15 +56,6 @@ public class BannerBOImpl extends PaginableBOImpl<Banner> implements IBannerBO {
             Banner data = new Banner();
             data.setCode(code);
             count = bannerDAO.delete(data);
-        }
-        return count;
-    }
-
-    @Override
-    public int refreshBanner(Banner data) {
-        int count = 0;
-        if (StringUtils.isNotBlank(data.getCode())) {
-            count = bannerDAO.update(data);
         }
         return count;
     }
@@ -78,5 +77,38 @@ public class BannerBOImpl extends PaginableBOImpl<Banner> implements IBannerBO {
             }
         }
         return data;
+    }
+
+    @Override
+    public void refreshBannerByGlobal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String remark) {
+        Banner data = new Banner();
+        data.setCode(code);
+        data.setName(name);
+        data.setUrl(url);
+        data.setPic(pic);
+        data.setLocation(location);
+        data.setOrderNo(orderNo);
+        data.setBelong(belong);
+        data.setRemark(remark);
+        bannerDAO.updateByGlobal(data);
+    }
+
+    @Override
+    public void refreshBannerByLocal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String companyCode, String remark) {
+        Banner data = new Banner();
+        data.setCode(code);
+        data.setName(name);
+        data.setUrl(url);
+        data.setPic(pic);
+        data.setLocation(location);
+        data.setOrderNo(orderNo);
+        data.setBelong(belong);
+        data.setCompanyCode(companyCode);
+        data.setRemark(remark);
+        bannerDAO.updateByLocal(data);
     }
 }

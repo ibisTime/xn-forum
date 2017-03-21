@@ -33,9 +33,6 @@ public class Menu extends ABaseDO {
     // 备注
     private String remark;
 
-    // 菜单
-    private Menu menu;
-
     public void setCode(String code) {
         this.code = code;
     }
@@ -90,14 +87,6 @@ public class Menu extends ABaseDO {
 
     public String getRemark() {
         return remark;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
     }
 
 }

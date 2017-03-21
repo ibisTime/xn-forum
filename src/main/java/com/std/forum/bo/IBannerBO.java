@@ -5,28 +5,26 @@ import java.util.List;
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.Banner;
 
-
-
-//CHECK ��鲢��ע�� 
 public interface IBannerBO extends IPaginableBO<Banner> {
 
+    public boolean isBannerExist(String code);
 
-	public boolean isBannerExist(String code);
+    public String saveBanner(String name, String url, String pic,
+            String location, String orderNo, String belong, String companyCode,
+            String remark);
 
+    public int removeBanner(String code);
 
-	public String saveBanner(Banner data);
+    public List<Banner> queryBannerList(Banner condition);
 
+    public Banner getBanner(String code);
 
-	public int removeBanner(String code);
+    public void refreshBannerByGlobal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String remark);
 
-
-	public int refreshBanner(Banner data);
-
-
-	public List<Banner> queryBannerList(Banner condition);
-
-
-	public Banner getBanner(String code);
-
+    public void refreshBannerByLocal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String companyCode, String remark);
 
 }

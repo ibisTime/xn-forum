@@ -11,11 +11,13 @@ import com.std.forum.domain.Banner;
 public interface IBannerAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
 
-    public String addBanner(Banner data);
+    public void editBannerGlobal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String remark);
 
-    public int dropBanner(String code);
-
-    public int editBanner(Banner data);
+    public void editBannerLocal(String code, String name, String url,
+            String pic, String location, String orderNo, String belong,
+            String companyCode, String remark);
 
     public Paginable<Banner> queryBannerPage(int start, int limit,
             Banner condition);

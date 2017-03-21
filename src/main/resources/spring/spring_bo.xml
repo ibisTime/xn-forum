@@ -15,7 +15,7 @@
 		<property name="paginableDAO" ref="keywordDAOImpl" />
 	</bean>
 	<bean id="bplateTemplateBO" class="com.std.forum.bo.impl.BplateTemplateBOImpl">
-		<property name="paginableDAO" ref="splateDAOImpl" />
+		<property name="paginableDAO" ref="bplateTemplateDAOImpl" />
 	</bean>
 	<bean id="bplateBO" class="com.std.forum.bo.impl.BplateBOImpl">
 		<property name="paginableDAO" ref="bplateDAOImpl" />

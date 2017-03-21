@@ -1,7 +1,9 @@
 package com.std.forum.ao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.std.forum.domain.Menu;
 import com.std.forum.dto.req.XN610080Req;
 import com.std.forum.dto.req.XN610081Req;
 import com.std.forum.enums.EBelong;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.exception.BizException;
 
 @Service
@@ -21,48 +24,33 @@ public class MenuAOImpl implements IMenuAO {
     private IMenuBO menuBO;
 
     @Override
-    public String addMenu(Menu data) {
-        return menuBO.saveMenu(data.getName(), data.getPic(),
-            data.getOrderNo(), data.getBelong(), data.getCompanyCode(),
-            data.getRemark());
-    }
-
-    @Override
-    public void editMenu(XN610080Req req) {
+    public void editMenuByGlobal(XN610080Req req) {
         if (!EBelong.getBelongMap().containsKey(req.getBelong())) {
             throw new BizException("xn0000", "属于不允许自定义");
         }
         Menu menu = menuBO.getMenu(req.getCode());
         if (EBelong.GLOBAL.getCode().equals(menu.getBelong())
                 || EBelong.LOCAL.getCode().equals(menu.getBelong())) {
-            menuBO.refreshMenu(req.getCode(), req.getName(), req.getPic(),
-                req.getOrderNo(), req.getBelong(), req.getRemark());
+            menuBO.refreshMenuByGlobal(req.getCode(), req.getName(),
+                req.getPic(), req.getOrderNo(), req.getBelong(),
+                req.getRemark());
         } else {
             throw new BizException("xn0000", "地方性菜单，不可修改");
         }
     }
 
     @Override
-    public void editMenu(XN610081Req req) {
+    public void editMenuByLocal(XN610081Req req) {
         Menu menu = menuBO.getMenu(req.getCode());
         if (EBelong.LOCAL.getCode().equals(menu.getBelong())) {
             menuBO.saveMenu(req.getName(), req.getPic(), req.getOrderNo(),
                 req.getCode(), req.getCompanyCode(), req.getRemark());
         } else if (EBelong.GLOBAL.getCode().equals(menu.getBelong())) {
             throw new BizException("xn0000", "总部菜单，地方不可修改");
-        } else {//
-            menuBO.refreshMenu(req.getCode(), req.getName(), req.getPic(),
-                req.getOrderNo(), req.getBelong(), req.getCompanyCode(),
-                req.getRemark());
+        } else {
+            menuBO.refreshMenuByLocal(req.getCode(), req.getName(),
+                req.getPic(), req.getOrderNo(), req.getRemark());
         }
-    }
-
-    @Override
-    public int dropMenu(String code) {
-        if (!menuBO.isMenuExist(code)) {
-            throw new BizException("xn0000", "记录编号不存在");
-        }
-        return menuBO.removeMenu(code);
     }
 
     @Override
@@ -71,23 +59,41 @@ public class MenuAOImpl implements IMenuAO {
     }
 
     @Override
-    public List<Menu> queryMenuList(Menu condition) {
-        return menuBO.queryMenuList(condition);
-    }
-
-    @Override
     public List<Menu> queryMenuList(String companyCode) {
-        List<Menu> menulist = menuBO.queryMenuList(EBelong.GLOBAL.getCode());
-        List<Menu> menuList = menuBO.queryMenuList(companyCode);
-        for (Menu menu : menulist) {
-            for (Menu data : menuList) {
-                if (menu.getOrderNo().equals(data.getOrderNo())) {
-                    menu.setMenu(data);
+        List<Menu> resultList = new ArrayList<Menu>();
+        // 本地的List
+        List<Menu> localList = menuBO.queryMenuList(companyCode);
+        List<Menu> menuList = menuBO.queryMenuList(EBoolean.NO.getCode());
+
+        for (Menu menu : menuList) {
+            if (CollectionUtils.isNotEmpty(localList)) {
+                for (Menu local : localList) {
+                    // 本地菜单的上级是全局的
+                    if (local.getBelong().equals(menu.getCode())
+                            && EBelong.GLOBAL.getCode().equalsIgnoreCase(
+                                menu.getBelong())) {
+                        resultList.add(menu);
+                    }
+                    // 本地菜单的上级是可配的
+                    if (local.getBelong().equals(menu.getCode())
+                            && EBelong.LOCAL.getCode().equalsIgnoreCase(
+                                menu.getBelong())) {
+                        resultList.add(local);
+                    }
+                }
+            }
+        }
+        for (Menu result : resultList) {
+            for (Menu menu : menuList) {
+                if (result.getCode().equals(menu.getCode())) {
+                    menuList.remove(menu);
                     break;
                 }
             }
         }
-        return menuList;
+        resultList.addAll(menuList);
+
+        return resultList;
     }
 
     @Override

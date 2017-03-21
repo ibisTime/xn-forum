@@ -1,5 +1,6 @@
 package com.std.forum.ao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,51 +10,65 @@ import com.std.forum.ao.ISubsystemAO;
 import com.std.forum.bo.ISubsystemBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Subsystem;
+import com.std.forum.dto.req.XN610090Req;
+import com.std.forum.dto.req.XN610091Req;
+import com.std.forum.enums.EBelong;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.exception.BizException;
 
-
-
-//CHECK ��鲢��ע�� 
 @Service
 public class SubsystemAOImpl implements ISubsystemAO {
 
-	@Autowired
-	private ISubsystemBO subsystemBO;
+    @Autowired
+    private ISubsystemBO subsystemBO;
 
-	@Override
-	public String addSubsystem(Subsystem data) {
-		return subsystemBO.saveSubsystem(data);
-	}
+    @Override
+    public void editSubsystemByGlobal(XN610090Req req) {
+        Subsystem subsystem = subsystemBO.getSubsystem(req.getCode());
+        if (EBelong.GLOBAL.getCode().equals(subsystem.getBelong())
+                || EBelong.LOCAL.getCode().equals(subsystem.getBelong())) {
+            subsystemBO.refreshSubsystem(req.getCode(), req.getName(),
+                req.getUrl(), req.getPic(), req.getLocation(),
+                req.getOrderNo(), req.getCompanyCode(), req.getRemark());
+        } else {
+            throw new BizException("xn0000", "地方性菜单，不可修改");
+        }
+    }
 
-	@Override
-	public int editSubsystem(Subsystem data) {
-		if (!subsystemBO.isSubsystemExist(data.getCode())) {
-			throw new BizException("xn0000", "记录编号不存在");
-		}
-		return subsystemBO.refreshSubsystem(data);
-	}
+    @Override
+    public void editSubsystemByLocal(XN610091Req req) {
+        Subsystem subsystem = subsystemBO.getSubsystem(req.getCode());
+        if (EBelong.LOCAL.getCode().equals(subsystem.getBelong())) {
+            subsystemBO.saveSubsystem(req.getName(), req.getUrl(),
+                req.getPic(), req.getLocation(), req.getOrderNo(),
+                req.getCompanyCode(), req.getRemark());
+        } else if (EBelong.GLOBAL.getCode().equals(subsystem.getBelong())) {
+            throw new BizException("xn0000", "总部子系统，地方不可修改");
+        } else {//
+            subsystemBO.refreshSubsystem(req.getCode(), req.getName(),
+                req.getUrl(), req.getPic(), req.getLocation(),
+                req.getOrderNo(), req.getCompanyCode(), req.getRemark());
+        }
+    }
 
-	@Override
-	public int dropSubsystem(String code) {
-		if (!subsystemBO.isSubsystemExist(code)) {
-			throw new BizException("xn0000", "记录编号不存在");
-		}
-		return subsystemBO.removeSubsystem(code);
-	}
+    @Override
+    public Paginable<Subsystem> querySubsystemPage(int start, int limit,
+            Subsystem condition) {
+        return subsystemBO.getPaginable(start, limit, condition);
+    }
 
-	@Override
-	public Paginable<Subsystem> querySubsystemPage(int start, int limit,
-			Subsystem condition) {
-		return subsystemBO.getPaginable(start, limit, condition);
-	}
+    @Override
+    public List<Subsystem> querySubsystemList(String companyCode) {
+        List<Subsystem> resultSubsystem = new ArrayList<Subsystem>();
+        List<Subsystem> localList = subsystemBO.querySubsystemList(companyCode);
+        List<Subsystem> globalList = subsystemBO.querySubsystemList(EBoolean.NO
+            .getCode());
+        return resultSubsystem;
+    }
 
-	@Override
-	public List<Subsystem> querySubsystemList(Subsystem condition) {
-		return subsystemBO.querySubsystemList(condition);
-	}
+    @Override
+    public Subsystem getSubsystem(String code) {
+        return subsystemBO.getSubsystem(code);
+    }
 
-	@Override
-	public Subsystem getSubsystem(String code) {
-		return subsystemBO.getSubsystem(code);
-	}
 }

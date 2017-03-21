@@ -32,13 +32,20 @@ public class SubsystemBOImpl extends PaginableBOImpl<Subsystem> implements
     }
 
     @Override
-    public String saveSubsystem(Subsystem data) {
-        String code = null;
-        if (data != null) {
-            code = OrderNoGenerater.generateME(EPrefixCode.SUBSYSTEM.getCode());
-            data.setCode(code);
-            subsystemDAO.insert(data);
-        }
+    public String saveSubsystem(String name, String url, String pic,
+            String location, String orderNo, String companyCode, String remark) {
+        Subsystem data = new Subsystem();
+        String code = OrderNoGenerater.generateME(EPrefixCode.SUBSYSTEM
+            .getCode());
+        data.setCode(code);
+        data.setName(name);
+        data.setUrl(url);
+        data.setPic(pic);
+        data.setLocation(location);
+        data.setOrderNo(orderNo);
+        data.setCompanyCode(companyCode);
+        data.setRemark(remark);
+        subsystemDAO.insert(data);
         return code;
     }
 
@@ -54,9 +61,20 @@ public class SubsystemBOImpl extends PaginableBOImpl<Subsystem> implements
     }
 
     @Override
-    public int refreshSubsystem(Subsystem data) {
+    public int refreshSubsystem(String code, String name, String url,
+            String pic, String location, String orderNo, String companyCode,
+            String remark) {
         int count = 0;
-        if (StringUtils.isNotBlank(data.getCode())) {
+        if (StringUtils.isNotBlank(code)) {
+            Subsystem data = new Subsystem();
+            data.setCode(code);
+            data.setName(name);
+            data.setUrl(url);
+            data.setPic(pic);
+            data.setLocation(location);
+            data.setOrderNo(orderNo);
+            data.setCompanyCode(companyCode);
+            data.setRemark(remark);
             count = subsystemDAO.update(data);
         }
         return count;
@@ -64,6 +82,13 @@ public class SubsystemBOImpl extends PaginableBOImpl<Subsystem> implements
 
     @Override
     public List<Subsystem> querySubsystemList(Subsystem condition) {
+        return subsystemDAO.selectList(condition);
+    }
+
+    @Override
+    public List<Subsystem> querySubsystemList(String companyCode) {
+        Subsystem condition = new Subsystem();
+        condition.setCompanyCode(companyCode);
         return subsystemDAO.selectList(condition);
     }
 
@@ -80,4 +105,5 @@ public class SubsystemBOImpl extends PaginableBOImpl<Subsystem> implements
         }
         return data;
     }
+
 }

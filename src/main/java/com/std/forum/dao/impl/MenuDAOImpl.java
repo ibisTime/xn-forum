@@ -46,8 +46,13 @@ public class MenuDAOImpl extends AMybatisTemplate implements IMenuDAO {
     }
 
     @Override
-    public int update(Menu data) {
-        return super.update(NAMESPACE.concat("update_menu"), data);
+    public int updateByGlobal(Menu data) {
+        return super.update(NAMESPACE.concat("update_menu_byglobal"), data);
+    }
+
+    @Override
+    public int updateByLocal(Menu data) {
+        return super.update(NAMESPACE.concat("update_menu_bylocal"), data);
     }
 
 }

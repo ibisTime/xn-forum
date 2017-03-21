@@ -73,7 +73,20 @@
 		)
 	</insert>
 
-	<update id="update_banner" parameterType="banner">
+	<update id="update_banner_byglobal" parameterType="banner">
+		UPDATE tforum_banner
+		SET
+		name = #{name}
+		,url = #{url}
+		,pic = #{pic}
+		,location = #{location}
+		,order_no = #{orderNo}
+		,belong = #{belong}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+	<update id="update_banner_byglobal" parameterType="banner">
 		UPDATE tforum_banner
 		SET
 		name = #{name}
@@ -86,6 +99,4 @@
 		,remark = #{remark}
 		WHERE code = #{code}
 	</update>
-
-
 </mapper>

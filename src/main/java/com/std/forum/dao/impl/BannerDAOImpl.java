@@ -46,8 +46,13 @@ public class BannerDAOImpl extends AMybatisTemplate implements IBannerDAO {
     }
 
     @Override
-    public int update(Banner data) {
-        return super.update(NAMESPACE.concat("update_banner"), data);
+    public int updateByGlobal(Banner data) {
+        return super.update(NAMESPACE.concat("update_banner_byglobal"), data);
+    }
+
+    @Override
+    public int updateByLocal(Banner data) {
+        return super.update(NAMESPACE.concat("update_banner_bylocal"), data);
     }
 
 }

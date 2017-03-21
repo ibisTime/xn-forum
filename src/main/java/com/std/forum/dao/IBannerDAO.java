@@ -7,5 +7,7 @@ import com.std.forum.domain.Banner;
 public interface IBannerDAO extends IBaseDAO<Banner> {
     String NAMESPACE = IBannerDAO.class.getName().concat(".");
 
-    public int update(Banner data);
+    public int updateByGlobal(Banner data);
+
+    public int updateByLocal(Banner data);
 }

@@ -14,8 +14,11 @@ public interface IMenuBO extends IPaginableBO<Menu> {
 
     public int removeMenu(String code);
 
-    public int refreshMenu(String code, String name, String pic,
+    public int refreshMenuByGlobal(String code, String name, String pic,
             String orderNo, String belong, String remark);
+
+    public int refreshMenuByLocal(String code, String name, String pic,
+            String orderNo, String remark);
 
     public List<Menu> queryMenuList(Menu condition);
 
