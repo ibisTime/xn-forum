@@ -1,6 +1,6 @@
 package com.std.forum.dto.req;
 
-public class XN610081Req extends APageReq {
+public class XN610081Reqt extends APageReq {
 
     /** 
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 

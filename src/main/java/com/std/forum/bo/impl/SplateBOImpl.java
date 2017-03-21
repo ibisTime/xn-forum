@@ -99,9 +99,16 @@ public class SplateBOImpl extends PaginableBOImpl<Splate> implements ISplateBO {
             condition.setCode(code);
             data = splateDAO.select(condition);
             if (data == null) {
-                throw new BizException("xn0000", "�� ��Ų�����");
+                throw new BizException("xn0000", "小版块不存在");
             }
         }
         return data;
+    }
+
+    @Override
+    public List<Splate> querySplateList(String parentCode) {
+        Splate condition = new Splate();
+        condition.setBplateCode(parentCode);
+        return splateDAO.selectList(condition);
     }
 }

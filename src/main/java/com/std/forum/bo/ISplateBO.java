@@ -21,6 +21,8 @@ public interface ISplateBO extends IPaginableBO<Splate> {
 
     public List<Splate> querySplateList(Splate condition);
 
+    public List<Splate> querySplateList(String parentCode);
+
     public Splate getSplate(String code);
 
 }

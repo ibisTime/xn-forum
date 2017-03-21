@@ -33,13 +33,14 @@ public class BplateBOImpl extends PaginableBOImpl<Bplate> implements IBplateBO {
 
     @Override
     public String saveBplate(String name, String status, String orderNo,
-            String updater) {
+            String companyCode, String updater) {
         Bplate data = new Bplate();
         String code = OrderNoGenerater.generateME(EPrefixCode.BPLATE.getCode());
         data.setCode(code);
         data.setName(name);
         data.setStatus(status);
         data.setOrderNo(orderNo);
+        data.setCompanyCode(companyCode);
         data.setUpdater(updater);
         data.setUpdateDatetime(new Date());
         bplateDAO.insert(data);
@@ -59,7 +60,7 @@ public class BplateBOImpl extends PaginableBOImpl<Bplate> implements IBplateBO {
 
     @Override
     public int refreshBplate(String code, String name, String status,
-            String orderNo, String updater) {
+            String orderNo, String companyCode, String updater) {
         int count = 0;
         if (StringUtils.isNotBlank(code)) {
             Bplate data = new Bplate();
@@ -67,6 +68,7 @@ public class BplateBOImpl extends PaginableBOImpl<Bplate> implements IBplateBO {
             data.setName(name);
             data.setStatus(status);
             data.setOrderNo(orderNo);
+            data.setCompanyCode(companyCode);
             data.setUpdater(updater);
             data.setUpdateDatetime(new Date());
             count = bplateDAO.update(data);

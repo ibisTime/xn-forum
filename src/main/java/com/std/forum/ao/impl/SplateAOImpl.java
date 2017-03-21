@@ -11,6 +11,7 @@ import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Splate;
 import com.std.forum.dto.req.XN610040Req;
 import com.std.forum.dto.req.XN610042Req;
+import com.std.forum.enums.EPlateStatus;
 import com.std.forum.exception.BizException;
 
 @Service
@@ -40,8 +41,9 @@ public class SplateAOImpl implements ISplateAO {
 
     @Override
     public int dropSplate(String code) {
-        if (!splateBO.isSplateExist(code)) {
-            throw new BizException("xn0000", "小模板编号不存在");
+        Splate splate = splateBO.getSplate(code);
+        if (EPlateStatus.ENABLE.getCode().equals(splate.getStatus())) {
+            throw new BizException("xn0000", "小板块正在被使用，不可以删除");
         }
         return splateBO.removeSplate(code);
     }

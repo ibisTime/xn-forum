@@ -7,7 +7,7 @@ import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
 import com.std.forum.domain.PostTalk;
-import com.std.forum.dto.req.XN610081Req;
+import com.std.forum.dto.req.XN610081Reqt;
 import com.std.forum.enums.ETalkType;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
@@ -19,12 +19,12 @@ import com.std.forum.spring.SpringContextHolder;
  * @since: 2016年11月16日 下午2:57:34 
  * @history:
  */
-public class XN610081 extends AProcessor {
+public class XN610081t extends AProcessor {
 
     private IPostTalkAO postTalkAO = SpringContextHolder
         .getBean(IPostTalkAO.class);
 
-    private XN610081Req req = null;
+    private XN610081Reqt req = null;
 
     @Override
     public Object doBusiness() throws BizException {
@@ -43,7 +43,7 @@ public class XN610081 extends AProcessor {
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610081Req.class);
+        req = JsonUtil.json2Bean(inputparams, XN610081Reqt.class);
         StringValidater.validateBlank(req.getUserId());
         StringValidater.validateNumber(req.getStart(), req.getLimit());
     }

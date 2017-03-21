@@ -24,7 +24,7 @@ public class XN610022 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         bplateAO.editBplate(req.getCode(), req.getName(), req.getStatus(),
-            req.getOrderNo(), req.getUpdater());
+            req.getOrderNo(), req.getCompanyCode(), req.getUpdater());
         return new BooleanRes(true);
     }
 
@@ -32,7 +32,8 @@ public class XN610022 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610022Req.class);
         StringValidater.validateBlank(req.getCode(), req.getName(),
-            req.getStatus(), req.getOrderNo(), req.getUpdater());
+            req.getStatus(), req.getOrderNo(), req.getCompanyCode(),
+            req.getUpdater());
     }
 
 }

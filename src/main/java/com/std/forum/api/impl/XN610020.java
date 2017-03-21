@@ -24,14 +24,14 @@ public class XN610020 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         return new PKCodeRes(bplateAO.addBplate(req.getName(), req.getStatus(),
-            req.getOrderNo(), req.getUpdater()));
+            req.getOrderNo(), req.getCompanyCode(), req.getUpdater()));
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN610020Req.class);
         StringValidater.validateBlank(req.getName(), req.getStatus(),
-            req.getOrderNo(), req.getUpdater());
+            req.getOrderNo(), req.getCompanyCode(), req.getUpdater());
     }
 
 }

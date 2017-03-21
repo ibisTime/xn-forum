@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.ISubsystemDAO">
+	<resultMap id="subsystem_DB_Result" type="subsystem">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+		<result column="pic" property="pic" />
+		<result column="location" property="location" />
+		<result column="order_no" property="orderNo" />
+		<result column="belong" property="belong" />
+		<result column="company_code" property="companyCode" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_subsystem" parameterType="subsystem" resultMap="subsystem_DB_Result">
+		SELECT
+		t.code
+		,t.name
+		,t.url
+		,t.pic
+		,t.location
+		,t.order_no
+		,t.belong
+		,t.company_code
+		,t.remark
+		FROM
+		tforum_subsystem t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_subsystem_count" parameterType="subsystem"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_subsystem t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_subsystem" parameterType="subsystem">
+		INSERT INTO
+		tforum_subsystem(
+		code
+		,name
+		,url
+		,pic
+		,location
+		,order_no
+		,belong
+		,company_code
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{url}
+		,#{pic}
+		,#{location}
+		,#{orderNo}
+		,#{belong}
+		,#{companyCode}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_subsystem" parameterType="subsystem">
+		UPDATE tforum_subsystem
+		SET
+		name = #{name}
+		,url = #{url}
+		,pic = #{pic}
+		,location = #{location}
+		,order_no = #{orderNo}
+		,belong = #{belong}
+		,company_code = #{companyCode}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+
+</mapper>

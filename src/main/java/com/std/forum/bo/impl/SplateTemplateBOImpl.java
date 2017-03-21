@@ -91,9 +91,16 @@ public class SplateTemplateBOImpl extends PaginableBOImpl<SplateTemplate>
             condition.setCode(code);
             data = splateTemplateDAO.select(condition);
             if (data == null) {
-                throw new BizException("xn0000", "�� ��Ų�����");
+                throw new BizException("xn0000", "不存在该数据");
             }
         }
         return data;
+    }
+
+    @Override
+    public List<SplateTemplate> querySplateTemplateList(String parentCode) {
+        SplateTemplate condition = new SplateTemplate();
+        condition.setBplateCode(parentCode);
+        return splateTemplateDAO.selectList(condition);
     }
 }

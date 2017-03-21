@@ -14,8 +14,24 @@
 	<bean id="keywordBO" class="com.std.forum.bo.impl.KeywordBOImpl">
 		<property name="paginableDAO" ref="keywordDAOImpl" />
 	</bean>
-	<bean id="plateBO" class="com.std.forum.bo.impl.PlateBOImpl">
-		<property name="paginableDAO" ref="plateDAOImpl" />
+	<bean id="bplateTemplateBO" class="com.std.forum.bo.impl.BplateTemplateBOImpl">
+		<property name="paginableDAO" ref="splateDAOImpl" />
+	</bean>
+	<bean id="bplateBO" class="com.std.forum.bo.impl.BplateBOImpl">
+		<property name="paginableDAO" ref="bplateDAOImpl" />
+	</bean>
+	<bean id="splateTemplateBO" class="com.std.forum.bo.impl.SplateTemplateBOImpl">
+		<property name="paginableDAO" ref="splateTemplateDAOImpl" />
+	</bean>
+	<bean id="splateBO" class="com.std.forum.bo.impl.SplateBOImpl">
+		<property name="paginableDAO" ref="splateDAOImpl" />
+	</bean>
+	
+	<bean id="sysDictBO" class="com.std.forum.bo.impl.SYSDictBOImpl">
+		<property name="paginableDAO" ref="sysDictDAOImpl" />
+	</bean>
+	<bean id="sysConfigBO" class="com.std.forum.bo.impl.SYSConfigBOImpl">
+		<property name="paginableDAO" ref="sysConfigDAOImpl" />
 	</bean>
 	<bean id="postBO" class="com.std.forum.bo.impl.PostBOImpl">
 		<property name="paginableDAO" ref="postDAOImpl" />

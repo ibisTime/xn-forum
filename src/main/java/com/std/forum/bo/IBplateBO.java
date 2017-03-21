@@ -10,12 +10,12 @@ public interface IBplateBO extends IPaginableBO<Bplate> {
     public boolean isBplateExist(String code);
 
     public String saveBplate(String name, String status, String orderNo,
-            String updater);
+            String companyCode, String updater);
 
     public int removeBplate(String code);
 
     public int refreshBplate(String code, String name, String status,
-            String orderNo, String updater);
+            String orderNo, String companyCode, String updater);
 
     public List<Bplate> queryBplateList(Bplate condition);
 

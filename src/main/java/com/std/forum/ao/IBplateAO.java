@@ -12,12 +12,12 @@ public interface IBplateAO {
     static final String DEFAULT_ORDER_COLUMN = "code";
 
     public String addBplate(String name, String status, String orderNo,
-            String updater);
+            String companyCode, String updater);
 
     public int dropBplate(String code);
 
     public int editBplate(String code, String name, String status,
-            String orderNo, String updater);
+            String orderNo, String companyCode, String updater);
 
     public Paginable<Bplate> queryBplatePage(int start, int limit,
             Bplate condition);

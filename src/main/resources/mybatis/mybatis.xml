@@ -3,10 +3,11 @@
 <configuration>
 	<typeAliases>		
 		<typeAlias alias="keyword" type="com.std.forum.domain.Keyword" />
-		<typeAlias alias="sysDict" type="com.xnjr.base.domain.SYSDict" />
-		<typeAlias alias="sysConfig" type="com.xnjr.base.domain.SYSConfig" />
+		<typeAlias alias="sysDict" type="com.std.forum.domain.SYSDict" />
+		<typeAlias alias="sysConfig" type="com.std.forum.domain.SYSConfig" />
 		<typeAlias alias="bplateTemplate" type="com.std.forum.domain.BplateTemplate" />
 		<typeAlias alias="bplate" type="com.std.forum.domain.Bplate" />
+		
 		<typeAlias alias="splateTemplate" type="com.std.forum.domain.SplateTemplate" />
 		<typeAlias alias="splate" type="com.std.forum.domain.Splate" />
 		

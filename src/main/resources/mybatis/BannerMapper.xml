@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.forum.dao.IBannerDAO">
+	<resultMap id="banner_DB_Result" type="banner">
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+		<result column="pic" property="pic" />
+		<result column="location" property="location" />
+		<result column="order_no" property="orderNo" />
+		<result column="belong" property="belong" />
+		<result column="company_code" property="companyCode" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_banner" parameterType="banner" resultMap="banner_DB_Result">
+		SELECT
+		t.code
+		,t.name
+		,t.url
+		,t.pic
+		,t.location
+		,t.order_no
+		,t.belong
+		,t.company_code
+		,t.remark
+		FROM
+		tforum_banner t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_banner_count" parameterType="banner"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tforum_banner t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_banner" parameterType="banner">
+		INSERT INTO
+		tforum_banner(
+		code
+		,name
+		,url
+		,pic
+		,location
+		,order_no
+		,belong
+		,company_code
+		,remark
+		)
+		VALUES(
+		#{code}
+		,#{name}
+		,#{url}
+		,#{pic}
+		,#{location}
+		,#{orderNo}
+		,#{belong}
+		,#{companyCode}
+		,#{remark}
+		)
+	</insert>
+
+	<update id="update_banner" parameterType="banner">
+		UPDATE tforum_banner
+		SET
+		name = #{name}
+		,url = #{url}
+		,pic = #{pic}
+		,location = #{location}
+		,order_no = #{orderNo}
+		,belong = #{belong}
+		,company_code = #{companyCode}
+		,remark = #{remark}
+		WHERE code = #{code}
+	</update>
+
+
+</mapper>
