@@ -1,12 +1,12 @@
 package com.std.forum.dto.req;
 
 /**
- * 总部修改菜单
+ * 地方修改菜单
  * @author: asus 
  * @since: 2017年3月21日 下午1:35:24 
  * @history:
  */
-public class XN610080Req {
+public class XN610081Req {
     // 编号（必填）
     private String code;
 
@@ -19,8 +19,8 @@ public class XN610080Req {
     // 序号（必填）
     private String orderNo;
 
-    // 属于（必填）
-    private String belong;
+    // 站点（必填）
+    private String companyCode;
 
     // 备注（选填）
     private String remark;
@@ -57,12 +57,12 @@ public class XN610080Req {
         this.orderNo = orderNo;
     }
 
-    public String getBelong() {
-        return belong;
+    public String getCompanyCode() {
+        return companyCode;
     }
 
-    public void setBelong(String belong) {
-        this.belong = belong;
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public String getRemark() {

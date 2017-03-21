@@ -16,6 +16,15 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
+			<if test="belong != null and belong != '' ">
+				AND t.belong = #{belong}
+			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="name != null and name != '' ">
+				AND t.name like "%"#{name}"%"
+			</if>
 		</trim>
 	</sql>
 	<select id="select_menu" parameterType="menu" resultMap="menu_DB_Result">
@@ -77,5 +86,10 @@
 		WHERE code = #{code}
 	</update>
 
-
+	<delete id="delete_menu" parameterType="menu">
+		DELETE FROM
+		tforum_menu
+		WHERE
+		code = #{code}
+	</delete>
 </mapper>

@@ -4,34 +4,31 @@ import com.std.forum.ao.IMenuAO;
 import com.std.forum.api.AProcessor;
 import com.std.forum.common.JsonUtil;
 import com.std.forum.core.StringValidater;
-import com.std.forum.dto.req.XN610080Req;
-import com.std.forum.dto.res.BooleanRes;
+import com.std.forum.dto.req.XN610086Req;
 import com.std.forum.exception.BizException;
 import com.std.forum.exception.ParaException;
 import com.std.forum.spring.SpringContextHolder;
 
 /**
- * 总部修改菜单
+ * 前端列表查询菜单
  * @author: asus 
- * @since: 2017年3月21日 下午1:35:24 
+ * @since: 2017年3月21日 下午2:13:31 
  * @history:
  */
-public class XN610080 extends AProcessor {
+public class XN610086 extends AProcessor {
     private IMenuAO menuAO = SpringContextHolder.getBean(IMenuAO.class);
 
-    private XN610080Req req = null;
+    private XN610086Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        menuAO.editMenu(req);
-        return new BooleanRes(true);
+        return menuAO.queryMenuList(req.getCompanyCode());
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
-        req = JsonUtil.json2Bean(inputparams, XN610080Req.class);
-        StringValidater.validateBlank(req.getCode(), req.getName(),
-            req.getOrderNo(), req.getPic(), req.getBelong());
+        req = JsonUtil.json2Bean(inputparams, XN610086Req.class);
+        StringValidater.validateBlank(req.getCompanyCode());
     }
 
 }

@@ -31,13 +31,18 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
     }
 
     @Override
-    public String saveMenu(Menu data) {
-        String code = null;
-        if (data != null) {
-            code = OrderNoGenerater.generateME(EPrefixCode.MENU.getCode());
-            data.setCode(code);
-            menuDAO.insert(data);
-        }
+    public String saveMenu(String name, String pic, String orderNo,
+            String belong, String companyCode, String remark) {
+        Menu data = new Menu();
+        String code = OrderNoGenerater.generateME(EPrefixCode.MENU.getCode());
+        data.setCode(code);
+        data.setName(name);
+        data.setPic(pic);
+        data.setOrderNo(orderNo);
+        data.setBelong(belong);
+        data.setCompanyCode(companyCode);
+        data.setRemark(remark);
+        menuDAO.insert(data);
         return code;
     }
 
@@ -53,9 +58,17 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
     }
 
     @Override
-    public int refreshMenu(Menu data) {
+    public int refreshMenu(String code, String name, String pic,
+            String orderNo, String belong, String remark) {
         int count = 0;
-        if (StringUtils.isNotBlank(data.getCode())) {
+        if (StringUtils.isNotBlank(code)) {
+            Menu data = new Menu();
+            data.setCode(code);
+            data.setName(name);
+            data.setPic(pic);
+            data.setOrderNo(orderNo);
+            data.setBelong(belong);
+            data.setRemark(remark);
             count = menuDAO.update(data);
         }
         return count;
@@ -67,6 +80,20 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
     }
 
     @Override
+    public List<Menu> queryMenuList(String companyCode) {
+        Menu condition = new Menu();
+        condition.setCompanyCode(companyCode);
+        return menuDAO.selectList(condition);
+    }
+
+    @Override
+    public List<Menu> queryBelongMenuList(String belong) {
+        Menu condition = new Menu();
+        condition.setBelong(belong);
+        return menuDAO.selectList(condition);
+    }
+
+    @Override
     public Menu getMenu(String code) {
         Menu data = null;
         if (StringUtils.isNotBlank(code)) {
@@ -74,9 +101,10 @@ public class MenuBOImpl extends PaginableBOImpl<Menu> implements IMenuBO {
             condition.setCode(code);
             data = menuDAO.select(condition);
             if (data == null) {
-                throw new BizException("xn0000", "�� ��Ų�����");
+                throw new BizException("xn0000", "菜单编号不存在");
             }
         }
         return data;
     }
+
 }

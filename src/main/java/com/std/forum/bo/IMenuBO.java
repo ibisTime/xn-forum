@@ -5,28 +5,24 @@ import java.util.List;
 import com.std.forum.bo.base.IPaginableBO;
 import com.std.forum.domain.Menu;
 
-
-
-//CHECK ��鲢��ע�� 
 public interface IMenuBO extends IPaginableBO<Menu> {
 
+    public boolean isMenuExist(String code);
 
-	public boolean isMenuExist(String code);
+    public String saveMenu(String name, String pic, String orderNo,
+            String belong, String companyCode, String remark);
 
+    public int removeMenu(String code);
 
-	public String saveMenu(Menu data);
+    public int refreshMenu(String code, String name, String pic,
+            String orderNo, String belong, String remark);
 
+    public List<Menu> queryMenuList(Menu condition);
 
-	public int removeMenu(String code);
+    public List<Menu> queryMenuList(String companyCode);
 
+    public List<Menu> queryBelongMenuList(String belong);
 
-	public int refreshMenu(Menu data);
-
-
-	public List<Menu> queryMenuList(Menu condition);
-
-
-	public Menu getMenu(String code);
-
+    public Menu getMenu(String code);
 
 }

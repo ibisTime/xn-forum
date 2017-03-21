@@ -10,83 +10,94 @@ import com.std.forum.dao.base.ABaseDO;
 */
 public class Menu extends ABaseDO {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	// 编号
-	private String code;
+    // 编号
+    private String code;
 
-	// 名称
-	private String name;
+    // 名称
+    private String name;
 
-	// 图片
-	private String pic;
+    // 图片
+    private String pic;
 
-	// 顺序
-	private String orderNo;
+    // 顺序
+    private String orderNo;
 
-	// 属于（1 总 2 可配 3 父级编号）
-	private String belong;
+    // 属于（1 总 2 可配 3 父级编号）
+    private String belong;
 
-	// 地方编号
-	private String companyCode;
+    // 地方编号
+    private String companyCode;
 
-	// 备注
-	private String remark;
+    // 备注
+    private String remark;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    // 菜单
+    private Menu menu;
 
-	public String getCode() {
-		return code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPic(String pic) {
-		this.pic = pic;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPic() {
-		return pic;
-	}
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+    public String getPic() {
+        return pic;
+    }
 
-	public String getOrderNo() {
-		return orderNo;
-	}
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
-	public void setBelong(String belong) {
-		this.belong = belong;
-	}
+    public String getOrderNo() {
+        return orderNo;
+    }
 
-	public String getBelong() {
-		return belong;
-	}
+    public void setBelong(String belong) {
+        this.belong = belong;
+    }
 
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
-	}
+    public String getBelong() {
+        return belong;
+    }
 
-	public String getCompanyCode() {
-		return companyCode;
-	}
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public String getCompanyCode() {
+        return companyCode;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 
 }
