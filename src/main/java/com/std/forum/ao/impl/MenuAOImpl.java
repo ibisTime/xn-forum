@@ -92,7 +92,6 @@ public class MenuAOImpl implements IMenuAO {
             }
         }
         resultList.addAll(menuList);
-
         return resultList;
     }
 

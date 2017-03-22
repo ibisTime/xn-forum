@@ -13,12 +13,6 @@ public interface IBannerBO extends IPaginableBO<Banner> {
             String location, String orderNo, String belong, String companyCode,
             String remark);
 
-    public int removeBanner(String code);
-
-    public List<Banner> queryBannerList(Banner condition);
-
-    public Banner getBanner(String code);
-
     public void refreshBannerByGlobal(String code, String name, String url,
             String pic, String location, String orderNo, String belong,
             String remark);
@@ -26,5 +20,11 @@ public interface IBannerBO extends IPaginableBO<Banner> {
     public void refreshBannerByLocal(String code, String name, String url,
             String pic, String location, String orderNo, String belong,
             String companyCode, String remark);
+
+    public int removeBanner(String code);
+
+    public List<Banner> queryBannerList(String companyCode);
+
+    public Banner getBanner(String code);
 
 }

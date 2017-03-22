@@ -22,7 +22,7 @@ public interface IBannerAO {
     public Paginable<Banner> queryBannerPage(int start, int limit,
             Banner condition);
 
-    public List<Banner> queryBannerList(Banner condition);
+    public List<Banner> queryBannerList(String companyCode);
 
     public Banner getBanner(String code);
 

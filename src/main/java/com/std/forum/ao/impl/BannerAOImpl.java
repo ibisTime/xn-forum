@@ -1,7 +1,9 @@
 package com.std.forum.ao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.std.forum.bo.IBannerBO;
 import com.std.forum.bo.base.Paginable;
 import com.std.forum.domain.Banner;
 import com.std.forum.enums.EBelong;
+import com.std.forum.enums.EBoolean;
 import com.std.forum.exception.BizException;
 
 @Service
@@ -58,8 +61,39 @@ public class BannerAOImpl implements IBannerAO {
     }
 
     @Override
-    public List<Banner> queryBannerList(Banner condition) {
-        return bannerBO.queryBannerList(condition);
+    public List<Banner> queryBannerList(String companyCode) {
+        List<Banner> bannerList = new ArrayList<Banner>();
+        List<Banner> localList = bannerBO.queryBannerList(companyCode);
+        List<Banner> globalList = bannerBO.queryBannerList(EBoolean.NO
+            .getCode());
+        for (Banner global : globalList) {
+            if (CollectionUtils.isNotEmpty(localList)) {
+                for (Banner local : localList) {
+                    // 本地菜单的上级是全局的
+                    if (local.getBelong().equals(global.getCode())
+                            && EBelong.GLOBAL.getCode().equalsIgnoreCase(
+                                global.getBelong())) {
+                        bannerList.add(global);
+                    }
+                    // 本地菜单的上级是可配的
+                    if (local.getBelong().equals(global.getCode())
+                            && EBelong.LOCAL.getCode().equalsIgnoreCase(
+                                global.getBelong())) {
+                        bannerList.add(local);
+                    }
+                }
+            }
+        }
+        for (Banner banner : bannerList) {
+            for (Banner global : globalList) {
+                if (banner.getCode().equals(global.getCode())) {
+                    globalList.remove(global);
+                    break;
+                }
+            }
+        }
+        bannerList.addAll(globalList);
+        return bannerList;
     }
 
     @Override
