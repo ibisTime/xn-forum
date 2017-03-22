@@ -47,7 +47,7 @@ public class BannerAOImpl implements IBannerAO {
             bannerBO.saveBanner(name, url, pic, location, orderNo, code,
                 companyCode, remark);
         } else if (EBelong.GLOBAL.getCode().equals(banner.getBelong())) {
-            throw new BizException("xn0000", "总部菜单，地方不可修改");
+            throw new BizException("xn0000", "总部banner，地方不可修改");
         } else {
             bannerBO.refreshBannerByLocal(code, name, url, pic, location,
                 orderNo, belong, companyCode, remark);

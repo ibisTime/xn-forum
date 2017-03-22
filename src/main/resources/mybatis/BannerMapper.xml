@@ -95,7 +95,7 @@
 		WHERE code = #{code}
 	</update>
 
-	<update id="update_banner_byglobal" parameterType="banner">
+	<update id="update_banner_bylocal" parameterType="banner">
 		UPDATE tforum_banner
 		SET
 		name = #{name}

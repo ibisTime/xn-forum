@@ -3,6 +3,7 @@ package com.std.forum.ao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class SubsystemAOImpl implements ISubsystemAO {
                 req.getUrl(), req.getPic(), req.getLocation(),
                 req.getOrderNo(), req.getCompanyCode(), req.getRemark());
         } else {
-            throw new BizException("xn0000", "地方性菜单，不可修改");
+            throw new BizException("xn0000", "地方子系统配置，不可修改");
         }
     }
 
@@ -44,7 +45,7 @@ public class SubsystemAOImpl implements ISubsystemAO {
                 req.getCompanyCode(), req.getRemark());
         } else if (EBelong.GLOBAL.getCode().equals(subsystem.getBelong())) {
             throw new BizException("xn0000", "总部子系统，地方不可修改");
-        } else {//
+        } else {
             subsystemBO.refreshSubsystem(req.getCode(), req.getName(),
                 req.getUrl(), req.getPic(), req.getLocation(),
                 req.getOrderNo(), req.getCompanyCode(), req.getRemark());
@@ -63,6 +64,33 @@ public class SubsystemAOImpl implements ISubsystemAO {
         List<Subsystem> localList = subsystemBO.querySubsystemList(companyCode);
         List<Subsystem> globalList = subsystemBO.querySubsystemList(EBoolean.NO
             .getCode());
+        for (Subsystem global : globalList) {
+            if (CollectionUtils.isNotEmpty(localList)) {
+                for (Subsystem local : localList) {
+                    // 本地菜单的上级是全局的
+                    if (local.getBelong().equals(global.getCode())
+                            && EBelong.GLOBAL.getCode().equalsIgnoreCase(
+                                global.getBelong())) {
+                        resultSubsystem.add(global);
+                    }
+                    // 本地菜单的上级是可配的
+                    if (local.getBelong().equals(global.getCode())
+                            && EBelong.LOCAL.getCode().equalsIgnoreCase(
+                                global.getBelong())) {
+                        resultSubsystem.add(local);
+                    }
+                }
+            }
+        }
+        for (Subsystem subsystem : resultSubsystem) {
+            for (Subsystem global : globalList) {
+                if (subsystem.getCode().equals(global.getCode())) {
+                    globalList.remove(global);
+                    break;
+                }
+            }
+        }
+        resultSubsystem.addAll(globalList);
         return resultSubsystem;
     }
 
